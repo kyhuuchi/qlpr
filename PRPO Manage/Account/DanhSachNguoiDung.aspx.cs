@@ -1,5 +1,8 @@
 ﻿using System;
-
+using Business;
+using ThuVien;
+using System.Collections.Generic;
+using System.Text;
 namespace PRPO_Manage.Account
 {
     public partial class DanhSachNguoiDung : System.Web.UI.Page
@@ -8,7 +11,13 @@ namespace PRPO_Manage.Account
         {
             if(!Page.IsPostBack)
             {
-
+                List<PhongBan> pb = new PhongBan().LayDanhSachPhongBan(1,0,"","");
+                StringBuilder str_option = new StringBuilder();
+                foreach (PhongBan phongban in pb)
+                {
+                     str_option.AppendFormat("<option>{0}</option>",phongban.Ten_Phong_Ban);
+                }
+                lit_phongban.Text = str_option.ToString();
             }
         }
     }

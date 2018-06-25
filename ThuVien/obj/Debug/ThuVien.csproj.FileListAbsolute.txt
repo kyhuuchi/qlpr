@@ -38,3 +38,10 @@ D:\SourceCode\PRPO Manage\ThuVien\bin\Debug\EPPlus.xml
 D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.dll
 D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.pdb
 D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Debug\ThuVien.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Debug\ThuVien.pdb
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Debug\EPPlus.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Debug\EPPlus.xml
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Debug\ThuVien.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Debug\ThuVien.pdb

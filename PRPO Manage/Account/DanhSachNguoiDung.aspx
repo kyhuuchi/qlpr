@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="phongban">Phòng ban:</label>
                                 <select class="form-control">
-                                    <option>Default select</option>
+                                   <asp:Literal ID="lit_phongban" runat="server" Mode="PassThrough"></asp:Literal>
                                 </select>
                             </div>
                             <div class="checkbox">

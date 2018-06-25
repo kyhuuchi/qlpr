@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Business
 {
-    class PhongBan
+    public class PhongBan
     {
         private int _id_phong_ban;
         private string _ten_phong_ban;
