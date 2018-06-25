@@ -1,0 +1,40 @@
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\obj\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\obj\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\bin\Debug\EPPlus.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\ThuVien\bin\Debug\EPPlus.xml
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\ThuVien\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\ThuVien\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\ThuVien\obj\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\ThuVien\obj\Debug\ThuVien.pdb
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.dll
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.pdb
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.dll
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.xml
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.dll
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.xml
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\ThuVien.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\bin\Debug\EPPlus.xml
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\ThuVien\obj\Debug\ThuVien.pdb
+D:\SourceCode\PRPO Manage\ThuVien\bin\Debug\ThuVien.dll
+D:\SourceCode\PRPO Manage\ThuVien\bin\Debug\ThuVien.pdb
+D:\SourceCode\PRPO Manage\ThuVien\bin\Debug\EPPlus.dll
+D:\SourceCode\PRPO Manage\ThuVien\bin\Debug\EPPlus.xml
+D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.dll
+D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.pdb
+D:\SourceCode\PRPO Manage\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache

@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="QuanTri.master.cs" Inherits="PRPO_Manage.Account.QuanTri" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>.: QUẢN LÝ PR-PO :.</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/Golbal.js"></script>
+    <link href="/Content/menu.css" rel="stylesheet" />
+
+   <script src="/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>  
+   <link href="/Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />  
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form2" runat="server">
+        <asp:ScriptManager ID="ScriptManager2" runat="server" EnablePartialRendering="true" />
+        <header style="overflow: hidden;">
+            <div class="content-wrapper row">
+                <div class="pull-left" style="margin-top: 5px;">
+                    <a href="/">
+                        <img src="/Images/logoDuyTan.jpg" style="height: 32px; width: 184px; margin-left: 20px;" /></a>
+                    <span style="display: inline-block; font-weight: 300; font-size: 21px; position: relative; top: 10px;">QUẢN LÝ PR-PO</span>
+                </div>
+                <div class="pull-right ">
+                    <div style="padding: 10px 20px 0 0;">
+                        Xin chào, <a class="username" href="/Account/DanhSachNguoiDung.aspx" title="Manage your account">
+                            <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                        </a>!<asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Thoát" LogoutPageUrl="~/" />
+                    </div>
+                </div>
+            </div>
+
+           
+        </header>
+         <div class="menu_top" id="cssmenu" style="margin: 10px 0;">
+                <ul id="menu_content">
+                    <li class='has-sub'><a href='#'>Quản trị</a>
+                        <ul>
+                            <li class=''><a href="DanhSachNguoiDung.aspx">Người dùng</a></li>
+                            <li class=''><a href="DanhSachNguoiDung.aspx">Phòng ban</a></li>
+                            <li class=''><a href='/Account/Quyen/DanhSach.aspx'>Quyền</a></li>
+                            <li class=''><a href='/Account/QuyenNguoiDung.aspx'>Quyền người dùng</a></li>
+                            <li class=''><a href='/Account/Module/DanhSach.aspx'>Module</a></li>
+                        </ul>
+                    </li>
+                    <li class='has-sub'><a href='#'>Cấu hình Quản lý sản xuất</a>
+                        <ul>
+                            <li class=''><a href='/Account/StepWorkFlow/DanhSach.aspx'>Step Workflow</a></li>
+                            <li class=''><a href='/Account/NhaMay/DanhSach.aspx'>Nhà máy</a></li>
+                            <li class=''><a href='/Account/DongSanPham/DanhSach.aspx'>Dòng sản phẩm</a></li>
+                            <li class=''><a href='/Account/NhomSanPham/DanhSach.aspx'>Nhóm sản phẩm</a></li>
+                            <li class=''><a href='/Account/NhomLoi/DanhSach.aspx'>Nhóm lỗi</a></li>
+                            <li class=''><a href='/Account/LoaiLoi/DanhSach.aspx'>Loại lỗi</a></li>
+                            <li class=''><a href='/Account/XuongSanXuat/DanhSach.aspx'>Xưởng sản xuất</a></li>
+                            <li class=''><a href='/Account/KhachHang/DanhSach.aspx'>Khách hàng</a></li>
+                            <li class=''><a href='/Account/DonVi/DanhSach.aspx'>Đơn vị tính</a></li>
+                            <li class=''><a href='/Account/ChuyenMucHoTro/DanhSach.aspx'>Chuyên mục hỗ trợ</a></li>
+                            <li class=''><a href='/Account/HoTro/DanhSach.aspx'>Hỗ trợ</a></li>
+                        </ul>
+                    </li>
+                    <li><a href='/'>Về trang chủ</a></li>
+                </ul>
+            </div>
+        <div style="margin: 5px 5px 5px 5px;">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div style="text-align:center">
+                    <p>&copy; 2018 - Thiết kế kiến trúc & phát triển: Ky Huu Chi - Email: kyhuuchi@duytan.com</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

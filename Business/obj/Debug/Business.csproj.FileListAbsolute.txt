@@ -1,0 +1,67 @@
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\Database.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\Database.pdb
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\obj\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\obj\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\DieuXe\DieuXe\Business\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\Database.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\Database.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\obj\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\obj\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\QuanLyChatLuongDauVao\QLCL\Business\bin\Debug\EPPlus.dll
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.dll
+D:\Solution\Website\QuanLySuKhongPhuHopTrongSanXuat\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\obj\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\Business.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\Business.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\Database.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\ThuVien.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\EPPlus.dll
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\Database.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\ThuVien.pdb
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\bin\Debug\EPPlus.xml
+C:\Users\duongquochiep\Desktop\QuanLyKhongPhuHopSX\QLKPGSX\Business\obj\Debug\Business.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\Business.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\Business.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\Database.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\ThuVien.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\EPPlus.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\Database.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\ThuVien.pdb
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\bin\Debug\EPPlus.xml
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.dll
+D:\SourceCode\QLKPGSX\QLKPGSX\Business\obj\Debug\Business.pdb
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\csc.exe
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.CodeAnalysis.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.CSharp.Core.targets
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\Microsoft.VisualBasic.Core.targets
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\System.Collections.Immutable.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\System.Reflection.Metadata.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\vbc.exe
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\VBCSCompiler.exe
+D:\SourceCode\PRPO Manage\Business\bin\Debug\roslyn\VBCSCompiler.exe.config
+D:\SourceCode\PRPO Manage\Business\bin\Debug\Business.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\Business.pdb
+D:\SourceCode\PRPO Manage\Business\bin\Debug\DataBase.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\ThuVien.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\EPPlus.dll
+D:\SourceCode\PRPO Manage\Business\bin\Debug\DataBase.pdb
+D:\SourceCode\PRPO Manage\Business\bin\Debug\ThuVien.pdb
+D:\SourceCode\PRPO Manage\Business\bin\Debug\EPPlus.xml
+D:\SourceCode\PRPO Manage\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+D:\SourceCode\PRPO Manage\Business\obj\Debug\Business.dll
+D:\SourceCode\PRPO Manage\Business\obj\Debug\Business.pdb
