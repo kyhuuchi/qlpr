@@ -6,7 +6,7 @@
     <div style="margin: 10px 0px 10px;">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Tạo mới người dùng</button>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="form" data-backdrop="static">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
@@ -27,16 +27,40 @@
                             </div>
                             <div class="form-group">
                                 <label for="phongban">Phòng ban:</label>
-                                <select class="form-control">
+                                <select class="form-control" id="select_phongban">
                                    <asp:Literal ID="lit_phongban" runat="server" Mode="PassThrough"></asp:Literal>
                                 </select>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Remember me</label>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email"/>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="form-group">
+                                <label for="quanly">Quản lý:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_quanly" id="chk_quanly" value="0"/></label>
+                                </div>
+                                
+                            </div>
+                                <div class="form-group">
+                                <label for="sudung">Sử dụng:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_sudung" id="chk_sudung" value="1"/></label>
+                                </div>
+                                
+                            </div>
+                                <div class="form-group">
+                                <label for="admin">Admin:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_admin" id="chk_admin" value="0"/></label>
+                                </div>
+                                
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary" onclick="ThemNguoiDung();">Đồng ý</button>
                         </form>
                     </div>
                 
@@ -110,5 +134,43 @@
             });
 
         });
+
+       
+        function ThemNguoiDung() {
+            var dsd = false;
+            var ql = 0;
+            var ad = false;
+            if ($('#chk_sudung').is(":checked")) {
+                dsd = true;
+            }
+            if ($('#chk_quanly').is(":checked")) {
+                ql = 1;
+            }
+            if ($('#chk_admin').is(":checked")) {
+                ad = true;
+            }
+            var data_nguoidung = {
+                action: 2,
+                id_nguoidung: 0,
+                tendangnhap: $("#tendangnhap").val(),
+                tenhienthi: $("#tenhienthi").val(),
+                id_phongban: $("#select_phongban :selected").val(),
+                email: $("#email").val(),
+                dangsudung: dsd,
+                quanly: ql,
+                admin: ad
+            };
+            var stringReqdata = JSON.stringify(data_nguoidung);
+            jQuery.ajax({
+                type: "POST",
+                url: "/Webservice/dsnguoidung.asmx/ThemMoiNguoiDung",
+                data: stringReqdata,
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert("Đã thêm người dụng thành công: "+data);
+                }
+            });
+        }
     </script>
 </asp:Content>

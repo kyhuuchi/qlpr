@@ -15,7 +15,7 @@ namespace PRPO_Manage.Account
                 StringBuilder str_option = new StringBuilder();
                 foreach (PhongBan phongban in pb)
                 {
-                     str_option.AppendFormat("<option>{0}</option>",phongban.Ten_Phong_Ban);
+                     str_option.AppendFormat("<option value='{0}'>{1}</option>", phongban.ID_PhongBan,phongban.Ten_Phong_Ban);
                 }
                 lit_phongban.Text = str_option.ToString();
             }

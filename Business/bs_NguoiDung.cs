@@ -20,7 +20,7 @@ namespace Business
         private string _phong_ban;
         private string _email;
         private DateTime _ngay_tao;
-        private int _quan_ly;
+        private bool _quan_ly;
         private bool _dang_nhap_domain;
         private bool _dang_su_dung;
         private bool _admin;
@@ -107,7 +107,7 @@ namespace Business
         }
         
        
-        public int Quan_Ly
+        public bool Quan_Ly
         {
             get
             {
@@ -172,13 +172,13 @@ namespace Business
                 nd.Email = tb.Rows[0]["Email"].ToString();
                 nd.ID_Phong_Ban= Convert.ToInt32(tb.Rows[0]["ID_PhongBan"]);
                 nd.Ngay_Tao = Convert.ToDateTime(tb.Rows[0]["NgayTao"]);
-                nd.Quan_Ly = Convert.ToInt16(tb.Rows[0]["QuanLy"]);
+                nd.Quan_Ly = Convert.ToBoolean(tb.Rows[0]["QuanLy"]);
                 nd.Ten_Hien_Thi = tb.Rows[0]["TenHienThi"].ToString();
                 nd.Ten_Dang_Nhap = tb.Rows[0]["TenDangNhap"].ToString();
             }
             return nd;
         }
-        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, DateTime ngaytao,int quanly, bool admin)
+        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, bool dangsudung,bool quanly, bool admin)
         {
             DAC kn = new DAC();
             List<NguoiDung> nguoidungs = new List<NguoiDung>();
@@ -188,7 +188,7 @@ namespace Business
             SqlParameter pm4 = new SqlParameter("@tenhienthi", tenhienthi);
             SqlParameter pm5 = new SqlParameter("@id_phongban", id_phongban);
             SqlParameter pm6 = new SqlParameter("@email", email);
-            SqlParameter pm7 = new SqlParameter("@ngaytao", ngaytao);
+            SqlParameter pm7 = new SqlParameter("@dangsudung", dangsudung);
             SqlParameter pm8 = new SqlParameter("@quanly", quanly);
             SqlParameter pm9 = new SqlParameter("@admin", admin);
             SqlParameter[] param = new SqlParameter[9] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9 };
@@ -206,7 +206,7 @@ namespace Business
                     nguoidung.ID_Phong_Ban = Convert.ToInt32(row["ID_PhongBan"]);
                     nguoidung.Phong_Ban = row["PhongBan"].ToString();
                     nguoidung.Ngay_Tao = Convert.ToDateTime(row["NgayTao"]);
-                    nguoidung.Quan_Ly = Convert.ToInt16(row["QuanLy"]);
+                    nguoidung.Quan_Ly = Convert.ToBoolean(row["QuanLy"]);
                     nguoidung.Ten_Dang_Nhap = row["TenDangNhap"].ToString();
                     nguoidung.Ten_Hien_Thi = row["TenHienThi"].ToString();
 

@@ -24,9 +24,21 @@ namespace PRPO_Manage.Webservice
         public void LayDSNguoiDung()
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",DateTime.Now,0,false);
+            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,0,false);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void ThemMoiNguoiDung1()
+        {
+            //NguoiDung nguoidung = new NguoiDung();
+            //List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(2,0,);
+        }
+        [WebMethod]
+        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,int quanly,bool admin  )
+        {
+            NguoiDung nguoidung = new NguoiDung();
+            List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin);
         }
     }
 }
