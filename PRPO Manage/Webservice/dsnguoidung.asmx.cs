@@ -19,7 +19,9 @@ namespace PRPO_Manage.Webservice
     [System.Web.Script.Services.ScriptService]
     public class dsnguoidung : System.Web.Services.WebService
     {
-
+        /// <summary>
+        /// Cac service lien quan den nguoi dung
+        /// </summary>
         [WebMethod]
         public void LayDSNguoiDung()
         {
@@ -35,5 +37,24 @@ namespace PRPO_Manage.Webservice
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin);
         }
+        /// <summary>
+        /// Cac service lien quan den phong ban
+        /// </summary>
+        [WebMethod]
+        public void LayDSPhongBan()
+        {
+            PhongBan pb = new PhongBan();
+            List<PhongBan> tb = pb.LayDanhSachPhongBan(1, 0, "", "");
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+
+        [WebMethod]
+        public void ThemMoiPhongBan(int action, int id_phongban, string tenphongban, string tenviettat)
+        {
+            PhongBan pb = new PhongBan();
+            List<PhongBan> tb = pb.LayDanhSachPhongBan(action, id_phongban, tenphongban, tenviettat);
+        }
+
     }
 }

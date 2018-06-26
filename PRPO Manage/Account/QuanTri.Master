@@ -46,7 +46,7 @@
                     <li class='has-sub'><a href='#'>Quản trị</a>
                         <ul>
                             <li class=''><a href="DanhSachNguoiDung.aspx">Người dùng</a></li>
-                            <li class=''><a href="DanhSachNguoiDung.aspx">Phòng ban</a></li>
+                            <li class=''><a href="DanhSachPhongBan.aspx">Phòng ban</a></li>
                             <li class=''><a href='/Account/Quyen/DanhSach.aspx'>Quyền</a></li>
                             <li class=''><a href='/Account/QuyenNguoiDung.aspx'>Quyền người dùng</a></li>
                             <li class=''><a href='/Account/Module/DanhSach.aspx'>Module</a></li>
