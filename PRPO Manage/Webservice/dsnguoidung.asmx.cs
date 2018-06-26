@@ -28,12 +28,7 @@ namespace PRPO_Manage.Webservice
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
-        [WebMethod]
-        public void ThemMoiNguoiDung1()
-        {
-            //NguoiDung nguoidung = new NguoiDung();
-            //List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(2,0,);
-        }
+      
         [WebMethod]
         public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin  )
         {

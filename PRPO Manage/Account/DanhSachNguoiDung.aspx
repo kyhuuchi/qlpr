@@ -16,7 +16,7 @@
                         <h4 class="modal-title">Thêm mới người dùng</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="/action_page.php">
+                        <form>
                             <div class="form-group">
                                 <label for="tendangnhap">Tên đăng nhập:</label>
                                 <input type="text" class="form-control" id="tendangnhap"/>
@@ -81,7 +81,6 @@
                     <th>Email</th>
                     <th>Ngày tạo</th>
                     <th>Quản lý</th>
-                  <%--  <th>Đăng nhập domain</th>--%>
                     <th>Đang sử dụng</th>
                     <th>Admin</th>
                     <th></th>
@@ -103,7 +102,6 @@
                             { 'data': 'ID_NguoiDung' },
                             { 'data': 'Ten_Hien_Thi' },
                             { 'data': 'Ten_Dang_Nhap' },
-                            { 'data': 'ID_Phong_Ban' },
                             { 'data': 'Phong_Ban' },
                             { 'data': 'Email' },
                             {
@@ -114,7 +112,6 @@
                                 }
                             },
                              { 'data': 'Quan_Ly' },
-                             //{ 'data': 'Dang_Nhap_Domain' },
                              { 'data': 'Dang_Su_Dung' },
                              { 'data': 'Admin' },
                              { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
@@ -135,7 +132,13 @@
                             $("#id_nguoidung").val(dtRow[0].cells[0].innerHTML);
                             $("#tendangnhap").val(dtRow[0].cells[2].innerHTML);
                             $("#tenhienthi").val(dtRow[0].cells[1].innerHTML);
-                            $("#select_phongban").val(dtRow[0].cells[3].innerHTML);
+                            $("#select_phongban > option").each(function () {
+                                if (dtRow[0].cells[3].innerHTML == this.text)
+                                {
+                                    $("#select_phongban").val(this.value);
+                                }
+                                
+                            });
                             $("#email").val(dtRow[0].cells[4].innerHTML);
                             if (dtRow[0].cells[6].innerHTML=='true')
                             {
@@ -193,20 +196,7 @@
                             }
                         });
                     });
-                    //$('#NguoiDungTable tfoot th').each(function () {
-                    //    var placeHolderTitle = $('#studentTable thead th').eq($(this).index()).text();
-                    //    $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');
-                    //});
-                    //datatableVariable.columns().every(function () {
-                    //    var column = this;
-                    //    $(this.footer()).find('input').on('keyup change', function () {
-                    //        column.search(this.value).draw();
-                    //    });
-                    //});
-                    //$('.showHide').on('click', function () {
-                    //    var tableColumn = datatableVariable.column($(this).attr('data-columnindex'));
-                    //    tableColumn.visible(!tableColumn.visible());
-                    //});
+                  
                 }
             });
         
@@ -264,7 +254,7 @@
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    ;
+                    location.reload();;
                 }
             });
         }

@@ -28,7 +28,7 @@
                 </div>
                 <div class="pull-right ">
                     <div style="padding: 10px 20px 0 0;">
-                        Xin chào, <a class="username" href="/Account/DanhSachNguoiDung.aspx" title="Manage your account">
+                        Xin chào, <a class="username" href="/Account/DanhSachNguoiDung.aspx" title="Thông tin quản trị">
                             <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
                         </a>!<asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Thoát" LogoutPageUrl="~/" />
                     </div>
