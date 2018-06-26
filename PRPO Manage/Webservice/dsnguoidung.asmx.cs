@@ -24,7 +24,7 @@ namespace PRPO_Manage.Webservice
         public void LayDSNguoiDung()
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,0,false);
+            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -35,7 +35,7 @@ namespace PRPO_Manage.Webservice
             //List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(2,0,);
         }
         [WebMethod]
-        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,int quanly,bool admin  )
+        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin  )
         {
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin);

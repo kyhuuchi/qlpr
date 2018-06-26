@@ -8,15 +8,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <script src="/Scripts/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/Golbal.js"></script>
-    <link href="/Content/menu.css" rel="stylesheet" />
-
-   <script src="/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>  
-   <link href="/Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />  
-
+    <%--<script src="/Scripts/jquery-1.10.2.min.js"></script>--%>
+    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
+    <script src="../Scripts/jquery-3.3.1.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/Golbal.js"></script>
+    <link href="../Content/menu.css" rel="stylesheet" />
+   <script src="../Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+   <link href="../Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />  
+    <script src="../Scripts/DataTables/Select-1.2.6/js/select.bootstrap.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
