@@ -55,6 +55,24 @@ namespace PRPO_Manage.Webservice
             PhongBan pb = new PhongBan();
             List<PhongBan> tb = pb.LayDanhSachPhongBan(action, id_phongban, tenphongban, tenviettat);
         }
+        /// <summary>
+        /// Cac service lien quan den quyen truy cap
+        /// </summary>
+        [WebMethod]
+        public void LayDSQuyen()
+        {
+            Quyen quyen = new Quyen();
+            List<Quyen> tb = quyen.LayDanhSachQuyen(1, 0, "", "");
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+
+        [WebMethod]
+        public void ThemMoiQuyen(int action, int id_quyen, string tenquyen, string maquyen)
+        {
+            Quyen quyen = new Quyen();
+            List<Quyen> tb = quyen.LayDanhSachQuyen(action, id_quyen, tenquyen, maquyen);
+        }
 
     }
 }

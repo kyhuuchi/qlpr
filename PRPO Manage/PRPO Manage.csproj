@@ -187,6 +187,7 @@
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\DanhSachNguoiDung.aspx" />
     <Content Include="Account\DanhSachPhongBan.aspx" />
+    <Content Include="Account\DanhSachQuyen.aspx" />
     <Content Include="Account\Forgot.aspx" />
     <Content Include="Account\Lockout.aspx" />
     <Content Include="Account\Login.aspx" />
@@ -700,6 +701,13 @@
     </Compile>
     <Compile Include="Account\DanhSachPhongBan.aspx.designer.cs">
       <DependentUpon>DanhSachPhongBan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\DanhSachQuyen.aspx.cs">
+      <DependentUpon>DanhSachQuyen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\DanhSachQuyen.aspx.designer.cs">
+      <DependentUpon>DanhSachQuyen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Forgot.aspx.cs">
       <DependentUpon>Forgot.aspx</DependentUpon>

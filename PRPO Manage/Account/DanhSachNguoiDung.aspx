@@ -110,7 +110,7 @@
                                     var month = date.getMonth() + 1;
                                     return date.getDate() + "/" + month + "/" + date.getFullYear();
                                 }
-                            },
+                            },  
                              { 'data': 'Quan_Ly' },
                              { 'data': 'Dang_Su_Dung' },
                              { 'data': 'Admin' },
@@ -119,6 +119,7 @@
                         ],
                         
                         "deferRender": true
+                      
                     });
                     //$('#NguoiDungTable tbody').on('click', 'tr', function () {
                     //    var data = datatableVariable.row(this).data();
