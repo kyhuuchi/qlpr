@@ -163,7 +163,7 @@ namespace Business
             SqlParameter pm = new SqlParameter("@tendangnhap", tendangnhap);
             SqlParameter[] param = new SqlParameter[1] {pm};
             DataTable tb= kn.get_by_procedure("proc_CheckAccount",param);
-            if(tb!=null)
+            if(tb!=null || tb.Rows.Count>0)
             {
                 nd.ID_NguoiDung = Convert.ToInt16(tb.Rows[0]["ID"]);
                 nd.Admin = Convert.ToBoolean( tb.Rows[0]["Admin"]);

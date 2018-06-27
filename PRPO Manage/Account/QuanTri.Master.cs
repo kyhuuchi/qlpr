@@ -15,11 +15,19 @@ namespace PRPO_Manage.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(CheckAdmin(Context.User.Identity.Name)==false)
+            if(string.IsNullOrEmpty(Context.User.Identity.Name))
             {
-               
                 Response.Redirect("/");
             }
+            else
+            {
+                if (CheckAdmin(Context.User.Identity.Name) == false)
+                {
+
+                    Response.Redirect("/");
+                }
+            }
+            
 
         }
         public bool CheckAdmin(string TenDangNhap)
