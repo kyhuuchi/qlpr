@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bs_ModuleQuyen.cs" />
     <Compile Include="bs_NguoiDung.cs" />
     <Compile Include="bs_PhongBan.cs" />
     <Compile Include="bs_Quyen.cs" />
