@@ -90,9 +90,25 @@
                             $this = $(this);
                             
                             var dtRow = $this.parents('tr');
-                            $("#id_quyen").val(dtRow[0].cells[0].innerHTML);
-                            $("#tenquyen").val(dtRow[0].cells[1].innerHTML);
-                            $("#maquyen").val(dtRow[0].cells[2].innerHTML);
+                            $("#id_module_quyen").val(dtRow[0].cells[0].innerHTML);
+                            $("#select_nguoidung > option").each(function () {
+                                if (dtRow[0].cells[1].innerHTML == this.text) {
+                                    $("#select_nguoidung").val(this.value);
+                                }
+
+                            });
+                            $("#select_module > option").each(function () {
+                                if (dtRow[0].cells[2].innerHTML == this.text) {
+                                    $("#select_module").val(this.value);
+                                }
+
+                            });
+                            $("#select_quyen > option").each(function () {
+                                if (dtRow[0].cells[3].innerHTML == this.text) {
+                                    $("#select_quyen").val(this.value);
+                                }
+
+                            });
                          
                             $('#myModal').modal('show');
                         });
@@ -101,28 +117,29 @@
                         $(this).on('click', function (evt) {
                             $this = $(this);
                             var dtRow = $this.parents('tr');
-                            if (confirm("Bạn có chắc muốn xóa quyền truy cập này?")) {
+                            if (confirm("Bạn có chắc muốn xóa quyền truy cập module này?")) {
                                 var dtRow = $this.parents('tr');
-                                $("#id_quyen").val(dtRow[0].cells[0].innerHTML);
+                                $("#id_module_quyen").val(dtRow[0].cells[0].innerHTML);
                                 var data_pb;
-                                if ($("#id_quyen").val() > 0) {
+                                if ($("#id_module_quyen").val() > 0) {
                                     data_pb = {
                                         action: 0,
-                                        id_quyen: $("#id_quyen").val(),
-                                        tenquyen: "",
-                                        maquyen: ""
-                                    
+                                        id_modulequyen: $("#id_module_quyen").val(),
+                                        id_nguoidung: 0,
+                                        module: "",
+                                        id_quyen: 0
                                     };
                                     var stringReqdata = JSON.stringify(data_pb);
                                     jQuery.ajax({
                                         type: "POST",
-                                        url: "/Webservice/dsnguoidung.asmx/ThemMoiQuyen",
+                                        url: "/Webservice/dsnguoidung.asmx/ThemMoiModuleQuyen",
                                         data: stringReqdata,
                                         dataType: "json",
                                         contentType: 'application/json; charset=utf-8',
                                         success: function (data) {
                                             location.reload();
                                         }
+                                        
                                     });
                                 }
                                

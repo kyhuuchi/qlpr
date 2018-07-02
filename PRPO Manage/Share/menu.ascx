@@ -3,7 +3,7 @@
 <div class="menu_top" id="cssmenu" style="margin:10px 0;">
     <ul id="menu_content"> 
         <li class="active"><a href='../Default.aspx'>Trang chủ</a></li>        
-        <li class=""><a href='../Default.aspx'>Tạo PR</a></li>        
+        <li class=""><a href="../Pages/PR/TaoPR.aspx">Tạo PR</a></li>        
         <li class='has-sub'><a href='#'>Báo cáo</a>
             <ul>
                 <li class=''><a href='#'>Số lượng PR theo tháng, theo đơn vị</a></li>
