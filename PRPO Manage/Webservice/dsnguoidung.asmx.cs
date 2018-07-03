@@ -92,5 +92,14 @@ namespace PRPO_Manage.Webservice
             List<ModuleQuyen> tb = modulequyen.LayDanhSachModuleQuyen(action, id_modulequyen,id_nguoidung,module,id_quyen);
         }
 
+        [WebMethod]
+        public void test()
+        {
+            VatTu vt = new VatTu();
+            List<VatTu> tb = vt.LayDanhSacVatTu(1, 0);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+
     }
 }

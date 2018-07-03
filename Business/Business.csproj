@@ -46,6 +46,7 @@
     <Compile Include="bs_NguoiDung.cs" />
     <Compile Include="bs_PhongBan.cs" />
     <Compile Include="bs_Quyen.cs" />
+    <Compile Include="bs_VatTu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

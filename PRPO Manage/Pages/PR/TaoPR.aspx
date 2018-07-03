@@ -160,6 +160,39 @@
                 }
             });
         });
-    });    
+        $("#select_mavattu").select2({
+            ajax: {
+                url: "/Webservice/dsnguoidung.asmx/test",
+                dataType: 'json',
+                type: "POST",
+                quietMillis: 50,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    var results = [];
+
+                    if (data != null && data.length > 0) {
+
+                        $.each(data, function (index, item) {
+
+                            results.push({
+                                id: item.id,
+                                text: item.id
+                            });
+                        });
+                    }
+                    return {
+                        results: results
+                    };
+                },
+                cache: true
+            }
+        });
+        
+    });
+        
 </script>
 </asp:Content>
