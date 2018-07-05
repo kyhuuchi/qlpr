@@ -31,6 +31,7 @@
                         <label for="ngaydexuat">Ngày (*)</label>
                         <input type="date" class="form-control" id="ngaydexuat">
                     </div>
+                  
                 </div>
                 <div class="form-group">
                     <div class="form-group col-md-12">
@@ -44,7 +45,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Thêm mới người dùng</h4>
+                                        <h4 class="modal-title">Thêm mới vật tư</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form>
@@ -142,7 +143,10 @@
         </div>
     </div>
     <script type="text/javascript">
-    $(document).ready(function(){
+        var dsdata;
+        $(document).ready(function () {
+           
+            var item_dta = {id:0,text:""};
         $("#DongY").click(function () {
             var name = $("#tendangnhap").val();
             var email = $("#tenhienthi").val();
@@ -160,39 +164,84 @@
                 }
             });
         });
-        $("#select_mavattu").select2({
-            ajax: {
-                url: "/Webservice/dsnguoidung.asmx/test",
-                dataType: 'json',
-                type: "POST",
-                quietMillis: 50,
-                data: function (params) {
-                    return {
-                        searchTerm: params.term
-                    };
-                },
-                processResults: function (data, params) {
-                    var results = [];
-
-                    if (data != null && data.length > 0) {
-
-                        $.each(data, function (index, item) {
-
-                            results.push({
-                                id: item.id,
-                                text: item.id
-                            });
-                        });
-                    }
-                    return {
-                        results: results
-                    };
-                },
-                cache: true
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/Webservice/dsnguoidung.asmx/LayDSNguoiDung",
+            success: function (data) {
+                var arr_obj = new Array();
+                var obj_data;
+                $.each(data, function (i, obj) {
+                    obj_data = Object.create(item_dta);
+                    obj_data.id = obj.ID_NguoiDung;
+                    obj_data.text = obj.Ten_Hien_Thi;
+                    arr_obj.push(obj_data);
+                });
+                dsdata = arr_obj;
+                $("#select_mavattu").select2({
+                    data: dsdata
+                })
             }
         });
+       
+        //$("#select_mavattu").select2({
+        //    ajax: {
+        //        url: "/Webservice/dsnguoidung.asmx/LayDSNguoiDung",
+        //        contentType: "application/json; charset=utf-8",
+        //        type: "POST",
+        //        dataType: 'json',
+        //        quietMillis: 50,
+        //        //data: function (params) {
+        //        //    return {
+        //        //        q: params.term, // search term
+        //        //        page: params.page
+        //        //    };
+        //        //},
+        //        data: dsdata,
+        //        processResults: function (data, params) {
+        //            // parse the results into the format expected by Select2
+        //            // since we are using custom formatting functions we do not need to
+        //            // alter the remote JSON data, except to indicate that infinite
+        //            // scrolling can be used
+        //            params.page = params.page || 1;
+
+        //            return {
+        //                results: data.items,
+        //                pagination: {
+        //                    more: (params.page * 30) < data.total_count
+        //                }
+        //            };
+        //        },
+        //        //processResults: function (data, params) {
+        //        //    var results = [];
+
+        //        //    if (data != null && data.length > 0) {
+
+        //        //        $.each(data, function (item) {
+
+        //        //            results.push({
+        //        //                id: item.id
+        //        //            });
+        //        //        });
+        //        //    }
+        //        //    return {
+        //        //        results: results
+        //        //    };
+        //        //},
+        //        //dropdownParent: $('#myModal'),
+        //        //cache: true
+        //    }
+        //});
         
-    });
-        
+        });
+    
+      
+        //var newOption = new Option(data.text, data.id, false, false);
+        //$('#select_mavattu').append(newOption).trigger('change');
+
+        //$("#select_mavattu").select2(
+        //      {
+        //          data: dsdata
+        //      });
 </script>
 </asp:Content>
