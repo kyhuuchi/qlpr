@@ -171,6 +171,7 @@ namespace Business
                 nd.Dang_Su_Dung = Convert.ToBoolean(tb.Rows[0]["DangSuDung"]);
                 nd.Email = tb.Rows[0]["Email"].ToString();
                 nd.ID_Phong_Ban= Convert.ToInt32(tb.Rows[0]["ID_PhongBan"]);
+                nd.Phong_Ban = tb.Rows[0]["PhongBan"].ToString();
                 nd.Ngay_Tao = Convert.ToDateTime(tb.Rows[0]["NgayTao"]);
                 nd.Quan_Ly = Convert.ToBoolean(tb.Rows[0]["QuanLy"]);
                 nd.Ten_Hien_Thi = tb.Rows[0]["TenHienThi"].ToString();
