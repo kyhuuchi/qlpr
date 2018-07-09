@@ -11,11 +11,50 @@ namespace Business
 {
     public class VatTu
     {
-        private Int64 _id_vat_tu;
-        public Int64 ID_Vat_Tu
+        //private Int64 _id_vat_tu;
+
+        public string matnr { get; set; }
+        public string bismt { get; set; }
+        public string maktx { get; set; }
+        public string meins { get; set; }
+        public string mseht { get; set; }
+        public string matkl { get; set; }
+        public string wgbez { get; set; }
+
+        public string Ma_Vat_Tu
         {
-            get { return _id_vat_tu; }
-            set { _id_vat_tu = value; }
+            get { return matnr; }
+            set { matnr = value; }
+        }
+        public string Ma_Vat_Tu_Cu
+        {
+            get { return bismt; }
+            set { bismt = value; }
+        }
+        public string Ten_Vat_Tu
+        {
+            get { return maktx; }
+            set { maktx = value; }
+        }
+        public string Don_Vi_Tinh
+        {
+            get { return meins; }
+            set { meins = value; }
+        }
+        public string Mseht
+        {
+            get { return mseht; }
+            set { mseht = value; }
+        }
+        public string Matkl
+        {
+            get { return matkl; }
+            set { matkl = value; }
+        }
+        public string Wgbez
+        {
+            get { return wgbez; }
+            set { wgbez = value; }
         }
         //Cac ham xu ly phong ban
         public VatTu()
@@ -35,7 +74,7 @@ namespace Business
                 foreach (DataRow row in tb.Rows)
                 {
                     VatTu vt = new VatTu();
-                    vt.ID_Vat_Tu = Convert.ToInt64(row["id"]);
+                   // vt.ID_Vat_Tu = Convert.ToInt64(row["id"]);
                     
                     vattu_col.Add(vt);
 

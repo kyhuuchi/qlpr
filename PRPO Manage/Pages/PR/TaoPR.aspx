@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <div class="container">
         <div class="row">
             <div class="col-md-6">Công ty CP Sản Xuất Nhựa Duy Tân</div>
@@ -139,6 +140,7 @@
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-danger btn-sm">Xóa vật tư</button>
+                                <span id="test_sap" runat="server"></span>
                             </div>
                         </div>
                     </div>
@@ -184,37 +186,35 @@
             });
         });
        
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            //url: "/Webservice/dsnguoidung.asmx/LayDSNguoiDung",
-            url: "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=710000318",
-            headers: { 'MyCustomHeader': 'important information' },
-            contentType: 'application/x-www-form-urlencoded',
-            xhrFields: {
-                // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-                // This can be used to set the 'withCredentials' property.
-                // Set the value to 'true' if you'd like to pass cookies to the server.
-                // If this is enabled, your server must respond with the header
-                // 'Access-Control-Allow-Credentials: true'.
-                withCredentials: false
-            },
-            crossDomain: true,
-            success: function (data) {
-                var arr_obj = new Array();
-                var obj_data;
-                $.each(data, function (i, obj) {
-                    obj_data = Object.create(item_dta);
-                    obj_data.id = obj.matnr;
-                    obj_data.text = String(obj.matnr);
-                    arr_obj.push(obj_data);
-                });
-                dsdata = arr_obj;
-                $("#select_mavattu").select2({
-                    data: dsdata
-                })
-            }
-        });
+        //$.ajax({
+        //    type: "GET",
+        //    dataType: 'json',
+        //    //url: "/Webservice/dsnguoidung.asmx/LayDSNguoiDung",
+        //    headers: {
+        //        'Access-Control-Allow-Origin': '*'
+        //    },
+        //    contentType: 'text/plain',
+        //    url: "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=710000318",
+        //    crossOrigin: true,
+        //    success: function (data) {
+        //        console.log(data);
+        //        //var arr_obj = new Array();
+        //        //var obj_data;
+        //        //$.each(data, function (i, obj) {
+        //        //    obj_data = Object.create(item_dta);
+        //        //    obj_data.id = obj.matnr;
+        //        //    obj_data.text = String(obj.matnr);
+        //        //    arr_obj.push(obj_data);
+        //        //});
+        //        //dsdata = arr_obj;
+        //        //$("#select_mavattu").select2({
+        //        //    data: dsdata
+        //        //})
+        //    }
+        //})
+        //.fail(function (jqXHR, textStatus, errorThrown) {
+        //    alert("error" + errorThrown);
+        //});
        
         //$("#select_mavattu").select2({
         //    ajax: {

@@ -580,6 +580,7 @@
     <Content Include="Scripts\DataTables\Select-1.2.6\js\select.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\Select-1.2.6\js\select.semanticui.js" />
     <Content Include="Scripts\DataTables\Select-1.2.6\js\select.semanticui.min.js" />
+    <Content Include="Scripts\jquery.ajax-cross-origin.min.js" />
     <Content Include="Scripts\Select2\css\select2.css" />
     <Content Include="Scripts\Select2\css\select2.min.css" />
     <Content Include="Scripts\Select2\js\i18n\af.js" />
@@ -1009,6 +1010,9 @@
       <Project>{c8041bbb-f830-4b4c-95fd-83d8d3f86e2d}</Project>
       <Name>ThuVien</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
