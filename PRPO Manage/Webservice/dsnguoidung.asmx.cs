@@ -100,12 +100,12 @@ namespace PRPO_Manage.Webservice
         }
 
         [WebMethod]
-        public void test()
+        public void LaySoPR(string phongban, int nam)
         {
-            VatTu vt = new VatTu();
-            List<VatTu> tb = vt.LayDanhSacVatTu(1, 0);
+            SoPR sopr = new SoPR();
+            sopr = sopr.LaySoPR(phongban,nam);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(js.Serialize(sopr));
         }
 
     }

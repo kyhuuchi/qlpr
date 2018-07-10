@@ -13,13 +13,13 @@ namespace Business
     {
         //private Int64 _id_vat_tu;
 
-        public string matnr { get; set; }
-        public string bismt { get; set; }
-        public string maktx { get; set; }
-        public string meins { get; set; }
-        public string mseht { get; set; }
-        public string matkl { get; set; }
-        public string wgbez { get; set; }
+        private string matnr { get; set; }
+        private string bismt { get; set; }
+        private string maktx { get; set; }
+        private string meins { get; set; }
+        private string mseht { get; set; }
+        private string matkl { get; set; }
+        private string wgbez { get; set; }
 
         public string Ma_Vat_Tu
         {
@@ -57,9 +57,17 @@ namespace Business
             set { wgbez = value; }
         }
         //Cac ham xu ly phong ban
-        public VatTu()
-        { }
-        public List<VatTu> LayDanhSacVatTu(int action, int id_vattu)
+    //    public VatTu(string ma_vat_tu)
+    //    {
+    //          private string matnr { get; set; }
+    //    private string bismt { get; set; }
+    //    private string maktx { get; set; }
+    //    private string meins { get; set; }
+    //    private string mseht { get; set; }
+    //    private string matkl { get; set; }
+    //    private string wgbez { get; set; }
+    //}
+    public List<VatTu> LayDanhSacVatTu(int action, int id_vattu)
         {
             DAC kn = new DAC();
             List<VatTu> vattu_col = new List<VatTu>();

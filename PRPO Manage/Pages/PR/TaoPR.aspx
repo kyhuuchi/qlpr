@@ -12,8 +12,7 @@
             <div class="col-md-12"><h3><p class="text-center font-weight-bold">PHIẾU ĐỀ XUẤT MUA HÀNG</p></h3></div>
         </div>
         <div class="row">
-            <form>
-                <div class="form-row">
+             <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="bophan">Bộ phận đề xuất</label>
                         <input type="text" class="form-control" id="bophandexuat" readonly/>
@@ -36,6 +35,9 @@
 
                     </div>
                 </div>
+        </div>
+        <form>
+               
                 <div class="form-row">
                     <div class="form-group">
                         <div class="form-group col-md-12">
@@ -55,7 +57,7 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="mavattu">Mã vật tư:</label>
-                                                    <select class="form-control" id="select_mavattu">
+                                                    <select class="form-control" id="select_mavattu" runat="server">
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -140,13 +142,12 @@
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-danger btn-sm">Xóa vật tư</button>
-                                <span id="test_sap" runat="server"></span>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-        </div>
     </div>
     <script type="text/javascript">
         var dsdata;
@@ -154,6 +155,7 @@
             //lay thong tin phong ban cua account dang truy cap
             $.ajax({
                 type: "POST",
+                async:false,
                 url: "/Webservice/dsnguoidung.asmx/LayThongTinNguoiDung",
                 data: {"tendangnhap": $("#LoginName1").text() },
                 dataType: "json",
@@ -162,12 +164,15 @@
                 },
                 
             })
+            .done(LaySoPR())
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error" + errorThrown);
             });
+         
             //khai bao mau data cho dropdown list chon vat tu
             var item_dta = { id: 0, text: "" };
 
+            $("#select_mavattu").select2();
         $("#DongY").click(function () {
             var name = $("#tendangnhap").val();
             var email = $("#tenhienthi").val();
@@ -185,7 +190,7 @@
                 }
             });
         });
-       
+      
         //$.ajax({
         //    type: "GET",
         //    dataType: 'json',
@@ -271,9 +276,48 @@
         //var newOption = new Option(data.text, data.id, false, false);
         //$('#select_mavattu').append(newOption).trigger('change');
 
-        //$("#select_mavattu").select2(
-        //      {
-        //          data: dsdata
-        //      });
+        function LaySoPR()
+        {
+            var data;
+            if ($("#bophandexuat").val()=="")
+            {
+                alert("Không có bộ phận đề xuất.");
+            }
+            else
+            {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/LaySoPR",
+                    data: { "phongban": $("#bophandexuat").val(), nam: (new Date()).getFullYear() },
+                    dataType: "json",
+                    
+                    success: function (data) {
+                        var sopr;
+                        if (data["So_PR"]<10)
+                        {
+                            sopr = "00" + data["So_PR"];
+                        }
+                        else if (data["So_PR"] < 100 && data["So_PR"]>10)
+                        {
+                            sopr = "0" + data["So_PR"];
+                        }
+                        else
+                        {
+                            sopr = data["So_PR"];
+                        }
+                        var year = data["Nam"].toString().slice(-2);
+
+                        $("#sopr").val(sopr + "-" + data["Phong_Ban"] + "-" + year);
+                        
+                    },
+
+                })
+               .fail(function (jqXHR, textStatus, errorThrown) {
+                   alert("error lay so PR; " + errorThrown);
+               });
+            }
+           
+        }
 </script>
 </asp:Content>

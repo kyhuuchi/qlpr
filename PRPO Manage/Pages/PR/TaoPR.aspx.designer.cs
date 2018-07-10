@@ -13,12 +13,12 @@ namespace PRPO_Manage.Pages.PR {
     public partial class TaoPR {
         
         /// <summary>
-        /// test_sap control.
+        /// select_mavattu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl test_sap;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect select_mavattu;
     }
 }
