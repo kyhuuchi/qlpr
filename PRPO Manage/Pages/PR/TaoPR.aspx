@@ -57,8 +57,11 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="mavattu">Mã vật tư:</label>
-                                                    <select class="form-control" id="select_mavattu" runat="server">
+                                                    <select class="form-control" id="select_mavattu" style="width: 100%;">
+                                                        <asp:Literal id="lit_vattu" runat="server" Mode="PassThrough"></asp:Literal>
                                                     </select>
+                                                    <input type="hidden" id="txt_vattu" runat="server"/>
+                                                    <input type="hidden" id="mavattu"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tenvattu">Tên vật tư:</label>
@@ -168,11 +171,52 @@
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error" + errorThrown);
             });
-         
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: "/Webservice/dsnguoidung.asmx/ServiceTimVatTu",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                },
+
+            })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            alert("error" + errorThrown);
+        });
             //khai bao mau data cho dropdown list chon vat tu
             var item_dta = { id: 0, text: "" };
 
-            $("#select_mavattu").select2();
+            $("#select_mavattu").select2({
+                placeholder: "Chọn thông tin vật tư",
+                minimumInputLength: 3,
+                allowClear: true
+                
+            });
+            //ham lay ten vat tu va ma vat tu tu select2
+            $('#select_mavattu').on('select2:selecting', function (e) {
+                // console.log('Selecting: ', e.params.args.data);
+                var res = e.params.args.data.text.split("--");
+                $("#tenvattu").val(res[1]);
+                $("#mavattu").val(e.params.args.data.id);
+                TimVatTu(e.params.args.data.id);
+                
+            });
+            function TimVatTu(mavatu)
+            {
+
+                var jsObj = JSON.parse($("#ContentPlaceHolder1_txt_vattu").val());
+                var i = jsObj.find(function (obj) { return obj.matnr === mavatu; });
+                console.log(i);
+            }
+            function findObjectByKey(array, key, value) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i][key] === value) {
+                        return array[i];
+                    }
+                }
+                return null;
+            }
         $("#DongY").click(function () {
             var name = $("#tendangnhap").val();
             var email = $("#tenhienthi").val();

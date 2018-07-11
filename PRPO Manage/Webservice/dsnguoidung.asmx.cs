@@ -6,6 +6,8 @@ using Business;
 using System.Data;
 using System.Web.Services;
 using System.Web.Script.Serialization;
+using System.Net;
+using System.Web.Script.Services;
 
 namespace PRPO_Manage.Webservice
 {
@@ -106,6 +108,21 @@ namespace PRPO_Manage.Webservice
             sopr = sopr.LaySoPR(phongban,nam);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(sopr));
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public void ServiceTimVatTu()
+        {
+            string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=TALL";
+            System.Net.WebRequest request = WebRequest.Create(url);
+            //request.Credentials = new NetworkCredential("sapuser", "password");
+            WebResponse ws = request.GetResponse();
+            using (System.IO.StreamReader sreader = new System.IO.StreamReader(ws.GetResponseStream()))
+            {
+                Context.Response.Write(sreader.ReadToEnd());
+                //var js = new JavaScriptSerializer();
+                //Context.Response.Write(js.Serialize(sreader.ReadToEnd())); 
+            }
         }
 
     }

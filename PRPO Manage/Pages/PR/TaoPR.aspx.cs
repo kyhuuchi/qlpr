@@ -17,37 +17,36 @@ namespace PRPO_Manage.Pages.PR
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CallSAP();
+            //CallSAP();
         }
         protected void CallSAP()
         {
             //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=710000318";
             string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=T100";
-          
+
             try
             {
-                WebRequest request = WebRequest.Create(url);
+                System.Net.WebRequest request = WebRequest.Create(url);
                 //request.Credentials = new NetworkCredential("sapuser", "password");
                 WebResponse ws = request.GetResponse();
-                
+
                 string jsonString = string.Empty;
                 using (System.IO.StreamReader sreader = new System.IO.StreamReader(ws.GetResponseStream()))
                 {
                     jsonString = sreader.ReadToEnd();
                 }
                 var js = new JavaScriptSerializer();
-
-                var dict = js.Deserialize<List<VatTu>>(jsonString);
-             
+                txt_vattu.Value = jsonString;
+                var dict = js.Deserialize<List<SelectOptions>>(jsonString);
+                
+                StringBuilder str_option_vattu = new StringBuilder();
+                str_option_vattu.Append("<option></option>");
                 List<SelectOptions> players = new List<SelectOptions>();
                 foreach (var item in dict)
                 {
-                    SelectOptions p = new SelectOptions(Convert.ToInt64(item.Ma_Vat_Tu), item.Ma_Vat_Tu + "-" + item.Ten_Vat_Tu);
-                    players.Add(p);
-                   // vt_col.Add(Convert.ToInt32(test_sap.InnerHtml + item["matnr"]), test_sap.InnerHtml + item["maktx"]);
+                    str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
                 }
-                select_mavattu.DataSource = players;
-                select_mavattu.DataBind();
+                lit_vattu.Text = str_option_vattu.ToString();
 
 
             }
@@ -59,15 +58,13 @@ namespace PRPO_Manage.Pages.PR
     }
     public class SelectOptions
     {
-       
-        public Int64 id { get; set; }
-       
-        public string text { get; set; }
-        public SelectOptions(Int64 ids, string texts)
-        {
-            id = ids;
-            text = texts;
-        }
+        public string matnr { get; set; }
+        public string bismt { get; set; }
+        public string maktx { get; set; }
+        public string meins { get; set; }
+        public string mseht { get; set; }
+        public string matkl { get; set; }
+        public string wgbez { get; set; }
 
     }
 
