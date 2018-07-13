@@ -102,12 +102,18 @@ namespace PRPO_Manage.Webservice
         }
 
         [WebMethod]
-        public void LaySoPR(string phongban, int nam)
+        public void LaySoPR(int phongban, int nam)
         {
             SoPR sopr = new SoPR();
             sopr = sopr.LaySoPR(phongban,nam);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(sopr));
+        }
+        [WebMethod]
+        public void ThemMoiPR(int action, int id, int id_phongban, int sopr, int nam, string congdung, DateTime ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, DateTime ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail)
+        {
+            PR pr = new PR();
+            List<PR> tb = pr.LayDanhSachPR(action, id, id_phongban, sopr, nam, congdung, ngaytao, thangtao, tongsoluongyeucau, tongtien, ghichu, ngayduyet, id_nguoiduyet, id_nguoidexuat, tinhtrang,prscanfile,sendmail);
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

@@ -6,6 +6,8 @@
     <div class="form-group col-md-12">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
+        <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
+        <button type="button" class="btn btn-success btn-sm" >Chuyển</button>
     </div>
 
     <div class="container" id="container">
@@ -21,10 +23,13 @@
                     <div class="form-group col-md-6">
                         <label for="bophan">Bộ phận đề xuất</label>
                         <input type="text" class="form-control" id="bophandexuat" readonly/>
+                        <input type="hidden" id="ID_bophandexuat"/>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="sopr">Số PR</label>
                         <input type="text" class="form-control" id="sopr" readonly/>
+                        <input type="hidden" id="namdexuat"/>
+                        <input type="hidden" id="sothutupr"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -36,6 +41,7 @@
                         <div class="form-group col-md-6">
                             <label for="ngaydexuat">Ngày (*)</label>
                             <input type="date" class="form-control" id="ngaydexuat">
+                            
                         </div>
 
                     </div>
@@ -305,12 +311,41 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                              <%--  <button type="button" class="btn btn-danger btn-sm" id="xoavattu">Xóa vật tư</button>--%>
-                                
                             </div>
                         </div>
                     </div>
-                </div>\
+                </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="form-group col-md-12">
+                         <div class="table-responsive">
+                                <table class="table" id="table_chuky">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col"></th>
+                                            <th scope="col">Ngày&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tháng&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    năm</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PHÊ DUYỆT</td>
+                                            <td>KẾ TOÁN QUẢN TRỊ</td>
+                                            <td>GIÁM ĐỐC BỘ PHẬN</td>
+                                            <td>KẾ TOÁN TRƯỞNG</td>
+                                            <td>NGƯỜI ĐỀ XUẤT</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                              <%--  <button type="button" class="btn btn-danger btn-sm" id="xoavattu">Xóa vật tư</button>--%>
+                                
+                            </div>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
@@ -325,7 +360,13 @@
                 data: {"tendangnhap": $("#LoginName1").text() },
                 dataType: "json",
                 success: function (data) {
+                    //document.getElementById("bophandexuat").innerText = data["Phong_Ban"];
+                    //document.getElementById("bophandexuat").value = data["Phong_Ban"];
+                   // $("#bophandexuat").text(data["Phong_Ban"]);
                     $("#bophandexuat").val(data["Phong_Ban"]);
+                    //$("#ID_bophandexuat").val(data["ID_PhongBan"]);
+                    document.getElementById("ID_bophandexuat").value = data["ID_Phong_Ban"];
+                    
                 },
                 
             })
@@ -616,11 +657,12 @@
                 $.ajax({
                     type: "POST",
                     url: "/Webservice/dsnguoidung.asmx/LaySoPR",
-                    data: { "phongban": $("#bophandexuat").val(), nam: (new Date()).getFullYear() },
+                    data: { "phongban": $("#ID_bophandexuat").val(), nam: (new Date()).getFullYear() },
                     dataType: "json",
                     
                     success: function (data) {
                         var sopr;
+                        $("#sothutupr").val(data["So_PR"]);
                         if (data["So_PR"]<10)
                         {
                             sopr = "00" + data["So_PR"];
@@ -634,7 +676,7 @@
                             sopr = data["So_PR"];
                         }
                         var year = data["Nam"].toString().slice(-2);
-
+                        $("#namdexuat").val(data["Nam"]);
                         $("#sopr").val(sopr + "-" + data["Phong_Ban"] + "-" + year);
                         
                     },
@@ -647,24 +689,74 @@
            
         }
         //*******************//
+        $("#ngaydexuat").change(function () {
+            $("#ngaydexuat").removeAttr( 'style');
 
-        
+        });
+        //Xu ly luu PR
+        function LuuPR()
+        {
+            var data_pr;
+            if ($("#ngaydexuat").val()=="")
+            {
+                alert("Vui lòng chọn ngày tạo phiếu.");
+                $("#ngaydexuat").css("border-color", "red");
+                return;
+            }
+            var date = new Date($("#ngaydexuat").val());
+            var thangtao = date.getMonth();
+            data_pr = {
+                action: 2,
+                id: 0,
+                id_phongban: $("#ID_bophandexuat").val(),
+                sopr: $("#sothutupr").val(),
+                nam: $("#namdexuat").val(),
+                congdung: $("#congdung").val(),
+                ngaytao: $("#ngaydexuat").val(),
+                thangtao: thangtao,
+                tongsoluongyeucau: $("#tongsoluong").val(),
+                tongtien: $("#tongtien").val(),
+                ghichu: $("#ghichu").val(),
+                ngayduyet:"",
+                id_nguoiduyet: ad,
+                id_nguoidexuat: ad,
+                tinhtrang: ad,
+                prscanfile: ad,
+                sendmail: ad,
+
+
+            };
+            var stringReqdata = JSON.stringify(data_pr);
+         //   $.ajax({
+         //       type: "POST",
+         //       async: false,
+         //       url: "/Webservice/dsnguoidung.asmx/ThemMoiPR",
+         //       data: stringReqdata,
+         //       dataType: "json",
+         //       success: function (data) {
+         //           $("#bophandexuat").val(data["Phong_Ban"]);
+         //           $("#ID_bophandexuat").val(data["ID_PhongBan"]);
+         //       },
+
+         //   })
+         //.done(LaySoPR())
+         //.fail(function (jqXHR, textStatus, errorThrown) {
+         //    alert("error" + errorThrown);
+         //});
+        }
+        //*******************//
         function InForm() {
             //Get the HTML of div
-            var divElements = document.getElementById("container").innerHTML;
-            //Get the HTML of whole page
-            var oldPage = document.body.innerHTML;
-
-            //Reset the page's HTML with div's HTML only
-            document.body.innerHTML = 
-              "<html><head><title></title></head><body>" + 
-              divElements + "</body>";
-
-            //Print Page
+            //var divElements = document.getElementById("container").innerHTML;
+            //var printWindow = window.open('', '', 'height=400,width=800');
+            //printWindow.document.write('<html><head><title></title>');
+            //printWindow.document.write('<link rel="stylesheet" href="/Content/bootstrap.min.css" type="text/css"/>');
+            //printWindow.document.write('</head><body >');
+            //printWindow.document.write(divElements);
+            //printWindow.document.write('</body></html>');
+            //printWindow.document.close();
+            //printWindow.print();
             window.print();
-
-            //Restore orignal HTML
-            document.body.innerHTML = oldPage;
 
           
         }
