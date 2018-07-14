@@ -24,6 +24,7 @@
                         <label for="bophan">Bộ phận đề xuất</label>
                         <input type="text" class="form-control" id="bophandexuat" readonly/>
                         <input type="hidden" id="ID_bophandexuat"/>
+                        <input type="hidden" id="ID_nguoidexuat"/>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="sopr">Số PR</label>
@@ -365,7 +366,9 @@
                    // $("#bophandexuat").text(data["Phong_Ban"]);
                     $("#bophandexuat").val(data["Phong_Ban"]);
                     //$("#ID_bophandexuat").val(data["ID_PhongBan"]);
+                    
                     document.getElementById("ID_bophandexuat").value = data["ID_Phong_Ban"];
+                    document.getElementById("ID_nguoidexuat").value = data["ID_NguoiDung"];
                     
                 },
                 
@@ -696,7 +699,6 @@
         //Xu ly luu PR
         function LuuPR()
         {
-            var data_pr;
             if ($("#ngaydexuat").val()=="")
             {
                 alert("Vui lòng chọn ngày tạo phiếu.");
@@ -705,46 +707,89 @@
             }
             var date = new Date($("#ngaydexuat").val());
             var thangtao = date.getMonth();
-            data_pr = {
-                action: 2,
-                id: 0,
-                id_phongban: $("#ID_bophandexuat").val(),
-                sopr: $("#sothutupr").val(),
-                nam: $("#namdexuat").val(),
-                congdung: $("#congdung").val(),
-                ngaytao: $("#ngaydexuat").val(),
-                thangtao: thangtao,
-                tongsoluongyeucau: $("#tongsoluong").val(),
-                tongtien: $("#tongtien").val(),
-                ghichu: $("#ghichu").val(),
-                ngayduyet:"",
-                id_nguoiduyet: ad,
-                id_nguoidexuat: ad,
-                tinhtrang: ad,
-                prscanfile: ad,
-                sendmail: ad,
+            var nguoidexuat= $("#ID_nguoidexuat").val();
+            
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/ThemMoiPR",
+                data: {
+                    "action": 2,
+                    "id": 0,
+                    "id_phongban": Number($("#ID_bophandexuat").val()),
+                    "sopr": Number($("#sothutupr").val()),
+                    "nam": Number($("#namdexuat").val()),
+                    "congdung": $("#congdung").val(),
+                    "ngaytao": $("#ngaydexuat").val(),
+                    "thangtao": Number(thangtao),
+                    "tongsoluongyeucau": Number($("#tongsoluong").html()),
+                    "tongtien": Number($("#tongtien").html()),
+                    "ghichu": $("#ghichu").val(),
+                    "ngayduyet": $("#ngaydexuat").val(),
+                    "id_nguoiduyet": 0,
+                    "id_nguoidexuat": Number(nguoidexuat),
+                    "tinhtrang": 1,
+                    "prscanfile": "",
+                    "sendmail": false,
+                },
+                dataType: "json",
+                success: function (data) {
+                  alert("PR đã được tạo thành công.")
+                },
 
-
-            };
-            var stringReqdata = JSON.stringify(data_pr);
-         //   $.ajax({
-         //       type: "POST",
-         //       async: false,
-         //       url: "/Webservice/dsnguoidung.asmx/ThemMoiPR",
-         //       data: stringReqdata,
-         //       dataType: "json",
-         //       success: function (data) {
-         //           $("#bophandexuat").val(data["Phong_Ban"]);
-         //           $("#ID_bophandexuat").val(data["ID_PhongBan"]);
-         //       },
-
-         //   })
-         //.done(LaySoPR())
-         //.fail(function (jqXHR, textStatus, errorThrown) {
-         //    alert("error" + errorThrown);
-         //});
+            })
+         .done(TaoPRChiTiet())
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
         }
         //*******************//
+
+        // Xu ly PR chi tiet //
+        function TaoPRChiTiet()
+        {
+            var table = $("#table_vattu");
+          
+            table.find('tbody > tr').each(function () {
+                var $tds = $(this).find('td');
+                $tds.eq(2)
+                
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/Webservice/dsnguoidung.asmx/ThemMoiPR_ChiTiet",
+                    data: {
+                        "action": 2,
+                        "id": 0,
+                        "idpr": Number($("#ID_bophandexuat").val()),
+                        "mahang": Number($("#sothutupr").val()),
+                        "tenhang": Number($("#namdexuat").val()),
+                        "dvt": $("#congdung").val(),
+                        "tonkho": $("#ngaydexuat").val(),
+                        "soluongyeucau": Number(thangtao),
+                        "dongia": Number($("#tongsoluong").html()),
+                        "tigia": Number($("#tongtien").html()),
+                        "thanhtientamung": $("#ghichu").val(),
+                        "nhacungcap": $("#ngaydexuat").val(),
+                        "tinhtrangvattu": 0,
+                        "ngaycanhang": Number(nguoidexuat),
+                        "thoigiansudung": 1,
+                        "congdung": ""
+                       
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        alert("PR đã được tạo thành công.")
+                    },
+
+                })
+                  .done(TaoPRChiTiet())
+                  .fail(function (jqXHR, textStatus, errorThrown) {
+                      alert("error" + errorThrown);
+                  });
+            });
+        }
+        //******************//
         function InForm() {
             //Get the HTML of div
             //var divElements = document.getElementById("container").innerHTML;
