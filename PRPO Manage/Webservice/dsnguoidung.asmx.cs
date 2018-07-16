@@ -110,16 +110,20 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(sopr));
         }
         [WebMethod]
-        public void ThemMoiPR(int action, int id, int id_phongban, int sopr, int nam, string congdung, string ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, string ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail)
+        public void ActionPR(int action, int id, int id_phongban, int sopr, int nam, string congdung, string ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, string ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail)
         {
             PR pr = new PR();
             List<PR> tb = pr.LayDanhSachPR(action, id, id_phongban, sopr, nam, congdung, ngaytao, thangtao, tongsoluongyeucau, tongtien, ghichu, ngayduyet, id_nguoiduyet, id_nguoidexuat, tinhtrang,prscanfile,sendmail);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
         }
         [WebMethod]
-        public void ThemMoiPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
+        public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
         {
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
             List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

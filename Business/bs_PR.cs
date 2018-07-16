@@ -140,6 +140,7 @@ namespace Business
                 foreach (DataRow row in tb.Rows)
                 {
                     PR pr = new PR();
+                    pr.ID_PR= Convert.ToInt32(row["ID"]);
                     pr.ID_PhongBan = Convert.ToInt32(row["ID_PhongBan"]);
                     pr.So_PR = Convert.ToInt32(row["SoPR"]);
                     pr.Nam= Convert.ToInt32(row["Nam"]);

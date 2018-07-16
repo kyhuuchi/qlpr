@@ -31,6 +31,7 @@
                         <input type="text" class="form-control" id="sopr" readonly/>
                         <input type="hidden" id="namdexuat"/>
                         <input type="hidden" id="sothutupr"/>
+                         <input type="hidden" id="id_pr"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -90,7 +91,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                    <input type="number" class="form-control" id="dongiatamtinh" />
+                                                    <input type="text" class="form-control" id="dongiatamtinh" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tigia">Tỉ giá:</label>
@@ -98,7 +99,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="thanhtientamung">Thành tiền tạm ứng:</label>
-                                                    <input type="number" class="form-control" id="thanhtientamung" />
+                                                    <input type="text" class="form-control" id="thanhtientamung" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nhacungung">Nhà cung ứng:</label>
@@ -387,6 +388,10 @@
                 allowClear: true
                 
             });
+            $('#dongiatamtinh').mask("000.000.000.000.000,00", { reverse: false });
+            $('#thanhtientamung').mask('000.000.000.000.000,00');
+            
+
             //ham lay ten vat tu va ma vat tu tu select2
             $('#select_mavattu').on('select2:selecting', function (e) {
                 // console.log('Selecting: ', e.params.args.data);
@@ -455,6 +460,7 @@
             $("#tonkho").val("");
             $("#soluongyeucau").val("");
             $("#dongiatamtinh").val("");
+            
             $("#tigia").val("");
             $("#thanhtientamung").val("");
             $("#nhacungung").val("");
@@ -588,17 +594,21 @@
         
         //Xu ly khi ti gia, don gia tam ung va so luong yeu cau thay doi thi tinh lai gia tien tam ung
         $("#tigia").change(function () {
-            $("#thanhtientamung").val($("#dongiatamtinh").val() * $("#soluongyeucau").val() * $("#tigia").val());
+            $("#thanhtientamung").val($("#dongiatamtinh").cleanVal() * $("#soluongyeucau").val() * $("#tigia").val());
             
-        });
-        $("#dongiatamtinh").change(function () {
-            $("#thanhtientamung").val($("#dongiatamtinh").val() * $("#soluongyeucau").val() * $("#tigia").val());
 
         });
+        //$("#dongiatamtinh").change(function () {
+        //    $("#thanhtientamung").val($("#dongiatamtinh").val() * $("#soluongyeucau").val() * $("#tigia").val());
+        
+
+        //});
         $("#soluongyeucau").change(function () {
-            $("#thanhtientamung").val($("#dongiatamtinh").val() * $("#soluongyeucau").val() * $("#tigia").val());
+            $("#thanhtientamung").val($("#dongiatamtinh").cleanVal() * $("#soluongyeucau").val() * $("#tigia").val());
+            
 
         });
+      
         //*********************//
 
         //Xu ly cap nhat lai so thu tu khi delete vat tu
@@ -712,7 +722,7 @@
             $.ajax({
                 type: "POST",
                 async: false,
-                url: "/Webservice/dsnguoidung.asmx/ThemMoiPR",
+                url: "/Webservice/dsnguoidung.asmx/ActionPR",
                 data: {
                     "action": 2,
                     "id": 0,
@@ -738,13 +748,55 @@
                 },
 
             })
-         .done(TaoPRChiTiet())
+         .done(LayThongTinPR())
          .fail(function (jqXHR, textStatus, errorThrown) {
              alert("error" + errorThrown);
          });
         }
         //*******************//
+        //Lay thong tin PR vua tao
+        function LayThongTinPR() {
+            
+            var date = new Date($("#ngaydexuat").val());
+            var thangtao = date.getMonth();
+            var nguoidexuat = $("#ID_nguoidexuat").val();
 
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                data: {
+                    "action": 1,
+                    "id": 0,
+                    "id_phongban": Number($("#ID_bophandexuat").val()),
+                    "sopr": Number($("#sothutupr").val()),
+                    "nam": Number($("#namdexuat").val()),
+                    "congdung": $("#congdung").val(),
+                    "ngaytao": $("#ngaydexuat").val(),
+                    "thangtao": Number(thangtao),
+                    "tongsoluongyeucau": Number($("#tongsoluong").html()),
+                    "tongtien": Number($("#tongtien").html()),
+                    "ghichu": $("#ghichu").val(),
+                    "ngayduyet": $("#ngaydexuat").val(),
+                    "id_nguoiduyet": 0,
+                    "id_nguoidexuat": Number(nguoidexuat),
+                    "tinhtrang": 1,
+                    "prscanfile": "",
+                    "sendmail": false,
+                },
+                dataType: "json",
+                success: function (data) {
+                    
+                    document.getElementById("id_pr").value = data["ID"];
+                },
+
+            })
+         .done(TaoPRChiTiet())
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
+        }
+        //*********************//
         // Xu ly PR chi tiet //
         function TaoPRChiTiet()
         {
@@ -752,34 +804,45 @@
           
             table.find('tbody > tr').each(function () {
                 var $tds = $(this).find('td');
-                $tds.eq(2)
-                
+                var mavt = $tds.eq(3).html();
+                var tenvt = $tds.eq(4).html();
+                var dvt = $tds.eq(5).html();
+                var tonkho = $tds.eq(6).html();
+                var slyc = $tds.eq(7).html();
+                var dgtt = $tds.eq(8).html();
+                var tgia = $tds.eq(9).html();
+                var thanhtientu = $tds.eq(10).html();
+                var nccvt = $tds.eq(11).html();
+                var tinhtrangvt = $tds.eq(12).html();
+                var ngaych = $tds.eq(13).html();
+                var thoigiansd = $tds.eq(14).html();
+                var congdungchitiet = $tds.eq(15).html();
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "/Webservice/dsnguoidung.asmx/ThemMoiPR_ChiTiet",
+                    url: "/Webservice/dsnguoidung.asmx/ActionPR_ChiTiet",
                     data: {
                         "action": 2,
                         "id": 0,
-                        "idpr": Number($("#ID_bophandexuat").val()),
-                        "mahang": Number($("#sothutupr").val()),
-                        "tenhang": Number($("#namdexuat").val()),
-                        "dvt": $("#congdung").val(),
-                        "tonkho": $("#ngaydexuat").val(),
-                        "soluongyeucau": Number(thangtao),
-                        "dongia": Number($("#tongsoluong").html()),
-                        "tigia": Number($("#tongtien").html()),
-                        "thanhtientamung": $("#ghichu").val(),
-                        "nhacungcap": $("#ngaydexuat").val(),
-                        "tinhtrangvattu": 0,
-                        "ngaycanhang": Number(nguoidexuat),
-                        "thoigiansudung": 1,
-                        "congdung": ""
+                        "idpr": Number($("#id_pr").val()),
+                        "mahang": mavt,
+                        "tenhang": tenvt,
+                        "dvt": dvt,
+                        "tonkho": Number(tonkho),
+                        "soluongyeucau": Number(slyc),
+                        "dongia": Number(dgtt),
+                        "tigia": Number(tgia),
+                        "thanhtientamung": Number(thanhtientu),
+                        "nhacungcap": nccvt,
+                        "tinhtrangvattu": tinhtrangvt,
+                        "ngaycanhang": ngaych,
+                        "thoigiansudung": thoigiansd,
+                        "congdung": congdungchitiet
                        
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert("PR đã được tạo thành công.")
+                        alert("PR chi tiết đã được tạo thành công.")
                     },
 
                 })
