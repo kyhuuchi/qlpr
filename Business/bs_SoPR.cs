@@ -71,5 +71,34 @@ namespace Business
             }
             return sopr;
         }
+        public List<SoPR> Action_SoPR(int action, int id, int idphongban, int sopr, int nam)
+        {
+            SoPR sopr2 = new SoPR();
+            DAC kn = new DAC();
+            List<SoPR> sopr_col = new List<SoPR>();
+
+            SqlParameter pm = new SqlParameter("@action", action);
+            SqlParameter pm2 = new SqlParameter("@id", id);
+            SqlParameter pm3 = new SqlParameter("@idphongban", idphongban);
+            SqlParameter pm4 = new SqlParameter("@sopr", sopr);
+            SqlParameter pm5 = new SqlParameter("@nam", nam);
+            SqlParameter[] param = new SqlParameter[5] { pm, pm2, pm3, pm4, pm5 };
+            DataTable tb = kn.get_by_procedure("proc_Action_So_PR", param);
+            if (tb != null)
+            {
+                foreach (DataRow row in tb.Rows)
+                {
+                    SoPR sp = new SoPR();
+                    sp.ID_So_PR = Convert.ToInt32(tb.Rows[0]["ID"]);
+                    sp.Phong_Ban = tb.Rows[0]["TenVietTat"].ToString();
+                    sp.So_PR = Convert.ToInt32(tb.Rows[0]["SoPR"]);
+                    sp.Nam = Convert.ToInt32(tb.Rows[0]["Nam"]);
+
+                    sopr_col.Add(sp);
+
+                }
+            }
+            return sopr_col;
+        }   
     }
 }

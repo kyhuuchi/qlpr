@@ -149,12 +149,28 @@ namespace Business
                     pr.Thang_Tao = Convert.ToInt32(row["ThangTao"]);
                     pr.Tong_So_Luong_Yeu_cau = Convert.ToInt32(row["TongSoLuongYeuCau"]);
                     pr.Tong_Tien = Convert.ToDouble(row["TongTien"]);
-                    pr.Ghi_Chu=row["GhiChu"].ToString();
-                    pr.Ngay_Duyet = Convert.ToDateTime(row["NgayDuyet"]);
-                    pr.ID_Nguoi_Duyet = Convert.ToInt32(row["ID_NguoiDuyet"]);
+                    if(!row.IsNull("GhiChu"))
+                    {
+                        pr.Ghi_Chu = row["GhiChu"].ToString();
+                    }
+                    
+                    if(!row.IsNull("NgayDuyet"))
+                    {
+                        pr.Ngay_Duyet = Convert.ToDateTime(row["NgayDuyet"]);
+                    }
+
+                    if(!row.IsNull("ID_NguoiDuyet"))
+                    {
+                        pr.ID_Nguoi_Duyet = Convert.ToInt32(row["ID_NguoiDuyet"]);
+                    }
+                    
                     pr.ID_Nguoi_De_Xuat = Convert.ToInt32(row["ID_NguoiDeXuat"]);
                     pr.Tinh_Trang = Convert.ToInt32(row["TinhTrang"]);
-                    pr.PR_Scan_File = row["PRScanFile"].ToString();
+                    if(!row.IsNull("PRScanFile"))
+                    {
+                        pr.PR_Scan_File = row["PRScanFile"].ToString();
+                    }
+                    
                     pr.Sent_Mail = Convert.ToBoolean(row["SendMail"]);
                     pr_col.Add(pr);
 

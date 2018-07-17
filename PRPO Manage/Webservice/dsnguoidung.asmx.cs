@@ -110,6 +110,15 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(sopr));
         }
         [WebMethod]
+        public void Action_SoPR(int action, int id, int idphongban, int sopr, int nam)
+        {
+            SoPR spr = new SoPR();
+            List<SoPR> tb = spr.Action_SoPR(action, id, idphongban, sopr, nam);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+        
+        [WebMethod]
         public void ActionPR(int action, int id, int id_phongban, int sopr, int nam, string congdung, string ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, string ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail)
         {
             PR pr = new PR();
