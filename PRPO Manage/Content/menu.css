@@ -190,6 +190,34 @@
 #cssmenu ul ul li.has-sub:hover > a::after {
   border-color: #ffffff;
 }
+.cls_tonkho{
+    text-align:right;
+}
+.cls_soluongyeucau{
+    text-align:right;
+}
+.cls_dongiatamtinh{
+    text-align:right;
+}
+.cls_thanhtientamung{
+    text-align:right;
+}
+.cls_tigia
+{
+    text-align:center;
+}
+.cls_tinhtrangvattu
+{
+    text-align:center;
+}
+#tongsoluong
+{
+    text-align:right;
+}
+#tongtien
+{
+    text-align:right;
+}
 @media all and (max-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 1024px), only screen and (min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min-resolution: 192dpi) and (max-width: 1024px), only screen and (min-resolution: 2dppx) and (max-width: 1024px) {
   #cssmenu {
     width: 100%;

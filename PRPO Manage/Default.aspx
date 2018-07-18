@@ -27,36 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
-                        </h4>
-                    </div>
-                    <div id="collapse2" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
-                        </h4>
-                    </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-                        </div>
-                    </div>
-                </div>
+              
             </div>
         </div>
         <div id="menu1" class="tab-pane fade">
@@ -72,4 +43,36 @@
             <p>Some content in menu 2.</p>
         </div>
     </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //lay thong tin tat ca phong ban 
+        //$.ajax({
+        //    type: "POST",
+        //    async: false,
+        //    url: "/Webservice/dsnguoidung.asmx/LayThongTinNguoiDung",
+        //    data: { "tendangnhap": $("#LoginName1").text() },
+        //    dataType: "json",
+        //    success: function (data) {
+        //        //document.getElementById("bophandexuat").innerText = data["Phong_Ban"];
+        //        //document.getElementById("bophandexuat").value = data["Phong_Ban"];
+        //        // $("#bophandexuat").text(data["Phong_Ban"]);
+        //        $("#bophandexuat").val(data["Phong_Ban"]);
+        //        //$("#ID_bophandexuat").val(data["ID_PhongBan"]);
+
+        //        document.getElementById("ID_bophandexuat").value = data["ID_Phong_Ban"];
+        //        document.getElementById("ID_nguoidexuat").value = data["ID_NguoiDung"];
+
+        //    },
+
+        //})
+        //.done(LaySoPR())
+        //.fail(function (jqXHR, textStatus, errorThrown) {
+        //    alert("error" + errorThrown);
+        //});
+
+        
+       
+
+    });
+</script>
 </asp:Content>

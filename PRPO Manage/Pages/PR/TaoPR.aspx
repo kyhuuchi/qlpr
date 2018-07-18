@@ -92,6 +92,7 @@
                                                 <div class="form-group">
                                                     <label for="dongiatamtinh">Đơn giá tạm tính:</label>
                                                     <input type="text" class="form-control" id="dongiatamtinh" />
+                                                    <input type="hidden" id="dongiatamtinh_notmask"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tigia">Tỉ giá:</label>
@@ -182,14 +183,14 @@
         <div class="row">
             <div class="form-row">
                 <div class="form-group">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label for="ghichu">Ghi chú</label>
                         <input type="text" class="form-control" id="ghichu" />
                     </div>
-                    <div class="form-group col-md-6">
+                    <%--<div class="form-group col-md-6">
                         <label for="tongcongdong">Tổng cộng (đồng)</label>
                         <input type="text" class="form-control" id="tongcongdong">
-                    </div>
+                    </div>--%>
 
                 </div>
             </div>
@@ -390,9 +391,9 @@
                 allowClear: true
                 
             });
-            $('#dongiatamtinh').mask("000.000.000.000.000", { reverse: false });
+            //$('#dongiatamtinh').mask("000.000.000.000.000", { reverse: false });
             //$('#thanhtientamung').mask('000.000.000.000.000', { reverse: true });
-          
+            
             
 
             //ham lay ten vat tu va ma vat tu tu select2
@@ -432,7 +433,8 @@
             var dvt = $("#dvt").val();
             var tonkho = $("#tonkho").val();
             var soluongyeucau = $("#soluongyeucau").val();
-            var dongiatamtinh = $("#dongiatamtinh").cleanVal();
+            var dongiatamtinh = $("#dongiatamtinh").val();
+            var dongiatamtinh_nomask= $("#dongiatamtinh_notmask").val();
             var tigia = $("#tigia").val();
             var thanhtientamung = $("#thanhtientamung").val();
             var thanhtientamung_nomask = $("#thanhtientamung_notmask").val();
@@ -447,12 +449,12 @@
                 var $tds = currentRow.find('td');
                 stt= $tds.eq(2).text();
 
-                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "</td></tr>";
+                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "</td></tr>";
                 $("#table_vattu tbody").find($(currentRow)).replaceWith(markup);
                 currentRow = null;
             }
             else {
-                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "</td></tr>";
+                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "</td></tr>";
                 $("#table_vattu tbody").append(markup);
             }
             //cap nhat tong so luong va tong so tien
@@ -464,7 +466,8 @@
             $("#tonkho").val("");
             $("#soluongyeucau").val("");
             $("#dongiatamtinh").val("");
-            
+            $("#dongiatamtinh_notmask").val("");
+            $("#congdungchitiet").val("");
             $("#tigia").val("");
             $("#thanhtientamung").val("");
             $("#nhacungung").val("");
@@ -598,10 +601,8 @@
         
         //Xu ly khi ti gia, don gia tam ung va so luong yeu cau thay doi thi tinh lai gia tien tam ung
         $("#tigia").change(function () {
-            $("#thanhtientamung").val($("#dongiatamtinh").cleanVal() * $("#soluongyeucau").val() * $("#tigia").val());
-            var tt = $("#thanhtientamung").val();
-            document.getElementById("thanhtientamung_notmask").value = tt;
-           $('#thanhtientamung').val(Number($('#thanhtientamung').val()).toLocaleString('vn'));
+            
+            TinhKhiThayDoiTiGiaVaSoLuong();
         });
         //$("#dongiatamtinh").change(function () {
         //    $("#thanhtientamung").val($("#dongiatamtinh").val() * $("#soluongyeucau").val() * $("#tigia").val());
@@ -609,13 +610,27 @@
 
         //});
         $("#soluongyeucau").change(function () {
-            $("#thanhtientamung").val($("#dongiatamtinh").cleanVal() * $("#soluongyeucau").val() * $("#tigia").val());
-            var tt = $("#thanhtientamung").val();
-            document.getElementById("thanhtientamung_notmask").value = tt;
-            $('#thanhtientamung').val(Number($('#thanhtientamung').val()).toLocaleString('vn'));
-
+           
+            TinhKhiThayDoiTiGiaVaSoLuong();
         });
-      
+        function TinhKhiThayDoiTiGiaVaSoLuong()
+        {
+            //gan thong tin don gia tam tinh cho notmask
+            if (document.getElementById("dongiatamtinh_notmask").value=="")
+            {
+                var dgtt = $("#dongiatamtinh").val();
+                document.getElementById("dongiatamtinh_notmask").value = dgtt;
+            }
+            
+            $("#thanhtientamung").val($("#dongiatamtinh_notmask").val() * $("#soluongyeucau").val() * $("#tigia").val());
+            
+            var tt = $("#thanhtientamung").val();
+
+            document.getElementById("thanhtientamung_notmask").value = tt;
+            
+            $('#thanhtientamung').val(Number($('#thanhtientamung').val()).toLocaleString('vn'));
+            $('#dongiatamtinh').val(Number($('#dongiatamtinh_notmask').val()).toLocaleString('vn'));
+        }
         //*********************//
 
         //Xu ly cap nhat lai so thu tu khi delete vat tu
@@ -640,7 +655,7 @@
         //Xu ly cap nhat so luong va so tien khi them moi, chinh sua, xoa vat tu
         function CapNhatSoLuongVaSoTien()
         {
-
+            var stt = 1;
             var table = $("#table_vattu");
             var tongsoluong = 0, tongtien = 0;
             
@@ -649,12 +664,15 @@
                 //cap nhat tong so luong yeu cau va tong tien
                 tongsoluong = Number(tongsoluong) + Number($tds.eq(7).text());
                 document.getElementById("tongsoluong_notmask").value = tongsoluong;
+                //lay thong tin gia tien chua co dinh dang
                 
-                tongtien = Number(tongtien) + Number($("#thanhtientamung_notmask").val());
+                var tt = document.getElementById("thanhtientamung*" + stt).value;
+                tongtien = Number(tongtien) + Number(tt);
                 document.getElementById("tongtien_notmask").value = tongtien;
                 $("#tongsoluong").html(tongsoluong.toLocaleString('vn'));
                 
                 $("#tongtien").html(tongtien.toLocaleString('vn'));
+                stt++;
             });
         }
         //********************//
@@ -755,6 +773,36 @@
                     "tinhtrang": 1,
                     "prscanfile": "",
                     "sendmail": false,
+                    "tieude1": $("#1").val(),
+                    "tieude2": $("#2").val(),
+                    "tieude3": $("#3").val(),
+                    "tieude4": $("#4").val(),
+                    "tieude5": $("#4").val(),
+                    "tieude6": $("#6").val(),
+                    "ngansachduocduyet1": Number($("#11").val()),
+                    "ngansachduocduyet2": Number($("#22").val()),
+                    "ngansachduocduyet3": Number($("#33").val()),
+                    "ngansachduocduyet4": Number($("#44").val()),
+                    "ngansachduocduyet5": Number($("#55").val()),
+                    "ngansachduocduyet6": Number($("#66").val()),
+                    "dexuatlannay1": Number($("#111").val()),
+                    "dexuatlannay2": Number($("#222").val()),
+                    "dexuatlannay3": Number($("#333").val()),
+                    "dexuatlannay4": Number($("#444").val()),
+                    "dexuatlannay5": Number($("#555").val()),
+                    "dexuatlannay6": Number($("#666").val()),
+                    "luyke1":  Number($("#1111").val()),
+                    "luyke2":  Number($("#2222").val()),
+                    "luyke3": Number($("#3333").val()),
+                    "luyke4": Number($("#4444").val()),
+                    "luyke5": Number($("#5555").val()),
+                    "luyke6": Number($("#6666").val()),
+                    "thuathieu1": Number($("#11111").val()),
+                    "thuathieu2": Number($("#22222").val()),
+                    "thuathieu3": Number($("#33333").val()),
+                    "thuathieu4": Number($("#44444").val()),
+                    "thuathieu5": Number($("#55555").val()),
+                    "thuathieu6": Number($("#66666").val())
                 },
                 dataType: "json",
                 success: function (data) {
@@ -825,6 +873,36 @@
                     "tinhtrang": 1,
                     "prscanfile": "",
                     "sendmail": false,
+                    "tieude1": "",
+                    "tieude2": "",
+                    "tieude3": "",
+                    "tieude4": "",
+                    "tieude5": "",
+                    "tieude6": "",
+                    "ngansachduocduyet1": 0,
+                    "ngansachduocduyet2": 0,
+                    "ngansachduocduyet3": 0,
+                    "ngansachduocduyet4": 0,
+                    "ngansachduocduyet5": 0,
+                    "ngansachduocduyet6": 0,
+                    "dexuatlannay1": 0,
+                    "dexuatlannay2": 0,
+                    "dexuatlannay3": 0,
+                    "dexuatlannay4": 0,
+                    "dexuatlannay5": 0,
+                    "dexuatlannay6": 0,
+                    "luyke1": 0,
+                    "luyke2": 0,
+                    "luyke3": 0,
+                    "luyke4": 0,
+                    "luyke5": 0,
+                    "luyke6": 0,
+                    "thuathieu1": 0,
+                    "thuathieu2": 0,
+                    "thuathieu3": 0,
+                    "thuathieu4": 0,
+                    "thuathieu5": 0,
+                    "thuathieu6": 0,
                 },
                 dataType: "json",
                 success: function (data) {
@@ -843,6 +921,7 @@
         // Xu ly PR chi tiet //
         function TaoPRChiTiet()
         {
+            var stt = 1;
             var table = $("#table_vattu");
             var rowCount = $('#table_vattu >tbody >tr').length;
             table.find('tbody > tr').each(function () {
@@ -853,14 +932,16 @@
                 var dvt = $tds.eq(5).html();
                 var tonkho = $tds.eq(6).html();
                 var slyc = $tds.eq(7).html();
-                var dgtt = $tds.eq(8).html();
+                
+                var dgtt = document.getElementById("dongiatamtinh*" + stt).value;
                 var tgia = $tds.eq(9).html();
-                var thanhtientu = $tds.eq(10).html();
+                var thanhtientu = document.getElementById("thanhtientamung*" + stt).value;
                 var nccvt = $tds.eq(11).html();
                 var tinhtrangvt = $tds.eq(12).html();
                 var ngaych = $tds.eq(13).html();
                 var thoigiansd = $tds.eq(14).html();
                 var congdungchitiet = $tds.eq(15).html();
+                
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -887,6 +968,7 @@
                     dataType: "json",
                     success: function (data) {
                         alert("PR chi tiết đã được tạo thành công.")
+                        stt++;
                     },
 
                 })

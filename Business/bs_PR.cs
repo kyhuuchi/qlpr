@@ -29,6 +29,41 @@ namespace Business
         private string _pr_scan_file;
         private bool _sent_mail;
 
+        private string _tieu_de_1;
+        private string _tieu_de_2;
+        private string _tieu_de_3;
+        private string _tieu_de_4;
+        private string _tieu_de_5;
+        private string _tieu_de_6;
+
+        private double _ngan_sach_duoc_duyet_1;
+        private double _ngan_sach_duoc_duyet_2;
+        private double _ngan_sach_duoc_duyet_3;
+        private double _ngan_sach_duoc_duyet_4;
+        private double _ngan_sach_duoc_duyet_5;
+        private double _ngan_sach_duoc_duyet_6;
+
+        private double _de_xuat_lan_nay_1;
+        private double _de_xuat_lan_nay_2;
+        private double _de_xuat_lan_nay_3;
+        private double _de_xuat_lan_nay_4;
+        private double _de_xuat_lan_nay_5;
+        private double _de_xuat_lan_nay_6;
+
+        private double _luy_ke_1;
+        private double _luy_ke_2;
+        private double _luy_ke_3;
+        private double _luy_ke_4;
+        private double _luy_ke_5;
+        private double _luy_ke_6;
+
+        private double _thua_thieu_1;
+        private double _thua_thieu_2;
+        private double _thua_thieu_3;
+        private double _thua_thieu_4;
+        private double _thua_thieu_5;
+        private double _thua_thieu_6;
+
         public int ID_PR
         {
             get{ return _id_pr; }
@@ -109,7 +144,157 @@ namespace Business
             get { return _sent_mail; }
             set { _sent_mail = value; }
         }
-        public List<PR> LayDanhSachPR(int action,int id, int id_phongban,int sopr, int nam,string congdung, string ngaytao,int thangtao,int tongsoluongyeucau,double tongtien,string ghichu, string ngayduyet,int id_nguoiduyet,int id_nguoidexuat, int tinhtrang,string prscanfile, bool sendmail)
+        public string Tieu_De_1
+        {
+            get { return _tieu_de_1; }
+            set { _tieu_de_1 = value; }
+        }
+        public string Tieu_De_2
+        {
+            get { return _tieu_de_2; }
+            set { _tieu_de_2 = value; }
+        }
+        public string Tieu_De_3
+        {
+            get { return _tieu_de_3; }
+            set { _tieu_de_3 = value; }
+        }
+        public string Tieu_De_4
+        {
+            get { return _tieu_de_4; }
+            set { _tieu_de_4 = value; }
+        }
+        public string Tieu_De_5
+        {
+            get { return _tieu_de_5; }
+            set { _tieu_de_5 = value; }
+        }
+        public string Tieu_De_6
+        {
+            get { return _tieu_de_6; }
+            set { _tieu_de_6 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_1
+        {
+            get { return _ngan_sach_duoc_duyet_1; }
+            set { _ngan_sach_duoc_duyet_1 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_2
+        {
+            get { return _ngan_sach_duoc_duyet_2; }
+            set { _ngan_sach_duoc_duyet_2 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_3
+        {
+            get { return _ngan_sach_duoc_duyet_3; }
+            set { _ngan_sach_duoc_duyet_3 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_4
+        {
+            get { return _ngan_sach_duoc_duyet_4; }
+            set { _ngan_sach_duoc_duyet_4 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_5
+        {
+            get { return _ngan_sach_duoc_duyet_5; }
+            set { _ngan_sach_duoc_duyet_5 = value; }
+        }
+        public double Ngan_Sach_Duoc_Duyet_6
+        {
+            get { return _ngan_sach_duoc_duyet_6; }
+            set { _ngan_sach_duoc_duyet_6 = value; }
+        }
+        public double De_Xuat_Lan_Nay_1
+        {
+            get { return _de_xuat_lan_nay_1; }
+            set { _de_xuat_lan_nay_1 = value; }
+        }
+        public double De_Xuat_Lan_Nay_2
+        {
+            get { return _de_xuat_lan_nay_2; }
+            set { _de_xuat_lan_nay_2 = value; }
+        }
+        public double De_Xuat_Lan_Nay_3
+        {
+            get { return _de_xuat_lan_nay_3; }
+            set { _de_xuat_lan_nay_3 = value; }
+        }
+        public double De_Xuat_Lan_Nay_4
+        {
+            get { return _de_xuat_lan_nay_4; }
+            set { _de_xuat_lan_nay_4 = value; }
+        }
+        public double De_Xuat_Lan_Nay_5
+        {
+            get { return _de_xuat_lan_nay_5; }
+            set { _de_xuat_lan_nay_5 = value; }
+        }
+        public double De_Xuat_Lan_Nay_6
+        {
+            get { return _de_xuat_lan_nay_6; }
+            set { _de_xuat_lan_nay_6 = value; }
+        }
+        public double Luy_Ke_1
+        {
+            get { return _luy_ke_1; }
+            set { _luy_ke_1 = value; }
+        }
+        public double Luy_Ke_2
+        {
+            get { return _luy_ke_2; }
+            set { _luy_ke_2 = value; }
+        }
+        public double Luy_Ke_3
+        {
+            get { return _luy_ke_3; }
+            set { _luy_ke_3 = value; }
+        }
+        public double Luy_Ke_4
+        {
+            get { return _luy_ke_4; }
+            set { _luy_ke_4 = value; }
+        }
+        public double Luy_Ke_5
+        {
+            get { return _luy_ke_5; }
+            set { _luy_ke_5 = value; }
+        }
+        public double Luy_Ke_6
+        {
+            get { return _luy_ke_6; }
+            set { _luy_ke_6 = value; }
+        }
+        public double Thua_Thieu_1
+        {
+            get { return _thua_thieu_1; }
+            set { _thua_thieu_1 = value; }
+        }
+        public double Thua_Thieu_2
+        {
+            get { return _thua_thieu_2; }
+            set { _thua_thieu_2 = value; }
+        }
+        public double Thua_Thieu_3
+        {
+            get { return _thua_thieu_3; }
+            set { _thua_thieu_3 = value; }
+        }
+        public double Thua_Thieu_4
+        {
+            get { return _thua_thieu_4; }
+            set { _thua_thieu_4 = value; }
+        }
+        public double Thua_Thieu_5
+        {
+            get { return _thua_thieu_5; }
+            set { _thua_thieu_5 = value; }
+        }
+        public double Thua_Thieu_6
+        {
+            get { return _thua_thieu_6; }
+            set { _thua_thieu_6 = value; }
+        }
+        public List<PR> LayDanhSachPR(int action,int id, int id_phongban,int sopr, int nam,string congdung, string ngaytao,int thangtao,int tongsoluongyeucau,double tongtien,string ghichu, string ngayduyet,int id_nguoiduyet,int id_nguoidexuat, int tinhtrang,string prscanfile, bool sendmail, string tieude1, string tieude2, string tieude3, string tieude4, string tieude5, string tieude6, double ngansachduocduyet1, double ngansachduocduyet2, double ngansachduocduyet3, double ngansachduocduyet4, double ngansachduocduyet5, double ngansachduocduyet6, double dexuatlannay1, double dexuatlannay2, double dexuatlannay3, double dexuatlannay4, double dexuatlannay5, double dexuatlannay6, double luyke1, double luyke2, double luyke3, double luyke4, double luyke5, double luyke6, double thuathieu1, double thuathieu2, double thuathieu3, double thuathieu4, double thuathieu5, double thuathieu6)
         {
 
             
@@ -133,7 +318,39 @@ namespace Business
             SqlParameter pm15 = new SqlParameter("@tinhtrang", tinhtrang);
             SqlParameter pm16 = new SqlParameter("@prscanfile", prscanfile);
             SqlParameter pm17 = new SqlParameter("@sendmail", sendmail);
-            SqlParameter[] param = new SqlParameter[17] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16, pm17 };
+            SqlParameter pm18 = new SqlParameter("@tieude1", tieude1);
+            SqlParameter pm19 = new SqlParameter("@tieude2", tieude2);
+            SqlParameter pm20 = new SqlParameter("@tieude3", tieude3);
+            SqlParameter pm21 = new SqlParameter("@tieude4", tieude4);
+            SqlParameter pm22 = new SqlParameter("@tieude5", tieude5);
+            SqlParameter pm23 = new SqlParameter("@tieude6", tieude6);
+            SqlParameter pm24 = new SqlParameter("@ngansachduocduyet1", ngansachduocduyet1);
+            SqlParameter pm25 = new SqlParameter("@ngansachduocduyet2", ngansachduocduyet2);
+            SqlParameter pm26 = new SqlParameter("@ngansachduocduyet3", ngansachduocduyet3);
+            SqlParameter pm27 = new SqlParameter("@ngansachduocduyet4", ngansachduocduyet4);
+            SqlParameter pm28 = new SqlParameter("@ngansachduocduyet5", ngansachduocduyet5);
+            SqlParameter pm29 = new SqlParameter("@ngansachduocduyet6", ngansachduocduyet6);
+            SqlParameter pm30 = new SqlParameter("@dexuatlannay1", dexuatlannay1);
+            SqlParameter pm31 = new SqlParameter("@dexuatlannay2", dexuatlannay2);
+            SqlParameter pm32 = new SqlParameter("@dexuatlannay3", dexuatlannay3);
+            SqlParameter pm33 = new SqlParameter("@dexuatlannay4", dexuatlannay4);
+            SqlParameter pm34 = new SqlParameter("@dexuatlannay5", dexuatlannay5);
+            SqlParameter pm35 = new SqlParameter("@dexuatlannay6", dexuatlannay6);
+            SqlParameter pm36 = new SqlParameter("@luyke1", luyke1);
+            SqlParameter pm37 = new SqlParameter("@luyke2", luyke2);
+            SqlParameter pm38 = new SqlParameter("@luyke3", luyke3);
+            SqlParameter pm39 = new SqlParameter("@luyke4", luyke4);
+            SqlParameter pm40 = new SqlParameter("@luyke5", luyke5);
+            SqlParameter pm41 = new SqlParameter("@luyke6", luyke6);
+            SqlParameter pm42 = new SqlParameter("@thuathieu1", thuathieu1);
+            SqlParameter pm43 = new SqlParameter("@thuathieu2", thuathieu2);
+            SqlParameter pm44 = new SqlParameter("@thuathieu3", thuathieu3);
+            SqlParameter pm45 = new SqlParameter("@thuathieu4", thuathieu4);
+            SqlParameter pm46 = new SqlParameter("@thuathieu5", thuathieu5);
+            SqlParameter pm47 = new SqlParameter("@thuathieu6", thuathieu6);
+
+
+            SqlParameter[] param = new SqlParameter[47] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16, pm17, pm18, pm19, pm20, pm21, pm22, pm23, pm24, pm25, pm26, pm27, pm28, pm29, pm30, pm31, pm32, pm33, pm34, pm35, pm36, pm37, pm38, pm39, pm40, pm41, pm42, pm43, pm44, pm45, pm46, pm47 };
             DataTable tb = kn.get_by_procedure("proc_Action_PR", param);
             if (tb != null)
             {
@@ -170,8 +387,128 @@ namespace Business
                     {
                         pr.PR_Scan_File = row["PRScanFile"].ToString();
                     }
-                    
                     pr.Sent_Mail = Convert.ToBoolean(row["SendMail"]);
+
+                    if (!row.IsNull("TieuDe1"))
+                    {
+                        pr.Tieu_De_1= row["TieuDe1"].ToString();
+                    }
+                    if (!row.IsNull("TieuDe2"))
+                    {
+                        pr.Tieu_De_2 = row["TieuDe2"].ToString();
+                    }
+                    if (!row.IsNull("TieuDe3"))
+                    {
+                        pr.Tieu_De_3 = row["TieuDe3"].ToString();
+                    }
+                    if (!row.IsNull("TieuDe4"))
+                    {
+                        pr.Tieu_De_4 = row["TieuDe4"].ToString();
+                    }
+                    if (!row.IsNull("TieuDe5"))
+                    {
+                        pr.Tieu_De_5 = row["TieuDe5"].ToString();
+                    }
+                    if (!row.IsNull("TieuDe6"))
+                    {
+                        pr.Tieu_De_6 = row["TieuDe6"].ToString();
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet1"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_1 = Convert.ToDouble(row["NganSachDuocDuyet1"]);
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet2"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_2 = Convert.ToDouble(row["NganSachDuocDuyet2"]);
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet3"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_3 = Convert.ToDouble(row["NganSachDuocDuyet3"]);
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet4"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_4 = Convert.ToDouble(row["NganSachDuocDuyet4"]);
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet5"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_5 = Convert.ToDouble(row["NganSachDuocDuyet5"]);
+                    }
+                    if (!row.IsNull("NganSachDuocDuyet6"))
+                    {
+                        pr.Ngan_Sach_Duoc_Duyet_6 = Convert.ToDouble(row["NganSachDuocDuyet6"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay1"))
+                    {
+                        pr.De_Xuat_Lan_Nay_1 = Convert.ToDouble(row["DeXuatLanNay1"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay2"))
+                    {
+                        pr.De_Xuat_Lan_Nay_2 = Convert.ToDouble(row["DeXuatLanNay2"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay3"))
+                    {
+                        pr.De_Xuat_Lan_Nay_3 = Convert.ToDouble(row["DeXuatLanNay3"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay4"))
+                    {
+                        pr.De_Xuat_Lan_Nay_4 = Convert.ToDouble(row["DeXuatLanNay4"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay5"))
+                    {
+                        pr.De_Xuat_Lan_Nay_5 = Convert.ToDouble(row["DeXuatLanNay5"]);
+                    }
+                    if (!row.IsNull("DeXuatLanNay6"))
+                    {
+                        pr.De_Xuat_Lan_Nay_6 = Convert.ToDouble(row["DeXuatLanNay6"]);
+                    }
+                    if (!row.IsNull("LuyKe1"))
+                    {
+                        pr.Luy_Ke_1 = Convert.ToDouble(row["LuyKe1"]);
+                    }
+                    if (!row.IsNull("LuyKe2"))
+                    {
+                        pr.Luy_Ke_2 = Convert.ToDouble(row["LuyKe2"]);
+                    }
+                    if (!row.IsNull("LuyKe3"))
+                    {
+                        pr.Luy_Ke_3 = Convert.ToDouble(row["LuyKe3"]);
+                    }
+                    if (!row.IsNull("LuyKe4"))
+                    {
+                        pr.Luy_Ke_4 = Convert.ToDouble(row["LuyKe4"]);
+                    }
+                    if (!row.IsNull("LuyKe5"))
+                    {
+                        pr.Luy_Ke_5 = Convert.ToDouble(row["LuyKe5"]);
+                    }
+                    if (!row.IsNull("LuyKe6"))
+                    {
+                        pr.Luy_Ke_6 = Convert.ToDouble(row["LuyKe6"]);
+                    }
+                    if (!row.IsNull("ThuaThieu1"))
+                    {
+                        pr.Thua_Thieu_1 = Convert.ToDouble(row["ThuaThieu1"]);
+                    }
+                    if (!row.IsNull("ThuaThieu2"))
+                    {
+                        pr.Thua_Thieu_2 = Convert.ToDouble(row["ThuaThieu2"]);
+                    }
+                    if (!row.IsNull("ThuaThieu3"))
+                    {
+                        pr.Thua_Thieu_3= Convert.ToDouble(row["ThuaThieu3"]);
+                    }
+                    if (!row.IsNull("ThuaThieu4"))
+                    {
+                        pr.Thua_Thieu_4 = Convert.ToDouble(row["ThuaThieu4"]);
+                    }
+                    if (!row.IsNull("ThuaThieu5"))
+                    {
+                        pr.Thua_Thieu_5 = Convert.ToDouble(row["ThuaThieu5"]);
+                    }
+                    if (!row.IsNull("ThuaThieu6"))
+                    {
+                        pr.Thua_Thieu_6 = Convert.ToDouble(row["ThuaThieu6"]);
+                    }
                     pr_col.Add(pr);
 
                 }
