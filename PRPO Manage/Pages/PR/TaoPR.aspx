@@ -355,8 +355,9 @@
     <script type="text/javascript">
         var dsdata;
         var currentRow = null;
-
+       
         $(document).ready(function () {
+          
             //lay thong tin phong ban cua account dang truy cap
             $.ajax({
                 type: "POST",
@@ -760,6 +761,7 @@
                     "id": 0,
                     "id_phongban": Number($("#ID_bophandexuat").val()),
                     "sopr": Number($("#sothutupr").val()),
+                    "sopr_full": $("#sopr").val(),
                     "nam": Number($("#namdexuat").val()),
                     "congdung": $("#congdung").val(),
                     "ngaytao": $("#ngaydexuat").val(),
@@ -860,6 +862,7 @@
                     "id": 0,
                     "id_phongban": Number($("#ID_bophandexuat").val()),
                     "sopr": Number($("#sothutupr").val()),
+                    "sopr_full": $("#sopr").val(),
                     "nam": Number($("#namdexuat").val()),
                     "congdung": $("#congdung").val(),
                     "ngaytao": $("#ngaydexuat").val(),

@@ -119,10 +119,10 @@ namespace PRPO_Manage.Webservice
         }
         
         [WebMethod]
-        public void ActionPR(int action, int id, int id_phongban, int sopr, int nam, string congdung, string ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, string ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail,string tieude1, string tieude2, string tieude3, string tieude4, string tieude5, string tieude6,double ngansachduocduyet1, double ngansachduocduyet2, double ngansachduocduyet3, double ngansachduocduyet4, double ngansachduocduyet5, double ngansachduocduyet6,double dexuatlannay1, double dexuatlannay2, double dexuatlannay3, double dexuatlannay4, double dexuatlannay5, double dexuatlannay6,double luyke1, double luyke2, double luyke3, double luyke4, double luyke5, double luyke6,double thuathieu1, double thuathieu2, double thuathieu3, double thuathieu4, double thuathieu5, double thuathieu6)
+        public void ActionPR(int action, int id, int id_phongban, int sopr,string sopr_full, int nam, string congdung, string ngaytao, int thangtao, int tongsoluongyeucau, double tongtien, string ghichu, string ngayduyet, int id_nguoiduyet, int id_nguoidexuat, int tinhtrang, string prscanfile, bool sendmail,string tieude1, string tieude2, string tieude3, string tieude4, string tieude5, string tieude6,double ngansachduocduyet1, double ngansachduocduyet2, double ngansachduocduyet3, double ngansachduocduyet4, double ngansachduocduyet5, double ngansachduocduyet6,double dexuatlannay1, double dexuatlannay2, double dexuatlannay3, double dexuatlannay4, double dexuatlannay5, double dexuatlannay6,double luyke1, double luyke2, double luyke3, double luyke4, double luyke5, double luyke6,double thuathieu1, double thuathieu2, double thuathieu3, double thuathieu4, double thuathieu5, double thuathieu6)
         {
             PR pr = new PR();
-            List<PR> tb = pr.LayDanhSachPR(action, id, id_phongban, sopr, nam, congdung, ngaytao, thangtao, tongsoluongyeucau, tongtien, ghichu, ngayduyet, id_nguoiduyet, id_nguoidexuat, tinhtrang,prscanfile,sendmail,tieude1,tieude2, tieude3, tieude4, tieude5, tieude6,ngansachduocduyet1,ngansachduocduyet2,ngansachduocduyet3,ngansachduocduyet4,ngansachduocduyet5,ngansachduocduyet6, dexuatlannay1, dexuatlannay2, dexuatlannay3, dexuatlannay4, dexuatlannay5, dexuatlannay6,luyke1, luyke2, luyke3, luyke4, luyke5, luyke6,thuathieu1, thuathieu2, thuathieu3, thuathieu4, thuathieu5, thuathieu6);
+            List<PR> tb = pr.LayDanhSachPR(action, id, id_phongban, sopr,sopr_full, nam, congdung, ngaytao, thangtao, tongsoluongyeucau, tongtien, ghichu, ngayduyet, id_nguoiduyet, id_nguoidexuat, tinhtrang,prscanfile,sendmail,tieude1,tieude2, tieude3, tieude4, tieude5, tieude6,ngansachduocduyet1,ngansachduocduyet2,ngansachduocduyet3,ngansachduocduyet4,ngansachduocduyet5,ngansachduocduyet6, dexuatlannay1, dexuatlannay2, dexuatlannay3, dexuatlannay4, dexuatlannay5, dexuatlannay6,luyke1, luyke2, luyke3, luyke4, luyke5, luyke6,thuathieu1, thuathieu2, thuathieu3, thuathieu4, thuathieu5, thuathieu6);
             
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
@@ -134,6 +134,27 @@ namespace PRPO_Manage.Webservice
             List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void ThongTinPR_TinhTrang(int tinhtrang)
+        {
+            PR pr = new PR();
+            DataTable tb = pr.LayThongTinSoLuongPR(tinhtrang);
+            var js = new JavaScriptSerializer();
+          
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+          
+            Context.Response.Write(js.Serialize(parentRow));
         }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

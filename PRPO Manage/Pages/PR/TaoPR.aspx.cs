@@ -17,7 +17,11 @@ namespace PRPO_Manage.Pages.PR
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CallSAP();
+            if(!Page.IsPostBack)
+            {
+                CallSAP();
+            }
+            
         }
         protected void CallSAP()
         {

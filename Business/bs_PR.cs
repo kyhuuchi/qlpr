@@ -15,6 +15,7 @@ namespace Business
         private int _id_pr;
         private int _id_phongban;
         private int _so_pr;
+        private string _so_pr_full;
         private int _nam;
         private string _cong_dung;
         private DateTime _ngay_tao;
@@ -78,6 +79,11 @@ namespace Business
         {
             get { return _so_pr; }
             set { _so_pr = value; }
+        }
+        public string So_PR_Full
+        {
+            get { return _so_pr_full; }
+            set { _so_pr_full = value; }
         }
         public int Nam
         {
@@ -294,63 +300,80 @@ namespace Business
             get { return _thua_thieu_6; }
             set { _thua_thieu_6 = value; }
         }
-        public List<PR> LayDanhSachPR(int action,int id, int id_phongban,int sopr, int nam,string congdung, string ngaytao,int thangtao,int tongsoluongyeucau,double tongtien,string ghichu, string ngayduyet,int id_nguoiduyet,int id_nguoidexuat, int tinhtrang,string prscanfile, bool sendmail, string tieude1, string tieude2, string tieude3, string tieude4, string tieude5, string tieude6, double ngansachduocduyet1, double ngansachduocduyet2, double ngansachduocduyet3, double ngansachduocduyet4, double ngansachduocduyet5, double ngansachduocduyet6, double dexuatlannay1, double dexuatlannay2, double dexuatlannay3, double dexuatlannay4, double dexuatlannay5, double dexuatlannay6, double luyke1, double luyke2, double luyke3, double luyke4, double luyke5, double luyke6, double thuathieu1, double thuathieu2, double thuathieu3, double thuathieu4, double thuathieu5, double thuathieu6)
+        public List<PR> LayDanhSachPR(int action,int id, int id_phongban,int sopr,string sopr_full, int nam,string congdung, string ngaytao,int thangtao,int tongsoluongyeucau,double tongtien,string ghichu, string ngayduyet,int id_nguoiduyet,int id_nguoidexuat, int tinhtrang,string prscanfile, bool sendmail, string tieude1, string tieude2, string tieude3, string tieude4, string tieude5, string tieude6, double ngansachduocduyet1, double ngansachduocduyet2, double ngansachduocduyet3, double ngansachduocduyet4, double ngansachduocduyet5, double ngansachduocduyet6, double dexuatlannay1, double dexuatlannay2, double dexuatlannay3, double dexuatlannay4, double dexuatlannay5, double dexuatlannay6, double luyke1, double luyke2, double luyke3, double luyke4, double luyke5, double luyke6, double thuathieu1, double thuathieu2, double thuathieu3, double thuathieu4, double thuathieu5, double thuathieu6)
         {
 
-            
+            DateTime ngtao,ngduyet;
+
             DAC kn = new DAC();
             List<PR> pr_col = new List<PR>();
-
+            if(string.IsNullOrEmpty(ngaytao)==true)
+            {
+                ngtao = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            }
+            else
+            {
+                ngtao=Convert.ToDateTime(ngaytao);
+            }
+            if (string.IsNullOrEmpty(ngayduyet) == true)
+            {
+                ngduyet = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            }
+            else
+            {
+                ngduyet = Convert.ToDateTime(ngayduyet);
+            }
             SqlParameter pm = new SqlParameter("@action", action);
             SqlParameter pm2 = new SqlParameter("@id", id);
             SqlParameter pm3 = new SqlParameter("@idphongban", id_phongban);
             SqlParameter pm4 = new SqlParameter("@sopr", sopr);
-            SqlParameter pm5 = new SqlParameter("@nam",nam);
-            SqlParameter pm6 = new SqlParameter("@congdung", congdung);
-            SqlParameter pm7 = new SqlParameter("@ngaytao", Convert.ToDateTime(ngaytao));
-            SqlParameter pm8 = new SqlParameter("@thangtao", thangtao);
-            SqlParameter pm9 = new SqlParameter("@tongsoluongyeucau", tongsoluongyeucau);
-            SqlParameter pm10 = new SqlParameter("@tongtien", tongtien);
-            SqlParameter pm11 = new SqlParameter("@ghichu", ghichu);
-            SqlParameter pm12 = new SqlParameter("@ngayduyet", Convert.ToDateTime(ngayduyet));
-            SqlParameter pm13 = new SqlParameter("@idnguoiduyet", id_nguoiduyet);
-            SqlParameter pm14 = new SqlParameter("@idnguoidexuat", id_nguoidexuat);
-            SqlParameter pm15 = new SqlParameter("@tinhtrang", tinhtrang);
-            SqlParameter pm16 = new SqlParameter("@prscanfile", prscanfile);
-            SqlParameter pm17 = new SqlParameter("@sendmail", sendmail);
-            SqlParameter pm18 = new SqlParameter("@tieude1", tieude1);
-            SqlParameter pm19 = new SqlParameter("@tieude2", tieude2);
-            SqlParameter pm20 = new SqlParameter("@tieude3", tieude3);
-            SqlParameter pm21 = new SqlParameter("@tieude4", tieude4);
-            SqlParameter pm22 = new SqlParameter("@tieude5", tieude5);
-            SqlParameter pm23 = new SqlParameter("@tieude6", tieude6);
-            SqlParameter pm24 = new SqlParameter("@ngansachduocduyet1", ngansachduocduyet1);
-            SqlParameter pm25 = new SqlParameter("@ngansachduocduyet2", ngansachduocduyet2);
-            SqlParameter pm26 = new SqlParameter("@ngansachduocduyet3", ngansachduocduyet3);
-            SqlParameter pm27 = new SqlParameter("@ngansachduocduyet4", ngansachduocduyet4);
-            SqlParameter pm28 = new SqlParameter("@ngansachduocduyet5", ngansachduocduyet5);
-            SqlParameter pm29 = new SqlParameter("@ngansachduocduyet6", ngansachduocduyet6);
-            SqlParameter pm30 = new SqlParameter("@dexuatlannay1", dexuatlannay1);
-            SqlParameter pm31 = new SqlParameter("@dexuatlannay2", dexuatlannay2);
-            SqlParameter pm32 = new SqlParameter("@dexuatlannay3", dexuatlannay3);
-            SqlParameter pm33 = new SqlParameter("@dexuatlannay4", dexuatlannay4);
-            SqlParameter pm34 = new SqlParameter("@dexuatlannay5", dexuatlannay5);
-            SqlParameter pm35 = new SqlParameter("@dexuatlannay6", dexuatlannay6);
-            SqlParameter pm36 = new SqlParameter("@luyke1", luyke1);
-            SqlParameter pm37 = new SqlParameter("@luyke2", luyke2);
-            SqlParameter pm38 = new SqlParameter("@luyke3", luyke3);
-            SqlParameter pm39 = new SqlParameter("@luyke4", luyke4);
-            SqlParameter pm40 = new SqlParameter("@luyke5", luyke5);
-            SqlParameter pm41 = new SqlParameter("@luyke6", luyke6);
-            SqlParameter pm42 = new SqlParameter("@thuathieu1", thuathieu1);
-            SqlParameter pm43 = new SqlParameter("@thuathieu2", thuathieu2);
-            SqlParameter pm44 = new SqlParameter("@thuathieu3", thuathieu3);
-            SqlParameter pm45 = new SqlParameter("@thuathieu4", thuathieu4);
-            SqlParameter pm46 = new SqlParameter("@thuathieu5", thuathieu5);
-            SqlParameter pm47 = new SqlParameter("@thuathieu6", thuathieu6);
+            SqlParameter pm5 = new SqlParameter("@sopr_full", sopr_full);
+            SqlParameter pm6 = new SqlParameter("@nam",nam);
+            SqlParameter pm7 = new SqlParameter("@congdung", congdung);
+            SqlParameter pm8 = new SqlParameter("@ngaytao", ngtao);
+            SqlParameter pm9 = new SqlParameter("@thangtao", thangtao);
+            SqlParameter pm10 = new SqlParameter("@tongsoluongyeucau", tongsoluongyeucau);
+            SqlParameter pm11 = new SqlParameter("@tongtien", tongtien);
+            SqlParameter pm12 = new SqlParameter("@ghichu", ghichu);
+            SqlParameter pm13 = new SqlParameter("@ngayduyet", ngduyet);
+            SqlParameter pm14 = new SqlParameter("@idnguoiduyet", id_nguoiduyet);
+            SqlParameter pm15 = new SqlParameter("@idnguoidexuat", id_nguoidexuat);
+            SqlParameter pm16 = new SqlParameter("@tinhtrang", tinhtrang);
+            SqlParameter pm17 = new SqlParameter("@prscanfile", prscanfile);
+            SqlParameter pm18 = new SqlParameter("@sendmail", sendmail);
+            SqlParameter pm19 = new SqlParameter("@tieude1", tieude1);
+            SqlParameter pm20 = new SqlParameter("@tieude2", tieude2);
+            SqlParameter pm21 = new SqlParameter("@tieude3", tieude3);
+            SqlParameter pm22 = new SqlParameter("@tieude4", tieude4);
+            SqlParameter pm23 = new SqlParameter("@tieude5", tieude5);
+            SqlParameter pm24 = new SqlParameter("@tieude6", tieude6);
+            SqlParameter pm25 = new SqlParameter("@ngansachduocduyet1", ngansachduocduyet1);
+            SqlParameter pm26 = new SqlParameter("@ngansachduocduyet2", ngansachduocduyet2);
+            SqlParameter pm27 = new SqlParameter("@ngansachduocduyet3", ngansachduocduyet3);
+            SqlParameter pm28 = new SqlParameter("@ngansachduocduyet4", ngansachduocduyet4);
+            SqlParameter pm29 = new SqlParameter("@ngansachduocduyet5", ngansachduocduyet5);
+            SqlParameter pm30 = new SqlParameter("@ngansachduocduyet6", ngansachduocduyet6);
+            SqlParameter pm31 = new SqlParameter("@dexuatlannay1", dexuatlannay1);
+            SqlParameter pm32 = new SqlParameter("@dexuatlannay2", dexuatlannay2);
+            SqlParameter pm33 = new SqlParameter("@dexuatlannay3", dexuatlannay3);
+            SqlParameter pm34 = new SqlParameter("@dexuatlannay4", dexuatlannay4);
+            SqlParameter pm35 = new SqlParameter("@dexuatlannay5", dexuatlannay5);
+            SqlParameter pm36 = new SqlParameter("@dexuatlannay6", dexuatlannay6);
+            SqlParameter pm37 = new SqlParameter("@luyke1", luyke1);
+            SqlParameter pm38 = new SqlParameter("@luyke2", luyke2);
+            SqlParameter pm39 = new SqlParameter("@luyke3", luyke3);
+            SqlParameter pm40 = new SqlParameter("@luyke4", luyke4);
+            SqlParameter pm41 = new SqlParameter("@luyke5", luyke5);
+            SqlParameter pm42 = new SqlParameter("@luyke6", luyke6);
+            SqlParameter pm43 = new SqlParameter("@thuathieu1", thuathieu1);
+            SqlParameter pm44 = new SqlParameter("@thuathieu2", thuathieu2);
+            SqlParameter pm45 = new SqlParameter("@thuathieu3", thuathieu3);
+            SqlParameter pm46 = new SqlParameter("@thuathieu4", thuathieu4);
+            SqlParameter pm47 = new SqlParameter("@thuathieu5", thuathieu5);
+            SqlParameter pm48 = new SqlParameter("@thuathieu6", thuathieu6);
 
 
-            SqlParameter[] param = new SqlParameter[47] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16, pm17, pm18, pm19, pm20, pm21, pm22, pm23, pm24, pm25, pm26, pm27, pm28, pm29, pm30, pm31, pm32, pm33, pm34, pm35, pm36, pm37, pm38, pm39, pm40, pm41, pm42, pm43, pm44, pm45, pm46, pm47 };
+            SqlParameter[] param = new SqlParameter[48] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16, pm17, pm18, pm19, pm20, pm21, pm22, pm23, pm24, pm25, pm26, pm27, pm28, pm29, pm30, pm31, pm32, pm33, pm34, pm35, pm36, pm37, pm38, pm39, pm40, pm41, pm42, pm43, pm44, pm45, pm46, pm47, pm48 };
             DataTable tb = kn.get_by_procedure("proc_Action_PR", param);
             if (tb != null)
             {
@@ -360,6 +383,7 @@ namespace Business
                     pr.ID_PR= Convert.ToInt32(row["ID"]);
                     pr.ID_PhongBan = Convert.ToInt32(row["ID_PhongBan"]);
                     pr.So_PR = Convert.ToInt32(row["SoPR"]);
+                    pr.So_PR_Full = row["SoPR_Full"].ToString();
                     pr.Nam= Convert.ToInt32(row["Nam"]);
                     pr.Cong_Dung = row["CongDung"].ToString();
                     pr.Ngay_Tao = Convert.ToDateTime(row["NgayTao"]);
@@ -515,7 +539,20 @@ namespace Business
             }
             return pr_col;
         }
-       
+        public DataTable LayThongTinSoLuongPR(int tinhtrang)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@tinhtrang", tinhtrang);
+            
+            SqlParameter[] param = new SqlParameter[1] { pm};
+            DataTable tb = kn.get_by_procedure("proc_ThongTinPR_TinhTrang", param);
+
+    
+
+            return tb;
+        }
+
     }
     public class PR_ChiTiet
     {

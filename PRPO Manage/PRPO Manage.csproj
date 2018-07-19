@@ -222,6 +222,7 @@
     <Content Include="Account\Login.Master" />
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
+    <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.min.css" />
@@ -924,6 +925,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Pages\PR\SuaPR.aspx.cs">
+      <DependentUpon>SuaPR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PR\SuaPR.aspx.designer.cs">
+      <DependentUpon>SuaPR.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PR\TaoPR.aspx.cs">
       <DependentUpon>TaoPR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -10,6 +10,9 @@
     <script src="/Scripts/jquery-1.10.2.min.js"></script>
     
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <%--<script src="/Scripts/jquery-3.3.1.js"></script>--%>
+    
+    
     <script src="/Scripts/Select2/js/select2.full.min.js"></script>
     <link href="/Scripts/Select2/css/select2.min.css" rel="stylesheet" />
     <script src="/Scripts/bootstrap.min.js"></script>
@@ -18,6 +21,9 @@
     <script src="/Scripts/Golbal.js"></script>
     
     <link href="/Content/menu.css" rel="stylesheet" />
+       <script src="/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+   <link href="/Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="/Scripts/DataTables/Select-1.2.6/js/select.bootstrap.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -45,7 +51,12 @@
     </form>
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
-        
+       <footer>
+            <div class="content-wrapper">
+                <div style="text-align:center">
+                    <p>&copy; 2018 - Thiết kế kiến trúc & phát triển: Kỷ Hữu Chí - Email: kyhuuchi@duytan.com</p>
+                </div>
+            </div>
+        </footer>
    
 </body>
-
