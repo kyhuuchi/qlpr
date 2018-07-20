@@ -24,6 +24,7 @@
        <script src="/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
    <link href="/Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
     <script src="/Scripts/DataTables/Select-1.2.6/js/select.bootstrap.min.js"></script>
+    <script src="/Scripts/moment.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

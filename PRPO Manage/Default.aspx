@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="QUẢN LÝ PR-PO" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="PRPO_Manage._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div id="overlay"><div id="text"><img id="img-responsive" src="Images/loader.gif" alt=""/></div></div> 
+    
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#luutam">Danh sách PR lưu tạm <span class="badge" id="soluongpr_luutam"></span></a></li>
         <li><a data-toggle="tab" href="#chuaduyet">Danh sách PR chưa duyệt <span class="badge">5</span></a></li>
@@ -92,7 +93,9 @@
         </div>
     </div>
 <script type="text/javascript">
+    $("#overlay").show();
     $(document).ready(function () {
+      
         //lay thong tin tat ca phong ban 
         var soluongdata = 0;
         var dt_pr;
@@ -336,7 +339,7 @@
            
         }
        
-
+        $("#overlay").hide();
     });
 </script>
 </asp:Content>

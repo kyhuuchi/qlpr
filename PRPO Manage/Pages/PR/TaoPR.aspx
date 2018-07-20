@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div id="overlay"><div id="text"><img class="img-responsive" src="../../Images/loader.gif" alt=""/></div></div> 
     <div class="form-group col-md-12">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
@@ -355,7 +355,7 @@
     <script type="text/javascript">
         var dsdata;
         var currentRow = null;
-       
+        $("#overlay").show();
         $(document).ready(function () {
           
             //lay thong tin phong ban cua account dang truy cap
@@ -597,7 +597,7 @@
         //        //cache: true
         //    }
         //});
-            
+              $("#overlay").hide();
         });
         
         //Xu ly khi ti gia, don gia tam ung va so luong yeu cau thay doi thi tinh lai gia tien tam ung

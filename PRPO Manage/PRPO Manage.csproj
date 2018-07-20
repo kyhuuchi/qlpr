@@ -222,6 +222,7 @@
     <Content Include="Account\Login.Master" />
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
+    <Content Include="Images\loader.gif" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
@@ -585,6 +586,7 @@
     <Content Include="Scripts\jquery.ajax-cross-origin.min.js" />
     <Content Include="Scripts\maskInput\jquery.mask.js" />
     <Content Include="Scripts\maskInput\jquery.mask.min.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\Select2\css\select2.css" />
     <Content Include="Scripts\Select2\css\select2.min.css" />
     <Content Include="Scripts\Select2\js\i18n\af.js" />

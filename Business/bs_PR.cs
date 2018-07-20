@@ -14,6 +14,7 @@ namespace Business
     {
         private int _id_pr;
         private int _id_phongban;
+        private string _ten_phongban;
         private int _so_pr;
         private string _so_pr_full;
         private int _nam;
@@ -74,6 +75,11 @@ namespace Business
         {
             get { return _id_phongban; }
             set { _id_phongban = value; }
+        }
+        public string Ten_PhongBan
+        {
+            get { return _ten_phongban; }
+            set { _ten_phongban = value; }
         }
         public int So_PR
         {
@@ -382,6 +388,10 @@ namespace Business
                     PR pr = new PR();
                     pr.ID_PR= Convert.ToInt32(row["ID"]);
                     pr.ID_PhongBan = Convert.ToInt32(row["ID_PhongBan"]);
+                    if (tb.Columns.Contains("TenVietTat")==true)
+                    {
+                        pr.Ten_PhongBan = row["TenVietTat"].ToString();
+                    }
                     pr.So_PR = Convert.ToInt32(row["SoPR"]);
                     pr.So_PR_Full = row["SoPR_Full"].ToString();
                     pr.Nam= Convert.ToInt32(row["Nam"]);
@@ -649,11 +659,18 @@ namespace Business
         }
         public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
         {
-
-
+            DateTime ngaych;
+            if (string.IsNullOrEmpty(ngaycanhang) == true)
+            {
+                ngaych = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            }
+            else
+            {
+                ngaych = Convert.ToDateTime(ngaycanhang);
+            }
             DAC kn = new DAC();
             List<PR_ChiTiet> pr_Chitiet_col = new List<PR_ChiTiet>();
-
+            
             SqlParameter pm = new SqlParameter("@action", action);
             SqlParameter pm2 = new SqlParameter("@id", id);
             SqlParameter pm3 = new SqlParameter("@idpr", idpr);
@@ -667,7 +684,7 @@ namespace Business
             SqlParameter pm11 = new SqlParameter("@thanhtientamung", thanhtientamung);
             SqlParameter pm12 = new SqlParameter("@nhacungcap", nhacungcap);
             SqlParameter pm13 = new SqlParameter("@tinhtrangvattu", tinhtrangvattu);
-            SqlParameter pm14 = new SqlParameter("@ngaycanhang", Convert.ToDateTime(ngaycanhang));
+            SqlParameter pm14 = new SqlParameter("@ngaycanhang", Convert.ToDateTime(ngaych));
             SqlParameter pm15 = new SqlParameter("@thoigiansudung", thoigiansudung);
             SqlParameter pm16 = new SqlParameter("@congdung", congdung);
             
@@ -678,6 +695,7 @@ namespace Business
                 foreach (DataRow row in tb.Rows)
                 {
                     PR_ChiTiet pr_chitiet = new PR_ChiTiet();
+                    pr_chitiet.ID_PR_Chi_Tiet= Convert.ToInt32(row["ID"]);
                     pr_chitiet.ID_PR = Convert.ToInt32(row["ID_PR"]);
                     pr_chitiet.Ma_Hang = row["MaHang"].ToString();
                     pr_chitiet.Ten_Hang = row["TenHang"].ToString();
