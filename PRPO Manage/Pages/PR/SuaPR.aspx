@@ -672,20 +672,20 @@
             });
             //**********************//
 
-            //Xu ly nut xoa vat tu
-            $(document).on('click', 'span.deleterow', function () {
-                $(this).parents('tr').remove();
-                CapNhatSoTT();
-                CapNhatSoLuongVaSoTien();
-                return false;
-                   
-                });
-            //*********************//
+           
             
         
             
         });
-        
+        //Xu ly nut xoa vat tu
+        $(document).on('click', 'span.deleterow', function () {
+            $(this).parents('tr').remove();
+            CapNhatSoTT();
+            CapNhatSoLuongVaSoTien();
+            return false;
+
+        });
+        //*********************//
         //Xu ly khi ti gia, don gia tam ung va so luong yeu cau thay doi thi tinh lai gia tien tam ung
         $("#tigia").change(function () {
             
@@ -729,10 +729,20 @@
             var sothutu = 0;
             table.find('tbody > tr').each(function () {
                 var $tds = $(this).find('td');
+               
                 sothutu++;
                 if (sothutu <= rowCount)
                 {
                     $tds.eq(2).html(sothutu);
+                    ////thay doi gia tri ID nhung chua duoc...nhung ko bao loi
+                    //$tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //    //alert(this.id)
+                    //    var id_new = "thanhtientamung*" + sothutu;
+                    //    $("#"+this.id).attr("id", id_new);
+                       
+                    //});
+                   
+                 
                 }
          
             });
@@ -753,8 +763,13 @@
                 tongsoluong = Number(tongsoluong) + Number($tds.eq(7).text());
                 document.getElementById("tongsoluong_notmask").value = tongsoluong;
                 //lay thong tin gia tien chua co dinh dang
-                
-                var tt = document.getElementById("thanhtientamung*" + stt).value;
+                var st = 0;
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    st = this.value;
+
+                });
+                var tt = st;
                 tongtien = Number(tongtien) + Number(tt);
                 document.getElementById("tongtien_notmask").value = tongtien;
                 $("#tongsoluong").html(tongsoluong.toLocaleString('vn'));
@@ -920,12 +935,30 @@
                 var dvt = $tds.eq(5).html();
                 var tonkho = $tds.eq(6).html();
                 var slyc = $tds.eq(7).html();
-                 
-                var id_pr_chi_tiet = document.getElementById("id_chitiet*" + stt).value;
-               
-                var dgtt = document.getElementById("dongiatamtinh*" + stt).value;
+                var idchitiet = 0;
+                $tds.find("input[id^='id_chitiet*']").each(function () {
+                    //alert(this.id)
+                    idchitiet = this.value;
+
+                });
+                var id_pr_chi_tiet = idchitiet;
+                var gd = 0;
+                $tds.find("input[id^='dongiatamtinh*']").each(function () {
+                    //alert(this.id)
+                    gd = this.value;
+
+                });
+                var dgtt = gd;
+
                 var tgia = $tds.eq(9).html();
-                var thanhtientu = document.getElementById("thanhtientamung*" + stt).value;
+
+                var tt = 0;
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    tt = this.value;
+
+                });
+                var thanhtientu = tt;
                 var nccvt = $tds.eq(11).html();
                 var tinhtrangvt = $tds.eq(12).html();
                 var ngaych = $tds.eq(13).html();

@@ -666,8 +666,13 @@
                 tongsoluong = Number(tongsoluong) + Number($tds.eq(7).text());
                 document.getElementById("tongsoluong_notmask").value = tongsoluong;
                 //lay thong tin gia tien chua co dinh dang
-                
-                var tt = document.getElementById("thanhtientamung*" + stt).value;
+                var gd = 0;
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    gd = this.value;
+
+                });
+                var tt = gd;
                 tongtien = Number(tongtien) + Number(tt);
                 document.getElementById("tongtien_notmask").value = tongtien;
                 $("#tongsoluong").html(tongsoluong.toLocaleString('vn'));
@@ -935,10 +940,21 @@
                 var dvt = $tds.eq(5).html();
                 var tonkho = $tds.eq(6).html();
                 var slyc = $tds.eq(7).html();
-                
-                var dgtt = document.getElementById("dongiatamtinh*" + stt).value;
+                var gd = 0;
+                $tds.find("input[id^='dongiatamtinh*']").each(function () {
+                    //alert(this.id)
+                    gd = this.value;
+
+                });
+                var dgtt = gd;
                 var tgia = $tds.eq(9).html();
-                var thanhtientu = document.getElementById("thanhtientamung*" + stt).value;
+                var tt = 0;
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    tt = this.value;
+
+                });
+                var thanhtientu = tt;
                 var nccvt = $tds.eq(11).html();
                 var tinhtrangvt = $tds.eq(12).html();
                 var ngaych = $tds.eq(13).html();

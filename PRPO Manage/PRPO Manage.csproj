@@ -654,6 +654,7 @@
     <Content Include="Scripts\DataTables\Buttons-1.5.1\css\mixins.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\common.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\mixins.scss" />
+    <Content Include="Pages\PR\ListVatTu.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bg_validate.png" />
