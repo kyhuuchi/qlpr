@@ -223,6 +223,7 @@
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
@@ -928,6 +929,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Pages\PR\DuyetPR.aspx.cs">
+      <DependentUpon>DuyetPR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PR\DuyetPR.aspx.designer.cs">
+      <DependentUpon>DuyetPR.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PR\SuaPR.aspx.cs">
       <DependentUpon>SuaPR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1015,6 +1023,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\inputmask\" />
+    <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">

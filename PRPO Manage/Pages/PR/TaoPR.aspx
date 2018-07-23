@@ -986,7 +986,7 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert("PR chi tiết đã được tạo thành công.")
+                        
                         stt++;
                     },
 

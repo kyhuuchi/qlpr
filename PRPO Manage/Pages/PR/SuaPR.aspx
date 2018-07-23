@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
         <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
-        <button type="button" class="btn btn-success btn-sm" >Chuyển</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="ChuyenTrangThai()" id="btt_chuyen" style="display:none">Chuyển</button>
     </div>
 
     <div class="container" id="container">
@@ -32,6 +32,7 @@
                         <input type="hidden" id="namdexuat"/>
                         <input type="hidden" id="sothutupr"/>
                          <input type="hidden" id="id_pr"/>
+                        <input type="hidden" id="tinhtrangPR"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -393,7 +394,7 @@
                         "ngayduyet": "",
                         "id_nguoiduyet": 0,
                         "id_nguoidexuat": 0,
-                        "tinhtrang": 1,
+                        "tinhtrang": 0,
                         "prscanfile": "",
                         "sendmail": false,
                         "tieude1": "",
@@ -438,7 +439,12 @@
                         document.getElementById("congdung").value = data[0]["Cong_Dung"];
                         document.getElementById("namdexuat").value = data[0]["Nam"];
                         document.getElementById("sothutupr").value = data[0]["So_PR"];
-
+                        document.getElementById("tinhtrangPR").value = data[0]["Tinh_Trang"];
+                        //kiem tra xem tinh trang la luu tam hay chua duyet, neu la chua duyet thi khong cho hien thi nut chuyen
+                        if (data[0]["Tinh_Trang"]==1)
+                        {
+                            $("#btt_chuyen").removeAttr("style");
+                        }
                         //load ngay de xuat
                         var dateString = data[0]["Ngay_Tao"].substr(6);
                         var currentTime = new Date(parseInt(dateString));
@@ -542,7 +548,7 @@
               alert("error" + errorThrown);
           });
             }
-            $(".img-responsive").hide();
+            $("#overlay").hide();
 
 
 
@@ -661,8 +667,27 @@
                 $("#tonkho").val($(this).closest('tr').find('td.cls_tonkho').text());
                 $("#soluongyeucau").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
                 $("#dongiatamtinh").val($(this).closest('tr').find('td.cls_dongiatamtinh').text());
+                //lay thong tin gia tien chua co dinh dang
+                var $tds = $(this).closest('tr').find('td');
+                var st = 0;
+                $tds.find("input[id^='dongiatamtinh*']").each(function () {
+                    //alert(this.id)
+                    st = this.value;
+
+                });
+                $("#dongiatamtinh_notmask").val(st);
+
                 $("#tigia").val($(this).closest('tr').find('td.cls_tigia').text());
                 $("#thanhtientamung").val($(this).closest('tr').find('td.cls_thanhtientamung').text());
+                var tttu = 0;
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    tttu = this.value;
+
+                });
+                $("#thanhtientamung_notmask").val(tttu);
+
+                
                 $("#nhacungung").val($(this).closest('tr').find('td.cls_nhacungung').text());
                 $("#tinhtrangvattu").val($(this).closest('tr').find('td.cls_tinhtrangvattu').text());
                 $("#ngaycanhang").val($(this).closest('tr').find('td.cls_ngaycanhang').text());
@@ -853,7 +878,7 @@
             var date = new Date($("#ngaydexuat").val());
             var thangtao = date.getMonth()+1;
             var nguoidexuat= $("#ID_nguoidexuat").val();
-            
+            var tinhtrangPR = $("#tinhtrangPR").val();
             $.ajax({
                 type: "POST",
                 async: false,
@@ -874,7 +899,7 @@
                     "ngayduyet": $("#ngaydexuat").val(),
                     "id_nguoiduyet": 0,
                     "id_nguoidexuat": 0,
-                    "tinhtrang": 1,
+                    "tinhtrang": Number(tinhtrangPR),
                     "prscanfile": "",
                     "sendmail": false,
                     "tieude1": $("#1").val(),
@@ -1070,6 +1095,82 @@
                 });
 
 
+        }
+        function ChuyenTrangThai()
+        {
+            if ($("#ngaydexuat").val() == "") {
+                alert("Vui lòng chọn ngày tạo phiếu.");
+                $("#ngaydexuat").css("border-color", "red");
+                return;
+            }
+            var date = new Date($("#ngaydexuat").val());
+            var thangtao = date.getMonth() + 1;
+            var nguoidexuat = $("#ID_nguoidexuat").val();
+
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                data: {
+                    "action": 2,
+                    "id": $("#id_pr").val(),
+                    "id_phongban": Number($("#ID_bophandexuat").val()),
+                    "sopr": Number($("#sothutupr").val()),
+                    "sopr_full": $("#sopr").val(),
+                    "nam": Number($("#namdexuat").val()),
+                    "congdung": $("#congdung").val(),
+                    "ngaytao": $("#ngaydexuat").val(),
+                    "thangtao": Number(thangtao),
+                    "tongsoluongyeucau": Number($("#tongsoluong_notmask").val()),
+                    "tongtien": Number($("#tongtien_notmask").val()),
+                    "ghichu": $("#ghichu").val(),
+                    "ngayduyet": $("#ngaydexuat").val(),
+                    "id_nguoiduyet": 0,
+                    "id_nguoidexuat": 0,
+                    "tinhtrang": 2,
+                    "prscanfile": "",
+                    "sendmail": false,
+                    "tieude1": $("#1").val(),
+                    "tieude2": $("#2").val(),
+                    "tieude3": $("#3").val(),
+                    "tieude4": $("#4").val(),
+                    "tieude5": $("#4").val(),
+                    "tieude6": $("#6").val(),
+                    "ngansachduocduyet1": Number($("#11").val()),
+                    "ngansachduocduyet2": Number($("#22").val()),
+                    "ngansachduocduyet3": Number($("#33").val()),
+                    "ngansachduocduyet4": Number($("#44").val()),
+                    "ngansachduocduyet5": Number($("#55").val()),
+                    "ngansachduocduyet6": Number($("#66").val()),
+                    "dexuatlannay1": Number($("#111").val()),
+                    "dexuatlannay2": Number($("#222").val()),
+                    "dexuatlannay3": Number($("#333").val()),
+                    "dexuatlannay4": Number($("#444").val()),
+                    "dexuatlannay5": Number($("#555").val()),
+                    "dexuatlannay6": Number($("#666").val()),
+                    "luyke1": Number($("#1111").val()),
+                    "luyke2": Number($("#2222").val()),
+                    "luyke3": Number($("#3333").val()),
+                    "luyke4": Number($("#4444").val()),
+                    "luyke5": Number($("#5555").val()),
+                    "luyke6": Number($("#6666").val()),
+                    "thuathieu1": Number($("#11111").val()),
+                    "thuathieu2": Number($("#22222").val()),
+                    "thuathieu3": Number($("#33333").val()),
+                    "thuathieu4": Number($("#44444").val()),
+                    "thuathieu5": Number($("#55555").val()),
+                    "thuathieu6": Number($("#66666").val())
+                },
+                dataType: "json",
+                success: function (data) {
+                    alert("PR đã được cập nhật thành công.")
+                },
+
+            })
+         .done(TaoPRChiTiet())
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
         }
     </script>
    

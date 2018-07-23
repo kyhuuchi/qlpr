@@ -17,8 +17,8 @@ namespace PRPO_Manage.Pages.PR
         {
             if (!Page.IsPostBack)
             {
-                //CallSAP();
-                CallFileJSON();
+                CallSAP();
+                //CallFileJSON();
             }
 
         }

@@ -32,6 +32,7 @@ namespace PRPO_Manage.Webservice
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
+
         [WebMethod]
         public void LayThongTinNguoiDung(string tendangnhap)
         {
@@ -45,6 +46,8 @@ namespace PRPO_Manage.Webservice
         {
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
         }
         /// <summary>
         /// Cac service lien quan den phong ban
