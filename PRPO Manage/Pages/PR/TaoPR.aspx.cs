@@ -19,7 +19,8 @@ namespace PRPO_Manage.Pages.PR
         {
             if(!Page.IsPostBack)
             {
-                CallSAP();
+                //CallSAP();
+                CallFileJSON();
             }
             
         }
@@ -58,6 +59,26 @@ namespace PRPO_Manage.Pages.PR
             {
                 Response.Write(ex.ToString());
             }
+        }
+        protected void CallFileJSON()
+        {
+            string jsonString = string.Empty;
+            using (System.IO.StreamReader sreader = new System.IO.StreamReader("G:/du an/DuyTan/qlpr/PRPO Manage/Pages/PR/ListVatTu.json"))
+            {
+                jsonString = sreader.ReadToEnd();
+            }
+            var js = new JavaScriptSerializer();
+            txt_vattu.Value = jsonString;
+            var dict = js.Deserialize<List<SelectOptions>>(jsonString);
+
+            StringBuilder str_option_vattu = new StringBuilder();
+            str_option_vattu.Append("<option></option>");
+            List<SelectOptions> players = new List<SelectOptions>();
+            foreach (var item in dict)
+            {
+                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+            }
+            lit_vattu.Text = str_option_vattu.ToString();
         }
     }
     public class SelectOptions
