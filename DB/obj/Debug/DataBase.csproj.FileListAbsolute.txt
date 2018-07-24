@@ -36,7 +36,6 @@ D:\SourceCode\PRPO Manage\qlpr\DB\bin\Microsoft.CodeDom.Providers.DotNetCompiler
 D:\SourceCode\PRPO Manage\qlpr\DB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\SourceCode\PRPO Manage\qlpr\DB\obj\Debug\DataBase.dll
 D:\SourceCode\PRPO Manage\qlpr\DB\obj\Debug\DataBase.pdb
-D:\SourceCode\PRPO Manage\qlpr\DB\obj\Debug\DataBase.csprojResolveAssemblyReference.cache
 G:\du an\DuyTan\qlpr\DB\bin\roslyn\csc.exe
 G:\du an\DuyTan\qlpr\DB\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 G:\du an\DuyTan\qlpr\DB\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -57,3 +56,4 @@ G:\du an\DuyTan\qlpr\DB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.x
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.csprojResolveAssemblyReference.cache
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.dll
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.pdb
+D:\SourceCode\PRPO Manage\qlpr\DB\obj\Debug\DataBase.csprojResolveAssemblyReference.cache

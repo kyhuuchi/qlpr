@@ -15,7 +15,7 @@ namespace Business
         private int _id_nguoi_dung;
         private string _ten_hien_thi;
         private string _ten_dang_nhap;
-        
+        private string _mat_khau;
         private int _id_phong_ban;
         private string _phong_ban;
         private string _email;
@@ -24,7 +24,9 @@ namespace Business
         private bool _dang_nhap_domain;
         private bool _dang_su_dung;
         private bool _admin;
-        
+        private bool _quan_ly_kho;
+        private bool _quan_ly_mua_hang;
+
         public int ID_NguoiDung
         {
             get
@@ -60,7 +62,18 @@ namespace Business
             }
 
         }
-        
+        public string Mat_Khau
+        {
+            get
+            {
+                return _mat_khau;
+            }
+            set
+            {
+                _mat_khau = value;
+            }
+
+        }
         public int ID_Phong_Ban
         {
             get
@@ -151,7 +164,28 @@ namespace Business
                 _admin = value;
             }
         }
-
+        public bool Quan_Ly_Kho
+        {
+            get
+            {
+                return _quan_ly_kho;
+            }
+            set
+            {
+                _quan_ly_kho = value;
+            }
+        }
+        public bool Quan_Ly_Mua_Hang
+        {
+            get
+            {
+                return _quan_ly_mua_hang;
+            }
+            set
+            {
+                _quan_ly_mua_hang = value;
+            }
+        }
         //Cac ham xu ly nguoi dung
         public NguoiDung()
         { }
@@ -176,10 +210,16 @@ namespace Business
                 nd.Quan_Ly = Convert.ToBoolean(tb.Rows[0]["QuanLy"]);
                 nd.Ten_Hien_Thi = tb.Rows[0]["TenHienThi"].ToString();
                 nd.Ten_Dang_Nhap = tb.Rows[0]["TenDangNhap"].ToString();
+                if(!string.IsNullOrEmpty(tb.Rows[0]["TenDangNhap"].ToString()))
+                {
+                    nd.Mat_Khau= tb.Rows[0]["Password"].ToString();
+                }
+                nd.Quan_Ly_Kho= Convert.ToBoolean(tb.Rows[0]["QuanLyKho"]);
+                nd.Quan_Ly_Mua_Hang = Convert.ToBoolean(tb.Rows[0]["QuanLyMuaHang"]);
             }
             return nd;
         }
-        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, bool dangsudung,bool quanly, bool admin)
+        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, bool dangsudung,bool quanly, bool admin,bool quanlykho,bool quanlymuahang,string matkhau)
         {
             DAC kn = new DAC();
             List<NguoiDung> nguoidungs = new List<NguoiDung>();
@@ -192,7 +232,10 @@ namespace Business
             SqlParameter pm7 = new SqlParameter("@dangsudung", dangsudung);
             SqlParameter pm8 = new SqlParameter("@quanly", quanly);
             SqlParameter pm9 = new SqlParameter("@admin", admin);
-            SqlParameter[] param = new SqlParameter[9] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9 };
+            SqlParameter pm10 = new SqlParameter("@quanlykho", quanlykho);
+            SqlParameter pm11 = new SqlParameter("@quanlymuahang", quanlymuahang);
+            SqlParameter pm12 = new SqlParameter("@matkhau", matkhau);
+            SqlParameter[] param = new SqlParameter[12] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11,pm12 };
             DataTable tb = kn.get_by_procedure("proc_Action_NguoiDung", param);
             if(tb!=null)
             {
@@ -210,7 +253,10 @@ namespace Business
                     nguoidung.Quan_Ly = Convert.ToBoolean(row["QuanLy"]);
                     nguoidung.Ten_Dang_Nhap = row["TenDangNhap"].ToString();
                     nguoidung.Ten_Hien_Thi = row["TenHienThi"].ToString();
-
+                    nguoidung.Mat_Khau= row["Password"].ToString();
+                    nguoidung.Quan_Ly_Kho = Convert.ToBoolean(row["QuanLyKho"]);
+                    nguoidung.Quan_Ly_Mua_Hang = Convert.ToBoolean(row["QuanLyMuaHang"]);
+                    nguoidung.Mat_Khau = row["Password"].ToString();
                     nguoidungs.Add(nguoidung);
 
                 }

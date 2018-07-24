@@ -28,7 +28,7 @@ namespace PRPO_Manage.Webservice
         public void LayDSNguoiDung()
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false);
+            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false, false, false,"");
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -42,10 +42,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(nd));
         }
         [WebMethod]
-        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin  )
+        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin, bool quanlykho, bool quanlymuahang,string matkhau)
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin);
+            List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin,quanlykho,quanlymuahang,matkhau);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -130,6 +130,8 @@ namespace PRPO_Manage.Webservice
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
+        
+        
         [WebMethod]
         public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
         {

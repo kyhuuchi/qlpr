@@ -549,6 +549,7 @@ namespace Business
             }
             return pr_col;
         }
+
         public DataTable LayThongTinSoLuongPR(int tinhtrang)
         {
             DAC kn = new DAC();
@@ -559,6 +560,24 @@ namespace Business
             DataTable tb = kn.get_by_procedure("proc_ThongTinPR_TinhTrang", param);
 
     
+
+            return tb;
+        }
+        public DataTable PheDuyetPR(int id, DateTime ngayduyet,DateTime ngaynhan,int idnguoiduyet,int tinhtrang,string prscanfile)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id", id);
+            SqlParameter pm2= new SqlParameter("@ngayduyet", ngayduyet);
+            SqlParameter pm3 = new SqlParameter("@ngaynhan", ngaynhan);
+            SqlParameter pm4 = new SqlParameter("@idnguoiduyet", idnguoiduyet);
+            SqlParameter pm5 = new SqlParameter("@tinhtrang", tinhtrang);
+            SqlParameter pm6 = new SqlParameter("@prscanfile", prscanfile);
+
+            SqlParameter[] param = new SqlParameter[6] { pm, pm2, pm3, pm4, pm5, pm6 };
+            DataTable tb = kn.get_by_procedure("proc_DuyetPR", param);
+
+
 
             return tb;
         }

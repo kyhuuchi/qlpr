@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <div id="overlay">
         <div id="text">
             <img class="img-responsive" src="../../Images/loader.gif" alt="" /></div>
@@ -15,26 +16,27 @@
              <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="ngaynhanpr">Ngày nhận PR</label>
-                        <input type="date" class="form-control" id="ngaynhanpr"/>
+                        <input type="date" class="form-control" id="ngaynhanpr" runat="server"/>
                         
                     </div>
                     <div class="form-group col-md-6">
                         <label for="ngayduyetpr">Ngày duyệt PR</label>
-                        <input type="date" class="form-control" id="ngayduyetpr"/>
-                        <input type="hidden" id="id_pr"/>
+                        <input type="date" class="form-control" id="ngayduyetpr" runat="server"/>
+                        <input type="hidden" id="id_pr" runat="server"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <div class="form-group col-md-6">
                             <label for="nguoiduyetpr">Người duyệt PR</label>
-                               <select class="form-control" id="nguoiduyetpr">
-                                   <asp:Literal ID="lit_nguoiduyetpr" runat="server" Mode="PassThrough"></asp:Literal>
+                               <select class="form-control" id="nguoiduyetpr" runat="server" name="nguoiduyetpr">
+                                   
                                 </select>
+                             <input type="hidden" id="id_nguoi_duyet" runat="server"/>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="uploadfele">Upload file</label>
-                             <input type="file" id="uploadfele" runat="server"/>
+                             <input type="file" id="uploadfile" name="uploadfile"/>
                             
                         </div>
 
@@ -49,7 +51,7 @@
                               
                         </div>
                         <div class="form-group col-md-4" style="text-align:center">
-                              <button type="button" class="btn btn-primary" >Đồng ý</button>
+                                <asp:Button class="btn btn-primary" ID="btt_OK" runat="server" Text="Đồng ý" OnClick="btt_OK_Click"/>
                                 <button type="button" class="btn btn-danger">Thoát</button>
                         </div>
                         <div class="form-group col-md-4">
@@ -61,6 +63,7 @@
                 </div>
         </div>
     </div>
+    
     <script type="text/javascript">
         var dsdata;
         var currentRow = null;
@@ -136,7 +139,7 @@
                     dataType: "json",
                     success: function (data) {
 
-                        document.getElementById("id_pr").value = data[0]["ID_PR"];
+                        document.getElementById("ContentPlaceHolder1_id_pr").value = data[0]["ID_PR"];
                         $("#overlay").hide();
                     },
 
@@ -163,7 +166,23 @@
                     }, 
                     dataType: "json",
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
+                        var str = "";
+                        for (var i = 0; i < data.length;i++)
+                        {
+                            if(i==0)
+                            {
+                                str = str + '<option value="' + data[i]["ID_NguoiDung"] + '" selected="selected">' + data[i]["Ten_Hien_Thi"] + '</option>';
+                            }
+                            else
+                            {
+                                str = str + '<option value="' + data[i]["ID_NguoiDung"] + '">' + data[i]["Ten_Hien_Thi"] + '</option>';
+                            }
+                            
+                        }
+                        var opt_quanly = document.getElementById('ContentPlaceHolder1_nguoiduyetpr');
+                        opt_quanly.insertAdjacentHTML('afterbegin', str);
+
                     },
                 })
                   .fail(function (jqXHR, textStatus, errorThrown) {
@@ -172,5 +191,11 @@
             }
            
         });
+
+        $("#ContentPlaceHolder1_nguoiduyetpr").change(function () {
+           
+            document.getElementById("ContentPlaceHolder1_id_nguoi_duyet").value = $(this).val();
+            
+        }); 
     </script>
 </asp:Content>

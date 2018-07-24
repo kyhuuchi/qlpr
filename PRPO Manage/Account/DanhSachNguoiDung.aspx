@@ -23,6 +23,11 @@
                                 <input type="hidden" class="form-control" id="id_nguoidung"/>
                             </div>
                             <div class="form-group">
+                                <label for="matkhau">Mật khẩu:</label>
+                                <input type="text" class="form-control" id="matkhau"/>
+                                
+                            </div>
+                            <div class="form-group">
                                 <label for="tenhienthi">Tên hiển thị:</label>
                                 <input type="text" class="form-control" id="tenhienthi"/>
                             </div>
@@ -60,6 +65,22 @@
                                 </div>
 
                             </div>
+                             <div class="form-group">
+                                <label for="kho">Kho:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_kho" id="chk_kho" value="0" /></label>
+                                </div>
+
+                            </div>
+                               <div class="form-group">
+                                <label for="muahang">Mua hàng:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_muahang" id="chk_muahang" value="0" /></label>
+                                </div>
+
+                            </div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                             <button type="submit" class="btn btn-primary" onclick="ThemNguoiDung();">Đồng ý</button>
                         </form>
@@ -80,9 +101,12 @@
                     <th>Đơn vị</th>
                     <th>Email</th>
                     <th>Ngày tạo</th>
+                    <th>Domain</th>
                     <th>Quản lý</th>
                     <th>Đang sử dụng</th>
                     <th>Admin</th>
+                     <th>Kho</th>
+                     <th>Mua hàng</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -110,10 +134,13 @@
                                     var month = date.getMonth() + 1;
                                     return date.getDate() + "/" + month + "/" + date.getFullYear();
                                 }
-                            },  
+                            },
+                              { 'data': 'Dang_Nhap_Domain' },
                              { 'data': 'Quan_Ly' },
                              { 'data': 'Dang_Su_Dung' },
                              { 'data': 'Admin' },
+                             { 'data': 'Quan_Ly_Kho' },
+                             { 'data': 'Quan_Ly_Mua_Hang' },
                              { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
                              { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
                         ],
@@ -151,6 +178,12 @@
                             }
                             if (dtRow[0].cells[8].innerHTML == 'true') {
                                 $("#chk_admin").prop('checked', 'TRUE');
+                            }
+                            if (dtRow[0].cells[9].innerHTML == 'true') {
+                                $("#chk_kho").prop('checked', 'TRUE');
+                            }
+                            if (dtRow[0].cells[10].innerHTML == 'true') {
+                                $("#chk_muahang").prop('checked', 'TRUE');
                             }
                           //dung de duyet cac gia tri trong o duoc chon
                             //for (var i = 0; i < dtRow[0].cells.length; i++) {
@@ -208,6 +241,8 @@
             var dsd = false;
             var ql = false;
             var ad = false;
+            var kho = false;
+            var muahang = false;
             var data_nguoidung;
             if ($('#chk_sudung').is(":checked")) {
                 dsd = true;
@@ -217,6 +252,12 @@
             }
             if ($('#chk_admin').is(":checked")) {
                 ad = true;
+            }
+            if ($('#chk_kho').is(":checked")) {
+                kho = true;
+            }
+            if ($('#chk_muahang').is(":checked")) {
+                muahang = true;
             }
             if ($("#id_nguoidung").val() >0)
             {
@@ -229,7 +270,10 @@
                     email: $("#email").val(),
                     dangsudung: dsd,
                     quanly: ql,
-                    admin: ad
+                    admin: ad,
+                    quanlykho: kho,
+                    quanlymuahang: muahang
+                    
                 };
             }
             else
@@ -243,7 +287,10 @@
                     email: $("#email").val(),
                     dangsudung: dsd,
                     quanly: ql,
-                    admin: ad
+                    admin: ad,
+                    quanlykho: kho,
+                    quanlymuahang: muahang,
+                    matkhau: $("#matkhau").val()
                 };
             }
             

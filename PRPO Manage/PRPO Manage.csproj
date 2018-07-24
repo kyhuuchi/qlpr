@@ -223,6 +223,7 @@
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Pages\PO\TaoPO.aspx" />
     <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
@@ -929,6 +930,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Pages\PO\TaoPO.aspx.cs">
+      <DependentUpon>TaoPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PO\TaoPO.aspx.designer.cs">
+      <DependentUpon>TaoPO.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PR\DuyetPR.aspx.cs">
       <DependentUpon>DuyetPR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

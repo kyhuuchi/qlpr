@@ -29,7 +29,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" enctype="multipart/form-data">
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />
         <header style="overflow: hidden;">
             <div class="content-wrapper row">
@@ -49,9 +49,11 @@
 
         </header>
         <uc1:menu runat="server" ID="menu" />
-    </form>
+    
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
+
+    </form>
        <footer>
             <div class="content-wrapper">
                 <div style="text-align:center">

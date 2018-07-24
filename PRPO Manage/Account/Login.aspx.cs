@@ -33,11 +33,30 @@ namespace PRPO_Manage.Account
                 {
                     if(nguoidung.Dang_Su_Dung==true)
                     {
-                        isOk = LDAP.AuthenticateUser("", TenDangNhap, MatKhau);
-                        if (isOk)
+                        if (nguoidung.Dang_Nhap_Domain==false)
                         {
-                            userData = LibEncrypt.Encrypt(nguoidung.ID_NguoiDung + "," + nguoidung.Ten_Dang_Nhap + "," + nguoidung.Email + "," + nguoidung.Ten_Hien_Thi, true);
+                            string mk = LibEncrypt.Encrypt(MatKhau, true);
+                            Response.Write("Mat khau da giai ma: " + mk);
+                            //code xem ma hoa mat khau
+                            //string mk2 = LibEncrypt.Decrypt(nguoidung.Mat_Khau, true);
+                            //Response.Write("Mat khau da ma hoa : " + mk2);
+
+                            if (mk == nguoidung.Mat_Khau)
+                            {
+                                userData = LibEncrypt.Encrypt(nguoidung.ID_NguoiDung + "," + nguoidung.Ten_Dang_Nhap + "," + nguoidung.Email + "," + nguoidung.Ten_Hien_Thi, true);
+                                isOk = true;
+                            }
+
                         }
+                        else
+                        {
+                            isOk = LDAP.AuthenticateUser("", TenDangNhap, MatKhau);
+                            if (isOk)
+                            {
+                                userData = LibEncrypt.Encrypt(nguoidung.ID_NguoiDung + "," + nguoidung.Ten_Dang_Nhap + "," + nguoidung.Email + "," + nguoidung.Ten_Hien_Thi, true);
+                            }
+                        }
+                        
                     }
                     
             

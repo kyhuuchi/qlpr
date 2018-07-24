@@ -13,21 +13,57 @@ namespace PRPO_Manage.Pages.PR {
     public partial class DuyetPR {
         
         /// <summary>
-        /// lit_nguoiduyetpr control.
+        /// ngaynhanpr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lit_nguoiduyetpr;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ngaynhanpr;
         
         /// <summary>
-        /// uploadfele control.
+        /// ngayduyetpr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile uploadfele;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ngayduyetpr;
+        
+        /// <summary>
+        /// id_pr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden id_pr;
+        
+        /// <summary>
+        /// nguoiduyetpr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect nguoiduyetpr;
+        
+        /// <summary>
+        /// id_nguoi_duyet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden id_nguoi_duyet;
+        
+        /// <summary>
+        /// btt_OK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btt_OK;
     }
 }
