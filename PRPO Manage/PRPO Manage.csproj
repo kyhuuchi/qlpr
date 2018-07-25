@@ -227,6 +227,7 @@
     <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
+    <Content Include="Pages\PR\View.html" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.min.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap4.css" />

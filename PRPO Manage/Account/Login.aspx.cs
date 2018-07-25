@@ -36,7 +36,7 @@ namespace PRPO_Manage.Account
                         if (nguoidung.Dang_Nhap_Domain==false)
                         {
                             string mk = LibEncrypt.Encrypt(MatKhau, true);
-                            Response.Write("Mat khau da giai ma: " + mk);
+                            
                             //code xem ma hoa mat khau
                             //string mk2 = LibEncrypt.Decrypt(nguoidung.Mat_Khau, true);
                             //Response.Write("Mat khau da ma hoa : " + mk2);

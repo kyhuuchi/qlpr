@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
-
+using ThuVien;
 using System.Threading.Tasks;
 using DB;
 
@@ -206,6 +206,7 @@ namespace Business
                 nd.Email = tb.Rows[0]["Email"].ToString();
                 nd.ID_Phong_Ban= Convert.ToInt32(tb.Rows[0]["ID_PhongBan"]);
                 nd.Phong_Ban = tb.Rows[0]["PhongBan"].ToString();
+
                 nd.Ngay_Tao = Convert.ToDateTime(tb.Rows[0]["NgayTao"]);
                 nd.Quan_Ly = Convert.ToBoolean(tb.Rows[0]["QuanLy"]);
                 nd.Ten_Hien_Thi = tb.Rows[0]["TenHienThi"].ToString();
@@ -219,8 +220,12 @@ namespace Business
             }
             return nd;
         }
-        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, bool dangsudung,bool quanly, bool admin,bool quanlykho,bool quanlymuahang,string matkhau)
+        public List<NguoiDung> LayDanhSachNguoiDung(int action,int id_nguoidung,string tendangnhap,string tenhienthi, string id_phongban, string email, bool dangsudung,bool quanly, bool admin,bool quanlykho,bool quanlymuahang,string matkhau,bool domain)
         {
+            if(string.IsNullOrEmpty(matkhau)==false)
+            {
+                matkhau= LibEncrypt.Encrypt(matkhau,true);
+            }
             DAC kn = new DAC();
             List<NguoiDung> nguoidungs = new List<NguoiDung>();
             SqlParameter pm = new SqlParameter("@action", action);
@@ -235,7 +240,8 @@ namespace Business
             SqlParameter pm10 = new SqlParameter("@quanlykho", quanlykho);
             SqlParameter pm11 = new SqlParameter("@quanlymuahang", quanlymuahang);
             SqlParameter pm12 = new SqlParameter("@matkhau", matkhau);
-            SqlParameter[] param = new SqlParameter[12] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11,pm12 };
+            SqlParameter pm13 = new SqlParameter("@domain", domain);
+            SqlParameter[] param = new SqlParameter[13] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11,pm12,pm13 };
             DataTable tb = kn.get_by_procedure("proc_Action_NguoiDung", param);
             if(tb!=null)
             {

@@ -28,7 +28,7 @@ namespace PRPO_Manage.Webservice
         public void LayDSNguoiDung()
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false, false, false,"");
+            List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false, false, false,"",false);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -42,10 +42,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(nd));
         }
         [WebMethod]
-        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin, bool quanlykho, bool quanlymuahang,string matkhau)
+        public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin, bool quanlykho, bool quanlymuahang,string matkhau,bool domain)
         {
             NguoiDung nguoidung = new NguoiDung();
-            List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin,quanlykho,quanlymuahang,matkhau);
+            List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin,quanlykho,quanlymuahang,matkhau, domain);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -141,10 +141,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(tb));
         }
         [WebMethod]
-        public void ThongTinPR_TinhTrang(int tinhtrang)
+        public void ThongTinPR_TinhTrang(int tinhtrang, int id_bp,bool muahang,bool kho)
         {
             PR pr = new PR();
-            DataTable tb = pr.LayThongTinSoLuongPR(tinhtrang);
+            DataTable tb = pr.LayThongTinSoLuongPR(tinhtrang,id_bp,muahang,kho);
             var js = new JavaScriptSerializer();
           
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

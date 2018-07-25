@@ -7,7 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
-
+using Business;
 namespace PRPO_Manage
 {
     public partial class SiteMaster : MasterPage
@@ -15,7 +15,7 @@ namespace PRPO_Manage
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
-
+        
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
@@ -69,13 +69,33 @@ namespace PRPO_Manage
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //if(!Page.IsPostBack)
+            //{
+            //    NguoiDung nd_online = LayThongTinUserOnline(Context.User.Identity.Name);
+               
+            //}
+            
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
+        //public NguoiDung LayThongTinUserOnline(string TenDangNhap)
+        //{
+
+            
+        //    try
+        //    {
+        //        NguoiDung nguoidung = new NguoiDung().LayThongTinNguoiDung(TenDangNhap);
+        //        return nguoidung;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return null;
+        //}
     }
 
 }

@@ -43,16 +43,44 @@
                         Xin chào, <a class="username" href="/Account/DanhSachNguoiDung.aspx" title="Thông tin quản trị">
                             <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
                         </a>!<asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Thoát" LogoutPageUrl="~/" />
+                        <input type="hidden" id="id_bophan" />
+                        <input type="hidden" id="ten_bophan" />
+                        <input type="hidden" id="kho" />
+                        <input type="hidden" id="muahang" />
+                         <input type="hidden" id="id_user" />
                     </div>
                 </div>
             </div>
 
         </header>
         <uc1:menu runat="server" ID="menu" />
-    
+    <script type="text/javascript">
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/LayThongTinNguoiDung",
+            data: { "tendangnhap": $("#LoginName1").text() },
+            dataType: "json",
+            success: function (data) {
+
+                document.getElementById("id_bophan").value = data["ID_Phong_Ban"];
+                document.getElementById("ten_bophan").value = data["Phong_Ban"];
+                document.getElementById("kho").value = data["Quan_Ly_Kho"];
+                document.getElementById("muahang").value = data["Quan_Ly_Mua_Hang"];
+                document.getElementById("id_user").value = data["ID_NguoiDung"];
+
+            },
+
+        })
+
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
+   
+</script>
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
-
+    
     </form>
        <footer>
             <div class="content-wrapper">
@@ -63,3 +91,5 @@
         </footer>
    
 </body>
+
+ 

@@ -40,7 +40,7 @@ namespace PRPO_Manage.Account
         {
             StringBuilder str_nguoidung = new StringBuilder();
             NguoiDung bs_nguoidung = new NguoiDung();
-            List<NguoiDung> nguoidung_col = bs_nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false,false,false);
+            List<NguoiDung> nguoidung_col = bs_nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false,false,false,"",false);
             foreach (NguoiDung nd in nguoidung_col)
             {
                 str_nguoidung.AppendFormat("<option value='{0}'>{1}</option>", nd.ID_NguoiDung,nd.Ten_Hien_Thi);

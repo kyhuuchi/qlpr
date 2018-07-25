@@ -550,13 +550,16 @@ namespace Business
             return pr_col;
         }
 
-        public DataTable LayThongTinSoLuongPR(int tinhtrang)
+        public DataTable LayThongTinSoLuongPR(int tinhtrang, int id_bp, bool muahang, bool kho)
         {
             DAC kn = new DAC();
 
             SqlParameter pm = new SqlParameter("@tinhtrang", tinhtrang);
-            
-            SqlParameter[] param = new SqlParameter[1] { pm};
+            SqlParameter pm2 = new SqlParameter("@id_bp", id_bp);
+            SqlParameter pm3 = new SqlParameter("@muahang", muahang);
+            SqlParameter pm4 = new SqlParameter("@kho", kho);
+
+            SqlParameter[] param = new SqlParameter[4] { pm,pm2,pm3,pm4};
             DataTable tb = kn.get_by_procedure("proc_ThongTinPR_TinhTrang", param);
 
     

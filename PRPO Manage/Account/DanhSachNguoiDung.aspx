@@ -41,6 +41,14 @@
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email"/>
                             </div>
+                              <div class="form-group">
+                                <label for="domain">Đăng nhập domain:</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="chk_domain" id="chk_domain" value="0"/></label>
+                                </div>
+                                
+                            </div>
                             <div class="form-group">
                                 <label for="quanly">Quản lý:</label>
                                 <div class="checkbox">
@@ -81,8 +89,9 @@
                                 </div>
 
                             </div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                             <button type="submit" class="btn btn-primary" onclick="ThemNguoiDung();">Đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                            
                         </form>
                     </div>
                 
@@ -168,21 +177,24 @@
                                 
                             });
                             $("#email").val(dtRow[0].cells[4].innerHTML);
-                            if (dtRow[0].cells[6].innerHTML=='true')
+                            if (dtRow[0].cells[6].innerHTML == 'true') {
+                                $("#chk_domain").prop('checked', 'TRUE');
+                            }
+                            if (dtRow[0].cells[7].innerHTML=='true')
                             {
                                 $("#chk_quanly").prop('checked','TRUE');
                             }
-                            if(dtRow[0].cells[7].innerHTML=='true')
+                            if(dtRow[0].cells[8].innerHTML=='true')
                             {
                                 $("#chk_sudung").prop('checked', 'TRUE');
                             }
-                            if (dtRow[0].cells[8].innerHTML == 'true') {
+                            if (dtRow[0].cells[9].innerHTML == 'true') {
                                 $("#chk_admin").prop('checked', 'TRUE');
                             }
-                            if (dtRow[0].cells[9].innerHTML == 'true') {
+                            if (dtRow[0].cells[10].innerHTML == 'true') {
                                 $("#chk_kho").prop('checked', 'TRUE');
                             }
-                            if (dtRow[0].cells[10].innerHTML == 'true') {
+                            if (dtRow[0].cells[11].innerHTML == 'true') {
                                 $("#chk_muahang").prop('checked', 'TRUE');
                             }
                           //dung de duyet cac gia tri trong o duoc chon
@@ -242,8 +254,12 @@
             var ql = false;
             var ad = false;
             var kho = false;
+            var domain = false;
             var muahang = false;
             var data_nguoidung;
+            if ($('#chk_domain').is(":checked")) {
+                domain = true;
+            }
             if ($('#chk_sudung').is(":checked")) {
                 dsd = true;
             }
@@ -272,9 +288,11 @@
                     quanly: ql,
                     admin: ad,
                     quanlykho: kho,
-                    quanlymuahang: muahang
-                    
+                    quanlymuahang: muahang,
+                    matkhau: $("#matkhau").val(),
+                    domain: domain
                 };
+                
             }
             else
             {
@@ -290,7 +308,8 @@
                     admin: ad,
                     quanlykho: kho,
                     quanlymuahang: muahang,
-                    matkhau: $("#matkhau").val()
+                    matkhau: $("#matkhau").val(),
+                    domain: domain
                 };
             }
             
@@ -302,7 +321,7 @@
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    location.reload();;
+                    location.reload();
                 }
             });
         }

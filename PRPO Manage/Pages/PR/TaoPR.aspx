@@ -3,12 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="overlay"><div id="text"><img class="img-responsive" src="../../Images/loader.gif" alt=""/></div></div> 
-    <div class="form-group col-md-12">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
-        <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
-        <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
-        <button type="button" class="btn btn-success btn-sm" >Chuyển</button>
-    </div>
+    
 
     <div class="container" id="container">
         <div class="row">
@@ -53,7 +48,7 @@
             <div class="form-row">
                     <div class="form-group">
                         <div class="form-group col-md-12">
-                            
+                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
                             <div class="modal fade" id="myModal" role="form" data-backdrop="static">
                                 <div class="modal-dialog">
 
@@ -351,38 +346,29 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-12" style="text-align:center">
+       
+        
+        <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="ChuyenTrangThai()">Chuyển</button>
+    </div>
+        </div>
     </div>
     <script type="text/javascript">
         var dsdata;
         var currentRow = null;
         $("#overlay").show();
+
+        $("#bophandexuat").val($("#ten_bophan").val());
+        document.getElementById("ID_bophandexuat").value = $("#id_bophan").val(); 
+        document.getElementById("ID_nguoidexuat").value = $("#id_user").val();
+
         $(document).ready(function () {
           
-            //lay thong tin phong ban cua account dang truy cap
-            $.ajax({
-                type: "POST",
-                async:false,
-                url: "/Webservice/dsnguoidung.asmx/LayThongTinNguoiDung",
-                data: {"tendangnhap": $("#LoginName1").text() },
-                dataType: "json",
-                success: function (data) {
-                    //document.getElementById("bophandexuat").innerText = data["Phong_Ban"];
-                    //document.getElementById("bophandexuat").value = data["Phong_Ban"];
-                   // $("#bophandexuat").text(data["Phong_Ban"]);
-                    $("#bophandexuat").val(data["Phong_Ban"]);
-                    //$("#ID_bophandexuat").val(data["ID_PhongBan"]);
-                    
-                    document.getElementById("ID_bophandexuat").value = data["ID_Phong_Ban"];
-                    document.getElementById("ID_nguoidexuat").value = data["ID_NguoiDung"];
-                    
-                },
-                
-            })
-            .done(LaySoPR())
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                alert("error" + errorThrown);
-            });
-      
+            LaySoPR();
+
             //khai bao mau data cho dropdown list chon vat tu
             var item_dta = { id: 0, text: "" };
 
@@ -998,20 +984,90 @@
         }
         //******************//
         function InForm() {
-            //Get the HTML of div
-            //var divElements = document.getElementById("container").innerHTML;
-            //var printWindow = window.open('', '', 'height=400,width=800');
-            //printWindow.document.write('<html><head><title></title>');
-            //printWindow.document.write('<link rel="stylesheet" href="/Content/bootstrap.min.css" type="text/css"/>');
-            //printWindow.document.write('</head><body >');
-            //printWindow.document.write(divElements);
-            //printWindow.document.write('</body></html>');
-            //printWindow.document.close();
-            //printWindow.print();
-            window.print();
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode($("#sopr").val());
+            window.location.replace("View.html?pr=" + encodedString);
 
           
         }
-    
+        function ChuyenTrangThai() {
+            if ($("#ngaydexuat").val() == "") {
+                alert("Vui lòng chọn ngày tạo phiếu.");
+                $("#ngaydexuat").css("border-color", "red");
+                return;
+            }
+            var date = new Date($("#ngaydexuat").val());
+            var thangtao = date.getMonth() + 1;
+            var nguoidexuat = $("#ID_nguoidexuat").val();
+
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                data: {
+                    "action": 2,
+                    "id": Number($("#id_pr").val()),
+                    "id_phongban": Number($("#ID_bophandexuat").val()),
+                    "sopr": Number($("#sothutupr").val()),
+                    "sopr_full": $("#sopr").val(),
+                    "nam": Number($("#namdexuat").val()),
+                    "congdung": $("#congdung").val(),
+                    "ngaytao": $("#ngaydexuat").val(),
+                    "thangtao": Number(thangtao),
+                    "tongsoluongyeucau": Number($("#tongsoluong_notmask").val()),
+                    "tongtien": Number($("#tongtien_notmask").val()),
+                    "ghichu": $("#ghichu").val(),
+                    "ngayduyet": $("#ngaydexuat").val(),
+                    "id_nguoiduyet": 0,
+                    "id_nguoidexuat": 0,
+                    "tinhtrang": 2,
+                    "prscanfile": "",
+                    "sendmail": false,
+                    "tieude1": $("#1").val(),
+                    "tieude2": $("#2").val(),
+                    "tieude3": $("#3").val(),
+                    "tieude4": $("#4").val(),
+                    "tieude5": $("#4").val(),
+                    "tieude6": $("#6").val(),
+                    "ngansachduocduyet1": Number($("#11").val()),
+                    "ngansachduocduyet2": Number($("#22").val()),
+                    "ngansachduocduyet3": Number($("#33").val()),
+                    "ngansachduocduyet4": Number($("#44").val()),
+                    "ngansachduocduyet5": Number($("#55").val()),
+                    "ngansachduocduyet6": Number($("#66").val()),
+                    "dexuatlannay1": Number($("#111").val()),
+                    "dexuatlannay2": Number($("#222").val()),
+                    "dexuatlannay3": Number($("#333").val()),
+                    "dexuatlannay4": Number($("#444").val()),
+                    "dexuatlannay5": Number($("#555").val()),
+                    "dexuatlannay6": Number($("#666").val()),
+                    "luyke1": Number($("#1111").val()),
+                    "luyke2": Number($("#2222").val()),
+                    "luyke3": Number($("#3333").val()),
+                    "luyke4": Number($("#4444").val()),
+                    "luyke5": Number($("#5555").val()),
+                    "luyke6": Number($("#6666").val()),
+                    "thuathieu1": Number($("#11111").val()),
+                    "thuathieu2": Number($("#22222").val()),
+                    "thuathieu3": Number($("#33333").val()),
+                    "thuathieu4": Number($("#44444").val()),
+                    "thuathieu5": Number($("#55555").val()),
+                    "thuathieu6": Number($("#66666").val())
+                },
+                dataType: "json",
+                success: function (data) {
+                    alert("PR đã được cập nhật thành công.")
+                },
+
+            })
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
+        }
     </script>
 </asp:Content>
