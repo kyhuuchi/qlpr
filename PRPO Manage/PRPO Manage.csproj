@@ -223,6 +223,7 @@
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Pages\PO\DanhSachPO.aspx" />
     <Content Include="Pages\PO\TaoPO.aspx" />
     <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
@@ -658,6 +659,7 @@
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\common.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\mixins.scss" />
     <Content Include="Pages\PR\ListVatTu.json" />
+    <Content Include="Pages\ListNhaCC.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bg_validate.png" />
@@ -931,6 +933,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Pages\PO\DanhSachPO.aspx.cs">
+      <DependentUpon>DanhSachPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PO\DanhSachPO.aspx.designer.cs">
+      <DependentUpon>DanhSachPO.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PO\TaoPO.aspx.cs">
       <DependentUpon>TaoPO.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

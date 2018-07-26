@@ -161,6 +161,15 @@ namespace PRPO_Manage.Webservice
           
             Context.Response.Write(js.Serialize(parentRow));
         }
+
+        [WebMethod]
+        public void LaySoPO(int phongban, int nam)
+        {
+            SoPO sopo = new SoPO();
+            sopo = sopo.LaySoPO(phongban, nam);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(sopo));
+        }
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public void ServiceTimVatTu()

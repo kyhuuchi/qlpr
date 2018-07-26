@@ -48,7 +48,9 @@
             <div class="form-row">
                     <div class="form-group">
                         <div class="form-group col-md-12">
+                              <div class="form-group col-md-12">
                              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
+                                </div>
                             <div class="modal fade" id="myModal" role="form" data-backdrop="static">
                                 <div class="modal-dialog">
 

@@ -3,12 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="overlay"><div id="text"><img class="img-responsive" src="../../Images/loader.gif" alt=""/></div></div> 
-    <div class="form-group col-md-12">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
-        <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
-        <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
-        <button type="button" class="btn btn-success btn-sm" onclick="ChuyenTrangThai()" id="btt_chuyen" style="display:none">Chuyển</button>
-    </div>
+
 
     <div class="container" id="container">
         <div class="row">
@@ -54,7 +49,10 @@
             <div class="form-row">
                     <div class="form-group">
                         <div class="form-group col-md-12">
-                            
+                             <div class="form-group col-md-12">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Thêm vật tư</button>
+        
+    </div>
                             <div class="modal fade" id="myModal" role="form" data-backdrop="static">
                                 <div class="modal-dialog">
 
@@ -353,6 +351,13 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+         <div class="form-group col-md-12" style="text-align:center">
+        <button type="button" class="btn btn-info btn-sm" onclick="LuuPR()">Lưu</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="InForm()">In</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="ChuyenTrangThai()" id="btt_chuyen" style="display:none">Chuyển</button>
+    </div>
+            </div>
     </div>
     <script type="text/javascript">
         var dsdata;

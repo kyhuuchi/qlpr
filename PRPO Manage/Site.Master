@@ -48,6 +48,7 @@
                         <input type="hidden" id="kho" />
                         <input type="hidden" id="muahang" />
                          <input type="hidden" id="id_user" />
+                         <input type="hidden" id="tenhienthi" />
                     </div>
                 </div>
             </div>
@@ -68,6 +69,7 @@
                 document.getElementById("kho").value = data["Quan_Ly_Kho"];
                 document.getElementById("muahang").value = data["Quan_Ly_Mua_Hang"];
                 document.getElementById("id_user").value = data["ID_NguoiDung"];
+                document.getElementById("tenhienthi").value = data["Ten_Hien_Thi"];
 
             },
 

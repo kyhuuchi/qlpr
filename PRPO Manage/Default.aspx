@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="QUẢN LÝ PR-PO" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="PRPO_Manage._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="overlay"><div id="text"><img id="img-responsive" src="Images/loader.gif" alt=""/></div></div> 
+    <div id="overlay"><div id="text"><img id="img-responsive" src="/Images/loader.gif" alt=""/></div></div> 
     <div class="form-group col-md-12">
         <a href="/Pages/PR/TaoPR.aspx"><button type="button" class="btn btn-primary btn-sm">Tạo mới PR</button></a>
         <%--<a href="/Pages/PR/TaoPR.aspx"><span class="glyphicon glyphicon-shopping-cart" style="padding-right: 5px;"></span>Tạo PR</a>--%>
