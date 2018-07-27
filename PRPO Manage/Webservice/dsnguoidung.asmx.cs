@@ -32,7 +32,14 @@ namespace PRPO_Manage.Webservice
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
-
+        [WebMethod]
+        public void LayDSNguoiDuyet()
+        {
+            NguoiDung nguoidung = new NguoiDung();
+            List<NguoiDung> tb = nguoidung.LayDanhSachNguoiDung(1, 0, "", "", "", "", false, true, false, false, false, "", false);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
         [WebMethod]
         public void LayThongTinNguoiDung(string tendangnhap)
         {
@@ -161,7 +168,10 @@ namespace PRPO_Manage.Webservice
           
             Context.Response.Write(js.Serialize(parentRow));
         }
-
+        /// <summary>
+        /// Cac webservice lien quan den PO
+        /// </summary>
+        
         [WebMethod]
         public void LaySoPO(int phongban, int nam)
         {
@@ -170,6 +180,39 @@ namespace PRPO_Manage.Webservice
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(sopo));
         }
+        [WebMethod]
+        public void LayDSPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo, int thangpo, int id_nguoiphutrach, int id_nguoiduyet, int id_phongban, string nhacungcap, int songaytre, int manhacuangcap, string khonhan, int tinhtrang)
+        {
+            PO po = new PO();
+            List<PO> tb = po.LayDanhSachPO(action, id, sopo, sopo_full, nam, ngaypo, thangpo, id_nguoiphutrach, id_nguoiduyet, id_phongban, nhacungcap, songaytre, manhacuangcap, khonhan, tinhtrang);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void Action_SoPO(int action, int id, int idphongban, int sopo, int nam)
+        {
+            SoPO spo = new SoPO();
+            List<SoPO> tb = spo.Action_SoPO(action, id, idphongban, sopo, nam);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void LayDS_PRChiTiet_DaDuyet(int id_phongban, int tinhtrangvattu)
+        {
+            PR_ChiTiet pr_chitiet = new PR_ChiTiet();
+            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet_DaDuyet(id_phongban, tinhtrangvattu);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet)
+        {
+            PO_ChiTiet po_chitiet = new PO_ChiTiet();
+            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(js.Serialize(tb));
+        }
+        //********************//
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public void ServiceTimVatTu()

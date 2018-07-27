@@ -603,7 +603,7 @@ namespace Business
         private DateTime _ngay_can_hang;
         private string _thoi_gian_su_dung;
         private string _cong_dung;
-
+        private string _so_pr_full;
         public int ID_PR_Chi_Tiet
         {
             get { return _id_pr_chitiet; }
@@ -679,6 +679,11 @@ namespace Business
             get { return _cong_dung; }
             set { _cong_dung = value; }
         }
+        public string So_PR_Full
+        {
+            get { return _so_pr_full; }
+            set { _so_pr_full = value; }
+        }
         public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
         {
             DateTime ngaych;
@@ -733,6 +738,44 @@ namespace Business
                     pr_chitiet.Thoi_Gian_Xu_Dung = row["ThoiGianSuDung"].ToString();
                     pr_chitiet.Cong_Dung = row["CongDung"].ToString();
                     
+                    pr_Chitiet_col.Add(pr_chitiet);
+
+                }
+            }
+            return pr_Chitiet_col;
+        }
+        public List<PR_ChiTiet> LayDanhSachPR_ChTiet_DaDuyet(int id_phongban, int tinhtrangvattu)
+        {
+            DAC kn = new DAC();
+            List<PR_ChiTiet> pr_Chitiet_col = new List<PR_ChiTiet>();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+            SqlParameter pm2 = new SqlParameter("@tinhtrangvattu", tinhtrangvattu);
+           
+
+            SqlParameter[] param = new SqlParameter[2] { pm, pm2};
+            DataTable tb = kn.get_by_procedure("proc_LayDS_PR_PRChiTiet_DaDuyet", param);
+            if (tb != null)
+            {
+                foreach (DataRow row in tb.Rows)
+                {
+                    PR_ChiTiet pr_chitiet = new PR_ChiTiet();
+                    pr_chitiet.ID_PR_Chi_Tiet = Convert.ToInt32(row["ID"]);
+                    pr_chitiet.ID_PR = Convert.ToInt32(row["ID_PR"]);
+                    pr_chitiet.Ma_Hang = row["MaHang"].ToString();
+                    pr_chitiet.Ten_Hang = row["TenHang"].ToString();
+                    pr_chitiet.DVT = row["DVT"].ToString();
+                    pr_chitiet.Ton_Kho = Convert.ToInt32(row["TonKho"]);
+                    pr_chitiet.So_Luong_Yeu_cau = Convert.ToInt32(row["SoLuongYeuCau"]);
+                    pr_chitiet.Don_Gia = Convert.ToInt32(row["DonGia"]);
+                    pr_chitiet.Ti_Gia = Convert.ToInt32(row["TiGia"]);
+                    pr_chitiet.Thanh_Tien_Tam_Ung = Convert.ToDouble(row["ThanhTienTamUng"]);
+                    pr_chitiet.Nha_Cung_cap = row["NhaCungCap"].ToString();
+                    pr_chitiet.Tinh_Trang_Vat_Tu = Convert.ToInt32(row["TinhTrangVatTu"]);
+                    pr_chitiet.Ngay_Can_Hang = Convert.ToDateTime(row["NgayCanHang"]);
+                    pr_chitiet.Thoi_Gian_Xu_Dung = row["ThoiGianSuDung"].ToString();
+                    pr_chitiet.Cong_Dung = row["CongDung"].ToString();
+                    pr_chitiet.So_PR_Full= row["SoPR_Full"].ToString();
                     pr_Chitiet_col.Add(pr_chitiet);
 
                 }

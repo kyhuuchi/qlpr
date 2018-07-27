@@ -36,7 +36,7 @@ namespace PRPO_Manage.Pages.PO
             List<SelectOptionsNCC> players = new List<SelectOptionsNCC>();
             foreach (var item in dict)
             {
-                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.MaNCC), item.MaNCC + "--" + item.TenNCC);
             }
             lit_nhacc.Text = str_option_vattu.ToString();
         }
