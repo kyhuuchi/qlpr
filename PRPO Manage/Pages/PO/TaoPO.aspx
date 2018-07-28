@@ -142,6 +142,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        var currentRow = null;
         //kiem tra xem user hien tai co quyen truy cap vao trang PO khong, neu khong redirect
         if ($("#muahang").val() == 'false') {
             window.location.replace("/Default.aspx");
@@ -238,7 +239,7 @@
                         if (sopo < 10) {
                             sopo = "00" + sopo;
                         }
-                        else if (sopo < 100 && sopo > 10) {
+                        else if (sopo < 100 && sopo >= 10) {
                             sopo = "0" + sopo;
                         }
                         else {
@@ -363,7 +364,7 @@
 
             $.ajax({
                 type: "POST",
-                
+                async: false,
                 url: "/Webservice/dsnguoidung.asmx/LayDSPO",
                 data: {
                     "action": 1,
@@ -385,7 +386,7 @@
                 dataType: "json",
 
                 success: function (data) {
-                    document.getElementById("id_po").value=data[0]["ID"];
+                    document.getElementById("id_po").value = data[0]["ID_PO"];
 
                 },
 
@@ -398,7 +399,7 @@
         //********************//
         //lay thong tin PR PR chi tiet da duyet
         function LayPR_PR_ChiTiet_DaDuyet() {
-            LayThongTinPO();
+            
             $.ajax({
                 type: "POST",
                 async: false,
@@ -428,6 +429,7 @@
                 },
 
             })
+            .done(LayThongTinPO())
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
             });
@@ -461,7 +463,7 @@
                         id_pr_chitiet = this.value;
                     });
                     $(this).parents("tr").remove();
-                    markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
+                    markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
                     stt++;
                     
                 }
@@ -469,7 +471,78 @@
             $("#table_chitietpo tbody").append(markup);
         });
         //****************************//
+        //Xu ly nut xoa vat tu
+        $(document).on('click', 'span.deleterow', function () {
+            var markup = "";
+            currentRow = $(this).parents('tr');
 
+            var id_po = $("#id_po").val();
+            var sopr_full = currentRow.find('td.cls_sopr_full').text();
+
+            var mahang = currentRow.find('td.cls_mavattu').text();
+            var tenhang = currentRow.find('td.cls_tenvattu').text();
+            var dvt = currentRow.find('td.cls_dvt').text();
+            var soluongpo = currentRow.find('td.cls_soluongyeucau').text();
+            var dongia = currentRow.find('td.cls_dongiatamtinh').text();
+            var tigia = currentRow.find('td.cls_tigia').text();
+            var thanhtien = currentRow.find('td.cls_thanhtientamung').text();
+            var nhacungcap = currentRow.find('td.cls_nhacungung').text();
+            var tinhtrangvattu = currentRow.find('td.cls_tinhtrangvattu').text();
+            var thoigiansudung = currentRow.find('td.cls_thoigiansudung').text();
+            var congdung = currentRow.find('td.cls_congdungchitiet').text();
+            var ngaycanhang = currentRow.find('td.cls_ngaycanhang').text();
+            var id_pr_chitiet;
+            currentRow.find('td').find("input[name='sopr_chitiet']").each(function () {
+                //alert(this.id)
+                id_pr_chitiet = this.value;
+            });
+
+            $(this).parents('tr').remove();
+
+            if (currentRow) {
+                var $tds = currentRow.find('td');
+                stt = $tds.eq(1).text();
+
+                markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
+                $("#table_vattu tbody").append(markup);
+                currentRow = null;
+            }
+
+            CapNhatSoTT();
+            
+            return false;
+
+        });
+        //Xu ly cap nhat lai so thu tu khi delete vat tu
+        function CapNhatSoTT() {
+            var table = $("#table_chitietpo");
+            var table_vattu = $("#table_vattu");
+            var rowCount = $('#table_chitietpo >tbody >tr').length;
+            var rowCount_vattu = $('#table_vattu >tbody >tr').length;
+            var sothutu = 0;
+            var sothutu_vattu = 0;
+            table.find('tbody > tr').each(function () {
+                var $tds = $(this).find('td');
+
+                sothutu++;
+                if (sothutu <= rowCount) {
+                    $tds.eq(1).html(sothutu);
+
+                }
+
+            });
+            table_vattu.find('tbody > tr').each(function () {
+                var $tds = $(this).find('td');
+
+                sothutu_vattu++;
+                if (sothutu_vattu <= rowCount_vattu) {
+                    $tds.eq(1).html(sothutu_vattu);
+
+                }
+
+            });
+
+        }
         //Lay thong tin PR chi tiet vua tao//
         //*********************************//
         function LayDanhSachPOChiTiet()
