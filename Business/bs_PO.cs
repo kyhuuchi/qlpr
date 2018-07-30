@@ -19,7 +19,9 @@ namespace Business
         private DateTime _ngay_po;
         private int _thang_po;
         private int _id_nguoimuahang;
+        private string _ten_nguoimuahang;
         private int _id_nguoiduyet_po;
+        private string _ten_nguoiduyet_po;
         private int _so_ngay_tre;
         private int _id_phong_ban;
         private string _ten_nha_cung_cap;
@@ -62,10 +64,20 @@ namespace Business
             get { return _id_nguoimuahang; }
             set { _id_nguoimuahang = value; }
         }
+        public string Ten_NguoiMuaHang
+        {
+            get { return _ten_nguoimuahang; }
+            set { _ten_nguoimuahang = value; }
+        }
         public int ID_Nguoi_Duyet_PO
         {
             get { return _id_nguoiduyet_po; }
             set { _id_nguoiduyet_po = value; }
+        }
+        public string Ten_Nguoi_Duyet_PO
+        {
+            get { return _ten_nguoiduyet_po; }
+            set { _ten_nguoiduyet_po = value; }
         }
         public int So_Ngay_tre
         {
@@ -99,7 +111,7 @@ namespace Business
         }
 
         //cac ham lien quan den PO
-        public List<PO> LayDanhSachPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo,int thangpo,int id_nguoiphutrach,int id_nguoiduyet,int id_phongban,string nhacungcap,int songaytre,int manhacuangcap,string khonhan,int tinhtrang)
+        public List<PO> LayDanhSachPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo,int thangpo,int id_nguoiphutrach,int id_nguoiduyet,int id_phongban,string nhacungcap,int songaytre,string manhacuangcap,string khonhan,int tinhtrang)
         {
 
             DateTime ngpo;
@@ -151,7 +163,9 @@ namespace Business
                     po.Ngay_PO = Convert.ToDateTime(row["NgayPO"]);
                     po.Thang_PO = Convert.ToInt32(row["ThangPO"]);
                     po.ID_NguoiMuaHang = Convert.ToInt32(row["ID_NguoiPhuTrachMuaHang"]);
+                    po.Ten_NguoiMuaHang = row["NguoiPhuTrachMuaHang"].ToString();
                     po.ID_Nguoi_Duyet_PO= Convert.ToInt32(row["ID_NguoiDuyetPO"]);
+                    po.Ten_Nguoi_Duyet_PO = row["NguoiPheDuyetPO"].ToString();
                     po.So_Ngay_tre= Convert.ToInt32(row["SoNgayTre"]);
                     po.ID_Phong_Ban = Convert.ToInt32(row["ID_PhongBan"]);
                     po.Ten_Nha_Cung_Cap = row["NhaCungCap"].ToString();
@@ -164,6 +178,19 @@ namespace Business
                 }
             }
             return po_col;
+        }
+        public DataTable LayThongTinSoLuongPO(int tinhtrang)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@tinhtrang", tinhtrang);
+
+            SqlParameter[] param = new SqlParameter[1] { pm};
+            DataTable tb = kn.get_by_procedure("proc_ThongTinPO_TinhTrang", param);
+
+
+
+            return tb;
         }
     }
     public class PO_ChiTiet

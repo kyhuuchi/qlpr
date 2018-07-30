@@ -362,6 +362,8 @@
         var dsdata;
         var currentRow = null;
         $("#overlay").show();
+        
+       
 
         $("#bophandexuat").val($("#ten_bophan").val());
         document.getElementById("ID_bophandexuat").value = $("#id_bophan").val(); 
@@ -398,9 +400,10 @@
             {
 
                 var jsObj = JSON.parse($("#ContentPlaceHolder1_txt_vattu").val());
-                var i = jsObj.find(function (obj) { return obj.matnr === mavatu; });
-                //console.log(i);
-                $("#dvt").val(i.meins);
+                var i = jsObj.find(function (obj) { return obj.mvt === mavatu; });
+                console.log(i);
+                $("#dvt").val(i.dvt);
+                $("#dongiatamtinh").val(i.dg);
             }
          
             var stt = 0;
@@ -585,9 +588,9 @@
         //        //cache: true
         //    }
         //});
-              $("#overlay").hide();
+                $("#overlay").hide();
         });
-        
+      
         //Xu ly khi ti gia, don gia tam ung va so luong yeu cau thay doi thi tinh lai gia tien tam ung
         $("#tigia").change(function () {
             

@@ -28,6 +28,7 @@
                     </select>
                     <input type="hidden" id="tennhacungcap" />
                     <input type="hidden" id="manhacuangcap" />
+                    
                 </div>
                 <div class="form-group col-md-4">
                     <label for="donvidexuat">Đơn vị đề xuất</label>
@@ -137,7 +138,7 @@
         </div>
          <div class="row">
             <div class="form-group col-md-12">
-                <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet()">Lưu</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet()">Lưu PO</button>
             </div>
         </div>
     </div>
@@ -369,24 +370,28 @@
                 data: {
                     "action": 1,
                     "id": 0,
-                    "sopo": Number($("#sothutupo").val()),
+                    "sopo": 0,
                     "sopo_full": $("#sopo").val(),
-                    "nam": Number($("#namdexuat").val()),
-                    "ngaypo": $("#ngaypo").val(),
-                    "thangpo": Number(thangtao),
-                    "id_nguoiphutrach": $("#id_user").val(),
-                    "id_nguoiduyet": $("#id_nguoiduyetpo").val(),
-                    "id_phongban": $("#id_donvidexuat").val(),
-                    "nhacungcap": $("#tennhacungcap").val(),
+                    "nam": 0,
+                    "ngaypo": "",
+                    "thangpo": 0,
+                    "id_nguoiphutrach": 0,
+                    "id_nguoiduyet": 0,
+                    "id_phongban": 0,
+                    "nhacungcap": "",
                     "songaytre": 0,
-                    "manhacuangcap": $("#manhacuangcap").val(),
-                    "khonhan": $("#donvidexuat option:selected").text(),
+                    "manhacuangcap": "",
+                    "khonhan": "",
                     "tinhtrang": 1
                 },
                 dataType: "json",
 
                 success: function (data) {
-                    document.getElementById("id_po").value = data[0]["ID_PO"];
+                    if(data.length>0)
+                    {
+                        document.getElementById("id_po").value = data[0]["ID_PO"];
+                    }
+                    
 
                 },
 
@@ -592,7 +597,7 @@
                     },
                     dataType: "json",
                     success: function (data) {
-
+                        alert("Da tao PO chi tiet thanh cong.");
                     },
 
                 })

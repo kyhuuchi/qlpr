@@ -17,7 +17,43 @@ namespace PRPO_Manage.Pages.PO
         {
             if(!Page.IsPostBack)
             {
-                CallFileJSON_NCC();
+                CallSAP_NCC();
+               // CallFileJSON_NCC();
+            }
+        }
+        protected void CallSAP_NCC()
+        {
+            string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
+
+            try
+            {
+                System.Net.WebRequest request = WebRequest.Create(url);
+                //request.Credentials = new NetworkCredential("sapuser", "password");
+                WebResponse ws = request.GetResponse();
+
+                string jsonString = string.Empty;
+                using (System.IO.StreamReader sreader = new System.IO.StreamReader(ws.GetResponseStream()))
+                {
+                    jsonString = sreader.ReadToEnd();
+                }
+                var js = new JavaScriptSerializer();
+                txt_ncc.Value = jsonString;
+                var dict = js.Deserialize<List<SelectOptionsNCC>>(jsonString);
+
+                StringBuilder str_option_ncc = new StringBuilder();
+                str_option_ncc.Append("<option></option>");
+                List<SelectOptionsNCC> players = new List<SelectOptionsNCC>();
+                foreach (var item in dict)
+                {
+                    str_option_ncc.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.id), item.id + "--" + item.tn);
+                }
+                lit_nhacc.Text = str_option_ncc.ToString();
+
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
             }
         }
         protected void CallFileJSON_NCC()
@@ -36,15 +72,15 @@ namespace PRPO_Manage.Pages.PO
             List<SelectOptionsNCC> players = new List<SelectOptionsNCC>();
             foreach (var item in dict)
             {
-                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.MaNCC), item.MaNCC + "--" + item.TenNCC);
+                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.id), item.id + "--" + item.tn);
             }
             lit_nhacc.Text = str_option_vattu.ToString();
         }
     }
     public class SelectOptionsNCC
     {
-        public string MaNCC { get; set; }
-        public string TenNCC { get; set; }
+        public string id { get; set; }
+        public string tn { get; set; }
       
 
     }

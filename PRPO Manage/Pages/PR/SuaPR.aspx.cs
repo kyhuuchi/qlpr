@@ -47,7 +47,7 @@ namespace PRPO_Manage.Pages.PR
                 List<SelectOptions> players = new List<SelectOptions>();
                 foreach (var item in dict)
                 {
-                    str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+                    str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.mvt), item.mvt + "--" + item.tvt);
                 }
                 lit_vattu.Text = str_option_vattu.ToString();
 
@@ -74,7 +74,7 @@ namespace PRPO_Manage.Pages.PR
             List<SelectOptions> players = new List<SelectOptions>();
             foreach (var item in dict)
             {
-                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.mvt), item.mvt + "--" + item.tvt);
             }
             lit_vattu.Text = str_option_vattu.ToString();
         }

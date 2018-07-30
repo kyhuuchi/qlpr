@@ -224,6 +224,7 @@
     <Content Include="Account\QuanTri.Master" />
     <Content Include="Images\loader.gif" />
     <Content Include="Pages\PO\DanhSachPO.aspx" />
+    <Content Include="Pages\PO\SuaPO.aspx" />
     <Content Include="Pages\PO\TaoPO.aspx" />
     <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
@@ -939,6 +940,13 @@
     </Compile>
     <Compile Include="Pages\PO\DanhSachPO.aspx.designer.cs">
       <DependentUpon>DanhSachPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PO\SuaPO.aspx.cs">
+      <DependentUpon>SuaPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PO\SuaPO.aspx.designer.cs">
+      <DependentUpon>SuaPO.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\PO\TaoPO.aspx.cs">
       <DependentUpon>TaoPO.aspx</DependentUpon>

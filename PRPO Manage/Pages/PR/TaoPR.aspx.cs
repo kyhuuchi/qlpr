@@ -27,7 +27,8 @@ namespace PRPO_Manage.Pages.PR
         protected void CallSAP()
         {
             //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=710000318";
-            string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=T100";
+            //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=T100";
+            string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=TALL";
 
             try
             {
@@ -49,7 +50,7 @@ namespace PRPO_Manage.Pages.PR
                 List<SelectOptions> players = new List<SelectOptions>();
                 foreach (var item in dict)
                 {
-                    str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+                    str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.mvt), item.mvt + "--" + item.tvt);
                 }
                 lit_vattu.Text = str_option_vattu.ToString();
 
@@ -76,20 +77,20 @@ namespace PRPO_Manage.Pages.PR
             List<SelectOptions> players = new List<SelectOptions>();
             foreach (var item in dict)
             {
-                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.matnr), item.matnr + "--" + item.maktx);
+                str_option_vattu.AppendFormat("<option value='{0}'>{1}</option>", Convert.ToInt64(item.mvt), item.mvt + "--" + item.tvt);
             }
             lit_vattu.Text = str_option_vattu.ToString();
         }
     }
     public class SelectOptions
     {
-        public string matnr { get; set; }
-        public string bismt { get; set; }
-        public string maktx { get; set; }
-        public string meins { get; set; }
-        public string mseht { get; set; }
-        public string matkl { get; set; }
-        public string wgbez { get; set; }
+        public string mvt { get; set; }
+        //public string bismt { get; set; }
+        public string tvt { get; set; }
+        public string dvt { get; set; }
+        public string dvt1 { get; set; }
+        public string nvt { get; set; }
+        public string nvt1 { get; set; }
 
     }
 

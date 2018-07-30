@@ -181,7 +181,7 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(sopo));
         }
         [WebMethod]
-        public void LayDSPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo, int thangpo, int id_nguoiphutrach, int id_nguoiduyet, int id_phongban, string nhacungcap, int songaytre, int manhacuangcap, string khonhan, int tinhtrang)
+        public void LayDSPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo, int thangpo, int id_nguoiphutrach, int id_nguoiduyet, int id_phongban, string nhacungcap, int songaytre, string manhacuangcap, string khonhan, int tinhtrang)
         {
             PO po = new PO();
             List<PO> tb = po.LayDanhSachPO(action, id, sopo, sopo_full, nam, ngaypo, thangpo, id_nguoiphutrach, id_nguoiduyet, id_phongban, nhacungcap, songaytre, manhacuangcap, khonhan, tinhtrang);
@@ -211,6 +211,27 @@ namespace PRPO_Manage.Webservice
             List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
+        }
+        [WebMethod]
+        public void ThongTinPO_TinhTrang(int tinhtrang)
+        {
+            PO po = new PO();
+            DataTable tb = po.LayThongTinSoLuongPO(tinhtrang);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(js.Serialize(parentRow));
         }
         //********************//
         [WebMethod]
