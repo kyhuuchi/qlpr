@@ -140,10 +140,10 @@ namespace PRPO_Manage.Webservice
         
         
         [WebMethod]
-        public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung)
+        public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime)
         {
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
-            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung);
+            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung, leadtime);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -205,10 +205,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(tb));
         }
         [WebMethod]
-        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet)
+        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang)
         {
             PO_ChiTiet po_chitiet = new PO_ChiTiet();
-            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet);
+            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -217,6 +217,27 @@ namespace PRPO_Manage.Webservice
         {
             PO po = new PO();
             DataTable tb = po.LayThongTinSoLuongPO(tinhtrang);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(js.Serialize(parentRow));
+        }
+        [WebMethod]
+        public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet)
+        {
+            PO po = new PO();
+            DataTable tb = po.Update_TrangThaiVatTu_PR_ChiTiet(id_pr_chitiet);
             var js = new JavaScriptSerializer();
 
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

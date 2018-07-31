@@ -56,3 +56,4 @@ G:\du an\DuyTan\qlpr\DB\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.x
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.csprojResolveAssemblyReference.cache
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.dll
 G:\du an\DuyTan\qlpr\DB\obj\Debug\DataBase.pdb
+D:\SourceCode\PRPO Manage\qlpr\DB\obj\Debug\DataBase.csprojResolveAssemblyReference.cache

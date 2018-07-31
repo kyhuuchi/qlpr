@@ -15,9 +15,11 @@ namespace PRPO_Manage.Pages.PR
    
     public partial class TaoPR : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack)
+           
+            if (!Page.IsPostBack)
             {
                 CallSAP();
                 //CallFileJSON();

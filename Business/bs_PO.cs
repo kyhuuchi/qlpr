@@ -24,6 +24,7 @@ namespace Business
         private string _ten_nguoiduyet_po;
         private int _so_ngay_tre;
         private int _id_phong_ban;
+        private string _ten_phong_ban;
         private string _ten_nha_cung_cap;
         private string _ma_nha_cung_cap;
         private string _kho_nhan;
@@ -88,6 +89,11 @@ namespace Business
         {
             get { return _id_phong_ban; }
             set { _id_phong_ban = value; }
+        }
+        public string Ten_Phong_Ban
+        {
+            get { return _ten_phong_ban; }
+            set { _ten_phong_ban = value; }
         }
         public string Ten_Nha_Cung_Cap
         {
@@ -168,6 +174,11 @@ namespace Business
                     po.Ten_Nguoi_Duyet_PO = row["NguoiPheDuyetPO"].ToString();
                     po.So_Ngay_tre= Convert.ToInt32(row["SoNgayTre"]);
                     po.ID_Phong_Ban = Convert.ToInt32(row["ID_PhongBan"]);
+                    if(tb.Columns.Contains("TenPhongBan"))
+                    {
+                        po.Ten_Phong_Ban = row["TenPhongBan"].ToString();
+                    }
+                    
                     po.Ten_Nha_Cung_Cap = row["NhaCungCap"].ToString();
                     po.Ma_Nha_Cung_Cap = row["MaNhaCungCap"].ToString();
                     po.Kho_Nhan = row["KhoNhan"].ToString();
@@ -192,6 +203,19 @@ namespace Business
 
             return tb;
         }
+        public DataTable Update_TrangThaiVatTu_PR_ChiTiet(int id_pr_chitiet)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_pr_chi_tiet", id_pr_chitiet);
+
+            SqlParameter[] param = new SqlParameter[1] { pm };
+            DataTable tb = kn.get_by_procedure("proc_Update_TrangThai_VatTu_PR_ChiTiet", param);
+
+
+
+            return tb;
+        }
     }
     public class PO_ChiTiet
     {
@@ -206,6 +230,8 @@ namespace Business
         private double _thanh_tien;
         private int _tinh_trang_vat_tu;
         private int _id_pr_chi_tiet;
+        private DateTime _ngay_mua_hang;
+        private string _so_pr_full;
 
         public int ID_PO_Chi_Tiet
         {
@@ -262,11 +288,28 @@ namespace Business
             get { return _id_pr_chi_tiet; }
             set { _id_pr_chi_tiet = value; }
         }
-
-        //cac ham lien quan den PO Chi Tiet
-        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet)
+        public DateTime Ngay_Mua_Hang
         {
-
+            get { return _ngay_mua_hang; }
+            set { _ngay_mua_hang = value; }
+        }
+        public string So_PR_Full
+        {
+            get { return _so_pr_full; }
+            set { _so_pr_full = value; }
+        }
+        //cac ham lien quan den PO Chi Tiet
+        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang)
+        {
+            DateTime ngmuahang;
+            if (string.IsNullOrEmpty(ngaymuahang) == true)
+            {
+                ngmuahang = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            }
+            else
+            {
+                ngmuahang = Convert.ToDateTime(ngaymuahang);
+            }
             DAC kn = new DAC();
             List<PO_ChiTiet> pochitiet_col = new List<PO_ChiTiet>();
             SqlParameter pm = new SqlParameter("@action", action);
@@ -281,8 +324,8 @@ namespace Business
             SqlParameter pm10 = new SqlParameter("@thanhtien", thanhtien);
             SqlParameter pm11 = new SqlParameter("@tinhtrangvattu", tinhtrangvt);
             SqlParameter pm12 = new SqlParameter("@idpr_chitiet", id_prchitiet);
-
-            SqlParameter[] param = new SqlParameter[12] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12};
+            SqlParameter pm13 = new SqlParameter("@ngaymuahang", ngaymuahang);
+            SqlParameter[] param = new SqlParameter[13] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13};
             DataTable tb = kn.get_by_procedure("proc_Action_PO_ChiTiet", param);
             if (tb != null)
             {
@@ -291,10 +334,11 @@ namespace Business
                     PO_ChiTiet po_chitiet = new PO_ChiTiet();
                     po_chitiet.ID_PO_Chi_Tiet = Convert.ToInt32(row["ID"]);
                     po_chitiet.ID_PO = Convert.ToInt32(row["ID_PO"]);
-                    //if (tb.Columns.Contains("TenVietTat") == true)
+                    //if (tb.Columns.Contains("SoPR_Full") == true)
                     //{
-                    //    po.Ten_PhongBan = row["TenVietTat"].ToString();
+                       
                     //}
+                    po_chitiet.So_PR_Full = row["SoPR_Full"].ToString();
                     po_chitiet.Ma_Hang = row["MaHang"].ToString();
                     po_chitiet.Ten_Hang = row["TenHang"].ToString();
                     po_chitiet.PO_ChiTiet_DVT = row["DVT"].ToString();
@@ -304,7 +348,7 @@ namespace Business
                     po_chitiet.PO_ChiTiet_Thanh_Tien = Convert.ToDouble(row["ThanhTien"]);
                     po_chitiet.PO_ChiTiet_Tinh_Trang = Convert.ToInt32(row["TinhTrangVatTu"]);
                     po_chitiet.ID_PR_Chi_Tiet = Convert.ToInt32(row["ID_PR_ChiTiet"]);
-
+                    po_chitiet.Ngay_Mua_Hang=Convert.ToDateTime(row["NgayMuaHang"]);
                     pochitiet_col.Add(po_chitiet);
 
                 }

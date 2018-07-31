@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="overlay"><div id="text"><img id="img-responsive" src="/Images/loader.gif" alt=""/></div></div> 
     <div class="form-group col-md-12">
-        <a href="/Pages/PR/TaoPR.aspx"><button type="button" class="btn btn-primary btn-sm">Tạo mới PR</button></a>
+        <a href="/Pages/PR/TaoPR.aspx"><button type="button" class="btn btn-primary btn-sm" onclick="ShowLoading()">Tạo mới PR</button></a>
         <%--<a href="/Pages/PR/TaoPR.aspx"><span class="glyphicon glyphicon-shopping-cart" style="padding-right: 5px;"></span>Tạo PR</a>--%>
     </div>
     <ul class="nav nav-tabs">
@@ -87,6 +87,9 @@
        
     </div>
 <script type="text/javascript">
+    function ShowLoading() {
+        $("#overlay").show();
+    }
     $("#overlay").show();
     $(document).ready(function () {
       
