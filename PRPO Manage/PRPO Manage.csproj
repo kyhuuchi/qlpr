@@ -222,10 +222,14 @@
     <Content Include="Account\Login.Master" />
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
+    <Content Include="Images\ChuKy1.png" />
+    <Content Include="Images\headerInPO.jpg" />
+    <Content Include="Images\loader - Copy.gif" />
     <Content Include="Images\loader.gif" />
     <Content Include="Pages\PO\DanhSachPO.aspx" />
     <Content Include="Pages\PO\SuaPO.aspx" />
     <Content Include="Pages\PO\TaoPO.aspx" />
+    <Content Include="Pages\PO\ViewPO.html" />
     <Content Include="Pages\PR\DuyetPR.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />

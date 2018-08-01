@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>.: QUẢN LÝ PR-PO :.</title>
+    <meta charset="utf-8" />
+
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="/Scripts/maskInput/jquery.mask.js"></script>
+
+    <script src="/Scripts/Golbal.js"></script>
+
+    <link href="/Content/menu.css" rel="stylesheet" />
+    <script src="/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+    <link href="/Scripts/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+
+    <script src="/Scripts/moment.min.js"></script>
+    <style>
+        #table_po {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            font-weight:bold;
+        }
+
+
+        #table_po td, th {
+            border: 1px solid #000000;
+            text-align: left;
+            padding: 8px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td>
+                <img src="../../Images/headerInPO.jpg" width="100%"/>
+            </td>
+        </tr>
+        
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="70%" style="text-align:center;font-weight:bold;font-size:20px">ĐƠN ĐẶT HÀNG<br />(Purchasing Order - PO) 
+            </td>
+            <td>Phụ lục 4<br />QT-CUVT-01 : 01<br />Số PO: <span id="sopo" style="font-weight:bold"></span><br />Trang: &nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        
+    </table>
+    <table width="100%" style="font-weight:bold">
+        <tr>
+            <td>Kính gửi Công ty:<span id="tennhacc" style="margin-left:30px"></span></td>
+        </tr>
+        <tr>
+            <td>Người nhận:<span id="nguoinhan"></span></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại:<span id="sodienthoai"></span></td>
+        </tr>
+        <tr>
+            <td>Số fax:<span id="sofax"></span></td>
+        </tr>
+        <tr>
+            <td>Công ty CP SX Nhựa Duy Tân xác nhận đơn đặt hàng với những nội dung chi tiết như sau:</td>
+        </tr>
+    </table>
+    <table width="100%" id="table_po">
+        <tr>
+            <td>Stt</td>
+            <td>Mã hàng</td>
+            <td>Tên hàng và quy cách</td>
+            <td>ĐVT</td>
+            <td>Số lượng</td>
+            <td>Tiền tệ</td>
+            <td>Đơn giá</td>
+            <td>Thành tiền</td>
+            <td>Thành tiền đã thuế</td>
+            <td>Ngày giao</td>
+            <td>Nơi nhận</td>
+        </tr>
+    </table>
+    <br />
+    <table width="100%" style="font-weight:bold">
+        <tr>
+            <td>Phương thức thanh toán: Z030 - TT trong vòng 30 ngày</td>
+        </tr>
+        <tr>
+            <td>Kho nhận: <span id="khonhan" style="margin-left:30px"></span></td>
+        </tr>
+        <tr>
+            <td>Mọi chi tiết xin vui lòng liên hệ: <span id="nguoimuahang" style="margin-left:30px"></span></td>
+        </tr>
+        <tr>
+            <td>Điện thoại: <span id="dienthoai"></span></td>
+        </tr>
+        <tr>
+            <td>Email: <span id="email"></span></td>
+        </tr>
+        <tr>
+            <td>Xin vui lòng phúc đáp lại thời gian giao hàng.</td>
+        </tr>
+        <tr>
+            <td>Trân trọng kính chào.</td>
+        </tr>
+        <tr style="text-align:right;font-weight:normal!important">
+            <td>Duy Tân, ngày <span id="ngayin"></span> tháng <span id="thangin"></span> năm <span id="namin"></span></td>
+        </tr>
+    </table>
+    <table width="100%" style="font-weight:bold;text-align:center">
+        <tr>
+            <td>Xác nhận của Nhà cung cấp</td>
+            <td>Người đặt hàng</td>
+            <td>Duyệt Đơn đặt hàng</td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td></td>
+            <td><br /><br /><br /><br /><span id="tennguoimuahang"></span></td>
+            <td>
+                <img src="../../Images/ChuKy1.png" id="chukynguoiduyet" style="display:none"/><br /><span id="nguoiduyetpo"></span></td>
+        </tr>
+        
+    </table>
+    <input type="hidden" id="id_po" />
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('po')) {
+            alert("Tham số PO không có.");
+            window.location.replace("../../Default");
+        }
+        else {
+        
+            //lay thong tin ngay hien tai
+            var ngayinpo = new Date().getDate();
+            var thanginpo = new Date().getMonth();
+            var naminpo = new Date().getFullYear();
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            //// Decode the String
+            var decodedString = Base64.decode(urlParams.get('po'));
+
+            //lay thong tin po
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/LayDSPO",
+                data: {
+                    "action": 1,
+                    "id": 0,
+                    "sopo": 0,
+                    "sopo_full": decodedString,
+                    "nam": 0,
+                    "ngaypo": "",
+                    "thangpo": 0,
+                    "id_nguoiphutrach": 0,
+                    "id_nguoiduyet": 0,
+                    "id_phongban": 0,
+                    "nhacungcap": "",
+                    "songaytre": 0,
+                    "manhacuangcap": "",
+                    "khonhan": "",
+                    "tinhtrang": 0
+                },
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("sopo").innerText = data[0]["So_PO_Full"];
+                    document.getElementById("tennhacc").innerText = data[0]["Ten_Nha_Cung_Cap"];
+                    document.getElementById("khonhan").innerText = data[0]["Ten_Phong_Ban"];
+                    document.getElementById("nguoimuahang").innerText = data[0]["Ten_NguoiMuaHang"];
+                    document.getElementById("tennguoimuahang").innerText = data[0]["Ten_NguoiMuaHang"];
+                    document.getElementById("nguoiduyetpo").innerText = data[0]["Ten_Nguoi_Duyet_PO"];
+                    document.getElementById("ngayin").innerText = ngayinpo;
+                    document.getElementById("thangin").innerText = thanginpo+1;
+                    document.getElementById("namin").innerText = naminpo;
+
+                    document.getElementById("id_po").value = data[0]["ID_PO"];
+                    if (data[0]["Tinh_Trang"]==3)
+                    {
+                        $("#chukynguoiduyet").removeAttr("style");
+                    }
+                    //document.getElementById("tennhacungcap").value = data[0]["Ten_Nha_Cung_Cap"];
+                    //document.getElementById("manhacuangcap").value = data[0]["Ma_Nha_Cung_Cap"];
+                    //document.getElementById("donvidexuat").value = data[0]["Ten_Phong_Ban"];
+                    //document.getElementById("id_donvidexuat").value = data[0]["ID_Phong_Ban"];
+                    //document.getElementById("namdexuat").value = data[0]["Nam"];
+                    //document.getElementById("sothutupo").value = data[0]["So_PO"];
+                    //document.getElementById("id_po").value = data[0]["ID_PO"];
+                    //document.getElementById("tinhtrangPO").value = data[0]["Tinh_Trang"];
+                    //document.getElementById("ContentPlaceHolder1_txt_ncc").value = data[0]["Ten_Nha_Cung_Cap"];
+                    //document.getElementById("id_nguoiduyetpo").value = data[0]["ID_Nguoi_Duyet_PO"];
+                    //id_nguoiduyet = data[0]["ID_Nguoi_Duyet_PO"];
+                    //////kiem tra xem tinh trang la luu tam hay chua duyet, neu la chua duyet thi khong cho hien thi nut chuyen
+                    //if (data[0]["Tinh_Trang"] == 1) {
+                    //    $("#btt_chuyen").removeAttr("style");
+                    //}
+                    //////load ngay de xuat
+                    //var dateString = data[0]["Ngay_PO"].substr(6);
+                    //var currentTime = new Date(parseInt(dateString));
+                    //var month = currentTime.getMonth() + 1;
+                    //var day = currentTime.getDate();
+                    //var year = currentTime.getFullYear();
+                    //var date = year + "-" + month + "-" + day;
+                    //document.getElementById("ngaypo").value = date;
+
+
+                },
+
+            })
+                  .done(LayThongTinPOChiTiet())
+                  .fail(function (jqXHR, textStatus, errorThrown) {
+                      alert("error" + errorThrown);
+                  });
+
+        }
+    });
+    function LayThongTinPOChiTiet()
+    {
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/Action_POChiTiet",
+            data: {
+                "action": 1,
+                "id": 0,
+                "idpo": Number($("#id_po").val()),
+                "mahang": "",
+                "tenhang": "",
+                "dvt": "",
+                "soluong": 0,
+                "dongia": 0,
+                "tigia": 0,
+                "thanhtien": 0,
+                "tinhtrangvt": 0,
+                "id_prchitiet": 0,
+                "ngaymuahang": ""
+            },
+            dataType: "json",
+            success: function (data) {
+                var markup = "";
+                var stt = 1;
+                for (var i = 0; i < data.length; i++) {
+                    ////load ngay de xuat
+                    var dateString = data[i]["Ngay_Mua_Hang"].substr(6);
+                    var currentTime = new Date(parseInt(dateString));
+                    var month = currentTime.getMonth() + 1;
+                    var day = currentTime.getDate();
+                    var year = currentTime.getFullYear();
+                    var date = day + "/" + month + "/" + year;
+                    var ngaymuahang = date;
+
+
+                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>VND</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('vn') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('vn') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('vn') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>Duy Tân</td></tr>";
+                    stt++;
+                }
+
+                $("#table_po tbody").append(markup);
+            },
+
+        })
+             .fail(function (jqXHR, textStatus, errorThrown) {
+                 alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+             });
+    }
+</script>   

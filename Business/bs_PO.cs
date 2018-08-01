@@ -203,13 +203,14 @@ namespace Business
 
             return tb;
         }
-        public DataTable Update_TrangThaiVatTu_PR_ChiTiet(int id_pr_chitiet)
+        public DataTable Update_TrangThaiVatTu_PR_ChiTiet(int id_pr_chitiet,int tinhtrang)
         {
             DAC kn = new DAC();
 
             SqlParameter pm = new SqlParameter("@id_pr_chi_tiet", id_pr_chitiet);
-
-            SqlParameter[] param = new SqlParameter[1] { pm };
+            SqlParameter pm2 = new SqlParameter("@tinhtrang", tinhtrang);
+            
+            SqlParameter[] param = new SqlParameter[2] { pm,pm2 };
             DataTable tb = kn.get_by_procedure("proc_Update_TrangThai_VatTu_PR_ChiTiet", param);
 
 

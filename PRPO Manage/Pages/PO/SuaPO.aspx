@@ -129,14 +129,15 @@
         </div>
          <div class="row">
             <div class="form-group col-md-12">
-                <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet()">Lưu PO</button>
-                <button type="button" class="btn btn-success btn-sm" id="btt_chuyen" style="display:none">Lưu và chuyển phê duyệt</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet(1)">Lưu PO</button>
+                <button type="button" class="btn btn-success btn-sm" id="btt_chuyen" style="display:none" onclick="LuuVaChuyenPheDuyet()">Lưu và chuyển phê duyệt</button>
             </div>
         </div>
     </div>
     <script type="text/javascript">
         var currentRow = null;
         var arr_rows = new Array();
+        var arr_vattu_daco_muonxoa = new Array();
         //kiem tra xem user hien tai co quyen truy cap vao trang PO khong, neu khong redirect
         if ($("#muahang").val() == 'false') {
             window.location.replace("/Default.aspx");
@@ -315,7 +316,7 @@
             });
         }
         //Luu thông tin PO va lay thông tin các PR da duyet
-        function LuuPO() {
+        function LuuPO(tinhtrang) {
           
             var date = new Date($("#ngaypo").val());
             var thangtao = date.getMonth() + 1;
@@ -326,7 +327,7 @@
                 url: "/Webservice/dsnguoidung.asmx/LayDSPO",
                 data: {
                     "action": 2,
-                    "id": 0,
+                    "id": $("#id_po").val(),
                     "sopo": Number($("#sothutupo").val()),
                     "sopo_full": $("#sopo").val(),
                     "nam": Number($("#namdexuat").val()),
@@ -338,18 +339,18 @@
                     "nhacungcap": $("#tennhacungcap").val(),
                     "songaytre": 0,
                     "manhacuangcap": $("#manhacuangcap").val(),
-                    "khonhan": $("#donvidexuat option:selected").text(),
-                    "tinhtrang": 1
+                    "khonhan": $("#donvidexuat").val(),
+                    "tinhtrang": tinhtrang
                 },
                 dataType: "json",
 
                 success: function (data) {
-                    alert("Thông tin PO đã được tạo thành công.");
+                    //alert("Thông tin PO đã được c thành công.");
 
                 },
 
             })
-            .done(LayPR_PR_ChiTiet_DaDuyet())
+            
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error lay so PO; " + errorThrown);
             });
@@ -433,7 +434,7 @@
                         var ngaymuahang = date;
 
                         
-                        markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"] + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td></tr>";
+                        markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/></td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"] + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td></tr>";
                         stt++;
                     }
                   
@@ -482,14 +483,16 @@
                     new_ngaymuahang = moment(new_ngaymuahang).format("DD/MM/YYYY");
 
                     arr_rows.push($(this).parents('tr'));
+                    arr_rows.push(id_pr_chitiet);
                     $(this).parents("tr").remove();
                     //markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
-                    markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td></tr>";
+                    markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/><input type='hidden' id='tontai*" + stt + "' value='0'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td></tr>";
                     stt++;
                     
                 }
             });
             $("#table_chitietpo tbody").append(markup);
+            CapNhatSoTT();
         });
         //****************************//
         //Xu ly nut xoa vat tu
@@ -516,13 +519,16 @@
             currentRow.find('td').find("input[name='sopr_chitiet']").each(function () {
                 //alert(this.id)
                 id_pr_chitiet = this.value;
+                arr_vattu_daco_muonxoa.push(id_pr_chitiet);
             });
             //kiem tra trong mang array_rows co dong tr do hay khong, neu co thi lay ra
-            for (var i = 0; i < arr_rows.length;i++)
+            
+            for (var i = 1; i < arr_rows.length;i++)
             {
-                if (arr_rows[i].find('td').find("input[name='sopr_chitiet']").value == id_pr_chitiet)
+                
+                if (arr_rows[i] == id_pr_chitiet)
                 {
-                    markup = arr_rows[i].innerHTML;
+                    markup = arr_rows[i-1];
                 }
             }
             $(this).parents('tr').remove();
@@ -574,8 +580,9 @@
         }
         //Lay thong tin PR chi tiet vua tao//
         //*********************************//
-        function LayDanhSachPOChiTiet()
+        function LayDanhSachPOChiTiet(ttrang)
         {
+            LuuPO(ttrang);
             var table = $("#table_chitietpo");
             table.find('tbody > tr').each(function () {
                 //lay thong tin item trong table vat tu
@@ -594,42 +601,125 @@
                 var thoigiansudung = $(this).closest('tr').find('td.cls_thoigiansudung').text();
                 var congdung = $(this).closest('tr').find('td.cls_congdungchitiet').text();
                 var ngaycanhang = $(this).closest('tr').find('td.cls_ngaycanhang').text();
+                ngaycanhang = moment(ngaycanhang, "DD/MM/YYYY").format("YYYY-MM-DD");
+
                 var id_pr_chitiet;
                 $(this).closest('tr').find('td').find("input[name='sopr_chitiet']").each(function () {
                     //alert(this.id)
                     id_pr_chitiet = this.value;
                 });
+                var tontai;
+                $(this).closest('tr').find('td').find("input[id^='tontai*']").each(function () {
+                    //alert(this.id)
+                    tontai = this.value;
+                });
+                //kiem tra xem dong item do la da co hay chua, neu chua co thi insert vao
+                if(tontai==0)
+                {
+                    //chay webservice insert po chitiet
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "/Webservice/dsnguoidung.asmx/Action_POChiTiet",
+                        data: {
+                            "action": 2,
+                            "id": 0,
+                            "idpo": id_po,
+                            "mahang": mahang,
+                            "tenhang": tenhang,
+                            "dvt": dvt,
+                            "soluong": soluongpo,
+                            "dongia": dongia,
+                            "tigia": tigia,
+                            "thanhtien": thanhtien,
+                            "tinhtrangvt": tinhtrangvattu,
+                            "id_prchitiet": id_pr_chitiet,
+                            "ngaymuahang": ngaycanhang
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                          //  alert("Da tao PO chi tiet thanh cong.");
+                            var table = $("#table_chitietpo");
+                            table.find('tbody > tr').each(function () {
+                                $(this).closest('tr').find('td').find("input[id^='tontai*']").each(function () {
+                                    //alert(this.id)
+                                    this.value = 1;
+                                });
+                            });
+                            
+                            //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
+                            Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet,1);
+                        },
 
-                //chay webservice insert po chitiet
-                $.ajax({
-                    type: "POST",
-                    async: false,
-                    url: "/Webservice/dsnguoidung.asmx/Action_POChiTiet",
-                    data: {
-                        "action": 2,
-                        "id": 0,
-                        "idpo": id_po,
-                        "mahang": mahang,
-                        "tenhang": tenhang,
-                        "dvt": dvt,
-                        "soluong": soluongpo,
-                        "dongia": dongia,
-                        "tigia": tigia,
-                        "thanhtien": thanhtien,
-                        "tinhtrangvt": tinhtrangvattu,
-                        "id_prchitiet": id_pr_chitiet
-                    },
-                    dataType: "json",
-                    success: function (data) {
-
-                    },
-
-                })
-               .fail(function (jqXHR, textStatus, errorThrown) {
-                   alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
-               });
+                    })
+                   .fail(function (jqXHR, textStatus, errorThrown) {
+                       alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+                   });
+                }
+               
             });
-           
+
+            //kiem tra xem co cac item da them vao truoc do co xoa ra khoi po hay ko
+            if (arr_vattu_daco_muonxoa.length > 0) {
+                for (var i = 0; i < arr_vattu_daco_muonxoa.length; i++) {
+                    Update_TrangThai_VatTu_PRChiTiet(arr_vattu_daco_muonxoa[i], 0);
+                    //chay webservice insert po chitiet
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "/Webservice/dsnguoidung.asmx/Action_POChiTiet",
+                        data: {
+                            "action": 0,
+                            "id": 0,
+                            "idpo": 0,
+                            "mahang": "",
+                            "tenhang": "",
+                            "dvt": "",
+                            "soluong": 0,
+                            "dongia": 0,
+                            "tigia": 0,
+                            "thanhtien": 0,
+                            "tinhtrangvt": 0,
+                            "id_prchitiet": arr_vattu_daco_muonxoa[i],
+                            "ngaymuahang": ""
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            
+                        },
+
+                    })
+                   .fail(function (jqXHR, textStatus, errorThrown) {
+                       alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+                   });
+                }
+            }
+            window.location.replace("DanhSachPO");
+        }
+        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang) {
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangPRChiTiet",
+                data: {
+                    "id_pr_chitiet": id_pr_chitiet,
+                    "tinhtrang": tinhtrang
+                },
+                dataType: "json",
+                success: function (data) {
+                    // console.log("Đã cập nhật tình trạng PR chi tiết.")
+                    
+                },
+
+            })
+               .fail(function (jqXHR, textStatus, errorThrown) {
+                   alert("error cập nhật PR chi tiết; " + errorThrown);
+               });
+        }
+        function LuuVaChuyenPheDuyet()
+        {
+            LayDanhSachPOChiTiet(2);
+            
         }
     </script>
 </asp:Content>

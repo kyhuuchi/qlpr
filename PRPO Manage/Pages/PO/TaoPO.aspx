@@ -52,7 +52,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="sopo">Số PO</label>
-                    <input type="text" class="form-control" id="sopo" readonly />
+                    <input type="text" class="form-control" id="sopo"/>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nguoimuahang">Người mua hàng</label>
@@ -144,10 +144,15 @@
     </div>
     <script type="text/javascript">
         var currentRow = null;
+       
         //kiem tra xem user hien tai co quyen truy cap vao trang PO khong, neu khong redirect
         if ($("#muahang").val() == 'false') {
             window.location.replace("/Default.aspx");
         }
+
+        $("#ngaypo").focusout(function () {
+            LaySoPO();
+        });
         //**********//
         var dsdata;
         var currentRow = null;
@@ -179,7 +184,7 @@
         $("#donvidexuat").change(function () {
 
             document.getElementById("id_donvidexuat").value = $(this).val();
-            //LaySoPO();
+            LaySoPO();
 
         });
         $("#nguoiduyetpo").change(function () {
@@ -286,8 +291,14 @@
         }
         //Luu thông tin PO va lay thông tin các PR da duyet
         function LuuPO() {
-            LaySoPO();
-            CapNhatSoPO();
+            //kiem tra xem chuoi PO Full la dang HD hay dang PO
+            var str_po=$("#sopo").val();
+            var n=str_po.search("POMH");
+            if (n>0)
+            {
+                CapNhatSoPO();
+            }
+            
             var date = new Date($("#ngaypo").val());
             var thangtao = date.getMonth() + 1;
 
@@ -442,6 +453,12 @@
         $("#themchitietPO").click(function () {
             var markup = "";
             var stt = 1;
+            var mata_true = 0;
+            //kiem tra xem phong ban do co phai la MATA hay khong, neu la MATA thi giu nguyen ngay hang, ko can cong them leadtime
+            if ($("#id_donvidexuat").val()==1)
+            {
+                mata_true = 1;
+            }
             $("#table_vattu tbody").find('input[name="record"]').each(function () {
                 if ($(this).is(":checked")) {
                     
@@ -472,8 +489,13 @@
                         leadtime = this.value;
                     });
                     //tinh ngay mua hang
-                    var new_ngaymuahang = moment(ngaycanhang, "DD/MM/YYYY").add(leadtime, 'days');
-                    new_ngaymuahang = moment(new_ngaymuahang).format("DD/MM/YYYY");
+                    var new_ngaymuahang = ngaycanhang;
+                    if(mata_true==0)
+                    {
+                        new_ngaymuahang = moment(ngaycanhang, "DD/MM/YYYY").add(leadtime, 'days');
+                        new_ngaymuahang = moment(new_ngaymuahang).format("DD/MM/YYYY");
+                    }
+                    
                     $(this).parents("tr").remove();
                     markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
                     stt++;
@@ -617,7 +639,7 @@
                     success: function (data) {
                         alert("Da tao PO chi tiet thanh cong.");
                         //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
-                        Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet);
+                        Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet,1);
                     },
 
                 })
@@ -627,18 +649,21 @@
             });
            
         }
-        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet)
+        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang)
         {
             $.ajax({
                 type: "POST",
                 async: false,
                 url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangPRChiTiet",
                 data: {
-                    "id_pr_chitiet": id_pr_chitiet
+                    "id_pr_chitiet": id_pr_chitiet,
+                    "tinhtrang": tinhtrang
                 },
                 dataType: "json",
                 success: function (data) {
-                    console.log("Đã cập nhật tình trạng PR chi tiết.")
+                    //console.log("Đã cập nhật tình trạng PR chi tiết.")
+                    window.location.replace("DanhSachPO");
+
                 },
 
             })

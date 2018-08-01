@@ -234,10 +234,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(parentRow));
         }
         [WebMethod]
-        public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet)
+        public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet, int tinhtrang)
         {
             PO po = new PO();
-            DataTable tb = po.Update_TrangThaiVatTu_PR_ChiTiet(id_pr_chitiet);
+            DataTable tb = po.Update_TrangThaiVatTu_PR_ChiTiet(id_pr_chitiet,tinhtrang);
             var js = new JavaScriptSerializer();
 
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
