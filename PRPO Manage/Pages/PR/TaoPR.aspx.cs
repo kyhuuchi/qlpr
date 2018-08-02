@@ -24,7 +24,12 @@ namespace PRPO_Manage.Pages.PR
                 CallSAP();
                 //CallFileJSON();
             }
-            
+
+        }
+        void Page_LoadComplete(object sender, EventArgs e)
+        {
+            // call your download function
+          
         }
         protected void CallSAP()
         {

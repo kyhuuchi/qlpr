@@ -458,6 +458,13 @@
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
+                        if(day<10)
+                        {
+                            day = "0" + day;
+                        }
+                        if (month < 10) {
+                            month = "0" + month;
+                        }
                         var date = year + "-" + month + "-" + day;
                         document.getElementById("ngaydexuat").value = date;
 
@@ -1040,6 +1047,7 @@
                     success: function (data) {
                        
                         stt++;
+
                     },
 
                 })
@@ -1047,6 +1055,7 @@
                       alert("error" + errorThrown);
                   });
             });
+            window.location.replace("../../Default");
         }
         //******************//
         function InForm() {
@@ -1184,6 +1193,7 @@
                 dataType: "json",
                 success: function (data) {
                     alert("PR đã được cập nhật thành công.")
+
                 },
 
             })

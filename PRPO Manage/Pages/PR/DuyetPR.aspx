@@ -162,7 +162,12 @@
                         "email": "",
                         "dangsudung": false,
                         "quanly": true,
-                        "admin": false
+                        "admin": false,
+                        "quanlykho":false,
+                        "quanlymuahang":false,
+                        "matkhau":"",
+                        "domain":false
+                    
                     }, 
                     dataType: "json",
                     success: function (data) {

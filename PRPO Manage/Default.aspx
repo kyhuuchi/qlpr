@@ -10,73 +10,16 @@
         <li class="active"><a data-toggle="tab" href="#luutam">Danh sách PR lưu tạm <span class="badge" id="soluongpr_luutam"></span></a></li>
         <li><a data-toggle="tab" href="#chuaduyet">Danh sách PR chưa duyệt <span class="badge" id="soluongpr_chuaduyet"></span></a></li>
         <li><a data-toggle="tab" href="#daduyet">Danh sách PR đã duyệt <span class="badge" id="soluongpr_daduyet"></span></a></li>
+        <li><a data-toggle="tab" href="#conlai">Danh sách PR chưa tạo PO <span class="badge" id="soluongpr_conlai"></span></a></li>
     </ul>
 
     <div class="tab-content" style="margin-top: 5px;">
         <div id="luutam" class="tab-pane fade in active">
             <div class="panel-group" id="accordion_luutam">
-             <%--   <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_luutam" href="#collapse_luutam">AAA</a>
-                        </h4>
-                    </div>
-                    <div id="collapse_luutam" class="panel-collapse">
-                        <div class="panel-body">
-                            <div>
-                                <table id="NguoiDungTable" class="display" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Tên hiển thị</th>
-                                            <th>Tên đăng nhập</th>
-                                            <th>Đơn vị</th>
-                                            <th>Email</th>
-                                            <th>Ngày tạo</th>
-                                            <th>Quản lý</th>
-                                            <th>Đang sử dụng</th>
-                                            <th>Admin</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>--%>
-              
             </div>
         </div>
         <div id="chuaduyet" class="tab-pane fade">
             <div class="panel-group" id="accordion_chuaduyet">
-              <%--  <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
-                        </h4>
-                    </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
-                        </h4>
-                    </div>
-                    <div id="collapse2" class="panel-collapse collapse">
-                        <div class="panel-body">
-                           sdsdad
-                        </div>
-                    </div>
-                </div>--%>
               
             </div>
         </div>
@@ -84,7 +27,10 @@
            <div class="panel-group" id="accordion_daduyet">
                </div>
         </div>
-       
+         <div id="conlai" class="tab-pane fade">
+           <div class="panel-group" id="accordion_conlai">
+               </div>
+        </div>
     </div>
 <script type="text/javascript">
     function ShowLoading() {
@@ -139,6 +85,7 @@
                     str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
                     str_dt=str_dt+'<th>Công dụng</th>';
                     str_dt = str_dt + '<th>Ngày tạo</th>';
+                    str_dt = str_dt + '<th>Người tạo</th>';
                     str_dt = str_dt + '<th>Ghi chú</th>';
                     str_dt=str_dt+'<th></th>';
                     str_dt = str_dt + '<th></th>';
@@ -242,6 +189,7 @@
                                         return date.getDate() + "/" + month + "/" + date.getFullYear();
                                     }
                                 },
+                                { 'data': 'Ten_Nguoi_De_Xuat' },
                                  { 'data': 'Ghi_Chu' },
 
                                  { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
@@ -404,6 +352,7 @@
                     str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
                     str_dt = str_dt + '<th>Công dụng</th>';
                     str_dt = str_dt + '<th>Ngày tạo</th>';
+                    str_dt = str_dt + '<th>Người tạo</th>';
                     str_dt = str_dt + '<th>Ghi chú</th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
@@ -512,6 +461,7 @@
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
                                     },
+                                     { 'data': 'Ten_Nguoi_De_Xuat' },
                                      { 'data': 'Ghi_Chu' },
 
                                      { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
@@ -539,6 +489,7 @@
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
                                     },
+                                    { 'data': 'Ten_Nguoi_De_Xuat' },
                                      { 'data': 'Ghi_Chu' },
 
                                      { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
@@ -700,6 +651,7 @@
                     str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
                     str_dt = str_dt + '<th>Công dụng</th>';
                     str_dt = str_dt + '<th>Ngày tạo</th>';
+                    str_dt = str_dt + '<th>Người tạo</th>';
                     str_dt = str_dt + '<th>Ghi chú</th>';
                     str_dt = str_dt + '<th>File đính kèm</th>';
                     if ($("#muahang")=='true')
@@ -710,6 +662,7 @@
                     else
                     {
                         str_dt = str_dt + '<th></th>';
+                        
                     }
                     str_dt = str_dt + '</tr>';
                     str_dt = str_dt + '</thead>';
@@ -810,6 +763,7 @@
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
                                     },
+                                    { 'data': 'Ten_Nguoi_De_Xuat' },
                                      { 'data': 'Ghi_Chu' },
                                      {
                                          'data': 'PR_Scan_File', 'render': function (data, type, row, meta) {
@@ -844,6 +798,7 @@
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
                                     },
+                                    { 'data': 'Ten_Nguoi_De_Xuat' },
                                      { 'data': 'Ghi_Chu' },
                                      {
                                          'data': 'PR_Scan_File', 'render': function (data, type, row, meta) {
@@ -916,6 +871,174 @@
 
         }
         //************************************************//
+
+        //*** Xu ly load thong tin cac PR chua po  *** ///
+        //lay thong tin tat ca phong ban 
+        var soluongdata = 0;
+        var dt_pr;
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/ThongTinPR_TinhTrang",
+            data: {
+                "tinhtrang": 5,
+                "id_bp": Number($("#id_bophan").val()),
+                "muahang": $("#muahang").val() === 'true',
+                "kho": $("#kho").val() === 'true'
+            },
+            dataType: "json",
+            success: function (data) {
+                var ds_pr_conlai = document.getElementById('accordion_conlai');
+                var sl_conlai = 0;
+                var str_dt = "";
+                dt_pr = data;
+                soluongdata = data.length;
+                for (var i = 0; i < soluongdata; i++) {
+                    sl_conlai += data[i]["SoLuong"];
+                    str_dt = str_dt + '<div class="panel panel-default">';
+                    str_dt = str_dt + '<div class="panel-heading">';
+                    str_dt = str_dt + '<h4 class="panel-title">';
+                    str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_conlai' + i + '" href="#collapse_conlai' + i + '">' + data[i]["TenPhongBan"] + '<span class="badge" id="soluongpr_conlai_pb' + i + ' " style="margin-left: 6px;">' + data[i]["SoLuong"] + '</span></a>';
+                    str_dt = str_dt + '</h4>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '<div id="collapse_conlai' + i + '" class="panel-collapse in">';
+                    str_dt = str_dt + '<div class="panel-body">';
+                    str_dt = str_dt + '<div>';
+                    str_dt = str_dt + '<table id="ConLaiTable' + i + '" class="display" width="100%">';
+                    str_dt = str_dt + '<thead>';
+                    str_dt = str_dt + '<tr>';
+                    str_dt = str_dt + '<th>Số PR</th>';
+                    str_dt = str_dt + '<th>Tổng tiền (VND)</th>';
+                    str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
+                    str_dt = str_dt + '<th>Công dụng</th>';
+                    str_dt = str_dt + '<th>Ngày tạo</th>';
+                    str_dt = str_dt + '<th>Người tạo</th>';
+                    str_dt = str_dt + '<th>Ghi chú</th>';
+                    str_dt = str_dt + '<th></th>';
+                    str_dt = str_dt + '<th></th>';
+                    
+                    str_dt = str_dt + '</tr>';
+                    str_dt = str_dt + '</thead>';
+                    str_dt = str_dt + '</table>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+
+
+                }
+                document.getElementById("soluongpr_conlai").textContent = sl_conlai;
+                ds_pr_conlai.insertAdjacentHTML('afterend', str_dt);
+
+            },
+
+        })
+        .done(LayDataPRConLai(dt_pr))
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            alert("error" + errorThrown);
+        });
+
+        //ham lay thoong tin cac pr roi chuyen vao table
+        function LayDataPRConLai(dt_pr) {
+
+            for (var s = 0; s < dt_pr.length; s++) {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                    data: {
+                        "action": 1,
+                        "id": 0,
+                        "id_phongban": dt_pr[s]["ID"],
+                        "sopr": 0,
+                        "sopr_full": "",
+                        "nam": 0,
+                        "congdung": "",
+                        "ngaytao": "",
+                        "thangtao": 0,
+                        "tongsoluongyeucau": 0,
+                        "tongtien": 0,
+                        "ghichu": "",
+                        "ngayduyet": "",
+                        "id_nguoiduyet": 0,
+                        "id_nguoidexuat": 0,
+                        "tinhtrang": 3,
+                        "prscanfile": "",
+                        "sendmail": false,
+                        "tieude1": "",
+                        "tieude2": "",
+                        "tieude3": "",
+                        "tieude4": "",
+                        "tieude5": "",
+                        "tieude6": "",
+                        "ngansachduocduyet1": 0,
+                        "ngansachduocduyet2": 0,
+                        "ngansachduocduyet3": 0,
+                        "ngansachduocduyet4": 0,
+                        "ngansachduocduyet5": 0,
+                        "ngansachduocduyet6": 0,
+                        "dexuatlannay1": 0,
+                        "dexuatlannay2": 0,
+                        "dexuatlannay3": 0,
+                        "dexuatlannay4": 0,
+                        "dexuatlannay5": 0,
+                        "dexuatlannay6": 0,
+                        "luyke1": 0,
+                        "luyke2": 0,
+                        "luyke3": 0,
+                        "luyke4": 0,
+                        "luyke5": 0,
+                        "luyke6": 0,
+                        "thuathieu1": 0,
+                        "thuathieu2": 0,
+                        "thuathieu3": 0,
+                        "thuathieu4": 0,
+                        "thuathieu5": 0,
+                        "thuathieu6": 0
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var tble = document.getElementById("ConLaiTable" + s);
+
+                        var datatableVariable = $('#ConLaiTable' + s).DataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'So_PR_Full' },
+                                { 'data': 'Tong_Tien', render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                                { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                                { 'data': 'Cong_Dung' },
+                                {
+                                    'data': 'Ngay_Tao', 'render': function (date) {
+                                        var date = new Date(parseInt(date.substr(6)));
+                                        var month = date.getMonth() + 1;
+                                        return date.getDate() + "/" + month + "/" + date.getFullYear();
+                                    }
+                                },
+                                { 'data': 'Ten_Nguoi_De_Xuat' },
+                                 { 'data': 'Ghi_Chu' },
+
+                                 { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
+                                 { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
+                                 
+                            ],
+
+                            "deferRender": true
+                        });
+
+
+                    }
+
+                })
+
+                  .fail(function (jqXHR, textStatus, errorThrown) {
+                      alert("error" + errorThrown);
+                  });
+            }
+          
+
+        }
+        //**********************************************//
         $("#overlay").hide();
     });
 </script>

@@ -210,6 +210,12 @@
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
+                        if (day < 10) {
+                            day = "0" + day;
+                        }
+                        if (month < 10) {
+                            month = "0" + month;
+                        }
                         var date = year + "-" + month + "-" + day;
                         document.getElementById("ngaypo").value = date;
 

@@ -5,7 +5,7 @@
         <li class=""><a href="/Default.aspx"><span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>Trang chủ</a></li>        
         <%--<li class=""><a href="/Pages/PR/TaoPR.aspx"><span class="glyphicon glyphicon-shopping-cart" style="padding-right: 5px;"></span>PR</a></li> --%>       
         <li class="" id="menupo"><a href="/Pages/PO/DanhSachPO.aspx"><span class="glyphicon glyphicon-list-alt" style="padding-right: 5px;"></span>PO</a></li>        
-        <li class="" id="menukho"><a href="/Pages/PO/TaoPO.aspx"><span class="glyphicon glyphicon-list-alt" style="padding-right: 5px;"></span>Kho</a></li>        
+        <li class="" id="menukho"><a href="/Pages/Kho/DanhSachKho.aspx"><span class="glyphicon glyphicon-list-alt" style="padding-right: 5px;"></span>Kho</a></li>        
         <li class='has-sub'><a href='#'><span class="glyphicon glyphicon-file" style="padding-right: 5px;"></span>Báo cáo</a>
             <ul>
                 <li class=''><a href='#'>Số lượng PR theo tháng, theo đơn vị</a></li>

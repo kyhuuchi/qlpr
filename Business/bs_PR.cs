@@ -27,6 +27,7 @@ namespace Business
         private DateTime _ngay_duyet;
         private int _id_nguoi_duyet;
         private int _id_nguoi_de_xuat;
+        private string _ten_nguoi_de_xuat;
         private int _tinh_trang;
         private string _pr_scan_file;
         private bool _sent_mail;
@@ -135,6 +136,11 @@ namespace Business
         {
             get { return _id_nguoi_duyet; }
             set { _id_nguoi_duyet = value; }
+        }
+        public string Ten_Nguoi_De_Xuat
+        {
+            get { return _ten_nguoi_de_xuat; }
+            set { _ten_nguoi_de_xuat = value; }
         }
         public int ID_Nguoi_De_Xuat
         {
@@ -416,6 +422,11 @@ namespace Business
                     }
                     
                     pr.ID_Nguoi_De_Xuat = Convert.ToInt32(row["ID_NguoiDeXuat"]);
+                    if(tb.Columns.Contains("TenHienThi")==true)
+                    {
+                        pr.Ten_Nguoi_De_Xuat = row["TenHienThi"].ToString();
+                    }
+                
                     pr.Tinh_Trang = Convert.ToInt32(row["TinhTrang"]);
                     if(!row.IsNull("PRScanFile"))
                     {
