@@ -943,6 +943,7 @@
         function LayDataPRConLai(dt_pr) {
 
             for (var s = 0; s < dt_pr.length; s++) {
+
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -963,7 +964,7 @@
                         "ngayduyet": "",
                         "id_nguoiduyet": 0,
                         "id_nguoidexuat": 0,
-                        "tinhtrang": 3,
+                        "tinhtrang": 5,
                         "prscanfile": "",
                         "sendmail": false,
                         "tieude1": "",
@@ -1000,7 +1001,6 @@
                     dataType: "json",
                     success: function (data) {
                         var tble = document.getElementById("ConLaiTable" + s);
-
                         var datatableVariable = $('#ConLaiTable' + s).DataTable({
                             data: data,
                             columns: [
@@ -1018,13 +1018,27 @@
                                 { 'data': 'Ten_Nguoi_De_Xuat' },
                                  { 'data': 'Ghi_Chu' },
 
-                                 { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
+                                 { "defaultContent": "<button type='button' id='btnClose' class='btn btn-warning btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-lock' aria-hidden='true'></span></button>" },
                                  { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                 
+
                             ],
 
                             "deferRender": true
                         });
+                        if (data.length > 0)
+                        {
+                            if (data[0]["ID_Nguoi_De_Xuat"] == $("#id_user").val())
+                            {
+                                
+                            }
+                            else
+                            {
+                              
+                            }
+                        }
+                        
+
+                      
 
 
                     }
