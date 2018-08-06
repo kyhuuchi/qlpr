@@ -67,6 +67,44 @@
         
         <div class="row">
             <div class="form-group col-md-12">
+                 <div class="modal fade" id="myModal" role="form" data-backdrop="static">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Cập nhật vật tư</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="soluongyeucaupo">Số lượng yêu cầu PO:</label>
+                                                    <input type="text" class="form-control" id="soluongyeucaupo"/>
+                                                    <input type="hidden" id="sttpochitiet"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="dongiapo">Đơn giá:</label>
+                                                    <input type="text" class="form-control" id="dongiapo" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tigiapo">Tỉ giá:</label>
+                                                    <input type="text" class="form-control" id="tigiapo" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="thanhtienpo">Thành tiền:</label>
+                                                    <input type="number" class="form-control" id="thanhtienpo" />
+                                                </div>
+                                                
+                                                <input type="button" class="btn btn-primary" id="DongY" data-dismiss="modal" value="Đồng ý" />
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                                
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="table_vattu">
                         <thead>
@@ -106,6 +144,7 @@
                     <table class="table table-bordered" id="table_chitietpo">
                         <thead>
                             <tr>
+                                <th scope="col">#</th>
                                 <th scope="col">#</th>
                                 <th scope="col">STT</th>
                                  <th scope="col">Số PR</th>
@@ -440,7 +479,7 @@
                         var ngaymuahang = date;
 
                         
-                        markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/></td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"] + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td></tr>";
+                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/></td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"] + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td></tr>";
                         stt++;
                     }
                   
@@ -727,5 +766,72 @@
             LayDanhSachPOChiTiet(2);
             
         }
+        //********************************//
+
+        //Xu ly edit vat tu trong PO//
+        $(document).on('click', 'span.editrow', function () {
+            $("#myModal").modal('show');
+            currentRow = $(this).parents('tr');
+            $("#sttpochitiet").val($(this).closest('tr').find('td.cls_sott').text());
+            $("#soluongyeucaupo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
+            //lay thong tin gia tien chua co dinh dang
+            var $tds = $(this).closest('tr').find('td');
+            var st = 0;
+            $tds.find("input[id^='dongiatamtinh*']").each(function () {
+                //alert(this.id)
+                st = this.value;
+
+            });
+            $("#dongiapo").val(st);
+            $("#tigiapo").val($(this).closest('tr').find('td.cls_tigia').text());
+            var tttu = 0;
+            $tds.find("input[id^='thanhtientamung*']").each(function () {
+                //alert(this.id)
+                tttu = this.value;
+
+            });
+            $("#thanhtienpo").val(tttu);
+        
+        });
+        $("#DongY").click(function () {
+
+            var soluongyeucaupo = $("#soluongyeucaupo").val();
+            var dongiapo = $("#dongiapo").val();
+            var tigiapo = $("#tigiapo").val();
+            var thanhtienpo = $("#thanhtienpo").val();
+            var markup = "";
+            var stt;
+            if (currentRow) {
+                var curr = currentRow;
+                var $tds = curr.find('td');
+                stt = $tds.eq(2).text();
+                curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
+                $tds.find("input[id^='dongiatamtinh*']").each(function () {
+                    //alert(this.id)
+                    this.value = dongiapo;
+
+                });
+                curr.find('td.cls_dongiatamtinh').text(dongiapo);
+
+                curr.find('td.cls_tigia').text(tigiapo);
+                $tds.find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    this.value = thanhtienpo;
+
+                });
+                curr.find('td.cls_thanhtientamung').text(thanhtienpo);
+                
+                $("#table_chitietpo tbody").find($(currentRow)).replaceWith(curr);
+                currentRow = null;
+            }
+            
+            
+            
+            $("#soluongyeucaupo").val("");
+            $("#dongiapo").val("");
+            $("#tigiapo").val("");
+            $("#thanhtienpo").val("");
+        });
+        //**************************//
     </script>
 </asp:Content>

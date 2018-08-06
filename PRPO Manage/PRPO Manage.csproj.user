@@ -5,6 +5,7 @@
     <ProjectView>ShowAllFiles</ProjectView>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <NameOfLastUsedPublishProfile>PublicLocal</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

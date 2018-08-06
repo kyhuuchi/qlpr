@@ -168,10 +168,31 @@ namespace PRPO_Manage.Webservice
           
             Context.Response.Write(js.Serialize(parentRow));
         }
+        [WebMethod]
+        public void DongPR(string so_pr_full)
+        {
+            PR pr = new PR();
+            DataTable tb = pr.DongPR(so_pr_full);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(js.Serialize(parentRow));
+        }
         /// <summary>
         /// Cac webservice lien quan den PO
         /// </summary>
-        
+
         [WebMethod]
         public void LaySoPO(int phongban, int nam)
         {

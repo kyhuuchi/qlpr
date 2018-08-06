@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Account.master.cs" Inherits="PRPO_Manage.Account.Account" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PR-PO - Quản trị</title>
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Content/themes/ara/ara-ui.min.css" rel="stylesheet" />
+    <link href="/Content/menu.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <link href="/Content/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+           
+        </asp:ScriptManager>
+         <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <img src="/Images/logoDuyTan.jpg" style="height: 32px; width: 184px; margin-left: 20px;" />
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul>
+                                    <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>
+                                    <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <p>
+                                    Hello, <a id="A1" runat="server" class="username" href="~/Account/DanhSach.aspx" title="Manage your account">
+                                        <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                                    </a>!
+                                <a href="/Account/Logout.aspx">Log out</a>
+                                </p>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </section>
+                </div>
+            </div>
+            <div class="menu_top" id="cssmenu">
+                <ul id="menu_content">
+                    <li class='has-sub'><a href='#'>Quản trị</a>
+                        <ul>
+                            <li class=''><a href='/Account/DanhSach.aspx'>Người dùng</a></li>                            
+                            <li class=''><a href='/Account/Quyen/DanhSach.aspx'>Quyền</a></li>
+                            <li class=''><a href='/Account/QuyenNguoiDung.aspx'>Quyền người dùng</a></li>
+                            <li class=''><a href='/Account/Module/DanhSach.aspx'>Module</a></li>
+                        </ul>
+                    </li>
+                    <li class='has-sub'><a href='#'>Cấu hình Quản lý sản xuất</a>
+                        <ul>
+                            <li class=''><a href='/Account/StepWorkFlow/DanhSach.aspx'>Step Workflow</a></li>                                                        
+                            <li class=''><a href='/Account/NhaMay/DanhSach.aspx'>Nhà máy</a></li>                                                       
+                            <li class=''><a href='/Account/DongSanPham/DanhSach.aspx'>Dòng sản phẩm</a></li>
+                            <li class=''><a href='/Account/NhomSanPham/DanhSach.aspx'>Nhóm sản phẩm</a></li>
+                            <li class=''><a href='/Account/NhomLoi/DanhSach.aspx'>Nhóm lỗi</a></li>
+                            <li class=''><a href='/Account/LoaiLoi/DanhSach.aspx'>Loại lỗi</a></li>
+                            <li class=''><a href='/Account/XuongSanXuat/DanhSach.aspx'>Xưởng sản xuất</a></li>
+                            <li class=''><a href='/Account/KhachHang/DanhSach.aspx'>Khách hàng</a></li>
+                            <li class=''><a href='/Account/DonVi/DanhSach.aspx'>Đơn vị tính</a></li>  
+                            <li class=''><a href='/Account/ChuyenMucHoTro/DanhSach.aspx'>Chuyên mục hỗ trợ</a></li>                          
+                            <li class=''><a href='/Account/HoTro/DanhSach.aspx'>Hỗ trợ</a></li>
+                        </ul>
+                    </li>
+                    <li><a href='/'>Về trang chủ</a></li>
+                </ul>
+            </div>
+        </header>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+         <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; 2018</p>
+                    <p>Thiết kế kiến trúc & phát triển: Ky Huu Chi</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

@@ -595,6 +595,17 @@ namespace Business
 
             return tb;
         }
+        public DataTable DongPR(string so_pr_full)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@so_pr_full", so_pr_full);
+
+            SqlParameter[] param = new SqlParameter[1] { pm};
+            DataTable tb = kn.get_by_procedure("proc_Action_DongPR", param);
+
+            return tb;
+        }
 
     }
     public class PR_ChiTiet

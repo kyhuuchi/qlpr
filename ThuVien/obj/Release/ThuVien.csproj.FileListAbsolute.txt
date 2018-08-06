@@ -1,0 +1,7 @@
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Release\ThuVien.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Release\ThuVien.pdb
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Release\EPPlus.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\bin\Release\EPPlus.xml
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Release\ThuVien.csprojResolveAssemblyReference.cache
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Release\ThuVien.dll
+D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Release\ThuVien.pdb

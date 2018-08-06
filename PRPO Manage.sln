@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRPO Manage", "PRPO Manage\PRPO Manage.csproj", "{3081A4EE-04B0-4ACF-9C8A-553627FE0D1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7730B85D-BB90-4290-8306-ED11AA7DB63C} = {7730B85D-BB90-4290-8306-ED11AA7DB63C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "DB\DataBase.csproj", "{7730B85D-BB90-4290-8306-ED11AA7DB63C}"
 EndProject

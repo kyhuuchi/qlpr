@@ -666,6 +666,7 @@
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\mixins.scss" />
     <Content Include="Pages\PR\ListVatTu.json" />
     <Content Include="Pages\ListNhaCC.json" />
+    <None Include="Properties\PublishProfiles\PublicLocal.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bg_validate.png" />
@@ -1067,6 +1068,10 @@
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{8b887261-5598-4e97-8d5b-f99e19f1b3aa}</Project>
       <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DB\DataBase.csproj">
+      <Project>{7730b85d-bb90-4290-8306-ed11aa7db63c}</Project>
+      <Name>DataBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\ThuVien\ThuVien.csproj">
       <Project>{c8041bbb-f830-4b4c-95fd-83d8d3f86e2d}</Project>
