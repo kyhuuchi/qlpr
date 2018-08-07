@@ -275,6 +275,27 @@ namespace PRPO_Manage.Webservice
 
             Context.Response.Write(js.Serialize(parentRow));
         }
+        [WebMethod]
+        public void UpdatePOResent(string sopo_full, string ghichu)
+        {
+            PO po = new PO();
+            DataTable tb = po.PO_Resent(sopo_full, ghichu);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(js.Serialize(parentRow));
+        }
         //********************//
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

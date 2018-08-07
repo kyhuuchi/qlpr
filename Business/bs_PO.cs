@@ -217,6 +217,19 @@ namespace Business
 
             return tb;
         }
+        public DataTable PO_Resent(string sopo_full,string ghichu)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@so_po_full", sopo_full);
+            SqlParameter pm2 = new SqlParameter("@ghichu", ghichu);
+            SqlParameter[] param = new SqlParameter[2] { pm,pm2 };
+            DataTable tb = kn.get_by_procedure("proc_Action_PO_Resent", param);
+
+
+
+            return tb;
+        }
     }
     public class PO_ChiTiet
     {
