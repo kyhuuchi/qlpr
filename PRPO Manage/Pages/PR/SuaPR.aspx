@@ -38,8 +38,14 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ngaydexuat">Ngày (*)</label>
-                            <input type="date" class="form-control" id="ngaydexuat">
-                            
+                            <%--<input type="date" class="form-control" id="ngaydexuat">--%>
+                            <div class="form-group">
+                                <div class='input-group date' id='ngaydexuat'>
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -365,7 +371,14 @@
         var currentRow = null;
         $("#overlay").show();
         $(document).ready(function () {
-          
+            $('#ngaydexuat').datepicker({
+                format: 'dd/mm/yyyy',
+                todayHighlight: true
+            });
+            $('#ngaycanhang').datepicker({
+                format: 'dd/mm/yyyy',
+                todayHighlight: true
+            });
 
             var urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('pr')) {
@@ -465,8 +478,10 @@
                         if (month < 10) {
                             month = "0" + month;
                         }
-                        var date = year + "-" + month + "-" + day;
-                        document.getElementById("ngaydexuat").value = date;
+                        var date = day + "/" + month + "/" + year;
+
+                        $("#ngaydexuat").datepicker("setDate", date);
+                        //document.getElementById("ngaydexuat").value = date;
 
                         document.getElementById("tongsoluong").innerHTML = Number(data[0]["Tong_So_Luong_Yeu_cau"]).toLocaleString('vn');
                         document.getElementById("tongsoluong_notmask").value = data[0]["Tong_So_Luong_Yeu_cau"];

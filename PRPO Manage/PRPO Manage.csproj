@@ -235,6 +235,7 @@
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Pages\PR\View.html" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.min.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap4.css" />
@@ -666,6 +667,7 @@
     <Content Include="Scripts\DataTables\Buttons-1.5.2\css\mixins.scss" />
     <Content Include="Pages\PR\ListVatTu.json" />
     <Content Include="Pages\ListNhaCC.json" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
     <None Include="Properties\PublishProfiles\PublicLocal.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\accent.png" />

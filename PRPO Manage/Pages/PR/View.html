@@ -341,9 +341,9 @@
                         var date = day + "/" + month + "/" + year;
                         document.getElementById("ngaydexuat").innerHTML = date;
 
-                        document.getElementById("tongsoluong").innerHTML = Number(data[0]["Tong_So_Luong_Yeu_cau"]).toLocaleString('vn');
+                        document.getElementById("tongsoluong").innerHTML = Number(data[0]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE');
                         document.getElementById("tongsoluong_notmask").innerHTML = data[0]["Tong_So_Luong_Yeu_cau"];
-                        document.getElementById("tongtien").innerHTML = Number(data[0]["Tong_Tien"]).toLocaleString('vn');
+                        document.getElementById("tongtien").innerHTML = Number(data[0]["Tong_Tien"]).toLocaleString('de-DE');
                         document.getElementById("tongtien_notmask").innerHTML = data[0]["Tong_Tien"];
                         document.getElementById("ghichu").innerHTML = data[0]["Ghi_Chu"];
                         document.getElementById("1").innerHTML = data[0]["Tieu_De_1"];
@@ -478,7 +478,7 @@
                         var date = year + "-" + month + "-" + day;
 
 
-                        markup = "<tr><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('vn') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('vn') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        markup = "<tr><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
                         $("#table_vattu tbody").append(markup);
                     }
 

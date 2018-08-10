@@ -95,8 +95,8 @@
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt=str_dt+'</tr>';
-                    str_dt=str_dt+'</thead>';
-                    str_dt=str_dt+'</table>';
+                    str_dt=str_dt+'</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
                     str_dt=str_dt+'</div>';
                     str_dt=str_dt+'</div>';
                     str_dt=str_dt+'</div>';
@@ -179,31 +179,73 @@
                     success: function (data) {
                         var tble = document.getElementById("LuuTamTable" + s);
                         
-                        var datatableVariable = $('#LuuTamTable'+s).DataTable({
-                            data: data,
-                            columns: [
-                                { 'data': 'So_PR_Full' },
-                                { 'data': 'Tong_Tien',render: $.fn.dataTable.render.number('.', ',', 0, '')},
-                                { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                { 'data': 'Cong_Dung' },
-                                {
-                                    'data': 'Ngay_Tao', 'render': function (date) {
-                                        var date = new Date(parseInt(date.substr(6)));
-                                        var month = date.getMonth() + 1;
-                                        return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //var datatableVariable = $('#LuuTamTable'+s).DataTable({
+                        //    data: data,
+                        //    columns: [
+                        //        { 'data': 'So_PR_Full' },
+                        //        { 'data': 'Tong_Tien',render: $.fn.dataTable.render.number('.', ',', 0, '')},
+                        //        { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                        //        { 'data': 'Cong_Dung' },
+                        //        {
+                        //            'data': 'Ngay_Tao', 'render': function (date) {
+                        //                var date = new Date(parseInt(date.substr(6)));
+                        //                var month = date.getMonth() + 1;
+                        //                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //            }
+                        //        },
+                        //        { 'data': 'Ten_Nguoi_De_Xuat' },
+                        //         { 'data': 'Ghi_Chu' },
+
+                        //         { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
+                        //    ],
+
+                        //    "deferRender": true
+                        //});
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
+
+                                var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaytao = ngay + "/" + month + "/" + date.getFullYear();
+
+                                if ($("#id_user").val() == data[i]["ID_Nguoi_De_Xuat"]) {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                                     }
-                                },
-                                { 'data': 'Ten_Nguoi_De_Xuat' },
-                                 { 'data': 'Ghi_Chu' },
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                                        
+                                    }
 
-                                 { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
-                            ],
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
+                                    }
+                                }
 
-                            "deferRender": true
-                        });
 
+                            }
+
+                            $("#LuuTamTable" + s + " tbody").append(str_tr);
+
+                            $("#LuuTamTable" + s).dataTable({
+                                "order": []
+                            });
+                        }
                     
                     }
 
@@ -213,98 +255,7 @@
                       alert("error" + errorThrown);
                   });
             }
-            $('table tbody').on('click', '.dt-edit', function () {
-                ShowLoading();
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                window.location.replace("Pages/PR/SuaPR?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-view-daduyet', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-
-                window.open("Pages/PR/View.html?pr=" + encodedString, '_blank');
-                //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-delete', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn xóa PR này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/ActionPR",
-                        data: {
-                            "action": 0,
-                            "id": 0,
-                            "id_phongban": 0,
-                            "sopr": 0,
-                            "sopr_full": dtRow[0].cells[0].innerHTML,
-                            "nam": 0,
-                            "congdung": "",
-                            "ngaytao": "",
-                            "thangtao": 0,
-                            "tongsoluongyeucau": 0,
-                            "tongtien": 0,
-                            "ghichu": "",
-                            "ngayduyet": "",
-                            "id_nguoiduyet": 0,
-                            "id_nguoidexuat": 0,
-                            "tinhtrang": 1,
-                            "prscanfile": "",
-                            "sendmail": false,
-                            "tieude1": "",
-                            "tieude2": "",
-                            "tieude3": "",
-                            "tieude4": "",
-                            "tieude5": "",
-                            "tieude6": "",
-                            "ngansachduocduyet1": 0,
-                            "ngansachduocduyet2": 0,
-                            "ngansachduocduyet3": 0,
-                            "ngansachduocduyet4": 0,
-                            "ngansachduocduyet5": 0,
-                            "ngansachduocduyet6": 0,
-                            "dexuatlannay1": 0,
-                            "dexuatlannay2": 0,
-                            "dexuatlannay3": 0,
-                            "dexuatlannay4": 0,
-                            "dexuatlannay5": 0,
-                            "dexuatlannay6": 0,
-                            "luyke1": 0,
-                            "luyke2": 0,
-                            "luyke3": 0,
-                            "luyke4": 0,
-                            "luyke5": 0,
-                            "luyke6": 0,
-                            "thuathieu1": 0,
-                            "thuathieu2": 0,
-                            "thuathieu3": 0,
-                            "thuathieu4": 0,
-                            "thuathieu5": 0,
-                            "thuathieu6": 0
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
+         
 
 
            
@@ -361,14 +312,12 @@
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
-                    if ($("#muahang").val() != 'false')
-                    {
-                        str_dt = str_dt + '<th></th>';
-                    }
+                    str_dt = str_dt + '<th></th>';
+                
                    
                     str_dt = str_dt + '</tr>';
-                    str_dt = str_dt + '</thead>';
-                    str_dt = str_dt + '</table>';
+                    str_dt = str_dt + '</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
                     str_dt = str_dt + '</div>';
                     str_dt = str_dt + '</div>';
                     str_dt = str_dt + '</div>';
@@ -448,63 +397,59 @@
                     dataType: "json",
                     success: function (data) {
                         var tble = document.getElementById("ChuaDuyetTable" + s);
-                        var datatableVariable = $('#ChuaDuyetTable' + s)
-                        if ($("#muahang").val() != 'false')
-                        {
-                            datatableVariable.DataTable({
-                                data: data,
-                                columns: [
-                                    { 'data': 'So_PR_Full' },
-                                    { 'data': 'Tong_Tien', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Cong_Dung' },
-                                    {
-                                        'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(parseInt(date.substr(6)));
-                                            var month = date.getMonth() + 1;
-                                            return date.getDate() + "/" + month + "/" + date.getFullYear();
-                                        }
-                                    },
-                                     { 'data': 'Ten_Nguoi_De_Xuat' },
-                                     { 'data': 'Ghi_Chu' },
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
 
-                                     { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                                     { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                     { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" },
-                                     { "defaultContent": "<button type='button' id='btnApprove' class='btn btn-success btn-xs dt-approve-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-saved' aria-hidden='true'></span></button>" }
-                                ],
+                                var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaytao = ngay + "/" + month + "/" + date.getFullYear();
 
-                                "deferRender": true
+                                if ($("#id_user").val() == data[i]["ID_Nguoi_De_Xuat"]) {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td></td></tr>';
+
+                                    }
+
+                                }
+                                else if ($("#muahang").val() == 'true')
+                                {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td><button type="button" id="btnApprove" class="btn btn-success btn-xs dt-approve-chuaduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span></button></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td><button type="button" id="btnApprove" class="btn btn-success btn-xs dt-approve-chuaduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span></button></td></tr>';
+
+                                    }
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                    }
+                                }
+
+
+                            }
+
+                            $("#ChuaDuyetTable" + s + " tbody").append(str_tr);
+
+                            $("#ChuaDuyetTable" + s).dataTable({
+                                "order": []
                             });
                         }
-                        else
-                        {
-                            datatableVariable.DataTable({
-                                data: data,
-                                columns: [
-                                    { 'data': 'So_PR_Full' },
-                                    { 'data': 'Tong_Tien', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Cong_Dung' },
-                                    {
-                                        'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(parseInt(date.substr(6)));
-                                            var month = date.getMonth() + 1;
-                                            return date.getDate() + "/" + month + "/" + date.getFullYear();
-                                        }
-                                    },
-                                    { 'data': 'Ten_Nguoi_De_Xuat' },
-                                     { 'data': 'Ghi_Chu' },
-
-                                     { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                                     { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                     { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
-                                ],
-
-                                "deferRender": true
-                            });
-                        }
-
                     }
 
                 })
@@ -513,98 +458,6 @@
                       alert("error" + errorThrown);
                   });
             }
-            $('table tbody').on('click', '.dt-edit-chuaduyet', function () {
-                ShowLoading();
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                window.location.replace("Pages/PR/SuaPR?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-approve-chuaduyet', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                window.location.replace("Pages/PR/DuyetPR?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-delete-chuaduyet', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn xóa PR này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/ActionPR",
-                        data: {
-                            "action": 0,
-                            "id": 0,
-                            "id_phongban": 0,
-                            "sopr": 0,
-                            "sopr_full": dtRow[0].cells[0].innerHTML,
-                            "nam": 0,
-                            "congdung": "",
-                            "ngaytao": "",
-                            "thangtao": 0,
-                            "tongsoluongyeucau": 0,
-                            "tongtien": 0,
-                            "ghichu": "",
-                            "ngayduyet": "",
-                            "id_nguoiduyet": 0,
-                            "id_nguoidexuat": 0,
-                            "tinhtrang": 2,
-                            "prscanfile": "",
-                            "sendmail": false,
-                            "tieude1": "",
-                            "tieude2": "",
-                            "tieude3": "",
-                            "tieude4": "",
-                            "tieude5": "",
-                            "tieude6": "",
-                            "ngansachduocduyet1": 0,
-                            "ngansachduocduyet2": 0,
-                            "ngansachduocduyet3": 0,
-                            "ngansachduocduyet4": 0,
-                            "ngansachduocduyet5": 0,
-                            "ngansachduocduyet6": 0,
-                            "dexuatlannay1": 0,
-                            "dexuatlannay2": 0,
-                            "dexuatlannay3": 0,
-                            "dexuatlannay4": 0,
-                            "dexuatlannay5": 0,
-                            "dexuatlannay6": 0,
-                            "luyke1": 0,
-                            "luyke2": 0,
-                            "luyke3": 0,
-                            "luyke4": 0,
-                            "luyke5": 0,
-                            "luyke6": 0,
-                            "thuathieu1": 0,
-                            "thuathieu2": 0,
-                            "thuathieu3": 0,
-                            "thuathieu4": 0,
-                            "thuathieu5": 0,
-                            "thuathieu6": 0
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
-           
-
 
         }
         //************************************************//
@@ -784,7 +637,8 @@
 
                                 ],
 
-                                "deferRender": true
+                                "deferRender": true,
+                                "order": []
                             });
                         }
                         else
@@ -818,7 +672,8 @@
 
                                 ],
 
-                                "deferRender": true
+                                "deferRender": true,
+                                "order": []
                             });
                         }
 
@@ -831,47 +686,9 @@
                       alert("error" + errorThrown);
                   });
             }
-            $('.dt-edit-daduyet').each(function () {
-                $(this).on('click', function (evt) {
-                    $this = $(this);
-                    // Create Base64 Object
-                    var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                    var dtRow = $this.parents('tr');
-                    // Encode the String
-                    var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                    window.location.replace("Pages/PR/SuaPR?pr=" + encodedString);
-
-                });
-            });
-            $('.dt-approve-daduyet').each(function () {
-                $(this).on('click', function (evt) {
-                    $this = $(this);
-                    // Create Base64 Object
-                    var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                    var dtRow = $this.parents('tr');
-                    // Encode the String
-                    var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                    window.location.replace("Pages/PR/DuyetPR?pr=" + encodedString);
-
-                });
-            });
-            $('.dt-view-daduyet').each(function () {
-                $(this).on('click', function (evt) {
-                    $this = $(this);
-                    // Create Base64 Object
-                    var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                    var dtRow = $this.parents('tr');
-                    // Encode the String
-                    var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                   
-                    window.open("Pages/PR/View.html?pr=" + encodedString, '_blank');
-                    //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-
-                });
-            });
+      
+          
+       
 
 
         }
@@ -1033,7 +850,8 @@
 
                                     ],
 
-                                    "deferRender": true
+                                    "deferRender": true,
+                                    "order": []
                                 });
                             }
                             else
@@ -1058,7 +876,8 @@
 
                                     ],
 
-                                    "deferRender": true
+                                    "deferRender": true,
+                                    "order": []
                                 });
                             }
                         }
@@ -1076,31 +895,151 @@
                   });
             }
           
-            $('table tbody').on('click', '.dt-close', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn đóng PR này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/DongPR",
-                        data: {
-                            "so_pr_full": dtRow[0].cells[0].innerHTML
-
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
+      
         }
         //**********************************************//
+        $('table tbody').on('click', '.dt-edit', function () {
+            ShowLoading();
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+            window.location.replace("Pages/PR/SuaPR?pr=" + encodedString);
+        });
+        $('table tbody').on('click', '.dt-view-daduyet', function () {
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+
+            window.open("Pages/PR/View.html?pr=" + encodedString, '_blank');
+            //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
+        });
+        $('table tbody').on('click', '.dt-delete', function () {
+            $this = $(this);
+            var dtRow = $this.parents('tr');
+            if (confirm("Bạn có chắc muốn xóa PR này?")) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                    data: {
+                        "action": 0,
+                        "id": 0,
+                        "id_phongban": 0,
+                        "sopr": 0,
+                        "sopr_full": dtRow[0].cells[0].innerHTML,
+                        "nam": 0,
+                        "congdung": "",
+                        "ngaytao": "",
+                        "thangtao": 0,
+                        "tongsoluongyeucau": 0,
+                        "tongtien": 0,
+                        "ghichu": "",
+                        "ngayduyet": "",
+                        "id_nguoiduyet": 0,
+                        "id_nguoidexuat": 0,
+                        "tinhtrang": 1,
+                        "prscanfile": "",
+                        "sendmail": false,
+                        "tieude1": "",
+                        "tieude2": "",
+                        "tieude3": "",
+                        "tieude4": "",
+                        "tieude5": "",
+                        "tieude6": "",
+                        "ngansachduocduyet1": 0,
+                        "ngansachduocduyet2": 0,
+                        "ngansachduocduyet3": 0,
+                        "ngansachduocduyet4": 0,
+                        "ngansachduocduyet5": 0,
+                        "ngansachduocduyet6": 0,
+                        "dexuatlannay1": 0,
+                        "dexuatlannay2": 0,
+                        "dexuatlannay3": 0,
+                        "dexuatlannay4": 0,
+                        "dexuatlannay5": 0,
+                        "dexuatlannay6": 0,
+                        "luyke1": 0,
+                        "luyke2": 0,
+                        "luyke3": 0,
+                        "luyke4": 0,
+                        "luyke5": 0,
+                        "luyke6": 0,
+                        "thuathieu1": 0,
+                        "thuathieu2": 0,
+                        "thuathieu3": 0,
+                        "thuathieu4": 0,
+                        "thuathieu5": 0,
+                        "thuathieu6": 0
+                    },
+                    dataType: "json",
+
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+
+            }
+        });
+        $('table tbody').on('click', '.dt-close', function () {
+            $this = $(this);
+            var dtRow = $this.parents('tr');
+            if (confirm("Bạn có chắc muốn đóng PR này?")) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/DongPR",
+                    data: {
+                        "so_pr_full": dtRow[0].cells[0].innerHTML
+
+                    },
+                    dataType: "json",
+
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+
+            }
+        });
+        
+        $('.dt-approve-daduyet').each(function () {
+            $(this).on('click', function (evt) {
+                $this = $(this);
+                // Create Base64 Object
+                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+                var dtRow = $this.parents('tr');
+                // Encode the String
+                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+                window.location.replace("Pages/PR/DuyetPR?pr=" + encodedString);
+
+            });
+        });
+        $('.dt-approve-chuaduyet').each(function () {
+            $(this).on('click', function (evt) {
+                $this = $(this);
+                // Create Base64 Object
+                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+                var dtRow = $this.parents('tr');
+                // Encode the String
+                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+                window.location.replace("Pages/PR/DuyetPR?pr=" + encodedString);
+
+            });
+        });
         $("#overlay").hide();
     });
 </script>

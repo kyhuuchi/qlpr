@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business;
 using System.Text;
-
+using Newtonsoft.Json;
 
 namespace PRPO_Manage.Pages.PR
 {
@@ -48,10 +48,10 @@ namespace PRPO_Manage.Pages.PR
                 {
                     jsonString = sreader.ReadToEnd();
                 }
-                var js = new JavaScriptSerializer();
+               // var js = new JavaScriptSerializer();
                 txt_vattu.Value = jsonString;
-                var dict = js.Deserialize<List<SelectOptions>>(jsonString);
-                
+                //var dict = js.Deserialize<List<SelectOptions>>(jsonString);
+                var dict = JsonConvert.DeserializeObject<List<SelectOptions>>(jsonString);
                 StringBuilder str_option_vattu = new StringBuilder();
                 str_option_vattu.Append("<option></option>");
                 List<SelectOptions> players = new List<SelectOptions>();

@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group col-md-4" style="text-align:center">
                                 <asp:Button class="btn btn-primary" ID="btt_OK" runat="server" Text="Đồng ý" OnClick="btt_OK_Click"/>
-                                <button type="button" class="btn btn-danger">Thoát</button>
+                                <button type="button" class="btn btn-danger" onclick="Thoat()">Thoát</button>
                         </div>
                         <div class="form-group col-md-4">
                         
@@ -201,6 +201,10 @@
            
             document.getElementById("ContentPlaceHolder1_id_nguoi_duyet").value = $(this).val();
             
-        }); 
+        });
+        function Thoat()
+        {
+            window.location.replace("/Default");
+        }
     </script>
 </asp:Content>
