@@ -116,8 +116,8 @@
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt=str_dt+'</tr>';
-                    str_dt=str_dt+'</thead>';
-                    str_dt=str_dt+'</table>';
+                    str_dt = str_dt + '</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
                     str_dt=str_dt+'</div>';
                     str_dt=str_dt+'</div>';
                     str_dt=str_dt+'</div>';
@@ -167,28 +167,67 @@
                     success: function (data) {
                         var tble = document.getElementById("LuuTamTable" + s);
                         
-                        var datatableVariable = $('#LuuTamTable'+s).DataTable({
-                            data: data,
-                            columns: [
-                                { 'data': 'So_PO_Full' },
-                                {
-                                    'data': 'Ngay_PO', 'render': function (date) {
-                                        var date = new Date(parseInt(date.substr(6)));
-                                        var month = date.getMonth() + 1;
-                                        return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //var datatableVariable = $('#LuuTamTable'+s).DataTable({
+                        //    data: data,
+                        //    columns: [
+                        //        { 'data': 'So_PO_Full' },
+                        //        {
+                        //            'data': 'Ngay_PO', 'render': function (date) {
+                        //                var date = new Date(parseInt(date.substr(6)));
+                        //                var month = date.getMonth() + 1;
+                        //                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //            }
+                        //        },
+                        //         { 'data': 'Ten_NguoiMuaHang' },
+                        //          { 'data': 'Ten_Nha_Cung_Cap' },
+                        //          { 'data': 'Kho_Nhan' },
+                        //         { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
+                        //    ],
+
+                        //    "deferRender": true
+                        //});
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
+
+                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
+
+                                if ($("#id_user").val() == data[i]["ID_NguoiMuaHang"]) {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
                                     }
-                                },
-                                 { 'data': 'Ten_NguoiMuaHang' },
-                                  { 'data': 'Ten_Nha_Cung_Cap' },
-                                  { 'data': 'Kho_Nhan' },
-                                 { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" }
-                            ],
+                                    else {  
+                                        str_tr += '<tr role="row" class="even"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>';
+                                    }
 
-                            "deferRender": true
-                        });
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
+                                    }
+                                }
 
+
+                            }
+
+                            $("#LuuTamTable" + s + " tbody").append(str_tr);
+
+                            $("#LuuTamTable" + s).dataTable();
+                        }
                     
                     }
 
@@ -198,69 +237,11 @@
                       alert("error" + errorThrown);
                   });
             }
-            $('table tbody').on('click', '.dt-edit', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                window.location.replace("SuaPO?po=" + encodedString);
-            });
-   
-            $('table tbody').on('click', '.dt-delete', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn xóa PO này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/LayDSPO",
-                        data: {
-                            "action": 0,
-                            "id": 0,
-                            "sopo": 0,
-                            "sopo_full": dtRow[0].cells[0].innerHTML,
-                            "nam": 0,
-                            "ngaypo": "",
-                            "thangpo": 0,
-                            "id_nguoiphutrach": 0,
-                            "id_nguoiduyet": 0,
-                            "id_phongban": 0,
-                            "nhacungcap": "",
-                            "songaytre": 0,
-                            "manhacuangcap": "",
-                            "khonhan": "",
-                            "tinhtrang": 1
-
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
-            $('table tbody').on('click', '.dt-view-daduyet', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-
-                window.open("ViewPO.html?po=" + encodedString, '_blank');
-                //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-            });
+          
            
            
         }
+     
        //************************************************//
 
         //*** Xu ly load thong tin cac PO luu chua duyet  *** ///
@@ -312,8 +293,8 @@
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '</tr>';
-                    str_dt = str_dt + '</thead>';
-                    str_dt = str_dt + '</table>';
+                    str_dt = str_dt + '</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
                     str_dt = str_dt + '</div>';
                     str_dt = str_dt + '</div>';
                     str_dt = str_dt + '</div>';
@@ -361,30 +342,78 @@
                     success: function (data) {
                         var tble = document.getElementById("ChuaDuyetTable" + s);
 
-                        var datatableVariable = $('#ChuaDuyetTable' + s).DataTable({
-                            data: data,
-                            columns: [
-                                { 'data': 'So_PO_Full' },
-                                {
-                                    'data': 'Ngay_PO', 'render': function (date) {
-                                        var date = new Date(parseInt(date.substr(6)));
-                                        var month = date.getMonth() + 1;
-                                        return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //var datatableVariable = $('#ChuaDuyetTable' + s).DataTable({
+                        //    data: data,
+                        //    columns: [
+                        //        { 'data': 'So_PO_Full' },
+                        //        {
+                        //            'data': 'Ngay_PO', 'render': function (date) {
+                        //                var date = new Date(parseInt(date.substr(6)));
+                        //                var month = date.getMonth() + 1;
+                        //                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        //            }
+                        //        },
+                        //         { 'data': 'Ten_NguoiMuaHang' },
+                        //          { 'data': 'Ten_Nha_Cung_Cap' },
+                        //          { 'data': 'Kho_Nhan' },
+                        //         { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
+                        //         { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" },
+                        //        { "defaultContent": "<button type='button' id='btnApprove' class='btn btn-success btn-xs dt-approve-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-saved' aria-hidden='true'></span></button>" }
+                        //    ],
+
+                        //    "deferRender": true
+                        //});
+
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
+
+                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
+
+                                if ($("#id_user").val() == data[i]["ID_Nguoi_Duyet_PO"]) {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td><button type="button" id="btnApprove" class="btn btn-success btn-xs dt-approve-chuaduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span></button></td></tr>';
                                     }
-                                },
-                                 { 'data': 'Ten_NguoiMuaHang' },
-                                  { 'data': 'Ten_Nha_Cung_Cap' },
-                                  { 'data': 'Kho_Nhan' },
-                                 { "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                                 { "defaultContent": "<button type='button' id='btnDelete' class='btn btn-danger btn-xs dt-delete' style='margin-right:16px;'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button>" },
-                                { "defaultContent": "<button type='button' id='btnApprove' class='btn btn-success btn-xs dt-approve-chuaduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-saved' aria-hidden='true'></span></button>" }
-                            ],
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td><button type="button" id="btnApprove" class="btn btn-success btn-xs dt-approve-chuaduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span></button></td></tr>';
+                                    }
 
-                            "deferRender": true
-                        });
+                                }
+                                else if ($("#id_user").val() == data[i]["ID_NguoiMuaHang"])
+                                {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnDelete" class="btn btn-danger btn-xs dt-delete" style="margin-right:16px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td><td></td></tr>';
+                                    }
+                                }
+                                else {
+                                    if (i % 2 == 0) {
+                                        str_tr += '<tr role="row" class="odd"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                    }
+                                    else {
+                                        str_tr += '<tr role="row" class="even"><td class="sorting_1">' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                    }
+                                }
 
 
+                            }
+
+                            $("#ChuaDuyetTable" + s + " tbody").append(str_tr);
+
+                            $("#ChuaDuyetTable" + s).dataTable();
+                        }
                     }
 
                 })
@@ -393,103 +422,8 @@
                       alert("error" + errorThrown);
                   });
             }
-            $('table tbody').on('click', '.dt-edit', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                window.location.replace("SuaPO?po=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-delete', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn xóa PO này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/LayDSPO",
-                        data: {
-                            "action": 0,
-                            "id": 0,
-                            "sopo": 0,
-                            "sopo_full": dtRow[0].cells[0].innerHTML,
-                            "nam": 0,
-                            "ngaypo": "",
-                            "thangpo": 0,
-                            "id_nguoiphutrach": 0,
-                            "id_nguoiduyet": 0,
-                            "id_phongban": 0,
-                            "nhacungcap": "",
-                            "songaytre": 0,
-                            "manhacuangcap": "",
-                            "khonhan": "",
-                            "tinhtrang": 1
-
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
-
-            //$('#ChuaDuyetTable0 tbody').on('click', '.dt-view-daduyet', function () {
-            //    $this = $(this);
-            //    // Create Base64 Object
-            //    var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-            //    var dtRow = $this.parents('tr');
-            //    // Encode the String
-            //    var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-
-            //    window.open("ViewPO.html?po=" + encodedString, '_blank');
-            //    //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-            //});
-            $('table tbody').on('click', '.dt-approve-chuaduyet', function () {
-                $this = $(this);
-                var dtRow = $this.parents('tr');
-                if (confirm("Bạn có chắc muốn phê duyệt PO này?")) {
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Webservice/dsnguoidung.asmx/LayDSPO",
-                        data: {
-                            "action": 2,
-                            "id": 0,
-                            "sopo": 0,
-                            "sopo_full": dtRow[0].cells[0].innerHTML,
-                            "nam": 0,
-                            "ngaypo": "",
-                            "thangpo": 0,
-                            "id_nguoiphutrach": 0,
-                            "id_nguoiduyet": 0,
-                            "id_phongban": 0,
-                            "nhacungcap": "",
-                            "songaytre": 0,
-                            "manhacuangcap": "",
-                            "khonhan": "",
-                            "tinhtrang": 3
-
-                        },
-                        dataType: "json",
-
-                        success: function (data) {
-                            location.reload();
-                        }
-                    });
-
-
-                }
-            });
+      
+          
         }
 
 
@@ -674,30 +608,8 @@
                   });
             }
           
-            $('table tbody').on('click', '.dt-view-daduyet', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-
-                window.open("ViewPO.html?po=" + encodedString, '_blank');
-                //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-resent', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                $("#myModal").modal('show');
-                $("#sopo_resent").val(dtRow[0].cells[0].innerHTML);
-             
-            });
+    
+          
            
         }
         $("#DongY").click(function () {
@@ -823,30 +735,7 @@
                     dataType: "json",
                     success: function (data) {
                         var table = document.getElementById("TraLaiTable" + s);
-                        //var datatableVariable;
-                        ////kiem tra xem nguoi dang truy cap co phai la nguoi duyet PO ko?
-                        ////Neu la nguoi duyet PO thi moi hien thi nut Resent
-                        //datatableVariable = $('#DaDuyetTable' + s).DataTable({
-                        //    data: data,
-                        //    columns: [
-                        //        { 'data': 'So_PO_Full' },
-                        //        {
-                        //            'data': 'Ngay_PO', 'render': function (date) {
-                        //                var date = new Date(parseInt(date.substr(6)));
-                        //                var month = date.getMonth() + 1;
-                        //                return date.getDate() + "/" + month + "/" + date.getFullYear();
-                        //            }
-                        //        },
-                        //         { 'data': 'Ten_NguoiMuaHang' },
-                        //          { 'data': 'Ten_Nha_Cung_Cap' },
-                        //          { 'data': 'Kho_Nhan' },
-                        //         //{ "defaultContent": "<button type='button' id='btnEdit' class='btn btn-primary btn-xs dt-edit' style='margin-right:16px;'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></button>" },
-                        //         { "defaultContent": "<button type='button' id='btnView' class='btn btn-primary btn-xs dt-view-daduyet' style='margin-right:16px;'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></button>" },
-                        //         { "defaultContent": "<button type='button' id='btnresent' class='btn btn-danger btn-xs dt-resent' style='margin-right:16px;'><span class='glyphicon glyphicon-log-out' aria-hidden='true'></span></button>" }
-                        //    ],
-
-                        //    "deferRender": true
-                        //});
+                   
                         if (data.length > 0) {
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
@@ -902,34 +791,123 @@
                   });
             }
 
-            $('table tbody').on('click', '.dt-view-daduyet', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-
-                window.open("ViewPO.html?po=" + encodedString, '_blank');
-                //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
-            });
-            $('table tbody').on('click', '.dt-resent', function () {
-                $this = $(this);
-                // Create Base64 Object
-                var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
-
-                var dtRow = $this.parents('tr');
-                // Encode the String
-                var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
-                $("#myModal").modal('show');
-                $("#sopo_resent").val(dtRow[0].cells[0].innerHTML);
-
-            });
+         
+      
 
         }
         //************************************************//
+        $('table tbody').on('click', '.dt-edit', function () {
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+            window.location.replace("SuaPO?po=" + encodedString);
+        });
+
+        $('table tbody').on('click', '.dt-delete', function () {
+            $this = $(this);
+            var dtRow = $this.parents('tr');
+            if (confirm("Bạn có chắc muốn xóa PO này?")) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO",
+                    data: {
+                        "action": 0,
+                        "id": 0,
+                        "sopo": 0,
+                        "sopo_full": dtRow[0].cells[0].innerHTML,
+                        "nam": 0,
+                        "ngaypo": "",
+                        "thangpo": 0,
+                        "id_nguoiphutrach": 0,
+                        "id_nguoiduyet": 0,
+                        "id_phongban": 0,
+                        "nhacungcap": "",
+                        "songaytre": 0,
+                        "manhacuangcap": "",
+                        "khonhan": "",
+                        "tinhtrang": 1
+
+                    },
+                    dataType: "json",
+
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+
+            }
+        });
+
+        $('table tbody').on('click', '.dt-view-daduyet', function () {
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+
+            window.open("ViewPO.html?po=" + encodedString, '_blank');
+            //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
+        });
+        $('table tbody').on('click', '.dt-approve-chuaduyet', function () {
+            $this = $(this);
+            var dtRow = $this.parents('tr');
+            if (confirm("Bạn có chắc muốn phê duyệt PO này?")) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO",
+                    data: {
+                        "action": 2,
+                        "id": 0,
+                        "sopo": 0,
+                        "sopo_full": dtRow[0].cells[0].innerHTML,
+                        "nam": 0,
+                        "ngaypo": "",
+                        "thangpo": 0,
+                        "id_nguoiphutrach": 0,
+                        "id_nguoiduyet": 0,
+                        "id_phongban": 0,
+                        "nhacungcap": "",
+                        "songaytre": 0,
+                        "manhacuangcap": "",
+                        "khonhan": "",
+                        "tinhtrang": 3
+
+                    },
+                    dataType: "json",
+
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+
+            }
+        });
+        $('table tbody').on('click', '.dt-resent', function () {
+            $this = $(this);
+            // Create Base64 Object
+            var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
+
+            var dtRow = $this.parents('tr');
+            // Encode the String
+            var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
+            $("#myModal").modal('show');
+            $("#sopo_resent").val(dtRow[0].cells[0].innerHTML);
+
+        });
         $("#overlay").hide();
     });
+   
 </script>
 </asp:Content>

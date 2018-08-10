@@ -17,8 +17,8 @@ namespace PRPO_Manage.Pages.PO
         {
             if(!Page.IsPostBack)
             {
-                CallSAP_NCC();
-               // CallFileJSON_NCC();
+                //CallSAP_NCC();
+                CallFileJSON_NCC();
             }
         }
         protected void CallSAP_NCC()
@@ -59,7 +59,7 @@ namespace PRPO_Manage.Pages.PO
         protected void CallFileJSON_NCC()
         {
             string jsonString = string.Empty;
-            using (System.IO.StreamReader sreader = new System.IO.StreamReader(@"D:\SourceCode\PRPO Manage\qlpr\PRPO Manage\Pages\ListNhaCC.json"))
+            using (System.IO.StreamReader sreader = new System.IO.StreamReader(@"G:\du an\DuyTan\qlpr\PRPO Manage\Pages\ListNhaCC.json"))
             {
                 jsonString = sreader.ReadToEnd();
             }

@@ -230,8 +230,6 @@ G:\du an\DuyTan\qlpr\PRPO Manage\bin\ThuVien.dll
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\WebGrease.dll
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\DataBase.dll
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\EPPlus.dll
-G:\du an\DuyTan\qlpr\PRPO Manage\bin\System.Web.WebPages.dll
-G:\du an\DuyTan\qlpr\PRPO Manage\bin\System.Web.WebPages.Deployment.dll
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\Business.pdb
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\ThuVien.pdb
 G:\du an\DuyTan\qlpr\PRPO Manage\bin\Microsoft.AI.DependencyCollector.xml

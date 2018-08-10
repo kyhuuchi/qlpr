@@ -240,7 +240,7 @@
                         document.getElementById("id_nguoiduyetpo").value = data[0]["ID_Nguoi_Duyet_PO"];
                         id_nguoiduyet = data[0]["ID_Nguoi_Duyet_PO"];
                         ////kiem tra xem tinh trang la luu tam hay chua duyet, neu la chua duyet thi khong cho hien thi nut chuyen
-                        if (data[0]["Tinh_Trang"] == 1) {
+                        if (data[0]["Tinh_Trang"] == 1 || data[0]["Tinh_Trang"] == 4) {
                             $("#btt_chuyen").removeAttr("style");
                         }
                         ////load ngay de xuat
@@ -257,7 +257,7 @@
                         }
                         var date = year + "-" + month + "-" + day;
                         document.getElementById("ngaypo").value = date;
-
+                        
 
                     },
 

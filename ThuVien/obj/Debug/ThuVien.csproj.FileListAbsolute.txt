@@ -48,6 +48,5 @@ G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\ThuVien.dll
 G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\ThuVien.pdb
 G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\EPPlus.dll
 G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\EPPlus.xml
-G:\du an\DuyTan\qlpr\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache
 G:\du an\DuyTan\qlpr\ThuVien\obj\Debug\ThuVien.dll
 G:\du an\DuyTan\qlpr\ThuVien\obj\Debug\ThuVien.pdb
