@@ -13,24 +13,6 @@ namespace PRPO_Manage.Pages.PR {
     public partial class DuyetPR {
         
         /// <summary>
-        /// ngaynhanpr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ngaynhanpr;
-        
-        /// <summary>
-        /// ngayduyetpr control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ngayduyetpr;
-        
-        /// <summary>
         /// id_pr control.
         /// </summary>
         /// <remarks>
@@ -38,6 +20,24 @@ namespace PRPO_Manage.Pages.PR {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden id_pr;
+        
+        /// <summary>
+        /// ngaynhanpr_hid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden ngaynhanpr_hid;
+        
+        /// <summary>
+        /// ngayduyetpr_hid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden ngayduyetpr_hid;
         
         /// <summary>
         /// nguoiduyetpr control.

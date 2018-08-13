@@ -34,7 +34,7 @@ namespace PRPO_Manage.Pages.PR
 
 
                     Business.PR pr = new Business.PR();
-                    DataTable tb = pr.PheDuyetPR(Convert.ToInt32(id_pr.Value), Convert.ToDateTime(ngayduyetpr.Value), Convert.ToDateTime(ngaynhanpr.Value), Convert.ToInt32(value), 3, postedFile.FileName);
+                    DataTable tb = pr.PheDuyetPR(Convert.ToInt32(id_pr.Value), Convert.ToDateTime(ngayduyetpr_hid.Value), Convert.ToDateTime(ngaynhanpr_hid.Value), Convert.ToInt32(value), 3, postedFile.FileName);
                     Response.Write("<script language='javascript'>alert('Đã cập nhật thông tin phê duyệt của PR');window.location.href='../../default.aspx';</script>");
                     
                 }

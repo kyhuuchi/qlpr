@@ -653,8 +653,8 @@
 
             document.getElementById("thanhtientamung_notmask").value = tt;
 
-            $('#thanhtientamung').val(Number($('#thanhtientamung').val()).toLocaleString('vn'));
-            $('#dongiatamtinh').val(Number($('#dongiatamtinh_notmask').val()).toLocaleString('vn'));
+            $('#thanhtientamung').val(Number($('#thanhtientamung').val()).toLocaleString('de-DE'));
+            $('#dongiatamtinh').val(Number($('#dongiatamtinh_notmask').val()).toLocaleString('de-DE'));
         }
         //*********************//
 
@@ -696,9 +696,9 @@
                 var tt = gd;
                 tongtien = Number(tongtien) + Number(tt);
                 document.getElementById("tongtien_notmask").value = tongtien;
-                $("#tongsoluong").html(tongsoluong.toLocaleString('vn'));
+                $("#tongsoluong").html(tongsoluong.toLocaleString('de-DE'));
 
-                $("#tongtien").html(tongtien.toLocaleString('vn'));
+                $("#tongtien").html(tongtien.toLocaleString('de-DE'));
                 stt++;
             });
         }
@@ -999,7 +999,7 @@
                 });
                 
                 var thoigiansd = $tds.eq(14).html();
-                var congdungchitiet = $tds.eq(15).html();
+                var congdungchitiet = $tds.eq(15).text();
 
                 $.ajax({
                     type: "POST",
