@@ -75,11 +75,11 @@
             </div>
         </div>
 
-        <div class="row">
+       <%-- <div class="row">
             <div class="form-group col-md-12">
-                <button type="button" class="btn btn-primary btn-sm" onclick="LuuPO()">Lưu PO và lấy thông tin PR đã duyệt</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="LayPR_PR_ChiTiet_DaDuyet()">Lấy thông tin vaatj tuw PR đã duyệt</button>
             </div>
-        </div>
+        </div>--%>
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="modal fade" id="myModal" role="form" data-backdrop="static">
@@ -194,6 +194,7 @@
     </div>
     <script type="text/javascript">
         var currentRow = null;
+        var phongban_viettat = "";
         $('#ngaypo').datepicker({
             format: 'dd/mm/yyyy',
             todayHighlight: true
@@ -238,6 +239,7 @@
 
             document.getElementById("id_donvidexuat").value = $(this).val();
             LaySoPO();
+            LayPR_PR_ChiTiet_DaDuyet();
 
         });
         $("#nguoiduyetpo").change(function () {
@@ -306,6 +308,7 @@
                         }
                         var year = data["Nam"].toString().slice(-2);
                         $("#namdexuat").val(data["Nam"]);
+                        phongban_viettat = data["Phong_Ban"].toString();
                         $("#sopo").val(sopo + "/POMH-" + year + "-" + data["Phong_Ban"]);
 
                     },
@@ -362,7 +365,7 @@
             var str_po = $("#sopo").val();
             var n = str_po.search("POMH");
             if (n > 0) {
-                CapNhatSoPO();
+                CheckTonTaiSoPO();
             }
 
             $.ajax({
@@ -394,7 +397,7 @@
                 },
 
             })
-            .done(LayPR_PR_ChiTiet_DaDuyet())
+            //.done(LayPR_PR_ChiTiet_DaDuyet())
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error lay so PO; " + errorThrown);
             });
@@ -403,7 +406,7 @@
         }
         //*************************//
         //Cap nhap so PO trong table So_PO
-        function CapNhatSoPO() {
+        function CapNhatSoPO(sopo) {
 
 
             $.ajax({
@@ -414,7 +417,7 @@
                     "action": 2,
                     "id": 1,
                     "idphongban": Number($("#id_donvidexuat").val()),
-                    "sopo": Number($("#sothutupo").val()),
+                    "sopo": sopo,
                     "nam": Number($("#namdexuat").val()),
 
                 },
@@ -422,6 +425,55 @@
                 success: function (data) {
 
                     alert("So PO đã được cập nhật.")
+                },
+
+            })
+
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error cap nhat so PO" + errorThrown);
+         });
+        }
+        function CheckTonTaiSoPO()
+        {
+            var sopo_new = 0;
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/CheckSoPO",
+                data: {
+                    "sopo": Number($("#sothutupo").val()),
+                    "idphongban": Number($("#id_donvidexuat").val()),
+                    "nam": Number($("#namdexuat").val())
+                    
+                },
+                dataType: "json",
+                success: function (data) {
+                    if(data.length>0)
+                    {
+                        
+                        sopo_new = Number(data[0]["SoPO"].toString());
+                        sopo_new += 1;
+                        alert("Số PO hiện tại của bạn đã được sử dụng. Số PO mới của bạn: " + sopo_new);
+                        if (sopo_new < 10) {
+                            sopo_new = "00" + sopo_new;
+                        }
+                        else if (sopo_new < 100 && sopo_new >= 10) {
+                            sopo_new = "0" + sopo_new;
+                        }
+                        else {
+                            sopo_new = sopo_new;
+                        }
+                        var year = $("#namdexuat").val().slice(-2);
+                        
+                        $("#sopo").val(sopo_new + "/POMH-" + year + "-" + phongban_viettat);
+
+                        CapNhatSoPO(sopo_new);
+                    }
+                    else
+                    {
+                        CapNhatSoPO(Number($("#sothutupo").val()));
+                    }
+                    
                 },
 
             })
@@ -487,6 +539,8 @@
                 },
                 dataType: "json",
                 success: function (data) {
+                    $("#table_vattu tbody").empty();
+                    $("#table_chitietpo tbody").empty();
                     var markup = "";
                     var stt = 1;
                     for (var i = 0; i < data.length; i++) {
@@ -561,7 +615,7 @@
                     $(this).closest('tr').find('td').find("input[id^='thanhtientamung*']").each(function () {
                         //alert(this.id)
                         thanhtientamtinh_nomask = this.value;
-                        tongtien += this.value;
+                        tongtien += Number(this.value);
                     });
                     //tinh ngay mua hang
                     var new_ngaymuahang = ngaycanhang;
@@ -570,8 +624,9 @@
                         new_ngaymuahang = moment(ngaycanhang, "DD/MM/YYYY").add(leadtime, 'days');
                         new_ngaymuahang = moment(new_ngaymuahang).format("DD/MM/YYYY");
                     }
-                    
+                    //bo dong duoc chon tren table vat tu
                     $(this).parents("tr").remove();
+
                     markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "</td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "</td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td></tr>";
                     stt++;
                     
@@ -583,15 +638,15 @@
             $("#tongtienPO").val(tongtien);
             //gan thong tin nguoi duyet PO dua vao tong tien PO
             //Kiem tra PO nay la dang Hop dong hay PO thuong, neu la PO thuong thi thuc hien code duoi
-            if ($("#sopo").is(':contains("POMH")'))
+            if ($("#sopo")[0].value.indexOf('POMH') !== -1)
             {
                 if(Number(tongtien)<2000000000)
                 {
-                    alert("<2000000000");
+                    ThayDoiThongTinNguoiDuyet("<2000000000");
                 }
                 else if (Number(tongtien) < 4000000000 && Number(tongtien) > 2000000000)
                 {
-                    alert("> 2000000000 < 4000000000");
+                    ThayDoiThongTinNguoiDuyet(">2000000000<4000000000");
                 }
             }
             else
@@ -599,15 +654,52 @@
                 //Neu la dang Hop dong va la cua Tan Do
                 if ($("#id_donvidexuat").val()=="3")
                 {
-                    alert("Tan Do");
+                    ThayDoiThongTinNguoiDuyet("HĐ-TĐ");
                 }
                 else if ($("#id_donvidexuat").val() == "5")
                 {
-                    alert("Duc Hoa");
+                    ThayDoiThongTinNguoiDuyet("HĐ-ĐH");
+                }
+                else
+                {
+                    if (Number(tongtien) < 2000000000) {
+                        ThayDoiThongTinNguoiDuyet("<2000000000");
+                    }
+                    else if (Number(tongtien) < 4000000000 && Number(tongtien) > 2000000000) {
+                        ThayDoiThongTinNguoiDuyet(">2000000000<4000000000");
+                    }
+
                 }
             }
             
         });
+        //Thay doi thong tin nguoi duyet khi tong gia tri PO thay doi//
+        function ThayDoiThongTinNguoiDuyet(dk)
+        {
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/ThongTinNguoiDuyetTheoGiatriPO",
+                data: {
+                    "dk": dk
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.length > 0)
+                    {
+                        $('#nguoiduyetpo').val(data[0]["NguoiDuyet"]).trigger('change'); 
+                    }
+
+                },
+
+            })
+          
+          .fail(function (jqXHR, textStatus, errorThrown) {
+              alert("error lấy thhông tin người duyệt theo giá trị; " + errorThrown);
+          });
+            
+
+        }
         //****************************//
         //Xu ly nut xoa vat tu
         $(document).on('click', 'span.deleterow', function () {
@@ -681,7 +773,7 @@
 
                 sothutu++;
                 if (sothutu <= rowCount) {
-                    $tds.eq(1).html(sothutu);
+                    $tds.eq(2).html(sothutu);
 
                 }
 
@@ -702,6 +794,10 @@
         //*********************************//
         function LayDanhSachPOChiTiet()
         {
+            //luu thông tin PO
+            LuuPO();
+            LayThongTinPO();
+            //Lay va luu thong tin PO chi tiet
             var table = $("#table_chitietpo");
             table.find('tbody > tr').each(function () {
                 //lay thong tin item trong table vat tu
@@ -887,6 +983,6 @@
             $('#dongiapo').val(Number($("#dongiatamtinh_notmask").val()).toLocaleString('de-DE'));
         }
         //**************************//
-        //Thay doi thong tin nguoi duyet khi tong gia tri PO thay doi//
+       
     </script>
 </asp:Content>

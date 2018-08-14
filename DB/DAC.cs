@@ -45,13 +45,19 @@ namespace DB
                 conn.Close();
             }
         }
-        /*Thong tin xu ly cac lenh get data*/
-        public DataTable get(string sql)
+        /*Thong tin xu ly cac lenh get data, khong phai store proceduce*/
+        public DataTable get(string sql, SqlParameter[] sql_param)
         {
             connect();
             try
             {
-                da = new SqlDataAdapter(sql, conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                if (sql_param.Length > 0)
+                {
+                    cmd.Parameters.AddRange(sql_param);
+                }
+                
+                da = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 da.Fill(dt);
             }

@@ -28,6 +28,7 @@ namespace Business
         private string _ten_nha_cung_cap;
         private string _ma_nha_cung_cap;
         private string _kho_nhan;
+        private string _ghi_chu;
         private int _tinh_trang;
 
         public int ID_PO
@@ -110,6 +111,11 @@ namespace Business
             get { return _kho_nhan; }
             set { _kho_nhan = value; }
         }
+        public string Ghi_Chu
+        {
+            get { return _ghi_chu; }
+            set { _ghi_chu = value; }
+        }
         public int Tinh_Trang
         {
             get { return _tinh_trang; }
@@ -182,6 +188,17 @@ namespace Business
                     po.Ten_Nha_Cung_Cap = row["NhaCungCap"].ToString();
                     po.Ma_Nha_Cung_Cap = row["MaNhaCungCap"].ToString();
                     po.Kho_Nhan = row["KhoNhan"].ToString();
+                    if (tb.Columns.Contains("GhiChu"))
+                    {
+                        if(row["GhiChu"]!=null)
+                        {
+                            po.Ghi_Chu = row["GhiChu"].ToString();
+                        }
+                        else
+                        {
+                            po.Ghi_Chu = "";
+                        }
+                    }
                     po.Tinh_Trang = Convert.ToInt32(row["TinhTrang"]);
                   
                     po_col.Add(po);
@@ -227,6 +244,18 @@ namespace Business
             DataTable tb = kn.get_by_procedure("proc_Action_PO_Resent", param);
 
 
+
+            return tb;
+        }
+        //** Lay thong tin nguoi duyet theo dieu kien gia tri PO
+        public DataTable LayIDNguoiDuyetTheoGiaTriPO(string dk)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@dk", dk);
+
+            SqlParameter[] param = new SqlParameter[1] { pm };
+            DataTable tb = kn.get_by_procedure("proc_LayThongTinNguoiDuyetTheoCauHinh", param);
 
             return tb;
         }

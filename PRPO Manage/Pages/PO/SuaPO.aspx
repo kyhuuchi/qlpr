@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nguoiduyetpo">Người duyệt PO</label>
-                    <select class="form-control" id="nguoiduyetpo" style="width: 100%;">
+                    <select class="form-control" id="nguoiduyetpo" style="width: 100%;" disabled>
                     </select>
                     <input type="hidden" id="id_nguoiduyetpo" />
                 </div>
@@ -479,7 +479,7 @@
                         var ngaymuahang = date;
 
                         
-                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"] + "</td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='" + data[i]["ID_PO_Chi_Tiet"] + "'/></td></tr>";
+                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"].toLocaleString('de-DE') + "</td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='" + data[i]["ID_PO_Chi_Tiet"] + "'/></td></tr>";
                         stt++;
                     }
                   
@@ -668,6 +668,16 @@
                     //alert(this.id)
                     tontai = this.value;
                 });
+                var dongiatamtinh_nomask = 0;
+                $(this).closest('tr').find('td').find("input[id^='dongiatamtinh*']").each(function () {
+                    //alert(this.id)
+                    dongiatamtinh_nomask = this.value;
+                });
+                var thanhtientamtinh_nomask = 0;
+                $(this).closest('tr').find('td').find("input[id^='thanhtientamung*']").each(function () {
+                    //alert(this.id)
+                    thanhtientamtinh_nomask = this.value;
+                });
                 //kiem tra xem dong item do la da co hay chua, neu chua co thi insert vao
                 if(tontai==0)
                 {
@@ -684,9 +694,9 @@
                             "tenhang": tenhang,
                             "dvt": dvt,
                             "soluong": soluongpo,
-                            "dongia": dongia,
+                            "dongia": dongiatamtinh_nomask,
                             "tigia": tigia,
-                            "thanhtien": thanhtien,
+                            "thanhtien": thanhtientamtinh_nomask,
                             "tinhtrangvt": tinhtrangvattu,
                             "id_prchitiet": id_pr_chitiet,
                             "ngaymuahang": ngaycanhang
@@ -731,9 +741,9 @@
                             "tenhang": tenhang,
                             "dvt": dvt,
                             "soluong": soluongpo,
-                            "dongia": dongia,
+                            "dongia": dongiatamtinh_nomask,
                             "tigia": tigia,
-                            "thanhtien": thanhtien,
+                            "thanhtien": thanhtientamtinh_nomask,
                             "tinhtrangvt": tinhtrangvattu,
                             "id_prchitiet": id_pr_chitiet,
                             "ngaymuahang": ngaycanhang
