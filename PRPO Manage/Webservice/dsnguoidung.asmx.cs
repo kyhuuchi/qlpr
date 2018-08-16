@@ -218,10 +218,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(tb));
         }
         [WebMethod]
-        public void LayDS_PRChiTiet_DaDuyet(int id_phongban, int tinhtrangvattu)
+        public void LayDS_PRChiTiet_DaDuyet(int id_phongban)
         {
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
-            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet_DaDuyet(id_phongban, tinhtrangvattu);
+            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet_DaDuyet(id_phongban);
             var js = new JavaScriptSerializer();
             Context.Response.Write(js.Serialize(tb));
         }
@@ -255,10 +255,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(js.Serialize(parentRow));
         }
         [WebMethod]
-        public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet, int tinhtrang)
+        public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet, int tinhtrang, int soluongpo)
         {
             PO po = new PO();
-            DataTable tb = po.Update_TrangThaiVatTu_PR_ChiTiet(id_pr_chitiet,tinhtrang);
+            DataTable tb = po.Update_TrangThaiVatTu_PR_ChiTiet(id_pr_chitiet,tinhtrang, soluongpo);
             var js = new JavaScriptSerializer();
 
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -322,6 +322,29 @@ namespace PRPO_Manage.Webservice
         {
             SoPO po = new SoPO();
             DataTable tb = po.Check_SoPO(sopo, idphongban, nam);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(js.Serialize(parentRow));
+        }
+        //********************//
+        //** Kho **//
+        [WebMethod]
+        public void ThongTinKho_TinhTrang(int tinhtrang, int id_bp)
+        {
+            PO po = new PO();
+            DataTable tb = po.LayThongTinSoLuongNhapKho(tinhtrang, id_bp);
             var js = new JavaScriptSerializer();
 
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

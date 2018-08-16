@@ -80,20 +80,22 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="soluongyeucaupo">Số lượng yêu cầu PO:</label>
-                                                    <input type="text" class="form-control" id="soluongyeucaupo"/>
+                                                    <input type="number" class="form-control" id="soluongyeucaupo"/>
                                                     <input type="hidden" id="sttpochitiet"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="dongiapo">Đơn giá:</label>
-                                                    <input type="text" class="form-control" id="dongiapo" />
+                                                    <input type="number" class="form-control" id="dongiapo" />
+                                                    <input type="hidden" id="dongiatamtinh_notmask" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tigiapo">Tỉ giá:</label>
-                                                    <input type="text" class="form-control" id="tigiapo" />
+                                                    <input type="number" class="form-control" id="tigiapo" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="thanhtienpo">Thành tiền:</label>
-                                                    <input type="number" class="form-control" id="thanhtienpo" />
+                                                    <input type="text" class="form-control" id="thanhtienpo" readonly/>
+                                                    <input type="hidden" id="thanhtientamung_notmask" />
                                                 </div>
                                                 
                                                 <input type="button" class="btn btn-primary" id="DongY" data-dismiss="modal" value="Đồng ý" />
@@ -168,7 +170,7 @@
         </div>
          <div class="row">
             <div class="form-group col-md-12">
-                <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet(1)">Lưu PO</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btt_luupo">Lưu PO</button>
                 <button type="button" class="btn btn-success btn-sm" id="btt_chuyen" style="display:none" onclick="LuuVaChuyenPheDuyet()">Lưu và chuyển phê duyệt</button>
             </div>
         </div>
@@ -361,11 +363,16 @@
             });
         }
         //Luu thông tin PO va lay thông tin các PR da duyet
-        function LuuPO(tinhtrang) {
+        function LuuPO(ttrang) {
           
             var date = new Date($("#ngaypo").val());
             var thangtao = date.getMonth() + 1;
-
+            var tinhtrang = ttrang;
+            if ($("#tinhtrangPO").val() == tinhtrang)
+            {
+                tinhtrang = $("#tinhtrangPO").val();
+            }
+           
             $.ajax({
                 type: "POST",
                 async: false,
@@ -412,8 +419,8 @@
                 async: false,
                 url: "/Webservice/dsnguoidung.asmx/LayDS_PRChiTiet_DaDuyet",
                 data: {
-                    "id_phongban": $("#id_donvidexuat").val(),
-                    "tinhtrangvattu": 0
+                    "id_phongban": $("#id_donvidexuat").val()
+                    
                 },
                 dataType: "json",
                 success: function (data) {
@@ -426,8 +433,13 @@
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
                         var ngaycanhang = day + "/" + month + "/" + year;
-
-                        markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "</td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td></tr>";
+                        if (data[i]["So_Luong_Con_Lai"] > 0) {
+                            markup = markup + "<tr style='background-color: #ffa7a7;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        }
+                        else {
+                            markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        }
+                        //markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "</td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td></tr>";
                         stt++;
                     }
 
@@ -491,7 +503,7 @@
                  alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
              });
         }
-        //// Find and remove selected table rows
+        //// Find and remove selected table rows 
         $("#themchitietPO").click(function () {
             var markup = "";
             var stt = 1;
@@ -523,6 +535,17 @@
                         //alert(this.id)
                         leadtime = this.value;
                     });
+                    var dongiatamtinh_nomask = 0;
+                    $(this).closest('tr').find('td').find("input[id^='dongiatamtinh*']").each(function () {
+                        //alert(this.id)
+                        dongiatamtinh_nomask = this.value;
+                    });
+                    var thanhtientamtinh_nomask = 0;
+                    $(this).closest('tr').find('td').find("input[id^='thanhtientamung*']").each(function () {
+                        //alert(this.id)
+                        thanhtientamtinh_nomask = this.value;
+                        
+                    });
                     //tinh ngay mua hang. Neu la MATA thi van giu nguyen ngay mua hang, con cac don vi khac
                     //thi se cong leadtime
                     var new_ngaymuahang;
@@ -541,7 +564,7 @@
                     arr_rows.push(id_pr_chitiet);
                     $(this).parents("tr").remove();
                     //markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
-                    markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "</td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/><input type='hidden' id='tontai*" + stt + "' value='0'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='0'/></td></tr>";
+                    markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "</td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='tontai*" + stt + "' value='0'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='0'/></td></tr>";
                     stt++;
                     
                 }
@@ -635,6 +658,10 @@
         }
         //Lay thong tin PR chi tiet vua tao//
         //*********************************//
+        $("#btt_luupo").click(function () {
+            
+            LayDanhSachPOChiTiet($("#tinhtrangPO").val());
+        });
         function LayDanhSachPOChiTiet(ttrang)
         {
             LuuPO(ttrang);
@@ -713,7 +740,7 @@
                             });
                             
                             //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
-                            Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet,1);
+                            Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1, soluongpo);
                         },
 
                     })
@@ -760,7 +787,7 @@
                             });
 
                             //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
-                           // Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1);
+                            Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1, soluongpo);
                         },
 
                     })
@@ -807,14 +834,15 @@
             }
             window.location.replace("DanhSachPO");
         }
-        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang) {
+        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang, soluongpo) {
             $.ajax({
                 type: "POST",
                 async: false,
                 url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangPRChiTiet",
                 data: {
                     "id_pr_chitiet": id_pr_chitiet,
-                    "tinhtrang": tinhtrang
+                    "tinhtrang": tinhtrang,
+                    "soluongpo": soluongpo
                 },
                 dataType: "json",
                 success: function (data) {
@@ -836,6 +864,27 @@
 
         //Xu ly edit vat tu trong PO//
         $(document).on('click', 'span.editrow', function () {
+            //$("#myModal").modal('show');
+            //currentRow = $(this).parents('tr');
+            //$("#sttpochitiet").val($(this).closest('tr').find('td.cls_sott').text());
+            //$("#soluongyeucaupo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
+            ////lay thong tin gia tien chua co dinh dang
+            //var $tds = $(this).closest('tr').find('td');
+            //var st = 0;
+            //$tds.find("input[id^='dongiatamtinh*']").each(function () {
+            //    //alert(this.id)
+            //    st = this.value;
+
+            //});
+            //$("#dongiapo").val(st);
+            //$("#tigiapo").val($(this).closest('tr').find('td.cls_tigia').text());
+            //var tttu = 0;
+            //$tds.find("input[id^='thanhtientamung*']").each(function () {
+            //    //alert(this.id)
+            //    tttu = this.value;
+
+            //});
+            //$("#thanhtienpo").val(tttu);
             $("#myModal").modal('show');
             currentRow = $(this).parents('tr');
             $("#sttpochitiet").val($(this).closest('tr').find('td.cls_sott').text());
@@ -848,7 +897,8 @@
                 st = this.value;
 
             });
-            $("#dongiapo").val(st);
+            $("#dongiapo").val(Number(st).toLocaleString('de-DE'));
+            $("#dongiatamtinh_notmask").val(st);
             $("#tigiapo").val($(this).closest('tr').find('td.cls_tigia').text());
             var tttu = 0;
             $tds.find("input[id^='thanhtientamung*']").each(function () {
@@ -856,15 +906,78 @@
                 tttu = this.value;
 
             });
-            $("#thanhtienpo").val(tttu);
+            $("#thanhtienpo").val(Number(tttu).toLocaleString('de-DE'));
+            $("#thanhtientamung_notmask").val(tttu);
         
         });
+        //* Tinh lai gia khi chinh sua thong tin vat tu *//
+        $("#tigiapo").change(function () {
+
+            TinhKhiThayDoiTiGiaVaSoLuong();
+        });
+        $("#dongiapo").change(function () {
+            $("#dongiatamtinh_notmask").val($("#dongiapo").val());
+            TinhKhiThayDoiTiGiaVaSoLuong();
+        });
+        $("#soluongyeucaupo").change(function () {
+
+            TinhKhiThayDoiTiGiaVaSoLuong();
+        });
+        function TinhKhiThayDoiTiGiaVaSoLuong() {
+
+            var total = $("#dongiatamtinh_notmask").val() * $("#soluongyeucaupo").val() * $("#tigiapo").val();
+
+            document.getElementById("thanhtientamung_notmask").value = total;
+
+            $('#thanhtienpo').val(total.toLocaleString('de-DE'));
+            $('#dongiapo').val(Number($("#dongiatamtinh_notmask").val()).toLocaleString('de-DE'));
+        }
+        //**************************//
         $("#DongY").click(function () {
 
+            //var soluongyeucaupo = $("#soluongyeucaupo").val();
+            //var dongiapo = $("#dongiapo").val();
+            //var tigiapo = $("#tigiapo").val();
+            //var thanhtienpo = $("#thanhtienpo").val();
+            //var markup = "";
+            //var stt;
+            //if (currentRow) {
+            //    var curr = currentRow;
+            //    var $tds = curr.find('td');
+            //    stt = $tds.eq(2).text();
+            //    curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
+            //    $tds.find("input[id^='dongiatamtinh*']").each(function () {
+            //        //alert(this.id)
+            //        $(this).val(dongiapo);
+
+            //    });
+            //    curr.find('td.cls_dongiatamtinh').text(dongiapo);
+
+            //    curr.find('td.cls_tigia').text(tigiapo);
+
+            //    $tds.find("input[id^='thanhtientamung*']").each(function () {
+            //        //alert(this.id)
+            //        $(this).val(thanhtienpo);
+
+            //    });
+            //    curr.find('td.cls_thanhtientamung').text(thanhtienpo);
+                
+            //    $("#table_chitietpo tbody").find($(currentRow)).replaceWith(curr);
+            //    currentRow = null;
+            //}
+            
+            
+            
+            //$("#soluongyeucaupo").val("");
+            //$("#dongiapo").val("");
+            //$("#tigiapo").val("");
+            //$("#thanhtienpo").val("");
             var soluongyeucaupo = $("#soluongyeucaupo").val();
             var dongiapo = $("#dongiapo").val();
+            var dongiapo_nomask = $("#dongiatamtinh_notmask").val();
             var tigiapo = $("#tigiapo").val();
             var thanhtienpo = $("#thanhtienpo").val();
+            var thanhtienpo_nomask = $("#thanhtientamung_notmask").val();
             var markup = "";
             var stt;
             if (currentRow) {
@@ -872,28 +985,28 @@
                 var $tds = curr.find('td');
                 stt = $tds.eq(2).text();
                 curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
+
+                curr.find('td.cls_dongiatamtinh').text(dongiapo);
                 $tds.find("input[id^='dongiatamtinh*']").each(function () {
                     //alert(this.id)
-                    $(this).val(dongiapo);
+                    $(this).val(dongiapo_nomask);
 
                 });
-                curr.find('td.cls_dongiatamtinh').text(dongiapo);
-
                 curr.find('td.cls_tigia').text(tigiapo);
-
+                curr.find('td.cls_thanhtientamung').text(thanhtienpo);
                 $tds.find("input[id^='thanhtientamung*']").each(function () {
                     //alert(this.id)
-                    $(this).val(thanhtienpo);
+                    $(this).val(thanhtienpo_nomask);
 
                 });
-                curr.find('td.cls_thanhtientamung').text(thanhtienpo);
-                
+
+
                 $("#table_chitietpo tbody").find($(currentRow)).replaceWith(curr);
                 currentRow = null;
             }
-            
-            
-            
+
+
+
             $("#soluongyeucaupo").val("");
             $("#dongiapo").val("");
             $("#tigiapo").val("");

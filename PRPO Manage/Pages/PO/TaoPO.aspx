@@ -95,17 +95,17 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="soluongyeucaupo">Số lượng yêu cầu PO:</label>
-                                                    <input type="text" class="form-control" id="soluongyeucaupo"/>
+                                                    <input type="number" class="form-control" id="soluongyeucaupo"/>
                                                     <input type="hidden" id="sttpochitiet"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="dongiapo">Đơn giá:</label>
-                                                    <input type="text" class="form-control" id="dongiapo" />
+                                                    <input type="number" class="form-control" id="dongiapo" />
                                                       <input type="hidden" id="dongiatamtinh_notmask" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tigiapo">Tỉ giá:</label>
-                                                    <input type="text" class="form-control" id="tigiapo" />
+                                                    <input type="number" class="form-control" id="tigiapo" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="thanhtienpo">Thành tiền:</label>
@@ -534,8 +534,8 @@
                 async: false,
                 url: "/Webservice/dsnguoidung.asmx/LayDS_PRChiTiet_DaDuyet",
                 data: {
-                    "id_phongban": $("#id_donvidexuat").val(),
-                    "tinhtrangvattu": 0
+                    "id_phongban": $("#id_donvidexuat").val()
+                    
                 },
                 dataType: "json",
                 success: function (data) {
@@ -550,8 +550,15 @@
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
                         var ngaycanhang = day + "/" + month + "/" + year;
-
-                        markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        if (data[i]["So_Luong_Con_Lai"]>0)
+                        {
+                            markup = markup + "<tr style='background-color: #ffa7a7;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        }
+                        else
+                        {
+                            markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        }
+                        
                         stt++;
                     }
 
@@ -858,7 +865,7 @@
                     success: function (data) {
                         alert("Da tao PO chi tiet thanh cong.");
                         //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
-                        Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet,1);
+                        Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1, soluongpo);
                     },
 
                 })
@@ -868,7 +875,7 @@
             });
            
         }
-        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang)
+        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang,soluongpo)
         {
             $.ajax({
                 type: "POST",
@@ -876,7 +883,8 @@
                 url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangPRChiTiet",
                 data: {
                     "id_pr_chitiet": id_pr_chitiet,
-                    "tinhtrang": tinhtrang
+                    "tinhtrang": tinhtrang,
+                    "soluongpo": soluongpo
                 },
                 dataType: "json",
                 success: function (data) {

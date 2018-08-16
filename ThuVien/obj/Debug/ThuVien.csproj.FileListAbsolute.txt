@@ -50,4 +50,3 @@ G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\EPPlus.dll
 G:\du an\DuyTan\qlpr\ThuVien\bin\Debug\EPPlus.xml
 G:\du an\DuyTan\qlpr\ThuVien\obj\Debug\ThuVien.dll
 G:\du an\DuyTan\qlpr\ThuVien\obj\Debug\ThuVien.pdb
-D:\SourceCode\PRPO Manage\qlpr\ThuVien\obj\Debug\ThuVien.csprojResolveAssemblyReference.cache

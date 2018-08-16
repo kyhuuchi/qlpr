@@ -220,14 +220,14 @@ namespace Business
 
             return tb;
         }
-        public DataTable Update_TrangThaiVatTu_PR_ChiTiet(int id_pr_chitiet,int tinhtrang)
+        public DataTable Update_TrangThaiVatTu_PR_ChiTiet(int id_pr_chitiet,int tinhtrang,int soluongpo)
         {
             DAC kn = new DAC();
 
             SqlParameter pm = new SqlParameter("@id_pr_chi_tiet", id_pr_chitiet);
             SqlParameter pm2 = new SqlParameter("@tinhtrang", tinhtrang);
-            
-            SqlParameter[] param = new SqlParameter[2] { pm,pm2 };
+            SqlParameter pm3 = new SqlParameter("@soluongpo", soluongpo);
+            SqlParameter[] param = new SqlParameter[3] { pm,pm2, pm3 };
             DataTable tb = kn.get_by_procedure("proc_Update_TrangThai_VatTu_PR_ChiTiet", param);
 
 
@@ -256,6 +256,20 @@ namespace Business
 
             SqlParameter[] param = new SqlParameter[1] { pm };
             DataTable tb = kn.get_by_procedure("proc_LayThongTinNguoiDuyetTheoCauHinh", param);
+
+            return tb;
+        }
+        public DataTable LayThongTinSoLuongNhapKho(int tinhtrang,int id_bp)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@tinhtrang", tinhtrang);
+            SqlParameter pm2 = new SqlParameter("@id_bp", id_bp);
+
+            SqlParameter[] param = new SqlParameter[2] { pm, pm2 };
+            DataTable tb = kn.get_by_procedure("proc_ThongTinKho_TinhTrang", param);
+
+
 
             return tb;
         }

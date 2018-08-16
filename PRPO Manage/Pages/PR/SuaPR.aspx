@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                    <input type="text" class="form-control" id="dongiatamtinh" />
+                                                    <input type="number" class="form-control" id="dongiatamtinh" />
                                                     <input type="hidden" id="dongiatamtinh_notmask"/>
                                                 </div>
                                                 <div class="form-group">
@@ -107,7 +107,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="thanhtientamung">Thành tiền tạm ứng:</label>
-                                                    <input type="text" class="form-control" id="thanhtientamung"/>
+                                                    <input type="text" class="form-control" id="thanhtientamung" readonly/>
                                                     <input type="hidden" id="thanhtientamung_notmask"/>
                                                 </div>
                                                 <div class="form-group">
@@ -243,88 +243,88 @@
                                             <td>Ngân sách được duyệt
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="11"/>
+                                                <input type="number" class="form-control" id="11"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="22"/>
+                                                <input type="number" class="form-control" id="22"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="33"/>
+                                                <input type="number" class="form-control" id="33"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="44"/>
+                                                <input type="number" class="form-control" id="44"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="55"/>
+                                                <input type="number" class="form-control" id="55"/>
                                             </td>
                                             <td>
-                                                 <input type="text" class="form-control" id="66"/>
+                                                 <input type="number" class="form-control" id="66"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Đề xuất lần này
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="111"/>
+                                                <input type="number" class="form-control" id="111"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="222"/>
+                                                <input type="number" class="form-control" id="222"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="333"/>
+                                                <input type="number" class="form-control" id="333"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="444"/>
+                                                <input type="number" class="form-control" id="444"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="555"/>
+                                                <input type="number" class="form-control" id="555"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="666"/>
+                                                <input type="number" class="form-control" id="666"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Lũy kế
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="1111"/>
+                                                <input type="number" class="form-control" id="1111"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="2222"/>
+                                                <input type="number" class="form-control" id="2222"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="3333"/>
+                                                <input type="number" class="form-control" id="3333"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="4444"/>
+                                                <input type="number" class="form-control" id="4444"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="5555"/>
+                                                <input type="number" class="form-control" id="5555"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="6666"/>
+                                                <input type="number" class="form-control" id="6666"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Thừa thiếu (NS-LK)
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="11111"/>
+                                                <input type="number" class="form-control" id="11111"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="22222"/>
+                                                <input type="number" class="form-control" id="22222"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="33333"/>
+                                                <input type="number" class="form-control" id="33333"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="44444"/>
+                                                <input type="number" class="form-control" id="44444"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="55555"/>
+                                                <input type="number" class="form-control" id="55555"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" id="66666"/>
+                                                <input type="number" class="form-control" id="66666"/>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -69,6 +69,12 @@
     $("#overlay").show();
     $(document).ready(function () {
        
+        //kiem tra user hien tai co duoc phep truy cap vao hay ko
+        if ($("#muahang").val() == "false")
+        {
+            alert("Bạn không có quyền truy cập vào đây. Vui lòng liên hệ quản trị để biết thêm chi tiết.");
+            window.location.replace("/Default");
+        }
 
         //********************************************//
 
@@ -765,10 +771,10 @@
                                 }
                                 else {
                                     if (i % 2 == 0) {
-                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                        str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
                                     }
                                     else {
-                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td><td></td></tr>';
+                                        str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td></td><td></td></tr>';
                                     }
                                 }
 

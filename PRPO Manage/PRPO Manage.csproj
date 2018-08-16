@@ -227,6 +227,8 @@
     <Content Include="Images\loader - Copy.gif" />
     <Content Include="Images\loader.gif" />
     <Content Include="Pages\Kho\DanhSachKho.aspx" />
+    <Content Include="Pages\Kho\SuaKho.aspx" />
+    <Content Include="Pages\Kho\TaoPNK.aspx" />
     <Content Include="Pages\PO\DanhSachPO.aspx" />
     <Content Include="Pages\PO\SuaPO.aspx" />
     <Content Include="Pages\PO\TaoPO.aspx" />
@@ -948,6 +950,20 @@
     </Compile>
     <Compile Include="Pages\Kho\DanhSachKho.aspx.designer.cs">
       <DependentUpon>DanhSachKho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Kho\SuaKho.aspx.cs">
+      <DependentUpon>SuaKho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Kho\SuaKho.aspx.designer.cs">
+      <DependentUpon>SuaKho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Kho\TaoPNK.aspx.cs">
+      <DependentUpon>TaoPNK.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Kho\TaoPNK.aspx.designer.cs">
+      <DependentUpon>TaoPNK.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\PO\DanhSachPO.aspx.cs">
       <DependentUpon>DanhSachPO.aspx</DependentUpon>

@@ -627,6 +627,7 @@ namespace Business
         private string _cong_dung;
         private string _so_pr_full;
         private int _lead_time;
+        private int _so_luong_con_lai;
         public int ID_PR_Chi_Tiet
         {
             get { return _id_pr_chitiet; }
@@ -712,6 +713,11 @@ namespace Business
             get { return _lead_time; }
             set { _lead_time = value; }
         }
+        public int So_Luong_Con_Lai
+        {
+            get { return _so_luong_con_lai; }
+            set { _so_luong_con_lai = value; }
+        }
         public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime)
         {
             DateTime ngaych;
@@ -767,23 +773,24 @@ namespace Business
                     pr_chitiet.Ngay_Can_Hang = Convert.ToDateTime(row["NgayCanHang"]);
                     pr_chitiet.Thoi_Gian_Xu_Dung = row["ThoiGianSuDung"].ToString();
                     pr_chitiet.Cong_Dung = row["CongDung"].ToString();
-                    pr_chitiet.Lead_Time= Convert.ToInt32(row["leadtime"]); 
+                    pr_chitiet.Lead_Time= Convert.ToInt32(row["LeadTime"]);
+                    pr_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
                     pr_Chitiet_col.Add(pr_chitiet);
 
                 }
             }
             return pr_Chitiet_col;
         }
-        public List<PR_ChiTiet> LayDanhSachPR_ChTiet_DaDuyet(int id_phongban, int tinhtrangvattu)
+        public List<PR_ChiTiet> LayDanhSachPR_ChTiet_DaDuyet(int id_phongban)
         {
             DAC kn = new DAC();
             List<PR_ChiTiet> pr_Chitiet_col = new List<PR_ChiTiet>();
 
             SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
-            SqlParameter pm2 = new SqlParameter("@tinhtrangvattu", tinhtrangvattu);
+            //SqlParameter pm2 = new SqlParameter("@tinhtrangvattu", tinhtrangvattu);
            
 
-            SqlParameter[] param = new SqlParameter[2] { pm, pm2};
+            SqlParameter[] param = new SqlParameter[1] { pm};
             DataTable tb = kn.get_by_procedure("proc_LayDS_PR_PRChiTiet_DaDuyet", param);
             if (tb != null)
             {
@@ -807,6 +814,7 @@ namespace Business
                     pr_chitiet.Cong_Dung = row["CongDung"].ToString();
                     pr_chitiet.So_PR_Full= row["SoPR_Full"].ToString();
                     pr_chitiet.Lead_Time = Convert.ToInt32(row["leadtime"]);
+                    pr_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
                     pr_Chitiet_col.Add(pr_chitiet);
 
                 }
