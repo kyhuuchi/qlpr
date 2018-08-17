@@ -8,6 +8,7 @@ using System.Web.Services;
 using System.Web.Script.Serialization;
 using System.Net;
 using System.Web.Script.Services;
+using Newtonsoft.Json;
 
 namespace PRPO_Manage.Webservice
 {
@@ -360,6 +361,14 @@ namespace PRPO_Manage.Webservice
             }
 
             Context.Response.Write(js.Serialize(parentRow));
+        }
+        [WebMethod]
+        public void Action_Kho(int action, int id, string sonhapkho, int soluong, string ngaynhapkho, int id_po,int id_po_chi_tiet)
+        {
+            Kho kho = new Kho();
+            List<Kho> tb = kho.LayDanhSachKho(action, id, sonhapkho, soluong, ngaynhapkho, id_po, id_po_chi_tiet);
+            
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         //********************//
         [WebMethod]

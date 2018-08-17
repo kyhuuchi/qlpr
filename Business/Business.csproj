@@ -51,6 +51,7 @@
     <Compile Include="bs_SoPO.cs" />
     <Compile Include="bs_SoPR.cs" />
     <Compile Include="bs_VatTu.cs" />
+    <Compile Include="Kho.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
