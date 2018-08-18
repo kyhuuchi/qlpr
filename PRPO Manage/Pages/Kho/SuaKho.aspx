@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="sophieunhapkho">Số PN Kho:</label>
-                                        <input type="text" class="form-control" id="sophieunhapkho" />
+                                        <input type="text" class="form-control" id="sophieunhapkho" readonly/>
 
                                     </div>
 
@@ -117,6 +117,8 @@
                                         <label for="soluongnhapkho">Số lượng nhập kho</label>
                                         <input type="number" class="form-control" id="soluongnhapkho" />
                                          <input type="hidden" id="id_po_chi_tiet" />
+                                         <input type="hidden" id="sophieunk" />
+                                        <input type="hidden" id="id_sophieunk" />
                                     </div>
                                   
                                     <input type="button" class="btn btn-primary" id="DongY" data-dismiss="modal" value="Đồng ý" />
@@ -161,6 +163,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">#</th>
                                 <th scope="col">STT</th>
                                 <th scope="col">Số PR</th>
                                 <th scope="col">Số PO</th>
@@ -193,7 +196,7 @@
         //hien thi nut loading...
         $("#overlay").show();
         document.getElementById("nguoimuahang").value = $("#tenhienthi").val();
-
+        
         $(document).ready(function () {
             var urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('po')) {
@@ -278,6 +281,7 @@
             //lay danh sach nguoi duyet
             LayDanhSachNguoiDuyet(id_nguoiduyet);
             LayThongTinPOChiTiet();
+            
             ///sau khi load xong het tat ca thi tat Loading...
             $("#overlay").hide();
         });
@@ -321,8 +325,85 @@
             });
         }
         //*******************//
+        //Xu ly lay so phieu nhap tu he thong
+        function LayMaSoPNKho() {
+            var data;
+       
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/Action_SoPhieuNhapKho",
+                data: {
+                    "action": 1,
+                    "id": 0,
+                    "idphongban": $("#id_donvidexuat").val(),
+                    "sophieunhap":0,
+                    "nam": Number((new Date()).getFullYear()),
+                },
+                dataType: "json",
+
+                success: function (data) {
+                    var sopn;
+                    var tem_sopn;
+                    if(data.length>0)
+                    {
+                        sopn = data[0]["So_Phieu_Nhap_Kho"] + 1;
+                        $("#sophieunk").val(sopn);
+                        $("#id_sophieunk").val(data[0]["ID_So_Phieu_Nhap"]);
+                        if (sopn < 10) {
+                            sopn = "000" + sopn;
+                        }
+                        else if (sopn < 100 && sopn >= 10) {
+                            sopn = "00" + sopn;
+                        }
+                        else if (sopn < 1000 && sopn >= 100) {
+                            sopn = "0" + sopn;
+                        }
+                        else {
+                            sopn = sopn;
+                        }
+                        var year = data[0]["Nam"].toString().slice(-2);
+                        var pb = $("#ten_bophan").val();
+                        $("#sophieunhapkho").val("PN" + sopn + "-" + year + "-" + pb);
+                    }
+
+                    
+
+                },
+
+            })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+              alert("error lay so phieu nhap kho : " + errorThrown);
+          });
+
+        }
+        function CapNhatMaSoPNKho() {
+            var data;
+
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/Action_SoPhieuNhapKho",
+                data: {
+                    "action": 2,
+                    "id": $("#id_sophieunk").val(),
+                    "idphongban": $("#id_donvidexuat").val(),
+                    "sophieunhap": $("#sophieunk").val(),
+                    "nam": Number((new Date()).getFullYear()),
+                },
+                dataType: "json",
+
+                success: function (data) {
 
 
+                },
+
+            })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+              alert("error lay so phieu nhap kho : " + errorThrown);
+          });
+
+        }
         //Lay thông tin nguoi duyet PO
         function LayDanhSachNguoiDuyet(id_nguoiduyetpo) {
 
@@ -402,6 +483,7 @@
                     }
 
                     $("#table_pochiettiet tbody").append(markup);
+                    LayDanhSachKho();
                 },
 
             })
@@ -410,24 +492,7 @@
              });
         }
         /*****************/
-        //Xu ly edit vat tu trong PO//
-        $(document).on('click', 'span.editrow', function () {
-         
-            $("#myModal").modal('show');
-            currentRow = $(this).parents('tr');
-            $("#mahang").val($(this).closest('tr').find('td.cls_mavattu').text());
-            $("#tenhang").val($(this).closest('tr').find('td.cls_tenvattu').text());
-            $("#soluongpo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
-         
-            //lay thong tin id po chi tiet
-            var $tds = $(this).closest('tr').find('td');
-            $tds.find("input[id^='id_po_chi_tiet*']").each(function () {
-                //alert(this.id)
-                $("#id_po_chi_tiet").val(this.value);
-
-            });
-
-        });
+      
 
         function LaySoPhieuNhapKho()
         {
@@ -458,6 +523,46 @@
                 },
                 dataType: "json",
                 success: function (data) {
+                   
+                },
+
+            })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+              alert("error tạo phiếu nhập kho:  " + errorThrown);
+          });
+        }
+        $("#DongY").click(function () {
+
+            //luu phieu nhap kho
+            LaySoPhieuNhapKho();
+            LayDanhSachKho();
+            CapNhatMaSoPNKho();
+
+            $("#mahang").val("");
+            $("#tenhang").val("");
+            $("#soluongpo").val("");
+            $("#sophieunhapkho").val("");
+            //$("#ngaynhapkho").val("");
+            $("#ngaynhapkho").datepicker("setDate", null);
+            $("#soluongnhapkho").val("");
+        });
+        function LayDanhSachKho() {
+            $("#table_chitietphieunhap tbody").empty();
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/Action_Kho",
+                data: {
+                    "action": 1,
+                    "id": 0,
+                    "sonhapkho": "",
+                    "soluong": 0,
+                    "ngaynhapkho": "",
+                    "id_po": $("#id_po").val(),
+                    "id_po_chi_tiet": 0
+                },
+                dataType: "json",
+                success: function (data) {
                     var markup = "";
                     var stt = 1;
                     for (var i = 0; i < data.length; i++) {
@@ -471,64 +576,87 @@
                         var ngaynhapkho = date;
 
 
-                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-shopping-cart' href='javascript: void(0);'></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"].toLocaleString('de-DE') + "</td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='" + data[i]["ID_PO_Chi_Tiet"] + "'/></td></tr>";
+                        markup = markup + "<tr><td><span class='editphieunhap'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "</td><td class='cls_sopo_full'>" + data[i]["So_PO_Full"] + "</td><td class='cls_phieunhapkho'>" + data[i]["So_Nhap_Kho"] + "</td><td class='cls_ngaynhapkho'>" + data[i]["Ngay_Nhap_Kho"] + "</td><td class='cls_soluongnhapkho'>" + data[i]["So_Luong"].toLocaleString('de-DE') + "<input type='hidden' id='soluongnhapkho*" + stt + "' value='" + data[i]["So_Luong"] + "'/></td></tr>";
                         stt++;
                     }
 
-                    $("#table_pochiettiet tbody").append(markup);
+                    $("#table_chitietphieunhap tbody").append(markup);
                 },
 
             })
           .fail(function (jqXHR, textStatus, errorThrown) {
-              alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+              alert("error lấy phiếu nhập kho : " + errorThrown);
           });
         }
-        $("#DongY").click(function () {
+        //Xu ly edit vat tu trong PO//
+        $(document).on('click', 'span.editrow', function () {
 
-            //luu phieu nhap kho
-            LaySoPhieuNhapKho();
+            $("#myModal").modal('show');
+            //lay so phieu nhap kho tu dong
+            LayMaSoPNKho();
+            currentRow = $(this).parents('tr');
+            $("#mahang").val($(this).closest('tr').find('td.cls_mavattu').text());
+            $("#tenhang").val($(this).closest('tr').find('td.cls_tenvattu').text());
+            $("#soluongpo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
 
-            //var soluongyeucaupo = $("#soluongyeucaupo").val();
-            //var dongiapo = $("#dongiapo").val();
-            //var dongiapo_nomask = $("#dongiatamtinh_notmask").val();
-            //var tigiapo = $("#tigiapo").val();
-            //var thanhtienpo = $("#thanhtienpo").val();
-            //var thanhtienpo_nomask = $("#thanhtientamung_notmask").val();
-            //var markup = "";
-            //var stt;
-            //if (currentRow) {
-            //    var curr = currentRow;
-            //    var $tds = curr.find('td');
-            //    stt = $tds.eq(2).text();
-            //    curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
+            //lay thong tin id po chi tiet
+            var $tds = $(this).closest('tr').find('td');
+            $tds.find("input[id^='id_po_chi_tiet*']").each(function () {
+                //alert(this.id)
+                $("#id_po_chi_tiet").val(this.value);
 
-            //    curr.find('td.cls_dongiatamtinh').text(dongiapo);
-            //    $tds.find("input[id^='dongiatamtinh*']").each(function () {
-            //        //alert(this.id)
-            //        $(this).val(dongiapo_nomask);
+            });
 
-            //    });
-            //    curr.find('td.cls_tigia').text(tigiapo);
-            //    curr.find('td.cls_thanhtientamung').text(thanhtienpo);
-            //    $tds.find("input[id^='thanhtientamung*']").each(function () {
-            //        //alert(this.id)
-            //        $(this).val(thanhtienpo_nomask);
+        }); 
+        $(document).on('click', 'span.editphieunhap', function () {
 
-            //    });
+            $("#myModal").modal('show');
+            currentRow = $(this).parents('tr');
+            $("#mahang").val($(this).closest('tr').find('td.cls_mavattu').text());
+            $("#tenhang").val($(this).closest('tr').find('td.cls_tenvattu').text());
+            $("#soluongpo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
+
+            //lay thong tin id po chi tiet
+            var $tds = $(this).closest('tr').find('td');
+            $tds.find("input[id^='id_po_chi_tiet*']").each(function () {
+                //alert(this.id)
+                $("#id_po_chi_tiet").val(this.value);
+
+            });
+
+        }); 
+        $(document).on('click', 'span.deleterow', function () {
+            //$(this).parents('tr').remove();
+            $this = $(this);
+            var dtRow = $this.parents('tr');
+            if (confirm("Bạn có chắc muốn xóa phiếu nhập kho này?")) {
 
 
-            //    $("#table_chitietpo tbody").find($(currentRow)).replaceWith(curr);
-            //    currentRow = null;
-            //}
+                $.ajax({
+                    type: "POST",
+                    url: "/Webservice/dsnguoidung.asmx/Action_Kho",
+                    data: {
+                        "action": 0,
+                        "id": 0,
+                        "sonhapkho": dtRow[0].cells[5].innerHTML,
+                        "soluong": 0,
+                        "ngaynhapkho": "",
+                        "id_po": $("#id_po").val(),
+                        "id_po_chi_tiet": 0
 
-            $("#mahang").val("");
-            $("#tenhang").val("");
-            $("#soluongpo").val("");
-            $("#sophieunhapkho").val("");
-            $("#ngaynhapkho").val("");
-            $("#soluongnhapkho").val("");
+                    },
+                    dataType: "json",
+
+                    success: function (data) {
+                        location.reload();
+                    }
+                });
+
+
+            }
+            return false;
+
         });
-
-        
+      
     </script>
 </asp:Content>

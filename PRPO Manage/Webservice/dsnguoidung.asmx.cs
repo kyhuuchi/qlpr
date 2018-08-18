@@ -370,6 +370,15 @@ namespace PRPO_Manage.Webservice
             
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
+
+        [WebMethod]
+        public void Action_SoPhieuNhapKho(int action, int id, int idphongban, int sophieunhap, int nam)
+        {
+            SoPNKho sophieunhapkho = new SoPNKho();
+            List<SoPNKho> tb = sophieunhapkho.Action_SoPNKho(action, id, idphongban, sophieunhap,nam);
+
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
+        }
         //********************//
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
