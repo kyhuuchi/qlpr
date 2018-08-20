@@ -342,7 +342,7 @@
   }
 
 }
-
+/*css cho overlay*/
   #overlay{
       position:fixed;
       display:none;
@@ -364,4 +364,8 @@
       color:white;
       transform:translate(-50%,-50%);
       -ms-transform:translate(-50%,-50%);
+  }
+  /*css cho canh bao so luong con lai cua po chi tiet khi nhap kho*/
+  .cls_soluongconlai{
+      background-color:#f5a0a0;
   }

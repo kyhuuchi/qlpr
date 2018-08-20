@@ -19,7 +19,7 @@
             <div class="panel-group" id="accordion_chuanhapkho">
             </div>
         </div>
-        <div id="dangnhapkho" class="tab-pane fade in active">
+        <div id="dangnhapkho" class="tab-pane fade">
             <div class="panel-group" id="accordion_dangnhapkho">
             </div>
         </div>
@@ -37,7 +37,7 @@
 <script type="text/javascript">
     $("#overlay").show();
     $(document).ready(function () {
-        //*** Xu ly load thong tin cac PR da duyet  *** ///
+        //*** Xu ly load thong tin cac PO da duyet nhung chua nhap kho  *** ///
         /***                                              ***///
         /***                                              ***///
         /***                                              ***///
@@ -112,23 +112,11 @@
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "/Webservice/dsnguoidung.asmx/LayDSPO",
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO_TheoTinhTrangNhapKho",
                     data: {
-                        "action": 1,
-                        "id": 0,
-                        "sopo": 0,
-                        "sopo_full": "",
-                        "nam": 0,
-                        "ngaypo": "",
-                        "thangpo": 0,
-                        "id_nguoiphutrach": 0,
-                        "id_nguoiduyet": 0,
-                        "id_phongban": dt_pr[s]["ID"],
-                        "nhacungcap": "",
-                        "songaytre": 0,
-                        "manhacuangcap": "",
-                        "khonhan": "",
-                        "tinhtrang": 3
+                        "tinhtrang": 3,
+                        "tinhtrangnhapkho": 0,
+                        "idphongban": $("#id_bophan").val(),
                     },
                     dataType: "json",
                     success: function (data) {
@@ -172,7 +160,252 @@
 
         }
 
+        //*** Xu ly load thong tin cac PO dang nhap kho  *** ///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /****************************************************///
 
+        var soluongdata = 0;
+        var dt_pr;
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/ThongTinKho_TinhTrang",
+            data: {
+                "tinhtrang": 1,
+                "id_bp": $("#id_bophan").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                var ds_pr_daduyet = document.getElementById('accordion_dangnhapkho');
+                var sl_daduyet = 0;
+                var str_dt = "";
+                dt_pr = data;
+                soluongdata = data.length;
+                for (var i = 0; i < soluongdata; i++) {
+                    sl_daduyet += data[i]["SoLuong"];
+                    str_dt = str_dt + '<div class="panel panel-primary">';
+                    str_dt = str_dt + '<div class="panel-heading">';
+                    str_dt = str_dt + '<h4 class="panel-title">';
+                    str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_dangnhapkho' + i + '" href="#collapse_dangnhapkho' + i + '">' + data[i]["TenPhongBan"] + '<span class="badge" id="soluongpr_dangnhapkho_pb' + i + ' " style="margin-left: 6px;">' + data[i]["SoLuong"] + '</span></a>';
+                    str_dt = str_dt + '</h4>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '<div id="collapse_dangnhapkho' + i + '" class="panel-collapse in">';
+                    str_dt = str_dt + '<div class="panel-body">';
+                    str_dt = str_dt + '<div>';
+                    str_dt = str_dt + '<table id="DangNhapKhoTable' + i + '" class="display" width="100%">';
+                    str_dt = str_dt + '<thead>';
+                    str_dt = str_dt + '<tr>';
+                    str_dt = str_dt + '<th>Số PO</th>';
+                    str_dt = str_dt + '<th>Ngày PO</th>';
+                    str_dt = str_dt + '<th>Người phụ trách mua hàng</th>';
+                    str_dt = str_dt + '<th>Nhà cung cấp</th>';
+                    str_dt = str_dt + '<th>Kho nhận</th>';
+                    str_dt = str_dt + '<th></th>';
+                    str_dt = str_dt + '<th></th>';
+                    str_dt = str_dt + '</tr>';
+                    str_dt = str_dt + '</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+
+
+                }
+                document.getElementById("soluongpo_dangnhapkho").textContent = sl_daduyet;
+                ds_pr_daduyet.insertAdjacentHTML('afterend', str_dt);
+
+            },
+
+        })
+        .done(LayDataPODangNhapKho(dt_pr))
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            alert("error" + errorThrown);
+        });
+
+        //ham lay thoong tin cac pr roi chuyen vao table
+        function LayDataPODangNhapKho(dt_pr) {
+
+            for (var s = 0; s < dt_pr.length; s++) {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO_TheoTinhTrangNhapKho",
+                    data: {
+                        "tinhtrang": 3,
+                        "tinhtrangnhapkho": 1,
+                        "idphongban": $("#id_bophan").val(),
+                       
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var table = document.getElementById("DangNhapKhoTable" + s);
+
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
+
+                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
+                                if (i % 2 == 0) {
+                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnresent" class="btn btn-danger btn-xs dt-resent" style="margin-right:16px;"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></td></tr>';
+                                }
+                                else {
+                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnresent" class="btn btn-danger btn-xs dt-resent" style="margin-right:16px;"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></td></tr>';
+                                }
+
+                            }
+
+                            $("#DangNhapKhoTable" + s + " tbody").append(str_tr);
+
+                            $("#DangNhapKhoTable" + s).dataTable();
+                        }
+                    }
+
+                })
+
+                  .fail(function (jqXHR, textStatus, errorThrown) {
+                      alert("error" + errorThrown);
+                  });
+            }
+
+        }
+        //*** Xu ly load thong tin cac PO da nhap kho  *** ///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /***                                              ***///
+        /****************************************************///
+
+        var soluongdata = 0;
+        var dt_pr;
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/ThongTinKho_TinhTrang",
+            data: {
+                "tinhtrang": 2,
+                "id_bp": $("#id_bophan").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                var ds_pr_daduyet = document.getElementById('accordion_danhapkho');
+                var sl_daduyet = 0;
+                var str_dt = "";
+                dt_pr = data;
+                soluongdata = data.length;
+                for (var i = 0; i < soluongdata; i++) {
+                    sl_daduyet += data[i]["SoLuong"];
+                    str_dt = str_dt + '<div class="panel panel-primary">';
+                    str_dt = str_dt + '<div class="panel-heading">';
+                    str_dt = str_dt + '<h4 class="panel-title">';
+                    str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_danhapkho' + i + '" href="#collapse_danhapkho' + i + '">' + data[i]["TenPhongBan"] + '<span class="badge" id="soluongpr_dangnhapkho_pb' + i + ' " style="margin-left: 6px;">' + data[i]["SoLuong"] + '</span></a>';
+                    str_dt = str_dt + '</h4>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '<div id="collapse_danhapkho' + i + '" class="panel-collapse in">';
+                    str_dt = str_dt + '<div class="panel-body">';
+                    str_dt = str_dt + '<div>';
+                    str_dt = str_dt + '<table id="DaNhapKhoTable' + i + '" class="display" width="100%">';
+                    str_dt = str_dt + '<thead>';
+                    str_dt = str_dt + '<tr>';
+                    str_dt = str_dt + '<th>Số PO</th>';
+                    str_dt = str_dt + '<th>Ngày PO</th>';
+                    str_dt = str_dt + '<th>Người phụ trách mua hàng</th>';
+                    str_dt = str_dt + '<th>Nhà cung cấp</th>';
+                    str_dt = str_dt + '<th>Kho nhận</th>';
+                    str_dt = str_dt + '<th></th>';
+                    str_dt = str_dt + '<th></th>';
+                    str_dt = str_dt + '</tr>';
+                    str_dt = str_dt + '</thead><tbody>';
+                    str_dt = str_dt + '</tbody></table>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+                    str_dt = str_dt + '</div>';
+
+
+                }
+                document.getElementById("soluongpo_danhapkho").textContent = sl_daduyet;
+                ds_pr_daduyet.insertAdjacentHTML('afterend', str_dt);
+
+            },
+
+        })
+        .done(LayDataPODaNhapKho(dt_pr))
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            alert("error" + errorThrown);
+        });
+
+        //ham lay thoong tin cac pr roi chuyen vao table
+        function LayDataPODaNhapKho(dt_pr) {
+
+            for (var s = 0; s < dt_pr.length; s++) {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO_TheoTinhTrangNhapKho",
+                    data: {
+                        "tinhtrang": 3,
+                        "tinhtrangnhapkho": 2,
+                        "idphongban": $("#id_bophan").val(),
+
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var table = document.getElementById("DaNhapKhoTable" + s);
+
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
+
+                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
+                                if (i % 2 == 0) {
+                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnEdit" class="btn btn-primary btn-xs dt-edit" style="margin-right:16px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" id="btnresent" class="btn btn-danger btn-xs dt-resent" style="margin-right:16px;"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></td></tr>';
+                                }
+                                else {
+                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td><td><button type="button" id="btnresent" class="btn btn-danger btn-xs dt-resent" style="margin-right:16px;"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button></td></tr>';
+                                }
+
+                            }
+
+                            $("#DaNhapKhoTable" + s + " tbody").append(str_tr);
+
+                            $("#DaNhapKhoTable" + s).dataTable();
+                        }
+                    }
+
+                })
+
+                  .fail(function (jqXHR, textStatus, errorThrown) {
+                      alert("error" + errorThrown);
+                  });
+            }
+
+        }
         //************************************************//
         $('table tbody').on('click', '.dt-edit', function () {
             $this = $(this);

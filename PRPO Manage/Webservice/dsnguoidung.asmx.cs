@@ -31,7 +31,7 @@ namespace PRPO_Manage.Webservice
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb= nguoidung.LayDanhSachNguoiDung(1,0,"","","","",false,false,false, false, false,"",false);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void LayDSNguoiDuyet()
@@ -39,7 +39,7 @@ namespace PRPO_Manage.Webservice
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb = nguoidung.LayDanhSachNguoiDung(1, 0, "", "", "", "", false, true, false, false, false, "", false);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void LayThongTinNguoiDung(string tendangnhap)
@@ -47,7 +47,7 @@ namespace PRPO_Manage.Webservice
             NguoiDung nguoidung = new NguoiDung();
             NguoiDung nd = nguoidung.LayThongTinNguoiDung(tendangnhap);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(nd));
+            Context.Response.Write(JsonConvert.SerializeObject(nd));
         }
         [WebMethod]
         public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin, bool quanlykho, bool quanlymuahang,string matkhau,bool domain)
@@ -55,7 +55,7 @@ namespace PRPO_Manage.Webservice
             NguoiDung nguoidung = new NguoiDung();
             List<NguoiDung> tb=nguoidung.LayDanhSachNguoiDung(action,id_nguoidung,tendangnhap,tenhienthi,Convert.ToString(id_phongban),email,dangsudung,quanly,admin,quanlykho,quanlymuahang,matkhau, domain);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         /// <summary>
         /// Cac service lien quan den phong ban
@@ -66,7 +66,7 @@ namespace PRPO_Manage.Webservice
             PhongBan pb = new PhongBan();
             List<PhongBan> tb = pb.LayDanhSachPhongBan(1, 0, "", "");
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
 
         [WebMethod]
@@ -84,7 +84,7 @@ namespace PRPO_Manage.Webservice
             Quyen quyen = new Quyen();
             List<Quyen> tb = quyen.LayDanhSachQuyen(1, 0, "", "");
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
 
         [WebMethod]
@@ -102,7 +102,7 @@ namespace PRPO_Manage.Webservice
             ModuleQuyen modulequyen = new ModuleQuyen();
             List<ModuleQuyen> tb = modulequyen.LayDanhSachModuleQuyen(1, 0, 0, "",0);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
 
         [WebMethod]
@@ -118,7 +118,7 @@ namespace PRPO_Manage.Webservice
             SoPR sopr = new SoPR();
             sopr = sopr.LaySoPR(phongban,nam);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(sopr));
+            Context.Response.Write(JsonConvert.SerializeObject(sopr));
         }
         [WebMethod]
         public void Action_SoPR(int action, int id, int idphongban, int sopr, int nam)
@@ -126,7 +126,7 @@ namespace PRPO_Manage.Webservice
             SoPR spr = new SoPR();
             List<SoPR> tb = spr.Action_SoPR(action, id, idphongban, sopr, nam);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         
         [WebMethod]
@@ -136,7 +136,7 @@ namespace PRPO_Manage.Webservice
             List<PR> tb = pr.LayDanhSachPR(action, id, id_phongban, sopr,sopr_full, nam, congdung, ngaytao, thangtao, tongsoluongyeucau, tongtien, ghichu, ngayduyet, id_nguoiduyet, id_nguoidexuat, tinhtrang,prscanfile,sendmail,tieude1,tieude2, tieude3, tieude4, tieude5, tieude6,ngansachduocduyet1,ngansachduocduyet2,ngansachduocduyet3,ngansachduocduyet4,ngansachduocduyet5,ngansachduocduyet6, dexuatlannay1, dexuatlannay2, dexuatlannay3, dexuatlannay4, dexuatlannay5, dexuatlannay6,luyke1, luyke2, luyke3, luyke4, luyke5, luyke6,thuathieu1, thuathieu2, thuathieu3, thuathieu4, thuathieu5, thuathieu6);
             
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         
         
@@ -146,7 +146,7 @@ namespace PRPO_Manage.Webservice
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
             List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung, leadtime);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void ThongTinPR_TinhTrang(int tinhtrang, int id_bp,bool muahang,bool kho)
@@ -167,7 +167,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
           
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
         public void DongPR(string so_pr_full)
@@ -188,7 +188,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         /// <summary>
         /// Cac webservice lien quan den PO
@@ -200,7 +200,7 @@ namespace PRPO_Manage.Webservice
             SoPO sopo = new SoPO();
             sopo = sopo.LaySoPO(phongban, nam);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(sopo));
+            Context.Response.Write(JsonConvert.SerializeObject(sopo));
         }
         [WebMethod]
         public void LayDSPO(int action, int id, int sopo, string sopo_full, int nam, string ngaypo, int thangpo, int id_nguoiphutrach, int id_nguoiduyet, int id_phongban, string nhacungcap, int songaytre, string manhacuangcap, string khonhan, int tinhtrang)
@@ -208,7 +208,7 @@ namespace PRPO_Manage.Webservice
             PO po = new PO();
             List<PO> tb = po.LayDanhSachPO(action, id, sopo, sopo_full, nam, ngaypo, thangpo, id_nguoiphutrach, id_nguoiduyet, id_phongban, nhacungcap, songaytre, manhacuangcap, khonhan, tinhtrang);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void Action_SoPO(int action, int id, int idphongban, int sopo, int nam)
@@ -216,7 +216,7 @@ namespace PRPO_Manage.Webservice
             SoPO spo = new SoPO();
             List<SoPO> tb = spo.Action_SoPO(action, id, idphongban, sopo, nam);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void LayDS_PRChiTiet_DaDuyet(int id_phongban)
@@ -224,7 +224,7 @@ namespace PRPO_Manage.Webservice
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
             List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet_DaDuyet(id_phongban);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang)
@@ -232,7 +232,7 @@ namespace PRPO_Manage.Webservice
             PO_ChiTiet po_chitiet = new PO_ChiTiet();
             List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang);
             var js = new JavaScriptSerializer();
-            Context.Response.Write(js.Serialize(tb));
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
         public void ThongTinPO_TinhTrang(int tinhtrang)
@@ -253,7 +253,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
         public void UpdateTinhTrangPRChiTiet(int id_pr_chitiet, int tinhtrang, int soluongpo)
@@ -274,7 +274,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
         public void UpdatePOResent(string sopo_full, string ghichu)
@@ -295,7 +295,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
         public void ThongTinNguoiDuyetTheoGiatriPO(string dk)
@@ -316,7 +316,7 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
         public void CheckSoPO(int sopo, int idphongban, int nam)
@@ -337,7 +337,15 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void LayDSPO_TheoTinhTrangNhapKho(int tinhtrang, int tinhtrangnhapkho, int idphongban)
+        {
+            PO po = new PO();
+            List<PO> tb = po.LayDanhSachPO_TheoTinhTrangNhapKho(tinhtrang, tinhtrangnhapkho,idphongban);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         //********************//
         //** Kho **//
@@ -360,13 +368,13 @@ namespace PRPO_Manage.Webservice
                 parentRow.Add(childRow);
             }
 
-            Context.Response.Write(js.Serialize(parentRow));
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
-        public void Action_Kho(int action, int id, string sonhapkho, int soluong, string ngaynhapkho, int id_po,int id_po_chi_tiet)
+        public void Action_Kho(int action, int id, string sonhapkho, int soluong, string ngaynhapkho, int id_po,int id_po_chi_tiet,int id_phongban)
         {
             Kho kho = new Kho();
-            List<Kho> tb = kho.LayDanhSachKho(action, id, sonhapkho, soluong, ngaynhapkho, id_po, id_po_chi_tiet);
+            List<Kho> tb = kho.LayDanhSachKho(action, id, sonhapkho, soluong, ngaynhapkho, id_po, id_po_chi_tiet, id_phongban);
             
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
@@ -379,8 +387,51 @@ namespace PRPO_Manage.Webservice
 
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
-        //********************//
         [WebMethod]
+        public void UpdateTinhTrangNhapKho(int id_po, int tinhtrangnhapkho, int tinhtrangdongPO, int tinhtrangdongPR)
+        {
+            PO po = new PO();
+            DataTable tb = po.Update_TinhTrangNhapKho(id_po, tinhtrangnhapkho, tinhtrangdongPO, tinhtrangdongPR);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void UpdateSoLuongConLaiSauNhapKho(int id_po_chi_tiet, int soluongconlai)
+        {
+            PO_ChiTiet pochitiet = new PO_ChiTiet();
+            DataTable tb = pochitiet.Update_SoLuongConLaiSauKhiNhapKho(id_po_chi_tiet, soluongconlai);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        
+       //********************//
+       [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public void ServiceTimVatTu()
         {
