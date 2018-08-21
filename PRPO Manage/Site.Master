@@ -29,6 +29,7 @@
     <script src="/Scripts/DataTables/Select-1.2.6/js/select.bootstrap.min.js"></script>
     
     <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/apexchart.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

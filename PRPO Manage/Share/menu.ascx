@@ -8,11 +8,11 @@
         <li class="" id="menukho"><a href="/Pages/Kho/DanhSachKho.aspx"><span class="glyphicon glyphicon-list-alt" style="padding-right: 5px;"></span>Kho</a></li>        
         <li class='has-sub'><a href='#'><span class="glyphicon glyphicon-file" style="padding-right: 5px;"></span>Báo cáo</a>
             <ul>
-                <li class=''><a href='#'>Số lượng PR theo tháng, theo đơn vị</a></li>
-                <li class=''><a href='#'>Số lượng PO theo tháng, theo đơn vị</a></li>                 
-                <li class=''><a href='#'>Doanh số PO theo tháng, theo đơn vị</a></li>                 
-                <li class=''><a href='#'>Doanh số nhập kho theo tháng, theo đơn vị</a></li>                 
-                <li class=''><a href='#'>Tiến độ</a></li>                 
+                <li class=''><a href="/Pages/BaoCao/BaoCaoSoLuongPR.aspx">Số lượng PR theo tháng, theo đơn vị</a></li>
+                <li class=''><a href='/Pages/BaoCao/BaoCaoSoLuongPO.aspx'>Số lượng PO theo tháng, theo đơn vị</a></li>                 
+                <li class=''><a href='/Pages/BaoCao/DoanhSoPO.aspx'>Doanh số PO theo tháng, theo đơn vị</a></li>                 
+                <li class=''><a href='/Pages/BaoCao/DoanhSoNhapKho.aspx'>Doanh số nhập kho theo tháng, theo đơn vị</a></li>                 
+                <li class=''><a href='/Pages/BaoCao/TienDo.aspx'>Tiến độ</a></li>                 
             </ul>
         </li>       
         <li><a href='/Page/HoTro/'><span class="glyphicon glyphicon-question-sign" style="padding-right: 5px;"></span>Trợ giúp</a></li>        

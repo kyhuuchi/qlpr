@@ -68,6 +68,23 @@ namespace DB
             disconnect();
             return dt;
         }
+        public DataTable get(string sql)
+        {
+            connect();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                da = new SqlDataAdapter(cmd);
+                dt = new DataTable();
+                da.Fill(dt);
+            }
+            catch
+            {
+                return null;
+            }
+            disconnect();
+            return dt;
+        }
         public DataTable get_by_procedure(string proc_name,SqlParameter[] sql_param)
         {
 

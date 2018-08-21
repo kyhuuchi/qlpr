@@ -226,6 +226,11 @@
     <Content Include="Images\headerInPO.jpg" />
     <Content Include="Images\loader - Copy.gif" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Pages\BaoCao\BaoCaoSoLuongPO.aspx" />
+    <Content Include="Pages\BaoCao\BaoCaoSoLuongPR.aspx" />
+    <Content Include="Pages\BaoCao\DoanhSoNhapKho.aspx" />
+    <Content Include="Pages\BaoCao\DoanhSoPO.aspx" />
+    <Content Include="Pages\BaoCao\TienDo.aspx" />
     <Content Include="Pages\Kho\DanhSachKho.aspx" />
     <Content Include="Pages\Kho\SuaKho.aspx" />
     <Content Include="Pages\Kho\TaoPNK.aspx" />
@@ -237,6 +242,7 @@
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Pages\PR\View.html" />
+    <Content Include="Scripts\apexchart.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.min.css" />
@@ -944,6 +950,41 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Pages\BaoCao\BaoCaoSoLuongPO.aspx.cs">
+      <DependentUpon>BaoCaoSoLuongPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\BaoCaoSoLuongPO.aspx.designer.cs">
+      <DependentUpon>BaoCaoSoLuongPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BaoCao\BaoCaoSoLuongPR.aspx.cs">
+      <DependentUpon>BaoCaoSoLuongPR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\BaoCaoSoLuongPR.aspx.designer.cs">
+      <DependentUpon>BaoCaoSoLuongPR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BaoCao\DoanhSoNhapKho.aspx.cs">
+      <DependentUpon>DoanhSoNhapKho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\DoanhSoNhapKho.aspx.designer.cs">
+      <DependentUpon>DoanhSoNhapKho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BaoCao\DoanhSoPO.aspx.cs">
+      <DependentUpon>DoanhSoPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\DoanhSoPO.aspx.designer.cs">
+      <DependentUpon>DoanhSoPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BaoCao\TienDo.aspx.cs">
+      <DependentUpon>TienDo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\TienDo.aspx.designer.cs">
+      <DependentUpon>TienDo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Kho\DanhSachKho.aspx.cs">
       <DependentUpon>DanhSachKho.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
