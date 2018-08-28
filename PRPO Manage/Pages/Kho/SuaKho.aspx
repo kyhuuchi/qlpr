@@ -254,8 +254,10 @@
                             $("#btt_chuyen").removeAttr("style");
                         }
                         ////load ngay de xuat
-                        var dateString = data[0]["Ngay_PO"].substr(6);
-                        var currentTime = new Date(parseInt(dateString));
+                        //var dateString = data[0]["Ngay_PO"].substr(6);
+                        //var currentTime = new Date(parseInt(dateString));
+                        var dateString = data[0]["Ngay_PO"];
+                        var currentTime = new Date(dateString);
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
@@ -480,8 +482,8 @@
                         }
                         ////load ngay de xuat
                         
-                        var dateString = data[i]["Ngay_Mua_Hang"].substr(6);
-                        var currentTime = new Date(parseInt(dateString));
+                        var dateString = data[i]["Ngay_Mua_Hang"];
+                        var currentTime = new Date(dateString);
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
@@ -700,8 +702,8 @@
                     for (var i = 0; i < data.length; i++) {
                         ////load ngay de xuat
                         var ngaynk= new Date(data[i]["Ngay_Nhap_Kho"]);
-                        var dateString = data[i]["Ngay_Nhap_Kho"].substr(6);
-                        var currentTime = new Date(parseInt(dateString));
+                        var dateString = data[i]["Ngay_Nhap_Kho"];
+                        var currentTime = new Date(dateString);
                         var month = ngaynk.getMonth() + 1;
                         var day = ngaynk.getDate();
                         var year = ngaynk.getFullYear();

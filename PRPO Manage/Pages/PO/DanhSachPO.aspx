@@ -203,7 +203,8 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                // var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -380,7 +381,7 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -567,7 +568,7 @@
                             for (var i = 0; i < data.length; i++)
                             {
                                 
-                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10)
@@ -752,7 +753,7 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -906,7 +907,7 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_PO"].substr(6)));
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {

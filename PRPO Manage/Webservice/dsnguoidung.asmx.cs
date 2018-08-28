@@ -429,9 +429,62 @@ namespace PRPO_Manage.Webservice
 
             Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
-        
-       //********************//
-       [WebMethod]
+
+        //********************//
+
+        //****** Report ***//
+        [WebMethod]
+        public void ReportDSPhongBan(int id_phongban, string tungay, string denngay)
+        {
+            PhongBan pb = new PhongBan();
+            List<PhongBan> tb = pb.ReportDanhSachPhongBan(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
+        }
+        [WebMethod]
+        public void BaoCaoSoLuongPRTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            PR pr = new PR();
+            DataTable tb = pr.BaoCaoSoLuongPRTheoThangTheoDonVi(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void BaoCaoSoLuongPOTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            PO pr = new PO();
+            DataTable tb = pr.BaoCaoSoLuongPOTheoThangTheoDonVi(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        //********************//
+        [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public void ServiceTimVatTu()
         {

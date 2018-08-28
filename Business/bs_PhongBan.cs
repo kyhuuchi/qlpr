@@ -58,5 +58,31 @@ namespace Business
             }
             return phongbans;
         }
+        public List<PhongBan> ReportDanhSachPhongBan(int id_phongban, string tungay, string denngay)
+        {
+            DAC kn = new DAC();
+            List<PhongBan> phongbans = new List<PhongBan>();
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+            SqlParameter pm2 = new SqlParameter("@tungay", tungay);
+            SqlParameter pm3 = new SqlParameter("@denngay", denngay);
+            
+
+            SqlParameter[] param = new SqlParameter[3] { pm, pm2, pm3};
+            DataTable tb = kn.get_by_procedure("proc_report_DanhSachPB", param);
+            if (tb != null)
+            {
+                foreach (DataRow row in tb.Rows)
+                {
+                    PhongBan phongban = new PhongBan(); 
+                    phongban.ID_PhongBan = Convert.ToInt32(row["ID_PhongBan"]);
+                    phongban.Ten_Phong_Ban = row["TenPhongBan"].ToString();
+                   // phongban.Ten_Viet_Tat = row["TenVietTat"].ToString();
+
+                    phongbans.Add(phongban);
+
+                }
+            }
+            return phongbans;
+        }
     }
 }

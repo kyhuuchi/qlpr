@@ -212,7 +212,8 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
+                                // var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
+                                var date = new Date(data[i]["Ngay_Tao"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -405,8 +406,10 @@
                         if (data.length > 0) {
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
+                               // console.log("ngaytao:" + data[i]["Ngay_Tao"] + " so int:" + data[i]["Ngay_Tao"].substr(6));
+                                var date = new Date(data[i]["Ngay_Tao"]);
+                               // console.log("date: "+date);
 
-                                var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -621,7 +624,7 @@
                                     { 'data': 'Cong_Dung' },
                                     {
                                         'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(parseInt(date.substr(6)));
+                                            var date = new Date(date);
                                             var month = date.getMonth() + 1;
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
@@ -657,7 +660,7 @@
                                     { 'data': 'Cong_Dung' },
                                     {
                                         'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(parseInt(date.substr(6)));
+                                            var date = new Date(date);
                                             var month = date.getMonth() + 1;
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
@@ -842,7 +845,7 @@
                                         { 'data': 'Cong_Dung' },
                                         {
                                             'data': 'Ngay_Tao', 'render': function (date) {
-                                                var date = new Date(parseInt(date.substr(6)));
+                                                var date = new Date(date);
                                                 var month = date.getMonth() + 1;
                                                 return date.getDate() + "/" + month + "/" + date.getFullYear();
                                             }
@@ -870,7 +873,7 @@
                                         { 'data': 'Cong_Dung' },
                                         {
                                             'data': 'Ngay_Tao', 'render': function (date) {
-                                                var date = new Date(parseInt(date.substr(6)));
+                                                var date = new Date(date);
                                                 var month = date.getMonth() + 1;
                                                 return date.getDate() + "/" + month + "/" + date.getFullYear();
                                             }
@@ -1038,7 +1041,7 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(parseInt(data[i]["Ngay_Tao"].substr(6)));
+                                var date = new Date(data[i]["Ngay_Tao"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {

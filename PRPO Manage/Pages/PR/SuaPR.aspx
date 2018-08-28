@@ -473,8 +473,10 @@
                             $("#btt_chuyen").removeAttr("style");
                         }
                         //load ngay de xuat
-                        var dateString = data[0]["Ngay_Tao"].substr(6);
-                        var currentTime = new Date(parseInt(dateString));
+                        //   var dateString = data[0]["Ngay_Tao"].substr(6);
+                        var dateString = data[0]["Ngay_Tao"];
+                        //var currentTime = new Date(parseInt(dateString));
+                        var currentTime = new Date(dateString);
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
@@ -1148,8 +1150,9 @@
                     for (var i = 0; i < data.length; i++) {
                         stt++;
                         //load ngay de xuat
-                        var dateString = data[i]["Ngay_Can_Hang"].substr(6);
-                        var currentTime = new Date(parseInt(dateString));
+                        //var dateString = data[i]["Ngay_Can_Hang"].substr(6);
+                        var dateString = data[i]["Ngay_Can_Hang"];
+                        var currentTime = new Date(dateString);
                         var month = currentTime.getMonth() + 1;
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
