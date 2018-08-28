@@ -195,6 +195,7 @@
     <script type="text/javascript">
         var currentRow = null;
         var phongban_viettat = "";
+        $("#overlay").show();
         $('#ngaypo').datepicker({
             format: 'dd/mm/yyyy',
             todayHighlight: true

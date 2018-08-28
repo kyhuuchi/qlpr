@@ -365,6 +365,31 @@ namespace Business
 
             return tb;
         }
+        public DataTable BaoCaoDoanhSoPOTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+            SqlParameter pm2 = new SqlParameter("@tungay", tungay);
+            SqlParameter pm3 = new SqlParameter("@denngay", denngay);
+            SqlParameter[] param = new SqlParameter[3] { pm, pm2, pm3 };
+
+            DataTable tb = kn.get_by_procedure("proc_report_BaoCaoDoanhSoPOTheoThangTheoDonVi", param);
+
+            return tb;
+        }
+        public DataTable BaoCaoDoanhSoPODetail(int id_phongban)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+          
+            SqlParameter[] param = new SqlParameter[1] { pm};
+
+            DataTable tb = kn.get_by_procedure("proc_report_BaoCaoDoanhSoPO_Detail", param);
+
+            return tb;
+        }
     }
     public class PO_ChiTiet
     {

@@ -164,5 +164,30 @@ namespace Business
             }
             return kho_col;
         }
+        public DataTable BaoCaoDoanhSoNhapKhoTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+            SqlParameter pm2 = new SqlParameter("@tungay", tungay);
+            SqlParameter pm3 = new SqlParameter("@denngay", denngay);
+            SqlParameter[] param = new SqlParameter[3] { pm, pm2, pm3 };
+
+            DataTable tb = kn.get_by_procedure("proc_report_BaoCaoDoanhSoNhapKhoTheoThangTheoDonVi", param);
+
+            return tb;
+        }
+        public DataTable BaoCaoDoanhSoNhapKhoDetail(int id_phongban)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+
+            SqlParameter[] param = new SqlParameter[1] { pm };
+
+            DataTable tb = kn.get_by_procedure("proc_report_BaoCaoDoanhSoNhapKho_Detail", param);
+
+            return tb;
+        }
     }
 }

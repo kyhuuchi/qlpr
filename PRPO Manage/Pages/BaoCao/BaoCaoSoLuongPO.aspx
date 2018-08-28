@@ -17,7 +17,7 @@
         <div class="row">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="tuthang">Từ</label>
+                    <label for="tuthang">Từ ngày</label>
                    <div class="form-group">
                                                     <div class='input-group date' id='tuthang'>
                                                         <input type='text' class="form-control" />
@@ -27,7 +27,7 @@
                                                 </div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="tunam">Năm</label>
+                    <label for="tunam">Đến ngày</label>
                     <div class="form-group">
                                                     <div class='input-group date' id='tunam'>
                                                         <input type='text' class="form-control" />
@@ -197,7 +197,7 @@
                             else if (data2[y]["TinhTrang"] == 3) {
                                 daduyet[i] = data2[y]["dem"];
                             }
-                            else if (data2[y]["TinhTrang"] == 4) {
+                            else if (data2[y]["TinhTrang"] == 5) {
                                 dadong[i] = data2[y]["dem"];
 
                             }
@@ -267,14 +267,14 @@
         
             //
             ShowChuaDuyet();
-           // ShowDaDuyet();
-           // ShowDaDong();
+           ShowDaDuyet();
+           ShowDaDong();
         }
         function ShowChuaDuyet()
         {
             var soluongdata = 0;
             var dt_pr;
-            $(".panel-default").remove();
+            $(".panel-primary").remove();
             var ds_pr_luutam = document.getElementById('accordion_chuaduyet');
           
             var sl_luutam = 0;
@@ -370,7 +370,9 @@
 
                             $("#ChuaDuyetTable" + s + " tbody").append(str_tr);
 
-                            $("#ChuaDuyetTable" + s).dataTable();
+                            $("#ChuaDuyetTable" + s).dataTable({
+                                "iDisplayLength": -1
+                            });
                         }
                     }
 
@@ -392,7 +394,7 @@
             soluongdata = daduyet.length;
             for (var i = 0; i < soluongdata; i++) {
                 sl_luutam += daduyet[i];
-                str_dt = str_dt + '<div class="panel panel-default">';
+                str_dt = str_dt + '<div class="panel panel-primary">';
                 str_dt = str_dt + '<div class="panel-heading">';
                 str_dt = str_dt + '<h4 class="panel-title">';
                 str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_daduyet' + i + '" href="#collapse_daduyet' + i + '">' + srt_pb[i] + '<span class="badge" id="soluongpr_daduyet_pb' + i + ' " style="margin-left: 6px;">' + daduyet[i] + '</span></a>';
@@ -404,17 +406,14 @@
                 str_dt = str_dt + '<table id="DaDuyetTable' + i + '" class="display" width="100%">';
                 str_dt = str_dt + '<thead>';
                 str_dt = str_dt + '<tr>';
-                str_dt = str_dt + '<th>Số PR</th>';
-                str_dt = str_dt + '<th>Tổng tiền (VND)</th>';
-                str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
-                str_dt = str_dt + '<th>Công dụng</th>';
-                str_dt = str_dt + '<th>Ngày tạo</th>';
-                str_dt = str_dt + '<th>Người tạo</th>';
-                str_dt = str_dt + '<th>Ghi chú</th>';
-                str_dt = str_dt + '<th>File đính kèm</th>';
+                str_dt = str_dt + '<th>Số PO</th>';
+                str_dt = str_dt + '<th>Ngày PO</th>';
+                str_dt = str_dt + '<th>Người phụ trách mua hàng</th>';
+                str_dt = str_dt + '<th>Nhà cung cấp</th>';
+                str_dt = str_dt + '<th>Kho nhận</th>';
                 str_dt = str_dt + '</tr>';
-                str_dt = str_dt + '</thead>';
-                str_dt = str_dt + '</table>';
+                str_dt = str_dt + '</thead><tbody>';
+                str_dt = str_dt + '</tbody></table>';
                 str_dt = str_dt + '</div>';
                 str_dt = str_dt + '</div>';
                 str_dt = str_dt + '</div>';
@@ -425,139 +424,65 @@
             document.getElementById("soluongpr_daduyet").textContent = sl_luutam;
             ds_pr_luutam.insertAdjacentHTML('afterend', str_dt);
 
-            LayDataPRDaDuyet(daduyet);
+            LayDataPODaDuyet(daduyet);
         }
-        function LayDataPRDaDuyet(daduyet) {
+        function LayDataPODaDuyet(daduyet) {
 
             for (var s = 0; s < daduyet.length; s++) {
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO",
                     data: {
                         "action": 1,
                         "id": 0,
-                        "id_phongban": id_pb[s],
-                        "sopr": 0,
-                        "sopr_full": "",
+                        "sopo": 0,
+                        "sopo_full": "",
                         "nam": 0,
-                        "congdung": "",
-                        "ngaytao": "",
-                        "thangtao": 0,
-                        "tongsoluongyeucau": 0,
-                        "tongtien": 0,
-                        "ghichu": "",
-                        "ngayduyet": "",
+                        "ngaypo": "",
+                        "thangpo": 0,
+                        "id_nguoiphutrach": 0,
                         "id_nguoiduyet": 0,
-                        "id_nguoidexuat": 0,
-                        "tinhtrang": 3,
-                        "prscanfile": "",
-                        "sendmail": false,
-                        "tieude1": "",
-                        "tieude2": "",
-                        "tieude3": "",
-                        "tieude4": "",
-                        "tieude5": "",
-                        "tieude6": "",
-                        "ngansachduocduyet1": 0,
-                        "ngansachduocduyet2": 0,
-                        "ngansachduocduyet3": 0,
-                        "ngansachduocduyet4": 0,
-                        "ngansachduocduyet5": 0,
-                        "ngansachduocduyet6": 0,
-                        "dexuatlannay1": 0,
-                        "dexuatlannay2": 0,
-                        "dexuatlannay3": 0,
-                        "dexuatlannay4": 0,
-                        "dexuatlannay5": 0,
-                        "dexuatlannay6": 0,
-                        "luyke1": 0,
-                        "luyke2": 0,
-                        "luyke3": 0,
-                        "luyke4": 0,
-                        "luyke5": 0,
-                        "luyke6": 0,
-                        "thuathieu1": 0,
-                        "thuathieu2": 0,
-                        "thuathieu3": 0,
-                        "thuathieu4": 0,
-                        "thuathieu5": 0,
-                        "thuathieu6": 0
+                        "id_phongban": id_pb[s],
+                        "nhacungcap": "",
+                        "songaytre": 0,
+                        "manhacuangcap": "",
+                        "khonhan": "",
+                        "tinhtrang": 3
                     },
                     dataType: "json",
                     success: function (data) {
-                        var tble = document.getElementById("DaDuyetTable" + s);
-                        var datatableVariable = $('#DaDuyetTable' + s);
-                        if ($("#muahang") == 'true') {
-                            datatableVariable.DataTable({
-                                data: data,
-                                columns: [
-                                    { 'data': 'So_PR_Full' },
-                                    { 'data': 'Tong_Tien', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Cong_Dung' },
-                                    {
-                                        'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(date);
-                                            var month = date.getMonth() + 1;
-                                            return date.getDate() + "/" + month + "/" + date.getFullYear();
-                                        }
-                                    },
-                                    { 'data': 'Ten_Nguoi_De_Xuat' },
-                                     { 'data': 'Ghi_Chu' },
-                                     {
-                                         'data': 'PR_Scan_File', 'render': function (data, type, row, meta) {
-                                             if (type === 'display') {
-                                                 data = '<a href="/upload/' + data + '" target="_blank">' + data + '</a>';
-                                             }
+                        var table = document.getElementById("DaDuyetTable" + s);
+                        if (data.length > 0) {
+                            var str_tr = "";
+                            for (var i = 0; i < data.length; i++) {
 
-                                             return data;
-                                         }
-                                     }
+                                var date = new Date(data[i]["Ngay_PO"]);
+                                var month = date.getMonth() + 1;
+                                var ngay = date.getDate();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (ngay < 10) {
+                                    ngay = "0" + ngay;
+                                }
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
+                                if (i % 2 == 0) {
+                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td></tr>';
+                                }
+                                else {
+                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td></tr>';
+                                }
 
-                                ],
 
-                                "deferRender": true,
-                                "order": [],
-                                "iDisplayLength":-1
-                            });
-                        }
-                        else {
-                            datatableVariable.DataTable({
-                                data: data,
-                                columns: [
-                                    { 'data': 'So_PR_Full' },
-                                    { 'data': 'Tong_Tien', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Tong_So_Luong_Yeu_cau', render: $.fn.dataTable.render.number('.', ',', 0, '') },
-                                    { 'data': 'Cong_Dung' },
-                                    {
-                                        'data': 'Ngay_Tao', 'render': function (date) {
-                                            var date = new Date(date);
-                                            var month = date.getMonth() + 1;
-                                            return date.getDate() + "/" + month + "/" + date.getFullYear();
-                                        }
-                                    },
-                                    { 'data': 'Ten_Nguoi_De_Xuat' },
-                                     { 'data': 'Ghi_Chu' },
-                                     {
-                                         'data': 'PR_Scan_File', 'render': function (data, type, row, meta) {
-                                             if (type === 'display') {
-                                                 data = '<a href="/upload/' + data + '" target="_blank">' + data + '</a>';
-                                             }
+                            }
 
-                                             return data;
-                                         }
-                                     },
-                                   
+                            $("#DaDuyetTable" + s + " tbody").append(str_tr);
 
-                                ],
-
-                                "deferRender": true,
-                                "order": [],
+                            $("#DaDuyetTable" + s).dataTable({
                                 "iDisplayLength": -1
                             });
                         }
-
 
                     }
 
@@ -579,10 +504,10 @@
             soluongdata = dadong.length;
             for (var i = 0; i < soluongdata; i++) {
                 sl_luutam += dadong[i];
-                str_dt = str_dt + '<div class="panel panel-default">';
+                str_dt = str_dt + '<div class="panel panel-primary">';
                 str_dt = str_dt + '<div class="panel-heading">';
                 str_dt = str_dt + '<h4 class="panel-title">';
-                str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_dadong' + i + '" href="#collapse_dadong' + i + '">' + srt_pb[i] + '<span class="badge" id="soluongpr_chuaduyet_pb' + i + ' " style="margin-left: 6px;">' + dadong[i] + '</span></a>';
+                str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_dadong' + i + '" href="#collapse_dadong' + i + '">' + srt_pb[i] + '<span class="badge" id="soluongpr_daduyet_pb' + i + ' " style="margin-left: 6px;">' + dadong[i] + '</span></a>';
                 str_dt = str_dt + '</h4>';
                 str_dt = str_dt + '</div>';
                 str_dt = str_dt + '<div id="collapse_dadong' + i + '" class="panel-collapse in">';
@@ -591,13 +516,11 @@
                 str_dt = str_dt + '<table id="DaDongTable' + i + '" class="display" width="100%">';
                 str_dt = str_dt + '<thead>';
                 str_dt = str_dt + '<tr>';
-                str_dt = str_dt + '<th>Số PR</th>';
-                str_dt = str_dt + '<th>Tổng tiền (VND)</th>';
-                str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
-                str_dt = str_dt + '<th>Công dụng</th>';
-                str_dt = str_dt + '<th>Ngày tạo</th>';
-                str_dt = str_dt + '<th>Người tạo</th>';
-                str_dt = str_dt + '<th>Ghi chú</th>';
+                str_dt = str_dt + '<th>Số PO</th>';
+                str_dt = str_dt + '<th>Ngày PO</th>';
+                str_dt = str_dt + '<th>Người phụ trách mua hàng</th>';
+                str_dt = str_dt + '<th>Nhà cung cấp</th>';
+                str_dt = str_dt + '<th>Kho nhận</th>';
                 str_dt = str_dt + '</tr>';
                 str_dt = str_dt + '</thead><tbody>';
                 str_dt = str_dt + '</tbody></table>';
@@ -608,64 +531,31 @@
             }
             document.getElementById("soluongpr_dadong").textContent = sl_luutam;
             ds_pr_luutam.insertAdjacentHTML('afterend', str_dt);
-            LayDataPRDaDong(dadong);
+            LayDataPODaDong(dadong);
         }
-        function LayDataPRDaDong(dadong) {
+        function LayDataPODaDong(dadong) {
 
             for (var s = 0; s < dadong.length; s++) {
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "/Webservice/dsnguoidung.asmx/ActionPR",
+                    url: "/Webservice/dsnguoidung.asmx/LayDSPO",
                     data: {
                         "action": 1,
                         "id": 0,
-                        "id_phongban": id_pb[s],
-                        "sopr": 0,
-                        "sopr_full": "",
+                        "sopo": 0,
+                        "sopo_full": "",
                         "nam": 0,
-                        "congdung": "",
-                        "ngaytao": "",
-                        "thangtao": 0,
-                        "tongsoluongyeucau": 0,
-                        "tongtien": 0,
-                        "ghichu": "",
-                        "ngayduyet": "",
+                        "ngaypo": "",
+                        "thangpo": 0,
+                        "id_nguoiphutrach": 0,
                         "id_nguoiduyet": 0,
-                        "id_nguoidexuat": 0,
-                        "tinhtrang": 4,
-                        "prscanfile": "",
-                        "sendmail": false,
-                        "tieude1": "",
-                        "tieude2": "",
-                        "tieude3": "",
-                        "tieude4": "",
-                        "tieude5": "",
-                        "tieude6": "",
-                        "ngansachduocduyet1": 0,
-                        "ngansachduocduyet2": 0,
-                        "ngansachduocduyet3": 0,
-                        "ngansachduocduyet4": 0,
-                        "ngansachduocduyet5": 0,
-                        "ngansachduocduyet6": 0,
-                        "dexuatlannay1": 0,
-                        "dexuatlannay2": 0,
-                        "dexuatlannay3": 0,
-                        "dexuatlannay4": 0,
-                        "dexuatlannay5": 0,
-                        "dexuatlannay6": 0,
-                        "luyke1": 0,
-                        "luyke2": 0,
-                        "luyke3": 0,
-                        "luyke4": 0,
-                        "luyke5": 0,
-                        "luyke6": 0,
-                        "thuathieu1": 0,
-                        "thuathieu2": 0,
-                        "thuathieu3": 0,
-                        "thuathieu4": 0,
-                        "thuathieu5": 0,
-                        "thuathieu6": 0
+                        "id_phongban": id_pb[s],
+                        "nhacungcap": "",
+                        "songaytre": 0,
+                        "manhacuangcap": "",
+                        "khonhan": "",
+                        "tinhtrang": 5
                     },
                     dataType: "json",
                     success: function (data) {
@@ -674,7 +564,7 @@
                             var str_tr = "";
                             for (var i = 0; i < data.length; i++) {
 
-                                var date = new Date(data[i]["Ngay_Tao"]);
+                                var date = new Date(data[i]["Ngay_PO"]);
                                 var month = date.getMonth() + 1;
                                 var ngay = date.getDate();
                                 if (month < 10) {
@@ -683,14 +573,12 @@
                                 if (ngay < 10) {
                                     ngay = "0" + ngay;
                                 }
-                                var ngaytao = ngay + "/" + month + "/" + date.getFullYear();
-
+                                var ngaypo = ngay + "/" + month + "/" + date.getFullYear();
                                 if (i % 2 == 0) {
-                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td></tr>';
+                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td></tr>';
                                 }
                                 else {
-                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td></tr>';
-
+                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PO_Full"] + '</td><td>' + ngaypo + '</td><td>' + data[i]["Ten_NguoiMuaHang"] + '</td><td>' + data[i]["Ten_Nha_Cung_Cap"] + '</td><td>' + data[i]["Kho_Nhan"] + '</td></tr>';
                                 }
 
 
@@ -699,9 +587,7 @@
                             $("#DaDongTable" + s + " tbody").append(str_tr);
 
                             $("#DaDongTable" + s).dataTable({
-                                "order": [],
                                 "iDisplayLength": -1
-
                             });
                         }
                     }

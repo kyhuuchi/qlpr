@@ -483,6 +483,99 @@ namespace PRPO_Manage.Webservice
 
             Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
+        [WebMethod]
+        public void ReportDanhSachPhongBan_DoanhSo(int id_phongban, string tungay, string denngay)
+        {
+            PhongBan pb = new PhongBan();
+            List<PhongBan> tb = pb.ReportDanhSachPhongBan_DoanhSo(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
+        }
+        [WebMethod]
+        public void BaoCaoDoanhSoPOTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            PO pr = new PO();
+            DataTable tb = pr.BaoCaoDoanhSoPOTheoThangTheoDonVi(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        
+        [WebMethod]
+        public void BaoCaoDoanhSoPODetail(int id_phongban)
+        {
+            PO pr = new PO();
+            DataTable tb = pr.BaoCaoDoanhSoPODetail(id_phongban);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void BaoCaoDoanhSoNhapKhoTheoThangTheoDonVi(int id_phongban, string tungay, string denngay)
+        {
+            Kho kho = new Kho();
+            DataTable tb = kho.BaoCaoDoanhSoNhapKhoTheoThangTheoDonVi(id_phongban, tungay, denngay);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void BaoCaoDoanhSoNhapKhoDetail(int id_phongban)
+        {
+            Kho kho = new Kho();
+            DataTable tb = kho.BaoCaoDoanhSoNhapKhoDetail(id_phongban);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
         //********************//
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

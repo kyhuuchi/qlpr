@@ -17,7 +17,7 @@
         <div class="row">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="tuthang">Từ</label>
+                    <label for="tuthang">Từ ngày</label>
                    <div class="form-group">
                                                     <div class='input-group date' id='tuthang'>
                                                         <input type='text' class="form-control" />
@@ -27,7 +27,7 @@
                                                 </div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="tunam">Năm</label>
+                    <label for="tunam">Đến ngày</label>
                     <div class="form-group">
                                                     <div class='input-group date' id='tunam'>
                                                         <input type='text' class="form-control" />
