@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="sophieunhapkho">Số PN Kho:</label>
-                                        <input type="text" class="form-control" id="sophieunhapkho" readonly/>
+                                        <input type="text" class="form-control" id="sophieunhapkho"/>
 
                                     </div>
 
@@ -622,7 +622,7 @@
                 //luu phieu nhap kho
                 LaySoPhieuNhapKho();
                 LayDanhSachKho();
-                CapNhatMaSoPNKho();
+              //  CapNhatMaSoPNKho();
                 soluongdanhapkho = $("#soluongnhapkho").val();
 
                 $("#mahang").val("");
@@ -634,50 +634,7 @@
                 $("#soluongnhapkho").val("");
             }
            
-            //cap nhap tinh trang PO
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangNhapKho",
-                data: {
-                    "id_po": $("#id_po").val(),
-                    "tinhtrangnhapkho": 1,
-                    "tinhtrangdongPO": 0,
-                    "tinhtrangdongPR": 0,
-                },
-                dataType: "json",
-                success: function (data) {
-
-                    //   alert("Đã cập nhật thông tin nhập kho thành công.");
-                    //  location.reload();
-                },
-
-            })
-                 .fail(function (jqXHR, textStatus, errorThrown) {
-                     alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
-                 });
-            
-            //cap nhat so luong con lai sau khi da nhap kho
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "/Webservice/dsnguoidung.asmx/UpdateSoLuongConLaiSauNhapKho",
-                data: {
-                    "id_po_chi_tiet": Number($("#id_po_chi_tiet").val()),
-                    "soluongconlai": Number(soluongdanhapkho)
-                },
-                dataType: "json",
-                success: function (data) {
-
-                    //   alert("Đã cập nhật thông tin nhập kho thành công.");
-                    //  location.reload();
-                },
-
-            })
-              .fail(function (jqXHR, textStatus, errorThrown) {
-                  alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
-              });
-            location.reload();
+           
         });
         function LayDanhSachKho() {
             $("#table_chitietphieunhap tbody").empty();
@@ -728,7 +685,7 @@
 
             $("#myModal").modal('show');
             //lay so phieu nhap kho tu dong
-            LayMaSoPNKho();
+           // LayMaSoPNKho();
             currentRow = $(this).parents('tr');
             $("#mahang").val($(this).closest('tr').find('td.cls_mavattu').text());
             $("#tenhang").val($(this).closest('tr').find('td.cls_tenvattu').text());
