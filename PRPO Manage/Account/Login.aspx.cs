@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ThuVien;
 using Business;
-
+using System.Security.Principal;
 
 namespace PRPO_Manage.Account
 {
@@ -14,6 +14,7 @@ namespace PRPO_Manage.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (User.Identity.IsAuthenticated)
             {
                 Response.Redirect("/");
