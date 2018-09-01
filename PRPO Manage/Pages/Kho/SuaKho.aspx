@@ -491,7 +491,7 @@
                         var ngaymuahang = date;
 
 
-                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-shopping-cart' href='javascript: void(0);'></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"].toLocaleString('de-DE') + "</td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='" + data[i]["ID_PO_Chi_Tiet"] + "'/></td><td class='cls_soluongconlai'>" + data[i]["So_Luong_Con_Lai"] + "</td></tr>";
+                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-shopping-cart' href='javascript: void(0);'></a></span></td><td class='cls_sott'>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["PO_ChiTiet_Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["PO_ChiTiet_Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["PO_ChiTiet_Thanh_Tien"].toLocaleString('de-DE') + "</td><td class='cls_tinhtrangvattu'>" + data[i]["PO_ChiTiet_Tinh_Trang"] + "</td><td class='cls_ngaycanhang'>" + ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/><input type='hidden' id='tontai*" + stt + "' value='1'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='" + data[i]["ID_PO_Chi_Tiet"] + "'/></td><td class='cls_soluongconlai' id='soluongconlai*" + stt + "'>" + data[i]["So_Luong_Con_Lai"] + "</td></tr>";
                         stt++;
                     }
 
@@ -624,7 +624,58 @@
                 LayDanhSachKho();
               //  CapNhatMaSoPNKho();
                 soluongdanhapkho = $("#soluongnhapkho").val();
+                /********* DANG LAM CAI NAY ***********************************
+                //cap nhap so luong nhap kho cho table PO Chi tiet
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/Webservice/dsnguoidung.asmx/Update_SoLuongConLaiSauKhiNhapKho",
+                    data: {
+                        "id_po_chi_tiet": $("#id_po_chi_tiet").val(),
+                        "soluongconlai": 0,
+                   
+                    },
+                    dataType: "json",
+                    success: function (data) {
 
+                        $("#table_pochiettiet tbody").append(markup);
+                        //cap nhap tinh trang PO
+                        var bool_po = 0;
+                        $('#table_pochiettiet > tbody  > tr').each(function () {
+                            bool_po = 1
+                        });
+                        if (bool_po == 0) {
+                            $.ajax({
+                                type: "POST",
+                                async: false,
+                                url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangNhapKho",
+                                data: {
+                                    "id_po": $("#id_po").val(),
+                                    "tinhtrangnhapkho": 2,
+                                    "tinhtrangdongPO": 5,
+                                    "tinhtrangdongPR": 4,
+                                },
+                                dataType: "json",
+                                success: function (data) {
+
+                                    //   alert("Đã cập nhật thông tin nhập kho thành công.");
+                                    //  location.reload();
+                                },
+
+                            })
+                            .fail(function (jqXHR, textStatus, errorThrown) {
+                                alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
+                            });
+                        }
+                        LayDanhSachKho();
+                    },
+
+                })
+               .fail(function (jqXHR, textStatus, errorThrown) {
+                   alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+               });
+
+               *///////////////////////
                 $("#mahang").val("");
                 $("#tenhang").val("");
                 $("#soluongpo").val("");
@@ -690,7 +741,8 @@
             $("#mahang").val($(this).closest('tr').find('td.cls_mavattu').text());
             $("#tenhang").val($(this).closest('tr').find('td.cls_tenvattu').text());
             $("#soluongpo").val($(this).closest('tr').find('td.cls_soluongyeucau').text());
-
+            $("#sophieunk").val("0");
+            $("#id_sophieunk").val("1");
             //lay thong tin id po chi tiet
             var $tds = $(this).closest('tr').find('td');
             $tds.find("input[id^='id_po_chi_tiet*']").each(function () {

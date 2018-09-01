@@ -42,6 +42,7 @@ namespace PRPO_Manage.Pages.PO
 
                 StringBuilder str_option_ncc = new StringBuilder();
                 str_option_ncc.Append("<option></option>");
+
                 List<SelectOptionsNCC> players = new List<SelectOptionsNCC>();
                 foreach (var item in dict)
                 {

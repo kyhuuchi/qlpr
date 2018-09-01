@@ -54,6 +54,7 @@ namespace PRPO_Manage.Pages.PR
                 var dict = JsonConvert.DeserializeObject<List<SelectOptions>>(jsonString);
                 StringBuilder str_option_vattu = new StringBuilder();
                 str_option_vattu.Append("<option></option>");
+                str_option_vattu.Append("<option  value='0'>Không mã</option>");
                 List<SelectOptions> players = new List<SelectOptions>();
                 foreach (var item in dict)
                 {

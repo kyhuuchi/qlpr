@@ -418,10 +418,22 @@
             //ham lay ten vat tu va ma vat tu tu select2
             $('#select_mavattu').on('select2:selecting', function (e) {
                 // console.log('Selecting: ', e.params.args.data);
-                var res = e.params.args.data.text.split("--");
-                $("#tenvattu").val(res[1]);
-                $("#mavattu").val(e.params.args.data.id);
-                TimVatTu(e.params.args.data.id);
+                var chon = e.params.args.data.text;
+                if (chon != "Không mã")
+                {
+                    var res = e.params.args.data.text.split("--");
+                    $("#tenvattu").val(res[1]);
+                    $("#mavattu").val(e.params.args.data.id);
+                    TimVatTu(e.params.args.data.id);
+                }
+                else {
+                    $("#mavattu").val("Không mã");
+                    $("#leadtime").val("0");
+                    $("#tenvattu").removeAttr("readonly");
+                    $("#dvt").removeAttr("readonly");
+                    $("#thanhtientamung").removeAttr("readonly");
+                }
+             
 
             });
             function TimVatTu(mavatu) {
