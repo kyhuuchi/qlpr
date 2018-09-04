@@ -93,6 +93,7 @@ namespace PRPO_Manage.Webservice
             Quyen quyen = new Quyen();
             List<Quyen> tb = quyen.LayDanhSachQuyen(action, id_quyen, tenquyen, maquyen);
         }
+
         /// <summary>
         /// Cac service lien quan den phan quyen truy cap Module
         /// </summary>
@@ -111,7 +112,14 @@ namespace PRPO_Manage.Webservice
             ModuleQuyen modulequyen = new ModuleQuyen();
             List<ModuleQuyen> tb = modulequyen.LayDanhSachModuleQuyen(action, id_modulequyen,id_nguoidung,module,id_quyen);
         }
-
+        [WebMethod]
+        public void CheckQuyen(int id_nguoidung)
+        {
+            ModuleQuyen modulequyen = new ModuleQuyen();
+            List<ModuleQuyen> tb = modulequyen.CheckQuyen(id_nguoidung);
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(JsonConvert.SerializeObject(tb));
+        }
         [WebMethod]
         public void LaySoPR(int phongban, int nam)
         {

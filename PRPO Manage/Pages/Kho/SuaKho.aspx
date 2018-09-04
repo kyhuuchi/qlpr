@@ -624,58 +624,29 @@
                 LayDanhSachKho();
               //  CapNhatMaSoPNKho();
                 soluongdanhapkho = $("#soluongnhapkho").val();
-                /********* DANG LAM CAI NAY ***********************************
+            
+                /********* DANG LAM CAI NAY ********************* */
                 //cap nhap so luong nhap kho cho table PO Chi tiet
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: "/Webservice/dsnguoidung.asmx/Update_SoLuongConLaiSauKhiNhapKho",
+                    url: "/Webservice/dsnguoidung.asmx/UpdateSoLuongConLaiSauNhapKho",
                     data: {
-                        "id_po_chi_tiet": $("#id_po_chi_tiet").val(),
-                        "soluongconlai": 0,
+                        "id_po_chi_tiet": Number($("#id_po_chi_tiet").val()),
+                        "soluongconlai": Number(soluongdanhapkho)
                    
                     },
                     dataType: "json",
                     success: function (data) {
-
-                        $("#table_pochiettiet tbody").append(markup);
-                        //cap nhap tinh trang PO
-                        var bool_po = 0;
-                        $('#table_pochiettiet > tbody  > tr').each(function () {
-                            bool_po = 1
-                        });
-                        if (bool_po == 0) {
-                            $.ajax({
-                                type: "POST",
-                                async: false,
-                                url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangNhapKho",
-                                data: {
-                                    "id_po": $("#id_po").val(),
-                                    "tinhtrangnhapkho": 2,
-                                    "tinhtrangdongPO": 5,
-                                    "tinhtrangdongPR": 4,
-                                },
-                                dataType: "json",
-                                success: function (data) {
-
-                                    //   alert("Đã cập nhật thông tin nhập kho thành công.");
-                                    //  location.reload();
-                                },
-
-                            })
-                            .fail(function (jqXHR, textStatus, errorThrown) {
-                                alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
-                            });
-                        }
-                        LayDanhSachKho();
-                    },
+                      
+                     },
 
                 })
                .fail(function (jqXHR, textStatus, errorThrown) {
-                   alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+                   alert("error tinh so luong con lai PO ; " + errorThrown);
                });
 
-               *///////////////////////
+               
                 $("#mahang").val("");
                 $("#tenhang").val("");
                 $("#soluongpo").val("");
@@ -683,6 +654,8 @@
                 //$("#ngaynhapkho").val("");
                 $("#ngaynhapkho").datepicker("setDate", null);
                 $("#soluongnhapkho").val("");
+
+                location.reload();
             }
            
            

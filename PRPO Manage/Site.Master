@@ -54,6 +54,9 @@
                         <input type="hidden" id="muahang" />
                          <input type="hidden" id="id_user" />
                          <input type="hidden" id="tenhienthi" />
+                         <input type="hidden" id="taopr" value="false" />
+                        <input type="hidden" id="taopo" value="false"/>
+                        <input type="hidden" id="xembaocao" value="false"/>
                     </div>
                 </div>
             </div>
@@ -83,7 +86,39 @@
          .fail(function (jqXHR, textStatus, errorThrown) {
              alert("error" + errorThrown);
          });
-   
+        //kiem tra xem user hien tai co quyen tao pr,po, hay xem bao cao khong
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Webservice/dsnguoidung.asmx/CheckQuyen",
+            data: { "id_nguoidung": $("#id_user").val() },
+            dataType: "json",
+            success: function (data) {
+                if (data.length>0)
+                {
+                    for (var i = 0; i < data.length;i++)
+                    {
+                        if (data[i]["Module"]=="PR" && data[i]["ID_Quyen"]==3)
+                        {
+                            document.getElementById("taopr").value = "true";
+                        }
+                        if (data[i]["Module"] == "PO" && data[i]["ID_Quyen"] == 3) {
+                            document.getElementById("taopo").value = "true";
+                        }
+                        if (data[i]["Module"] == "PO" && data[i]["ID_Quyen"] == 6) {
+                            document.getElementById("xembaocao").value = "true";
+                        }
+                    }
+                }
+             
+
+            },
+
+        })
+
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                alert("error lay thoong tin check quyen" + errorThrown);
+            });
 </script>
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>

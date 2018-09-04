@@ -46,6 +46,7 @@ namespace Business
             get { return _ten_quyen; }
             set { _ten_quyen = value; }
         }
+
         //Cac ham xu ly phong ban
         public ModuleQuyen()
         { }
@@ -76,5 +77,30 @@ namespace Business
             }
             return quyen_col;
         }
+        public List<ModuleQuyen> CheckQuyen(int id_nguoidung)
+        {
+            DAC kn = new DAC();
+            List<ModuleQuyen> quyen_col = new List<ModuleQuyen>();
+            SqlParameter pm = new SqlParameter("@id_user", id_nguoidung);
+          
+            SqlParameter[] param = new SqlParameter[1] { pm};
+            DataTable tb = kn.get_by_procedure("proc_Check_Quyen", param);
+            if (tb != null)
+            {
+                foreach (DataRow row in tb.Rows)
+                {
+                    ModuleQuyen module_quyen = new ModuleQuyen();
+                    module_quyen.ID_Nguoi_Dung = Convert.ToInt16(row["ID_NguoiDung"]);
+                    
+                    module_quyen.Module = row["Module"].ToString();
+                    module_quyen.Ten_Quyen = row["TenQuyen"].ToString();
+                    module_quyen.ID_Quyen= Convert.ToInt16(row["ID_Quyen"]);
+                    quyen_col.Add(module_quyen);
+
+                }
+            }
+            return quyen_col;
+        }
+
     }
 }
