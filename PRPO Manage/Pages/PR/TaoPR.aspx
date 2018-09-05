@@ -648,16 +648,23 @@
 
 
         //});
+        $("#dongiatamtinh").change(function () {
+            var dgtt = $("#dongiatamtinh").val();
+            document.getElementById("dongiatamtinh_notmask").value = dgtt;
+            TinhKhiThayDoiTiGiaVaSoLuong();
+
+        });
         $("#soluongyeucau").change(function () {
 
             TinhKhiThayDoiTiGiaVaSoLuong();
         });
         function TinhKhiThayDoiTiGiaVaSoLuong() {
             //gan thong tin don gia tam tinh cho notmask
-            if (document.getElementById("dongiatamtinh_notmask").value == "") {
-                var dgtt = $("#dongiatamtinh").val();
-                document.getElementById("dongiatamtinh_notmask").value = dgtt;
-            }
+            //if (document.getElementById("dongiatamtinh_notmask").value == "") {
+            //var dgtt = $("#dongiatamtinh").val();
+            // document.getElementById("dongiatamtinh_notmask").value = dgtt;
+            //}
+        
 
             $("#thanhtientamung").val($("#dongiatamtinh_notmask").val() * $("#soluongyeucau").val() * $("#tigia").val());
 
@@ -988,7 +995,11 @@
                 });
                 $tds.find("input[id^='leadtime*']").each(function () {
                     //alert(this.id)
-                    leadtime = this.value;
+                    if (this.value!="")
+                    {
+                        leadtime = this.value;
+                    }
+                    
 
                 });
                 var dgtt = gd;

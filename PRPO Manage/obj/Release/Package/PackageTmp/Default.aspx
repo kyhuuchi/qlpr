@@ -44,7 +44,7 @@
     $("#overlay").show();
     $(document).ready(function () {
         //kiem tra xem user hien tai khong phai la nguoi mua hang
-        if ($("#muahang").val() == 'false')
+        if ($("#muahang").val() == 'false' || $("#taopr").val() == 'true')
         {
             $("#btt_taomoipr").removeAttr("style");
         }

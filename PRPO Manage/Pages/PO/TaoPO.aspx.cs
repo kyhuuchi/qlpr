@@ -23,8 +23,9 @@ namespace PRPO_Manage.Pages.PO
         }
         protected void CallSAP_NCC()
         {
-            string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
-
+            //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
+            string url = "http://sap-qas.duytan.local:8001/sap/bc/ywsgpoitems?sap-client=300&MA=NCC";
+            
             try
             {
                 System.Net.WebRequest request = WebRequest.Create(url);

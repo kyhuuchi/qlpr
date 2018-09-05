@@ -46,9 +46,10 @@
             $("#menukho").hide();
             $("#baocao").hide();
         }
-        if ($("#muahang").val() == 'true') {
+        if ($("#muahang").val() == 'true' && $("#xembaocao").val() == 'true') {
             $("#baocao").show();
         }
+        
     });
     
 </script>
