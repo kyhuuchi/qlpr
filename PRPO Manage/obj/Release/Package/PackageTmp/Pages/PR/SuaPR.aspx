@@ -629,6 +629,7 @@
                 console.log(i);
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
+                $("#dongiatamtinh_notmask").val(i.dg);
                 $("#leadtime").val(i.lt);
             }
          

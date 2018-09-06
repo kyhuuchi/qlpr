@@ -443,6 +443,7 @@
                 console.log(i);
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
+                $("#dongiatamtinh_notmask").val(i.dg);
                 $("#leadtime").val(i.lt);
             }
 
@@ -754,7 +755,7 @@
                         if (sopr < 10) {
                             sopr = "00" + sopr;
                         }
-                        else if (sopr < 100 && sopr > 10) {
+                        else if (sopr < 100 && sopr >= 10) {
                             sopr = "0" + sopr;
                         }
                         else {
@@ -795,6 +796,11 @@
 
 
             var nguoidexuat = $("#ID_nguoidexuat").val();
+            //kiem tra xem chuoi PO Full la dang HD hay dang PO
+            var str_pr = $("#sothutupr").val();
+            if (str_pr > 0) {
+                CheckTonTaiSoPR();
+            }
 
             $.ajax({
                 type: "POST",
@@ -852,11 +858,58 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    alert("PR đã được tạo thành công.")
+                    alert("PR đã được tạo thành công.");
                 },
 
             })
          .done(CapNhatSoPR())
+         .fail(function (jqXHR, textStatus, errorThrown) {
+             alert("error" + errorThrown);
+         });
+        }
+
+        function CheckTonTaiSoPR() {
+            var sopr_new = 0;
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/CheckSoPR",
+                data: {
+                    "sopr": Number($("#sothutupr").val()),
+                    "idphongban": Number($("#ID_bophandexuat").val()),
+                    "nam": Number($("#namdexuat").val())
+
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.length > 0) {
+
+                        sopr_new = Number(data[0]["SoPR"].toString());
+                        sopr_new += 1;
+                        alert("Số PR hiện tại của bạn đã được sử dụng. Số PR mới của bạn: " + sopr_new);
+                        if (sopr_new < 10) {
+                            sopr_new = "00" + sopr_new;
+                        }
+                        else if (sopr_new < 100 && sopr_new >= 10) {
+                            sopr_new = "0" + sopr_new;
+                        }
+                        else {
+                            sopr_new = sopr_new;
+                        }
+                        var year = $("#namdexuat").val().slice(-2);
+
+                        $("#sopr").val(sopr_new + "-" + data["Phong_Ban"] + "-" + year);
+                        
+                        CapNhatSoPR(sopr_new);
+                    }
+                    else {
+                        CapNhatSoPR(Number($("#sothutupr").val()));
+                    }
+
+                },
+
+            })
+
          .fail(function (jqXHR, textStatus, errorThrown) {
              alert("error" + errorThrown);
          });
@@ -880,7 +933,7 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    alert("So PR đã được cập nhật.")
+                    //alert("So PR đã được cập nhật.")
                 },
 
             })

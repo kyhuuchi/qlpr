@@ -348,6 +348,27 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
+        public void CheckSoPR(int sopr, int idphongban, int nam)
+        {
+            SoPR po = new SoPR();
+            DataTable tb = po.Check_SoPR(sopr, idphongban, nam);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
         public void LayDSPO_TheoTinhTrangNhapKho(int tinhtrang, int tinhtrangnhapkho, int idphongban)
         {
             PO po = new PO();

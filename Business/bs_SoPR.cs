@@ -99,6 +99,17 @@ namespace Business
                 }
             }
             return sopr_col;
-        }   
+        }
+        public DataTable Check_SoPR(int sopr, int idphongban, int nam)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@sopr", sopr);
+            SqlParameter pm2 = new SqlParameter("@idphongban", idphongban);
+            SqlParameter pm3 = new SqlParameter("@nam", nam);
+            SqlParameter[] param = new SqlParameter[3] { pm, pm2, pm3 };
+            DataTable data = kn.get("select * from Func_CheckSoPR(@sopr,@idphongban,@nam)", param);
+            return data;
+        }
     }
 }
