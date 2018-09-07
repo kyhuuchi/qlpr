@@ -79,6 +79,8 @@
                                                     <input type="hidden" id="mavattu"/>
                                                     <input type="hidden" id="id_pr_chi_tiet"/>
                                                     <input type="hidden" id="leadtime"/>
+                                                          <input type="hidden" id="nhommuaid" />
+                                                <input type="hidden" id="nhommuaname" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tenvattu">Tên vật tư:</label>
@@ -631,6 +633,8 @@
                 $("#dongiatamtinh").val(i.dg);
                 $("#dongiatamtinh_notmask").val(i.dg);
                 $("#leadtime").val(i.lt);
+                $("#nhommuaid").val(i.nmi);
+                $("#nhommuaname").val(i.nmt);
             }
          
             var stt = 0;
@@ -673,18 +677,19 @@
             var congdungchitiet = $("#congdungchitiet").val();
             var leadtime = $("#leadtime").val();
             var id_chitiet_pr = document.getElementById("id_pr_chi_tiet").value;
-                
+            var nhommuaid = $("#nhommuaid").val();
+            var nhommuaname = $("#nhommuaname").val();
             var markup = "";
             if (currentRow) {
                 var $tds = currentRow.find('td');
                 stt= $tds.eq(2).text();
 
-                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + id_chitiet_pr + "'/></td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/></td></tr>";
+                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + id_chitiet_pr + "'/></td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/></td></tr>";
                 $("#table_vattu tbody").find($(currentRow)).replaceWith(markup);
                 currentRow = null;
             }
             else {
-                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='0'/></td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/></td></tr>";
+                markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='0'/></td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/></td></tr>";
                 $("#table_vattu tbody").append(markup);
             }
             //cap nhat tong so luong va tong so tien
@@ -707,6 +712,8 @@
             $("#thoigiansudung").val("");
             $("#congdungchitiet").val("");
             $("#leadtime").val("");
+            $("#nhommuaid").val("");
+            $("#nhommuaname").val("");
         });
         
        
@@ -766,6 +773,20 @@
 
                 });
                 $("#leadtime").val(leadtime);
+                var nmi = 0;
+                $tds.find("input[id^='nhommuaid_so*']").each(function () {
+                    //alert(this.id)
+                    nmi = this.value;
+
+                });
+                $("#nhommuaid").val(nmi);
+                var nmt = "";
+                $tds.find("input[id^='nhommua_name*']").each(function () {
+                    //alert(this.id)
+                    nmt = this.value;
+
+                });
+                $("#nhommuaname").val(nmt);
             });
             //**********************//
 
@@ -1080,6 +1101,18 @@
                     }
 
                 });
+                var nmi = 0;
+                $tds.find("input[id^='nhommuaid_so*']").each(function () {
+                    //alert(this.id)
+                    nmi = this.value;
+
+                });
+                var nmt = "";
+                $tds.find("input[id^='nhommua_name*']").each(function () {
+                    //alert(this.id)
+                    nmt = this.value;
+
+                });
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -1101,7 +1134,9 @@
                         "ngaycanhang": ngaych,
                         "thoigiansudung": thoigiansd,
                         "congdung": congdungchitiet,
-                        "leadtime":leadtime
+                        "leadtime": leadtime,
+                        "nhommuaid": nmi,
+                        "nhommuaname": nmt
                     },
                     dataType: "json",
                     success: function (data) {
@@ -1156,7 +1191,9 @@
                     "ngaycanhang": "",
                     "thoigiansudung": "",
                     "congdung": "",
-                    "leadtime":0
+                    "leadtime": 0,
+                    "nhommuaid": 0,
+                    "nhommuaname": ""
                 },
                 dataType: "json",
                 success: function (data) {
@@ -1172,8 +1209,9 @@
                         var year = currentTime.getFullYear();
                         var date = day + "/" + month + "/" + year;
                         var ngay_luuDB = year + "/" + month + "/" + day;
-
-                        markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngay_luuDB + "'/></td></tr>";
+                        var nhommuaid = data[i]["Nhom_Mua_ID"];
+                        var nhommuaname = data[i]["Nhom_Mua_Name"];
+                        markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngay_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/></td></tr>";
                         $("#table_vattu tbody").append(markup);
                     }
                     //an loading
