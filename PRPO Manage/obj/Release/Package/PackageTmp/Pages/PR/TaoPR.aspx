@@ -553,7 +553,26 @@
                 $("#ngaycanhang").val($(this).closest('tr').find('td.cls_ngaycanhang').text());
                 $("#thoigiansudung").val($(this).closest('tr').find('td.cls_thoigiansudung').text());
                 $("#congdungchitiet").val($(this).closest('tr').find('td.cls_congdungchitiet').text());
+                var $tds = $(this).closest('tr').find('td.cls_congdungchitiet');
+               // console.log($tds);
+                var gt_nhommuaid = 0;
+                var gt_nhommuaname = "";
+                $tds.find("input[id^='nhommuaid_so*']").each(function () {
+                    //alert(this.id)
+                    gt_nhommuaid = this.value;
 
+                });
+                $("#nhommuaid").val(gt_nhommuaid);
+
+                $tds.find("input[id^='nhommua_name*']").each(function () {
+                    //alert(this.id)
+                    gt_nhommuaname = this.value;
+
+                });
+               
+                $("#nhommuaname").val(gt_nhommuaname);
+              //  console.log("gt_nhommuaid:" + gt_nhommuaid);
+               // console.log("gt_nhommuaname:" + gt_nhommuaname);
             });
             //**********************//
 

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html style="font-size: 14px;">
 <head>
     <title>.: QUẢN LÝ PR-PO :.</title>
     <meta charset="utf-8" />
@@ -16,33 +16,35 @@
 
     <script src="/Scripts/moment.min.js"></script>
     <style>
-        #table_vattu{
+        #table_vattu {
             border-collapse: collapse;
             width: 100%;
-            margin-top:10px;
+            margin-top: 10px;
         }
+
         #table_ngansach {
             border-collapse: collapse;
             width: 100%;
-            margin-top:10px;
+            margin-top: 10px;
         }
-        #table_chuky{
-            
+
+        #table_chuky {
             width: 100%;
-            margin-top:10px;
+            margin-top: 10px;
         }
+
         #table_vattu td, th {
             border: 1px solid #000000;
             text-align: left;
             padding: 8px;
         }
-         #table_ngansach td, th {
+
+        #table_ngansach td, th {
             border: 1px solid #000000;
             text-align: left;
             padding: 8px;
-            width:10%;
+            width: 10%;
         }
-        
     </style>
 </head>
 <body>
@@ -55,13 +57,15 @@
             <td colspan="2"><h3><p style="text-align:center;font-weight:bold">PHIẾU ĐỀ XUẤT MUA HÀNG</p></h3></td>
         </tr>
         <tr>
-            <td>Bộ phận đề xuất:<span style="margin-left:30px"><label id="bophandexuat"/></span><input type="hidden" id="ID_bophandexuat" />
-<input type="hidden" id="ID_nguoidexuat" />
+            <td>
+                Bộ phận đề xuất:<span style="margin-left:30px"><label id="bophandexuat" /></span><input type="hidden" id="ID_bophandexuat" />
+                <input type="hidden" id="ID_nguoidexuat" />
             </td>
-            <td style="text-align:left">Số PR:<span style="margin-left:70px"><label id="sopr" /></span><input type="hidden" id="namdexuat" />
-<input type="hidden" id="sothutupr" />
-<input type="hidden" id="id_pr" />
-<input type="hidden" id="tinhtrangPR" />
+            <td style="text-align:left">
+                Số PR:<span style="margin-left:70px"><label id="sopr" /></span><input type="hidden" id="namdexuat" />
+                <input type="hidden" id="sothutupr" />
+                <input type="hidden" id="id_pr" />
+                <input type="hidden" id="tinhtrangPR" />
             </td>
         </tr>
         <tr>
@@ -72,19 +76,19 @@
     <table id="table_vattu" style="border-width:1px;border-style:solid">
         <thead>
             <tr>
-                <th>STT</th>
-                <th>Mã hàng</th>
-                <th>Tên hàng, Qui cách, Nhãn hiệu</th>
-                <th>ĐVT</th>
-                <th>Tồn kho</th>
-                <th>Số lượng yêu cầu(*)</th>
-                <th>Đơn giá tạm tính</th>
-                <th>Tỉ giá(*)</th>
-                <th>Thành tiền tạm tính</th>
-                <th>Nhà cung ứng-Nước sản xuất</th>
-                <th>Tình trạng VT, MMTB (Mới:100%Cũ:…%)</th>
-                <th>Ngày cần hàng(*)</th>
-                <th>Thời gian sử dụng</th>
+                <th style="width: 1%;">STT</th>
+                <th style="width: 5%;">Mã hàng</th>
+                <th style="width: 10%;">Tên hàng, Qui cách, Nhãn hiệu</th>
+                <th style="width: 5%;">ĐVT</th>
+                <th style="width: 5%;">Tồn kho</th>
+                <th style="width: 5%;">Số lượng yêu cầu(*)</th>
+                <th style="width: 7%;">Đơn giá tạm tính</th>
+                <!--<th>Tỉ giá(*)</th>-->
+                <th style="width: 9%;">Thành tiền tạm tính</th>
+                <th style="width: 6%;">Nhà cung ứng-Nước sản xuất</th>
+                <!--<th>Tình trạng VT, MMTB (Mới:100%Cũ:…%)</th>-->
+                <th style="width: 6%;">Ngày cần hàng(*)</th>
+                <th style="width: 4%;">Thời gian sử dụng</th>
                 <th>Công dụng (diễn giải chi tiết) </th>
             </tr>
         </thead>
@@ -98,8 +102,8 @@
                 <td><input type="hidden" id="tongtien_notmask" /></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <!--<td></td>
+                <td></td>-->
             </tr>
         </tfoot>
         <tbody></tbody>
@@ -245,8 +249,8 @@
                 <td>NGƯỜI ĐỀ XUẤT</td>
             </tr>
         </tbody>
-    </table>    
-  
+    </table>
+
 </body>
 
 </html>
@@ -353,76 +357,100 @@
                         document.getElementById("5").innerHTML = data[0]["Tieu_De_5"];
                         document.getElementById("6").innerHTML = data[0]["Tieu_De_6"];
                         if (data[0]["Ngan_Sach_Duoc_Duyet_1"] != 0) {
-                            document.getElementById("11").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_1"];
+                            document.getElementById("11").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_1"]).toLocaleString('de-DE');
+                            
                         }
                         if (data[0]["Ngan_Sach_Duoc_Duyet_2"] != 0) {
-                            document.getElementById("22").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_2"];
+                            //document.getElementById("22").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_2"];
+                            document.getElementById("22").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_2"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Ngan_Sach_Duoc_Duyet_3"] != 0) {
-                            document.getElementById("33").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_3"];
+                            //document.getElementById("33").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_3"];
+                            document.getElementById("33").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_3"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Ngan_Sach_Duoc_Duyet_4"] != 0) {
-                            document.getElementById("44").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_4"];
+                            //document.getElementById("44").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_4"];
+                            document.getElementById("44").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_4"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Ngan_Sach_Duoc_Duyet_5"] != 0) {
-                            document.getElementById("55").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_5"];
+                            //document.getElementById("55").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_5"];
+                            document.getElementById("55").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_5"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Ngan_Sach_Duoc_Duyet_6"] != 0) {
-                            document.getElementById("66").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_6"];
+                            //document.getElementById("66").innerHTML = data[0]["Ngan_Sach_Duoc_Duyet_6"];
+                            document.getElementById("66").innerHTML = Number(data[0]["Ngan_Sach_Duoc_Duyet_6"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_1"] != 0) {
-                            document.getElementById("111").innerHTML = data[0]["De_Xuat_Lan_Nay_1"];
+                            //document.getElementById("111").innerHTML = data[0]["De_Xuat_Lan_Nay_1"];
+                            document.getElementById("111").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_1"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_2"] != 0) {
-                            document.getElementById("222").innerHTML = data[0]["De_Xuat_Lan_Nay_2"];
+                            // document.getElementById("222").innerHTML = data[0]["De_Xuat_Lan_Nay_2"];
+                            document.getElementById("222").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_2"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_3"] != 0) {
-                            document.getElementById("333").innerHTML = data[0]["De_Xuat_Lan_Nay_3"];
+                            // document.getElementById("333").innerHTML = data[0]["De_Xuat_Lan_Nay_3"];
+                            document.getElementById("333").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_3"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_4"] != 0) {
-                            document.getElementById("444").innerHTML = data[0]["De_Xuat_Lan_Nay_4"];
+                            // document.getElementById("444").innerHTML = data[0]["De_Xuat_Lan_Nay_4"];
+                            document.getElementById("444").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_4"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_5"] != 0) {
-                            document.getElementById("555").innerHTML = data[0]["De_Xuat_Lan_Nay_5"];
+                            //document.getElementById("555").innerHTML = data[0]["De_Xuat_Lan_Nay_5"];
+                            document.getElementById("555").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_5"]).toLocaleString('de-DE');
                         }
                         if (data[0]["De_Xuat_Lan_Nay_6"] != 0) {
-                            document.getElementById("666").innerHTML = data[0]["De_Xuat_Lan_Nay_6"];
+                            //document.getElementById("666").innerHTML = data[0]["De_Xuat_Lan_Nay_6"];
+                            document.getElementById("666").innerHTML = Number(data[0]["De_Xuat_Lan_Nay_6"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_1"] != 0) {
-                            document.getElementById("1111").innerHTML = data[0]["Luy_Ke_1"];
+                            //document.getElementById("1111").innerHTML = data[0]["Luy_Ke_1"];
+                            document.getElementById("1111").innerHTML = Number(data[0]["Luy_Ke_1"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_2"] != 0) {
-                            document.getElementById("2222").innerHTML = data[0]["Luy_Ke_2"];
+                            //document.getElementById("2222").innerHTML = data[0]["Luy_Ke_2"];
+                            document.getElementById("2222").innerHTML = Number(data[0]["Luy_Ke_2"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_3"] != 0) {
-                            document.getElementById("3333").innerHTML = data[0]["Luy_Ke_3"];
+                            //document.getElementById("3333").innerHTML = data[0]["Luy_Ke_3"];
+                            document.getElementById("3333").innerHTML = Number(data[0]["Luy_Ke_3"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_4"] != 0) {
-                            document.getElementById("4444").innerHTML = data[0]["Luy_Ke_4"];
+                            //document.getElementById("4444").innerHTML = data[0]["Luy_Ke_4"];
+                            document.getElementById("4444").innerHTML = Number(data[0]["Luy_Ke_4"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_5"] != 0) {
-                            document.getElementById("5555").innerHTML = data[0]["Luy_Ke_5"];
+                            //document.getElementById("5555").innerHTML = data[0]["Luy_Ke_5"];
+                            document.getElementById("5555").innerHTML = Number(data[0]["Luy_Ke_5"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Luy_Ke_6"] != 0) {
-                            document.getElementById("6666").innerHTML = data[0]["Luy_Ke_6"];
+                            //document.getElementById("6666").innerHTML = data[0]["Luy_Ke_6"];
+                            document.getElementById("6666").innerHTML = Number(data[0]["Luy_Ke_6"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_1"] != 0) {
-                            document.getElementById("11111").innerHTML = data[0]["Thua_Thieu_1"];
+                            //document.getElementById("11111").innerHTML = data[0]["Thua_Thieu_1"];
+                            document.getElementById("11111").innerHTML = Number(data[0]["Thua_Thieu_1"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_2"] != 0) {
-                            document.getElementById("22222").innerHTML = data[0]["Thua_Thieu_2"];
+                            //document.getElementById("22222").innerHTML = data[0]["Thua_Thieu_2"];
+                            document.getElementById("22222").innerHTML = Number(data[0]["Thua_Thieu_2"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_3"] != 0) {
-                            document.getElementById("33333").innerHTML = data[0]["Thua_Thieu_3"];
+                            //document.getElementById("33333").innerHTML = data[0]["Thua_Thieu_3"];
+                            document.getElementById("33333").innerHTML = Number(data[0]["Thua_Thieu_3"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_4"] != 0) {
-                            document.getElementById("44444").innerHTML = data[0]["Thua_Thieu_4"];
+                            //document.getElementById("44444").innerHTML = data[0]["Thua_Thieu_4"];
+                            document.getElementById("44444").innerHTML = Number(data[0]["Thua_Thieu_4"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_5"] != 0) {
-                            document.getElementById("55555").innerHTML = data[0]["Thua_Thieu_5"];
+                            //document.getElementById("55555").innerHTML = data[0]["Thua_Thieu_5"];
+                            document.getElementById("55555").innerHTML = Number(data[0]["Thua_Thieu_5"]).toLocaleString('de-DE');
                         }
                         if (data[0]["Thua_Thieu_6"] != 0) {
-                            document.getElementById("66666").innerHTML = data[0]["Thua_Thieu_6"];
+                            //document.getElementById("66666").innerHTML = data[0]["Thua_Thieu_6"];
+                            document.getElementById("66666").innerHTML = Number(data[0]["Thua_Thieu_6"]).toLocaleString('de-DE');
                         }
 
 
@@ -471,7 +499,7 @@
                     //duyet array data tra ve gan tung dong cho table
                     for (var i = 0; i < data.length; i++) {
                         stt++;
-                
+
                         //load ngay de xuat
                         var dateString = data[i]["Ngay_Can_Hang"];
                         var currentTime = new Date(dateString);
@@ -481,7 +509,8 @@
                         var date = day + "/" + month + "/" + year;
 
 
-                        markup = "<tr><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
+                        /* markup = "<tr><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>"; */
+                        markup = "<tr><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td></tr>";
                         $("#table_vattu tbody").append(markup);
                     }
 

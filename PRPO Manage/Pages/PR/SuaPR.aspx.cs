@@ -27,7 +27,7 @@ namespace PRPO_Manage.Pages.PR
         {
             //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=710000318";
             //sring url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=TALL";
-            string url = "http://sap-qas.duytan.local:8001/sap/bc/ywsgpoitems?sap-client=300&MA=TALL";
+            string url = "http://prd-app1.duytan.local:8001/sap/bc/ywsgpoitems?sap-client=900&MA=TALL";
             try
             {
                 System.Net.WebRequest request = WebRequest.Create(url);
