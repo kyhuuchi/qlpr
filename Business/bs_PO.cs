@@ -407,6 +407,7 @@ namespace Business
         private DateTime _ngay_mua_hang;
         private string _so_pr_full;
         private int _so_luong_con_lai;
+        private string _nguoi_phu_trach_mua_hang;
 
         public int ID_PO_Chi_Tiet
         {
@@ -478,8 +479,13 @@ namespace Business
             get { return _so_luong_con_lai; }
             set { _so_luong_con_lai = value; }
         }
+        public string Nguoi_Phu_Trach_Mua_Hang
+        {
+            get { return _nguoi_phu_trach_mua_hang; }
+            set { _nguoi_phu_trach_mua_hang = value; }
+        }
         //cac ham lien quan den PO Chi Tiet
-        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang)
+        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang,string nguoiptmuahang)
         {
             DateTime ngmuahang;
             if (string.IsNullOrEmpty(ngaymuahang) == true)
@@ -505,7 +511,8 @@ namespace Business
             SqlParameter pm11 = new SqlParameter("@tinhtrangvattu", tinhtrangvt);
             SqlParameter pm12 = new SqlParameter("@idpr_chitiet", id_prchitiet);
             SqlParameter pm13 = new SqlParameter("@ngaymuahang", ngaymuahang);
-            SqlParameter[] param = new SqlParameter[13] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13};
+            SqlParameter pm14 = new SqlParameter("@nguoiptmuahang", nguoiptmuahang);
+            SqlParameter[] param = new SqlParameter[14] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13,pm14};
             DataTable tb = kn.get_by_procedure("proc_Action_PO_ChiTiet", param);
             if (tb != null)
             {
@@ -530,6 +537,11 @@ namespace Business
                     po_chitiet.ID_PR_Chi_Tiet = Convert.ToInt32(row["ID_PR_ChiTiet"]);
                     po_chitiet.Ngay_Mua_Hang=Convert.ToDateTime(row["NgayMuaHang"]);
                     po_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
+                    po_chitiet.Nguoi_Phu_Trach_Mua_Hang = "";
+                    if (!row.IsNull("NguoiPTMuaHang"))
+                    {
+                        po_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
+                    }
                     pochitiet_col.Add(po_chitiet);
 
                 }

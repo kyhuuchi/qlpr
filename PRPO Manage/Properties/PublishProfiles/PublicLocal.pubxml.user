@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2013 20:06:22</publishTime>
     </File>
     <File Include="bin/Business.dll">
-      <publishTime>09/10/2018 11:07:49</publishTime>
+      <publishTime>09/11/2018 16:52:28</publishTime>
     </File>
     <File Include="bin/DataBase.dll">
-      <publishTime>09/10/2018 11:07:21</publishTime>
+      <publishTime>09/11/2018 15:11:33</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -196,7 +196,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2012 13:00:52</publishTime>
     </File>
     <File Include="bin/PRPO Manage.dll">
-      <publishTime>09/10/2018 11:07:54</publishTime>
+      <publishTime>09/11/2018 16:52:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -415,16 +415,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 07:41:13</publishTime>
     </File>
     <File Include="Pages/PO/SuaPO.aspx">
-      <publishTime>08/28/2018 10:10:06</publishTime>
+      <publishTime>09/11/2018 15:38:00</publishTime>
     </File>
     <File Include="Pages/PO/TaoPO.aspx">
-      <publishTime>09/06/2018 16:42:12</publishTime>
+      <publishTime>09/11/2018 15:07:52</publishTime>
     </File>
     <File Include="Pages/PO/ViewPO.html">
-      <publishTime>08/28/2018 10:06:29</publishTime>
+      <publishTime>09/11/2018 15:39:56</publishTime>
     </File>
     <File Include="Pages/PR/DuyetPR.aspx">
-      <publishTime>08/13/2018 11:01:49</publishTime>
+      <publishTime>09/11/2018 14:08:23</publishTime>
     </File>
     <File Include="Pages/PR/ListVatTu.json">
       <publishTime>07/30/2018 17:20:52</publishTime>
@@ -436,7 +436,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2018 11:03:15</publishTime>
     </File>
     <File Include="Pages/PR/View.html">
-      <publishTime>09/08/2018 09:12:19</publishTime>
+      <publishTime>09/10/2018 16:45:39</publishTime>
     </File>
     <File Include="Scripts/ai.0.22.9-build00167.js">
       <publishTime>07/23/2018 08:45:40</publishTime>

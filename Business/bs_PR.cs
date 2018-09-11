@@ -643,6 +643,8 @@ namespace Business
         private int _so_luong_con_lai;
         private int _nhom_mua_id;
         private string _nhom_mua_name;
+        private string _nguoi_phu_trach_mua_hang;
+
         public int ID_PR_Chi_Tiet
         {
             get { return _id_pr_chitiet; }
@@ -743,6 +745,11 @@ namespace Business
             get { return _nhom_mua_name; }
             set { _nhom_mua_name = value; }
         }
+        public string Nguoi_Phu_Trach_Mua_Hang
+        {
+            get { return _nguoi_phu_trach_mua_hang; }
+            set { _nguoi_phu_trach_mua_hang = value; }
+        }
         public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime, int nhommuaid, string nhommuaname)
         {
             DateTime ngaych;
@@ -802,7 +809,12 @@ namespace Business
                     pr_chitiet.Cong_Dung = row["CongDung"].ToString();
                     pr_chitiet.Lead_Time= Convert.ToInt32(row["LeadTime"]);
                     pr_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
-                    pr_chitiet.Nhom_Mua_ID = Convert.ToInt32(row["NhomMuaID"]);
+                    pr_chitiet.Nhom_Mua_ID = 0;
+                    if (!row.IsNull("NhomMuaID"))
+                    {
+                        pr_chitiet.Nhom_Mua_ID = Convert.ToInt32(row["NhomMuaID"]);
+                    }
+                   
                     if(row["NhomMuaName"]!=null)
                     {
                         pr_chitiet.Nhom_Mua_Name = row["NhomMuaName"].ToString();
@@ -810,6 +822,11 @@ namespace Business
                     else
                     {
                         pr_chitiet.Nhom_Mua_Name = "";
+                    }
+                    pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = "";
+                    if (!row.IsNull("NguoiPTMuaHang"))
+                    {
+                        pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
                     }
                     pr_Chitiet_col.Add(pr_chitiet);
 
@@ -851,11 +868,32 @@ namespace Business
                     pr_chitiet.So_PR_Full= row["SoPR_Full"].ToString();
                     pr_chitiet.Lead_Time = Convert.ToInt32(row["leadtime"]);
                     pr_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
+
+                    pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = "";
+                    if (!row.IsNull("NguoiPTMuaHang"))
+                    {
+                        pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
+                    }
                     pr_Chitiet_col.Add(pr_chitiet);
 
                 }
             }
             return pr_Chitiet_col;
+        }
+        public DataTable UpdateNguoiMuaHang(int id_pr_chitiet, string nguoimuahang)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_pr_chitiet", id_pr_chitiet);
+            SqlParameter pm2 = new SqlParameter("@nguoimuahang", nguoimuahang);
+       
+
+            SqlParameter[] param = new SqlParameter[2] { pm, pm2};
+            DataTable tb = kn.get_by_procedure("proc_Update_NguoiMuaHang", param);
+
+
+
+            return tb;
         }
     }
 }

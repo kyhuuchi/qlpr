@@ -58,6 +58,15 @@ namespace PRPO_Manage.Pages.PR {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden id_nguoi_duyet;
         
         /// <summary>
+        /// txt_vattu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden txt_vattu;
+        
+        /// <summary>
         /// btt_OK control.
         /// </summary>
         /// <remarks>

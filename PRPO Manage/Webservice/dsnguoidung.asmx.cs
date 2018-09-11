@@ -50,6 +50,15 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(nd));
         }
         [WebMethod]
+        public void LayDanhSachNguoiMuaHang()
+        {
+            NguoiDung nguoidung = new NguoiDung();
+            List<NguoiDung> nd = nguoidung.LayDanhSachNguoiMuaHang();
+            var js = new JavaScriptSerializer();
+            Context.Response.Write(JsonConvert.SerializeObject(nd));
+        }
+        
+       [WebMethod]
         public void ThemMoiNguoiDung(int action, int id_nguoidung, string tendangnhap,string tenhienthi,int id_phongban, string email, bool dangsudung,bool quanly,bool admin, bool quanlykho, bool quanlymuahang,string matkhau,bool domain)
         {
             NguoiDung nguoidung = new NguoiDung();
@@ -157,6 +166,28 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
+        public void UpdateNguoiMuaHang(int id_pr_chitiet, string nguoimuahang)
+        {
+            PR_ChiTiet pr_chitiet = new PR_ChiTiet();
+            DataTable tb = pr_chitiet.UpdateNguoiMuaHang(id_pr_chitiet,nguoimuahang);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        
+        [WebMethod]
         public void ThongTinPR_TinhTrang(int tinhtrang, int id_bp,bool muahang,bool kho)
         {
             PR pr = new PR();
@@ -235,10 +266,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
-        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang)
+        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang, string nguoiptmuahang)
         {
             PO_ChiTiet po_chitiet = new PO_ChiTiet();
-            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang);
+            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang, nguoiptmuahang);
             var js = new JavaScriptSerializer();
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }

@@ -269,6 +269,27 @@ namespace Business
             }
             return nguoidungs;  
         }
+        public List<NguoiDung> LayDanhSachNguoiMuaHang()
+        {
+           
+            DAC kn = new DAC();
+            List<NguoiDung> nguoidungs = new List<NguoiDung>();
+         
+            DataTable tb = kn.get("select TenHienThi from NguoiDung where ID_PhongBan = 4");
+            if (tb != null)
+            {
+                foreach (DataRow row in tb.Rows)
+                {
+                    NguoiDung nguoidung = new NguoiDung();
+                 
+                    nguoidung.Ten_Hien_Thi = row["TenHienThi"].ToString();
+                 
+                    nguoidungs.Add(nguoidung);
+
+                }
+            }
+            return nguoidungs;
+        }
 
     }
     
