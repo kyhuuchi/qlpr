@@ -106,7 +106,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                <input type="number" class="form-control" id="dongiatamtinh" />
+                                                <input type="number" class="form-control" id="dongiatamtinh" readonly/>
                                                 <input type="hidden" id="dongiatamtinh_notmask" />
                                             </div>
                                             <div class="form-group">

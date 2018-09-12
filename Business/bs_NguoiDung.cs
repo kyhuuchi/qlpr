@@ -275,7 +275,7 @@ namespace Business
             DAC kn = new DAC();
             List<NguoiDung> nguoidungs = new List<NguoiDung>();
          
-            DataTable tb = kn.get("select TenHienThi from NguoiDung where ID_PhongBan = 4");
+            DataTable tb = kn.get("select TenHienThi from NguoiDung where ID_PhongBan = 4 and QuanLy=0 and ID!=2 and ID!=46");
             if (tb != null)
             {
                 foreach (DataRow row in tb.Rows)
