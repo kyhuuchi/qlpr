@@ -644,6 +644,7 @@ namespace Business
         private int _nhom_mua_id;
         private string _nhom_mua_name;
         private string _nguoi_phu_trach_mua_hang;
+        private int _vat;
 
         public int ID_PR_Chi_Tiet
         {
@@ -750,7 +751,12 @@ namespace Business
             get { return _nguoi_phu_trach_mua_hang; }
             set { _nguoi_phu_trach_mua_hang = value; }
         }
-        public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime, int nhommuaid, string nhommuaname)
+        public int VAT
+        {
+            get { return _vat; }
+            set { _vat = value; }
+        }
+        public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime, int nhommuaid, string nhommuaname,int vat)
         {
             DateTime ngaych;
             if (string.IsNullOrEmpty(ngaycanhang) == true)
@@ -783,9 +789,10 @@ namespace Business
             SqlParameter pm17 = new SqlParameter("@leadtime", leadtime);
             SqlParameter pm18 = new SqlParameter("@nhommuaid", nhommuaid);
             SqlParameter pm19 = new SqlParameter("@nhommuaname", nhommuaname);
-            
+            SqlParameter pm20 = new SqlParameter("@vat", vat);
 
-            SqlParameter[] param = new SqlParameter[19] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16,pm17,pm18,pm19};
+
+            SqlParameter[] param = new SqlParameter[20] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16,pm17,pm18,pm19,pm20};
             DataTable tb = kn.get_by_procedure("proc_Action_PR_ChiTiet", param);
             if (tb != null)
             {
@@ -827,6 +834,11 @@ namespace Business
                     if (!row.IsNull("NguoiPTMuaHang"))
                     {
                         pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
+                    }
+                    pr_chitiet.VAT = 0;
+                    if (!row.IsNull("VAT"))
+                    {
+                        pr_chitiet.VAT = Convert.ToInt32(row["VAT"].ToString());
                     }
                     pr_Chitiet_col.Add(pr_chitiet);
 

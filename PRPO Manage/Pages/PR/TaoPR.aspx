@@ -87,6 +87,7 @@
                                                 <input type="hidden" id="leadtime" />
                                                 <input type="hidden" id="nhommuaid" />
                                                 <input type="hidden" id="nhommuaname" />
+                                                <input type="hidden" id="vat" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="tenvattu">Tên vật tư:</label>
@@ -106,7 +107,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                <input type="number" class="form-control" id="dongiatamtinh" readonly/>
+                                                <div data-tip="Nếu là vật tư mới chưa có giá thì người tạo đề xuất sẽ liên hệ nhân viên mua hàng để có 1 giá tạm tính tạo PR">
+                                                <input type="number" class="form-control" id="dongiatamtinh"/>
+                                                </div>
                                                 <input type="hidden" id="dongiatamtinh_notmask" />
                                             </div>
                                             <div class="form-group">
@@ -431,6 +434,7 @@
                 else {
                     $("#mavattu").val("Không mã");
                     $("#leadtime").val("0");
+                    $("#vat").val("0");
                     $("#tenvattu").removeAttr("readonly");
                     $("#dvt").removeAttr("readonly");
                     $("#thanhtientamung").removeAttr("readonly");
@@ -449,6 +453,7 @@
                 $("#leadtime").val(i.lt);
                 $("#nhommuaid").val(i.nmi);
                 $("#nhommuaname").val(i.nmt);
+                $("#vat").val(i.vat);
 
             }
 
@@ -489,17 +494,18 @@
                 var leadtime = $("#leadtime").val();
                 var nhommuaid = $("#nhommuaid").val();
                 var nhommuaname = $("#nhommuaname").val();
+                var vat = $("#vat").val();
                 var markup = "";
                 if (currentRow) {
                     var $tds = currentRow.find('td');
                     stt = $tds.eq(2).text();
 
-                    markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/></td></tr>";
+                    markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/><input type='hidden' id='vat*" + stt + "' value='" + vat + "'/></td></tr>";
                     $("#table_vattu tbody").find($(currentRow)).replaceWith(markup);
                     currentRow = null;
                 }
                 else {
-                    markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/></td></tr>";
+                    markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_mavattu'>" + mavattu + "</td><td class='cls_tenvattu'>" + tenvattu + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_tonkho'>" + tonkho + "</td><td class='cls_soluongyeucau'>" + soluongyeucau + "</td><td class='cls_dongiatamtinh'>" + dongiatamtinh + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtientamung + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamung_nomask + "'/></td><td class='cls_nhacungung'>" + nhacungung + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdungchitiet + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngaych_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/><input type='hidden' id='vat*" + stt + "' value='" + vat + "'/></td></tr>";
                     $("#table_vattu tbody").append(markup);
                 }
                 //cap nhat tong so luong va tong so tien
@@ -523,6 +529,7 @@
                 $("#leadtime").val("");
                 $("#nhommuaid").val("");
                 $("#nhommuaname").val("");
+                $("#vat").val("0");
             });
 
             //// Find and remove selected table rows
@@ -557,6 +564,7 @@
                // console.log($tds);
                 var gt_nhommuaid = 0;
                 var gt_nhommuaname = "";
+                var gt_vat = 0;
                 $tds.find("input[id^='nhommuaid_so*']").each(function () {
                     //alert(this.id)
                     gt_nhommuaid = this.value;
@@ -571,6 +579,14 @@
                 });
                
                 $("#nhommuaname").val(gt_nhommuaname);
+
+                $tds.find("input[id^='vat*']").each(function () {
+                    //alert(this.id)
+                    gt_vat = this.value;
+
+                });
+
+                $("#vat").val(gt_vat);
               //  console.log("gt_nhommuaid:" + gt_nhommuaid);
                // console.log("gt_nhommuaname:" + gt_nhommuaname);
             });
@@ -1113,6 +1129,12 @@
                     nmt = this.value;
 
                 });
+                var vat = 0;
+                $tds.find("input[id^='vat*']").each(function () {
+                    //alert(this.id)
+                    vat = this.value;
+
+                });
                 var thoigiansd = $tds.eq(14).html();
                 var congdungchitiet = $tds.eq(15).text();
 
@@ -1139,8 +1161,8 @@
                         "congdung": congdungchitiet,
                         "leadtime": leadtime,
                         "nhommuaid": nmi,
-                        "nhommuaname": nmt
-                        
+                        "nhommuaname": nmt,
+                        "vat":vat
 
                     },
                     dataType: "json",
@@ -1252,4 +1274,50 @@
 
 
     </script>
+    <style>
+        [data-tip] {
+	position:relative;
+
+}
+[data-tip]:before {
+	content:'';
+	/* hides the tooltip when not hovered */
+	display:none;
+	content:'';
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #1a1a1a;	
+	position:absolute;
+	top:30px;
+	left:35px;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+[data-tip]:after {
+	display:none;
+	content:attr(data-tip);
+	position:absolute;
+	top:35px;
+	left:0px;
+	padding:5px 8px;
+	background:#1a1a1a;
+	color:#fff;
+	z-index:9;
+	font-size: 0.78em;
+	height:30px;
+	line-height:18px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+[data-tip]:hover:before,
+[data-tip]:hover:after {
+	display:block;
+}
+    </style>
 </asp:Content>
