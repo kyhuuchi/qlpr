@@ -107,9 +107,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                <div data-tip="Nếu là vật tư mới chưa có giá thì người tạo đề xuất sẽ liên hệ nhân viên mua hàng để có 1 giá tạm tính tạo PR">
-                                                <input type="number" class="form-control" id="dongiatamtinh"/>
-                                                </div>
+                                              <%--  <div data-tip="Nếu là vật tư mới chưa có giá thì người tạo đề xuất sẽ liên hệ nhân viên mua hàng để có 1 giá tạm tính tạo PR">--%>
+                                                <input type="text" class="form-control" id="dongiatamtinh"/>
+                                              <%--  </div>--%>
                                                 <input type="hidden" id="dongiatamtinh_notmask" />
                                             </div>
                                             <div class="form-group">
@@ -435,6 +435,8 @@
                     $("#mavattu").val("Không mã");
                     $("#leadtime").val("0");
                     $("#vat").val("0");
+                    $("#nhommuaid").val("0");
+                    $("#nhommuaname").val("");
                     $("#tenvattu").removeAttr("readonly");
                     $("#dvt").removeAttr("readonly");
                     $("#thanhtientamung").removeAttr("readonly");
@@ -449,11 +451,36 @@
                 console.log(i);
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
+                if (i.dg!="")
+                {
+                    $("#dongiatamtinh").prop("readonly", true);
+                }
+                else
+                {
+                    $("#dongiatamtinh").prop("readonly", false);
+                }
                 $("#dongiatamtinh_notmask").val(i.dg);
-                $("#leadtime").val(i.lt);
-                $("#nhommuaid").val(i.nmi);
-                $("#nhommuaname").val(i.nmt);
-                $("#vat").val(i.vat);
+                $("#leadtime").val("0");
+                if (i.lt!="")
+                {
+                    $("#leadtime").val(i.lt);
+                }
+                $("#nhommuaid").val("0");
+                if (i.nmi!="")
+                {
+                      $("#nhommuaid").val(i.nmi);
+                }
+                $("#nhommuaname").val("");
+                if (i.nmt!="")
+                {
+                    $("#nhommuaname").val(i.nmt);
+                }
+                $("#vat").val("0");
+                if (i.vat!="")
+                {
+                    $("#vat").val(i.vat);
+                }
+                
 
             }
 

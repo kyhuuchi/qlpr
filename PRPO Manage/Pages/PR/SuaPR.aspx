@@ -101,7 +101,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="dongiatamtinh">Đơn giá tạm tính:</label>
-                                                    <input type="number" class="form-control" id="dongiatamtinh" readonly/>
+                                                    <input type="text" class="form-control" id="dongiatamtinh"/>
                                                     <input type="hidden" id="dongiatamtinh_notmask"/>
                                                 </div>
                                                 <div class="form-group">
@@ -617,6 +617,8 @@
                     $("#mavattu").val("Không mã");
                     $("#leadtime").val("0");
                     $("#vat").val("0");
+                    $("#nhommuaid").val("0");
+                    $("#nhommuaname").val("");
                     $("#tenvattu").removeAttr("readonly");
                     $("#dvt").removeAttr("readonly");
                     $("#thanhtientamung").removeAttr("readonly");
@@ -634,10 +636,22 @@
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
                 $("#dongiatamtinh_notmask").val(i.dg);
-                $("#leadtime").val(i.lt);
-                $("#nhommuaid").val(i.nmi);
-                $("#nhommuaname").val(i.nmt);
-                $("#vat").val(i.vat);
+                $("#leadtime").val("0");
+                if (i.lt != "") {
+                    $("#leadtime").val(i.lt);
+                }
+                $("#nhommuaid").val("0");
+                if (i.nmi != "") {
+                    $("#nhommuaid").val(i.nmi);
+                }
+                $("#nhommuaname").val("");
+                if (i.nmt != "") {
+                    $("#nhommuaname").val(i.nmt);
+                }
+                $("#vat").val("0");
+                if (i.vat != "") {
+                    $("#vat").val(i.vat);
+                }
             }
          
             var stt = 0;
