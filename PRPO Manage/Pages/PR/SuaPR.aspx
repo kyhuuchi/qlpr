@@ -164,11 +164,13 @@
                                             <th scope="col">Đơn giá tạm tính</th>
                                             <th scope="col">Tỉ giá(*)</th>
                                             <th scope="col">Thành tiền tạm tính</th>
+                                            <th scope="col">Thành tiền tạm tính (VAT)</th>
                                             <th scope="col">Nhà cung ứng-Nước sản xuất</th>
                                             <th scope="col">Tình trạng VT, MMTB (Mới:100%Cũ:…%)</th>
                                             <th scope="col">Ngày cần hàng(*)</th>
                                             <th scope="col">Thời gian sử dụng</th>
-                                            <th scope="col">Công dụng (diễn giải chi tiết) </th>
+                                            <th scope="col">Công dụng (diễn giải chi tiết)</th>
+                                            <th scope="col">Người PT mua hàng</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -183,6 +185,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                             <td></td>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -1247,7 +1250,7 @@
                         var nhommuaid = data[i]["Nhom_Mua_ID"];
                         var nhommuaname = data[i]["Nhom_Mua_Name"];
                         var vat = data[i]["VAT"];
-                        markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngay_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/><input type='hidden' id='vat*" + stt + "' value='" + vat + "'/></td></tr>";
+                        markup = "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td class='cls_stt'>" + stt + "<input type='hidden' id='id_chitiet*" + stt + "' value='" + data[i]["ID_PR_Chi_Tiet"] + "'/></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_tonkho'>" + data[i]["Ton_Kho"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + Number(data[i]["Thanh_Tien_Tam_Ung"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number((data[i]["Thanh_Tien_Tam_Ung"] * vat) / 100).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + (data[i]["Thanh_Tien_Tam_Ung"] * vat) / 100 + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + date + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='ngaych_luuDB*" + stt + "' value='" + ngay_luuDB + "'/><input type='hidden' id='nhommuaid_so*" + stt + "' value='" + nhommuaid + "'/><input type='hidden' id='nhommua_name*" + stt + "' value='" + nhommuaname + "'/><input type='hidden' id='vat*" + stt + "' value='" + vat + "'/></td><td class='cls_congdungchitiet'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         $("#table_vattu tbody").append(markup);
                     }
                     //an loading

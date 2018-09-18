@@ -407,7 +407,8 @@
                         "congdung": "",
                         "leadtime": 0,
                         "nhommuaid": 0,
-                        "nhommuaname": ""
+                        "nhommuaname": "",
+                        "vat":0
                     },
                     dataType: "json",
                     success: function (data) {
