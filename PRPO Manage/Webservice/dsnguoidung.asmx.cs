@@ -158,10 +158,10 @@ namespace PRPO_Manage.Webservice
         
         
         [WebMethod]
-        public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime,int nhommuaid,string nhommuaname,int vat)
+        public void ActionPR_ChiTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime,int nhommuaid,string nhommuaname,int vat,bool gianhaptay)
         {
             PR_ChiTiet pr_chitiet = new PR_ChiTiet();
-            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung, leadtime,nhommuaid,nhommuaname,vat);
+            List<PR_ChiTiet> tb = pr_chitiet.LayDanhSachPR_ChTiet(action, id, idpr, mahang, tenhang, dvt, tonkho, soluongyeucau, dongia, tigia, thanhtientamung, nhacungcap, tinhtrangvattu, ngaycanhang, thoigiansudung, congdung, leadtime,nhommuaid,nhommuaname,vat, gianhaptay);
             var js = new JavaScriptSerializer();
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }

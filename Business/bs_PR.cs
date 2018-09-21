@@ -645,6 +645,7 @@ namespace Business
         private string _nhom_mua_name;
         private string _nguoi_phu_trach_mua_hang;
         private int _vat;
+        private bool _gia_nhap_tay;
 
         public int ID_PR_Chi_Tiet
         {
@@ -756,7 +757,12 @@ namespace Business
             get { return _vat; }
             set { _vat = value; }
         }
-        public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime, int nhommuaid, string nhommuaname,int vat)
+        public bool GiaNhapTay
+        {
+            get { return _gia_nhap_tay; }
+            set { _gia_nhap_tay = value; }
+        }
+        public List<PR_ChiTiet> LayDanhSachPR_ChTiet(int action, int id, int idpr, string mahang, string tenhang, string dvt, int tonkho, int soluongyeucau, double dongia, int tigia, double thanhtientamung, string nhacungcap, int tinhtrangvattu, string ngaycanhang, string thoigiansudung, string congdung,int leadtime, int nhommuaid, string nhommuaname,int vat, bool gianhaptay)
         {
             DateTime ngaych;
             if (string.IsNullOrEmpty(ngaycanhang) == true)
@@ -790,9 +796,9 @@ namespace Business
             SqlParameter pm18 = new SqlParameter("@nhommuaid", nhommuaid);
             SqlParameter pm19 = new SqlParameter("@nhommuaname", nhommuaname);
             SqlParameter pm20 = new SqlParameter("@vat", vat);
+            SqlParameter pm21 = new SqlParameter("@gianhaptay", gianhaptay);
 
-
-            SqlParameter[] param = new SqlParameter[20] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16,pm17,pm18,pm19,pm20};
+            SqlParameter[] param = new SqlParameter[21] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12, pm13, pm14, pm15, pm16,pm17,pm18,pm19,pm20,pm21};
             DataTable tb = kn.get_by_procedure("proc_Action_PR_ChiTiet", param);
             if (tb != null)
             {
@@ -840,6 +846,11 @@ namespace Business
                     {
                         pr_chitiet.VAT = Convert.ToInt32(row["VAT"].ToString());
                     }
+                    pr_chitiet.GiaNhapTay = false;
+                    if (!row.IsNull("GiaNhapTay"))
+                    {
+                        pr_chitiet.GiaNhapTay = Convert.ToBoolean(row["GiaNhapTay"]);
+                    }
                     pr_Chitiet_col.Add(pr_chitiet);
 
                 }
@@ -885,6 +896,11 @@ namespace Business
                     if (!row.IsNull("NguoiPTMuaHang"))
                     {
                         pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
+                    }
+                    pr_chitiet.GiaNhapTay = false;
+                    if (!row.IsNull("GiaNhapTay"))
+                    {
+                        pr_chitiet.GiaNhapTay = Convert.ToBoolean(row["GiaNhapTay"]);
                     }
                     pr_Chitiet_col.Add(pr_chitiet);
 
