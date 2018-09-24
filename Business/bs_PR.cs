@@ -639,6 +639,7 @@ namespace Business
         private string _thoi_gian_su_dung;
         private string _cong_dung;
         private string _so_pr_full;
+        private DateTime _ngay_duyet_pr;
         private int _lead_time;
         private int _so_luong_con_lai;
         private int _nhom_mua_id;
@@ -726,6 +727,11 @@ namespace Business
         {
             get { return _so_pr_full; }
             set { _so_pr_full = value; }
+        }
+        public DateTime Ngay_Duyet_PR
+        {
+            get { return _ngay_duyet_pr; }
+            set { _ngay_duyet_pr = value; }
         }
         public int Lead_Time
         {
@@ -889,6 +895,7 @@ namespace Business
                     pr_chitiet.Thoi_Gian_Xu_Dung = row["ThoiGianSuDung"].ToString();
                     pr_chitiet.Cong_Dung = row["CongDung"].ToString();
                     pr_chitiet.So_PR_Full= row["SoPR_Full"].ToString();
+                    pr_chitiet.Ngay_Duyet_PR= Convert.ToDateTime(row["NgayDuyet"]);
                     pr_chitiet.Lead_Time = Convert.ToInt32(row["leadtime"]);
                     pr_chitiet.So_Luong_Con_Lai = Convert.ToInt32(row["SoLuongConLai"]);
 

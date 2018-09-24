@@ -699,7 +699,8 @@
                         "leadtime": 0,
                         "nhommuaid": 0,
                         "nhommuaname": "",
-                        "vat": 0
+                        "vat": 0,
+                        "gianhaptay": false
                     },
                     dataType: "json",
                     success: function (data) {

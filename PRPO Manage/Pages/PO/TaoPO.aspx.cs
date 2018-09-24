@@ -24,7 +24,7 @@ namespace PRPO_Manage.Pages.PO
         protected void CallSAP_NCC()
         {
             //string url = "http://sap-test3.duytan.local:8000/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
-            string url = "http://prd-app1.duytan.local:8001/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
+            string url = "http://prd-app1.duytan.local:8100/sap/bc/ywsgpoitems?sap-client=900&MA=NCC";
             
             try
             {

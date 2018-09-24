@@ -89,6 +89,8 @@
                                                     <input type="hidden" id="leadtime"/>
                                                      <input type="hidden" id="nhommuaid" />
                                                      <input type="hidden" id="nhommuaname" />
+                                                      <input type="hidden" id="vat" />
+                                                     <input type="hidden" id="gianhaptay" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tenvattu">Tên vật tư:</label>
@@ -407,7 +409,10 @@
                         "congdung": "",
                         "leadtime": 0,
                         "nhommuaid": 0,
-                        "nhommuaname": ""
+                        "nhommuaname": "",
+                        "vat": 0,
+                        "gianhaptay": false
+
                     },
                     dataType: "json",
                     success: function (data) {

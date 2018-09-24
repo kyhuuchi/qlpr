@@ -157,95 +157,88 @@
                         "deferRender": true
                       
                     });
-                    //$('#NguoiDungTable tbody').on('click', 'tr', function () {
-                    //    var data = datatableVariable.row(this).data();
-                    //    alert('You clicked on ' + data['ID_NguoiDung'] + '\'s row');
-                    //});
-                    $('.dt-edit').each(function () {
-                        $(this).on('click', function (evt) {
-                            $this = $(this);
-                            
-                            var dtRow = $this.parents('tr');
-                            $("#id_nguoidung").val(dtRow[0].cells[0].innerHTML);
-                            $("#tendangnhap").val(dtRow[0].cells[2].innerHTML);
-                            $("#tenhienthi").val(dtRow[0].cells[1].innerHTML);
-                            $("#select_phongban > option").each(function () {
-                                if (dtRow[0].cells[3].innerHTML == this.text)
-                                {
-                                    $("#select_phongban").val(this.value);
-                                }
-                                
-                            });
-                            $("#email").val(dtRow[0].cells[4].innerHTML);
-                            if (dtRow[0].cells[6].innerHTML == 'true') {
-                                $("#chk_domain").prop('checked', 'TRUE');
-                            }
-                            if (dtRow[0].cells[7].innerHTML=='true')
-                            {
-                                $("#chk_quanly").prop('checked','TRUE');
-                            }
-                            if(dtRow[0].cells[8].innerHTML=='true')
-                            {
-                                $("#chk_sudung").prop('checked', 'TRUE');
-                            }
-                            if (dtRow[0].cells[9].innerHTML == 'true') {
-                                $("#chk_admin").prop('checked', 'TRUE');
-                            }
-                            if (dtRow[0].cells[10].innerHTML == 'true') {
-                                $("#chk_kho").prop('checked', 'TRUE');
-                            }
-                            if (dtRow[0].cells[11].innerHTML == 'true') {
-                                $("#chk_muahang").prop('checked', 'TRUE');
-                            }
-                          //dung de duyet cac gia tri trong o duoc chon
-                            //for (var i = 0; i < dtRow[0].cells.length; i++) {
-                               
-                            //    $('div.modal-body').append('Cell (column, row) ' + dtRow[0].cells[i]._DT_CellIndex.column + ', ' + dtRow[0].cells[i]._DT_CellIndex.row + ' => innerHTML : ' + dtRow[0].cells[i].innerHTML + '<br/>');
-                            //}
-                            $('#myModal').modal('show');
-                        });
-                    });
-                    $('.dt-delete').each(function () {
-                        $(this).on('click', function (evt) {
-                            $this = $(this);
-                            var dtRow = $this.parents('tr');
-                            if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
-                                var dtRow = $this.parents('tr');
-                                $("#id_nguoidung").val(dtRow[0].cells[0].innerHTML);
-                                var data_nguoidung;
-                                if ($("#id_nguoidung").val() > 0) {
-                                    data_nguoidung = {
-                                        action: 0,
-                                        id_nguoidung: $("#id_nguoidung").val(),
-                                        tendangnhap: "",
-                                        tenhienthi: "",
-                                        id_phongban: 0,
-                                        email: "",
-                                        dangsudung: false,
-                                        quanly: false,
-                                        admin: false
-                                    };
-                                    var stringReqdata = JSON.stringify(data_nguoidung);
-                                    jQuery.ajax({
-                                        type: "POST",
-                                        url: "/Webservice/dsnguoidung.asmx/ThemMoiNguoiDung",
-                                        data: stringReqdata,
-                                        dataType: "json",
-                                        contentType: 'application/json; charset=utf-8',
-                                        success: function (data) {
-                                            location.reload();
-                                        }
-                                    });
-                                }
-                               
-                              
-                            }
-                        });
-                    });
+                  
                   
                 }
             });
-        
+            $('#NguoiDungTable').on('click', '.dt-edit', function () {
+                $this = $(this);
+
+                var dtRow = $this.parents('tr');
+                $("#id_nguoidung").val(dtRow[0].cells[0].innerHTML);
+                $("#tendangnhap").val(dtRow[0].cells[2].innerHTML);
+                $("#tenhienthi").val(dtRow[0].cells[1].innerHTML);
+                $("#select_phongban > option").each(function () {
+                    if (dtRow[0].cells[3].innerHTML == this.text) {
+                        $("#select_phongban").val(this.value);
+                    }
+
+                });
+                $("#email").val(dtRow[0].cells[4].innerHTML);
+                if (dtRow[0].cells[6].innerHTML == 'true') {
+                    $("#chk_domain").prop('checked', 'TRUE');
+                }
+                if (dtRow[0].cells[7].innerHTML == 'true') {
+                    $("#chk_quanly").prop('checked', 'TRUE');
+                }
+                if (dtRow[0].cells[8].innerHTML == 'true') {
+                    $("#chk_sudung").prop('checked', 'TRUE');
+                }
+                if (dtRow[0].cells[9].innerHTML == 'true') {
+                    $("#chk_admin").prop('checked', 'TRUE');
+                }
+                if (dtRow[0].cells[10].innerHTML == 'true') {
+                    $("#chk_kho").prop('checked', 'TRUE');
+                }
+                if (dtRow[0].cells[11].innerHTML == 'true') {
+                    $("#chk_muahang").prop('checked', 'TRUE');
+                }
+                //dung de duyet cac gia tri trong o duoc chon
+                //for (var i = 0; i < dtRow[0].cells.length; i++) {
+
+                //    $('div.modal-body').append('Cell (column, row) ' + dtRow[0].cells[i]._DT_CellIndex.column + ', ' + dtRow[0].cells[i]._DT_CellIndex.row + ' => innerHTML : ' + dtRow[0].cells[i].innerHTML + '<br/>');
+                //}
+                $('#myModal').modal('show');
+            });
+            $('#NguoiDungTable').on('click', '.dt-delete', function () {
+                $this = $(this);
+                var dtRow = $this.parents('tr');
+                if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
+                    var dtRow = $this.parents('tr');
+                    $("#id_nguoidung").val(dtRow[0].cells[0].innerHTML);
+                    var data_nguoidung;
+                    if ($("#id_nguoidung").val() > 0) {
+                        data_nguoidung = {
+                            action: 0,
+                            id_nguoidung: $("#id_nguoidung").val(),
+                            tendangnhap: "",
+                            tenhienthi: "",
+                            id_phongban: 0,
+                            email: "",
+                            dangsudung: false,
+                            quanly: false,
+                            admin: false,
+                            quanlykho: false,
+                            quanlymuahang: false,
+                            matkhau: "",
+                            domain:false
+                        };
+                        var stringReqdata = JSON.stringify(data_nguoidung);
+                        jQuery.ajax({
+                            type: "POST",
+                            url: "/Webservice/dsnguoidung.asmx/ThemMoiNguoiDung",
+                            data: stringReqdata,
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                location.reload();
+                            }
+                        });
+                    }
+
+
+                }
+            });
         });
     
        
@@ -331,6 +324,7 @@
         });
    
         
+     
     </script>
 
 </asp:Content>

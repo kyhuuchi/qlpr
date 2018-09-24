@@ -732,7 +732,12 @@
             var thoigiansudung = $("#thoigiansudung").val();
             var congdungchitiet = $("#congdungchitiet").val();
             var leadtime = $("#leadtime").val();
-            var id_chitiet_pr = document.getElementById("id_pr_chi_tiet").value;
+            var id_chitiet_pr = 0;
+            if (document.getElementById("id_pr_chi_tiet").value!="")
+            {
+                id_chitiet_pr=document.getElementById("id_pr_chi_tiet").value;
+            }
+            
             var nhommuaid = $("#nhommuaid").val();
             var nhommuaname = $("#nhommuaname").val();
             var vat = Number($("#vat").val());
@@ -891,7 +896,11 @@
 
             });
             $(this).parents('tr').remove();
-            DeleteRow(idchitiet);
+            if (idchitiet>0)
+            {
+                DeleteRow(idchitiet);
+            }
+          
             CapNhatSoTT();
             CapNhatSoLuongVaSoTien();
             return false;
@@ -923,7 +932,8 @@
                     "leadtime": 0,
                     "nhommuaid": 0,
                     "nhommuaname": "",
-                    "vat": 0
+                    "vat": 0,
+                    "gianhaptay": false
                 },
                 dataType: "json",
                 success: function (data) {
