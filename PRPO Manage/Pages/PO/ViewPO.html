@@ -85,7 +85,19 @@
     <br />
     <table width="100%" style="font-weight:bold">
         <tr>
-            <td>Phương thức thanh toán: Z030 - TT trong vòng 30 ngày</td>
+            <td id="showusd" style="display:none">Đơn giá trên đã có VAT (Thuế suất : KT), đơn giá tạm tính 1USD = 22800 , tỷ giá chính thức tính theo thời điểm giao hàng và xuất hóa dơn của NH Vietcombank</td>
+        </tr>
+        <tr>
+            <td>Phương thức thanh toán: <span id="phuongthucthanhtoan" style="margin-left:30px"></span></td>
+        </tr>
+        <tr>
+            <td id="giaohangvaxuathoadon" style="display:none">Địa điểm giao hàng & xuất hóa đơn: CÔNG TY TNHH NHỰA MATA</td>
+        </tr>
+        <tr>
+            <td id="masothue" style="display:none">Mã số thuế: 0313380832</td>
+        </tr>
+        <tr>
+            <td id="diachi" style="display:none">Địa chỉ: 602 Đường Trần Đại Nghĩa, Khu Phố 4, Phường Tân Tạo A, Quận Bình Tân, TP. Hồ Chí Minh</td>
         </tr>
         <tr>
             <td>Kho nhận: <span id="khonhan" style="margin-left:30px"></span></td>
@@ -132,6 +144,8 @@
 </body>
 </html>
 <script type="text/javascript">
+    var noigiao = "Duy Tân";
+    var ptttoan = "Z030 - TT trong vòng 30 ngày";
     $(document).ready(function () {
         var urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has('po')) {
@@ -174,8 +188,20 @@
                 dataType: "json",
                 success: function (data) {
                     document.getElementById("sopo").innerText = data[0]["So_PO_Full"];
-                    document.getElementById("tennhacc").innerText = data[0]["Ten_Nha_Cung_Cap"];
                     document.getElementById("khonhan").innerText = data[0]["Ten_Phong_Ban"];
+                    var str_po = data[0]["So_PO_Full"];
+                    var n = str_po.search("MATA");
+                    if (n > 0) {
+                        noigiao = "Trần Đại Nghĩa";
+                        ptttoan = "Chuyển khoản";
+                        $("#giaohangvaxuathoadon").removeAttr("style");
+                        $("#masothue").removeAttr("style");
+                        $("#diachi").removeAttr("style");
+                        document.getElementById("khonhan").innerText = "Anh Hoàng";
+                    }
+                    document.getElementById("phuongthucthanhtoan").innerText = ptttoan;
+                    document.getElementById("tennhacc").innerText = data[0]["Ten_Nha_Cung_Cap"];
+                    
                     document.getElementById("nguoimuahang").innerText = data[0]["Ten_NguoiMuaHang"];
                     document.getElementById("tennguoimuahang").innerText = data[0]["Ten_NguoiMuaHang"];
                     document.getElementById("nguoiduyetpo").innerText = data[0]["Ten_Nguoi_Duyet_PO"];
@@ -249,6 +275,7 @@
             success: function (data) {
                 var markup = "";
                 var stt = 1;
+                var showusd = false;
                 for (var i = 0; i < data.length; i++) {
                     ////load ngay de xuat
                     //var dateString = data[i]["Ngay_Mua_Hang"].substr(6);
@@ -260,12 +287,18 @@
                     var year = currentTime.getFullYear();
                     var date = day + "/" + month + "/" + year;
                     var ngaymuahang = date;
-
-
-                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>VND</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>Duy Tân</td></tr>";
+                    var tiente = "VND";
+                    if (data[i]["PO_ChiTiet_Ti_Gia"] > 1)
+                    {
+                        $("#showusd").removeAttr("style");
+                        tiente = "USD";
+                    }
+                    
+                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>"+tiente+"</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>"+noigiao+"</td></tr>";
                     stt++;
                 }
-
+                //markup += "<tr><td colspan='5' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'>" + tongsoluong + "</td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong_nomask + "'/></td><td style='font-weight:bold' id='tongtien'>" + tongtien + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + tongtien_nomask + "'/></td><td></td><td></td><td></td><td></td></tr>";
+                markup += "<tr><td colspan='4' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'>" + 0 + "</td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + 0 + "'/></td><td style='font-weight:bold' id='tongtien'>" + 0 + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(0).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + 0 + "'/></td><td></td></tr>";
                 $("#table_po tbody").append(markup);
             },
 

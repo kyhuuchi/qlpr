@@ -587,7 +587,8 @@
                         var month2 = currentTime2.getMonth() + 1;
                         var day2 = currentTime2.getDate();
                         var year2 = currentTime2.getFullYear();
-                        var ngayduyetpr = day2 + "/" + month2 + "/" + year2;
+                        var ngayduyetpr = year2 + "-" + month2 + "-" + day2;
+                        
 
                         if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"]=="1")
                         {
@@ -685,10 +686,28 @@
                     
                     //tinh ngay mua hang
                     var new_ngaymuahang = ngayduyetpr;
+                  
+                    new_ngaymuahang = new Date(new_ngaymuahang);
+                  
                     if(mata_true==0)
                     {
-                        new_ngaymuahang = moment(ngayduyetpr, "DD/MM/YYYY").add(leadtime, 'days');
-                        new_ngaymuahang = moment(ngayduyetpr).format("DD/MM/YYYY");
+                        new_ngaymuahang.setDate(new_ngaymuahang.getDate() + Number(leadtime));
+                        var month = new_ngaymuahang.getMonth() + 1;
+
+                        var day = new_ngaymuahang.getDate();
+
+                        var year = new_ngaymuahang.getFullYear();
+                        if (day < 10) {
+                            day = "0" + day;
+                        }
+                        if (month < 10) {
+                            month = "0" + month;
+                        }
+                        var date = day + "/" + month + "/" + year;
+                        //new_ngaymuahang = moment(ngayduyetpr, "YYYY-MM-DD").add(leadtime, 'days');
+                     
+                        new_ngaymuahang = date;
+
                     }
                     //bo dong duoc chon tren table vat tu
                     $(this).parents("tr").remove();

@@ -455,7 +455,7 @@
                 $("#dongiatamtinh").val(i.dg);
                 if (i.dg!="")
                 {
-                    $("#dongiatamtinh").prop("readonly", true);
+                    //$("#dongiatamtinh").prop("readonly", true);
                     $("#gianhaptay").val("false");
                 }
                 else
@@ -699,7 +699,8 @@
                         "leadtime": 0,
                         "nhommuaid": 0,
                         "nhommuaname": "",
-                        "vat": 0
+                        "vat": 0,
+                        "gianhaptay": false
                     },
                     dataType: "json",
                     success: function (data) {

@@ -121,6 +121,7 @@
                                 <th scope="col">Đơn giá tạm tính</th>
                                 <th scope="col">Tỉ giá(*)</th>
                                 <th scope="col">Thành tiền tạm tính</th>
+                                <th scope="col">Thành tiền tạm tính(VAT)</th>
                                 <th scope="col">Nhà cung ứng-Nước sản xuất</th>
                                 <th scope="col">Tình trạng VT, MMTB (Mới:100%Cũ:…%)</th>
                                 <th scope="col">Ngày cần hàng(*)</th>
@@ -131,7 +132,9 @@
                         </thead>
                         <tbody>
                         </tbody>
+
                     </table>
+                    <span style="background-color:#ffbc0066">Vật tư chưa PO hết</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#bb270f66;color:#fff">Vật tư nhập giá tay</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#6e00ff66;color:#fff">Vật tư vừa nhập giá tay, vừa chưa PO hết</span>
                     <%--  <button type="button" class="btn btn-danger btn-sm" id="xoavattu">Xóa vật tư</button>--%>
                 </div>
             </div>
@@ -436,11 +439,53 @@
                         var day = currentTime.getDate();
                         var year = currentTime.getFullYear();
                         var ngaycanhang = day + "/" + month + "/" + year;
+
+
+                        var vat = Number(data[i]["VAT"]);
+                        var thanhtienvat = data[i]["Thanh_Tien_Tam_Ung"];
+                        var tienvat = 0;
+                        if (vat != 0) {
+                            tienvat = (thanhtienvat * vat) / 100;
+                        }
+                        thanhtienvat = thanhtienvat + tienvat;
                         if (data[i]["So_Luong_Con_Lai"] > 0) {
-                            markup = markup + "<tr style='background-color: #ffa7a7;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                            var soluongconlai = data[i]["So_Luong_Con_Lai"];
+                            var tigia = data[i]["Ti_Gia"];
+                            var dongia = data[i]["Don_Gia"];
+                            var thanhtienvat_conlai = Number(tigia) * Number(dongia) * Number(soluongconlai);
+
+                            var tienvat = 0;
+                            if (vat != 0) {
+                                tienvat = (thanhtienvat_conlai * vat) / 100;
+                            }
+                            thanhtienvat_conlai = thanhtienvat_conlai + tienvat;
+                        }
+                        //xu lý ngay duyet cua PR
+                        var dateduyet = data[i]["Ngay_Duyet_PR"];
+                        //var currentTime = new Date(parseInt(dateString));
+                        var currentTime2 = new Date(dateduyet);
+                        var month2 = currentTime2.getMonth() + 1;
+                        var day2 = currentTime2.getDate();
+                        var year2 = currentTime2.getFullYear();
+                        var ngayduyetpr = year2 + "-" + month2 + "-" + day2;
+
+                        //if (data[i]["So_Luong_Con_Lai"] > 0) {
+                        //    markup = markup + "<tr style='background-color: #ffa7a7;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                        //}
+                        //else {
+                        //    markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                        //}
+                        if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"] == "1") {
+                            markup = markup + "<tr style='background-color: #6e00ff66;color:#fff'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat_conlai).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat_conlai + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                        }
+                        else if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"] == "0") {
+                            markup = markup + "<tr style='background-color: #ffbc0066;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat_conlai).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat_conlai + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                        }
+                        else if (data[i]["So_Luong_Con_Lai"] == 0 && data[i]["GiaNhapTay"] == "1") {
+                            markup = markup + "<tr style='background-color: #bb270f66;color:#fff'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
                         else {
-                            markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
+                            markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
                         //markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "</td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "</td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td></tr>";
                         stt++;
@@ -511,6 +556,12 @@
         $("#themchitietPO").click(function () {
             var markup = "";
             var stt = 1;
+            var mata_true = 0;
+            var tongtien = 0;
+            //kiem tra xem phong ban do co phai la MATA hay khong, neu la MATA thi giu nguyen ngay hang, ko can cong them leadtime
+            if ($("#id_donvidexuat").val() == 1) {
+                mata_true = 1;
+            }
             $("#table_vattu tbody").find('input[name="record"]').each(function () {
                 if ($(this).is(":checked")) {
                     //lay thong tin item trong table vat tu
@@ -551,25 +602,52 @@
                         thanhtientamtinh_nomask = this.value;
                         
                     });
+                    var thanhtientamtinh_nomask_vat = 0;
+                    $(this).closest('tr').find('td').find("input[id^='thanhtientamungvat*']").each(function () {
+                        //alert(this.id)
+                        thanhtientamtinh_nomask_vat = this.value;
+
+                    });
                     //tinh ngay mua hang. Neu la MATA thi van giu nguyen ngay mua hang, con cac don vi khac
                     //thi se cong leadtime
-                    var new_ngaymuahang;
-                    if ($("#id_donvidexuat").val()==1)
-                    {
-                        new_ngaymuahang = ngaycanhang;
-                    }
-                    else
-                    {
-                        new_ngaymuahang = moment(ngaycanhang, "DD/MM/YYYY").add(leadtime, 'days');
-                        new_ngaymuahang = moment(new_ngaymuahang).format("DD/MM/YYYY");
+                    var ngayduyetpr = "";
+                    $(this).closest('tr').find('td').find("input[id^='ngayduyetpr*']").each(function () {
+                        ngayduyetpr = this.value;
+
+                    });
+
+                    //tinh ngay mua hang
+                    var new_ngaymuahang = ngayduyetpr;
+
+                    new_ngaymuahang = new Date(new_ngaymuahang);
+
+                    if (mata_true == 0) {
+                        new_ngaymuahang.setDate(new_ngaymuahang.getDate() + Number(leadtime));
+                        var month = new_ngaymuahang.getMonth() + 1;
+
+                        var day = new_ngaymuahang.getDate();
+
+                        var year = new_ngaymuahang.getFullYear();
+                        if (day < 10) {
+                            day = "0" + day;
+                        }
+                        if (month < 10) {
+                            month = "0" + month;
+                        }
+                        var date = day + "/" + month + "/" + year;
+                        //new_ngaymuahang = moment(ngayduyetpr, "YYYY-MM-DD").add(leadtime, 'days');
+
+                        new_ngaymuahang = date;
+
                     }
                     
 
                     arr_rows.push($(this).parents('tr'));
                     arr_rows.push(id_pr_chitiet);
                     $(this).parents("tr").remove();
-                    //markup = markup + "<tr><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongia + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtien + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "</td></tr>";
-                    markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "</td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='tontai*" + stt + "' value='0'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='0'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
+                    
+                    //markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /></td><td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "</td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='tontai*" + stt + "' value='0'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/><input type='hidden' id='id_po_chi_tiet*" + stt + "' value='0'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
+                    markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
                     stt++;
                     
                 }

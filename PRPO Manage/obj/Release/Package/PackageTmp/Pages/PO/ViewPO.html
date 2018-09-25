@@ -85,6 +85,9 @@
     <br />
     <table width="100%" style="font-weight:bold">
         <tr>
+            <td id="showusd" style="display:none">Đơn giá trên đã có VAT (Thuế suất : KT), đơn giá tạm tính 1USD = 22800 , tỷ giá chính thức tính theo thời điểm giao hàng và xuất hóa dơn của NH Vietcombank</td>
+        </tr>
+        <tr>
             <td>Phương thức thanh toán: Z030 - TT trong vòng 30 ngày</td>
         </tr>
         <tr>
@@ -249,6 +252,7 @@
             success: function (data) {
                 var markup = "";
                 var stt = 1;
+                var showusd = false;
                 for (var i = 0; i < data.length; i++) {
                     ////load ngay de xuat
                     //var dateString = data[i]["Ngay_Mua_Hang"].substr(6);
@@ -260,9 +264,14 @@
                     var year = currentTime.getFullYear();
                     var date = day + "/" + month + "/" + year;
                     var ngaymuahang = date;
-
-
-                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>VND</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>Duy Tân</td></tr>";
+                    var tiente = "VND";
+                    if (data[i]["PO_ChiTiet_Ti_Gia"] > 1)
+                    {
+                        $("#showusd").removeAttr("style");
+                        tiente = "USD";
+                    }
+                   
+                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>"+tiente+"</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>Duy Tân</td></tr>";
                     stt++;
                 }
 

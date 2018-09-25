@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/02/2018 11:33:04</publishTime>
     </File>
     <File Include="Account/DanhSachNguoiDung.aspx">
-      <publishTime>07/25/2018 09:45:05</publishTime>
+      <publishTime>09/24/2018 11:17:30</publishTime>
     </File>
     <File Include="Account/DanhSachPhongBan.aspx">
       <publishTime>06/26/2018 17:02:26</publishTime>
@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2013 20:06:22</publishTime>
     </File>
     <File Include="bin/Business.dll">
-      <publishTime>09/24/2018 08:32:01</publishTime>
+      <publishTime>09/25/2018 16:12:09</publishTime>
     </File>
     <File Include="bin/DataBase.dll">
-      <publishTime>09/24/2018 08:32:01</publishTime>
+      <publishTime>09/25/2018 16:11:14</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -196,7 +196,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2012 13:00:52</publishTime>
     </File>
     <File Include="bin/PRPO Manage.dll">
-      <publishTime>09/24/2018 08:32:06</publishTime>
+      <publishTime>09/25/2018 16:12:14</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -415,13 +415,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 07:41:13</publishTime>
     </File>
     <File Include="Pages/PO/SuaPO.aspx">
-      <publishTime>09/11/2018 15:38:00</publishTime>
+      <publishTime>09/25/2018 15:48:25</publishTime>
     </File>
     <File Include="Pages/PO/TaoPO.aspx">
-      <publishTime>09/21/2018 16:57:33</publishTime>
+      <publishTime>09/24/2018 16:47:41</publishTime>
     </File>
     <File Include="Pages/PO/ViewPO.html">
-      <publishTime>09/11/2018 15:39:56</publishTime>
+      <publishTime>09/25/2018 15:25:04</publishTime>
     </File>
     <File Include="Pages/PR/DuyetPR.aspx">
       <publishTime>09/21/2018 15:51:00</publishTime>
@@ -430,13 +430,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/13/2018 16:32:34</publishTime>
     </File>
     <File Include="Pages/PR/SuaPR.aspx">
-      <publishTime>09/21/2018 15:40:24</publishTime>
+      <publishTime>09/25/2018 09:53:28</publishTime>
     </File>
     <File Include="Pages/PR/TaoPR.aspx">
-      <publishTime>09/17/2018 11:09:02</publishTime>
+      <publishTime>09/25/2018 09:52:57</publishTime>
     </File>
     <File Include="Pages/PR/View.html">
-      <publishTime>09/21/2018 15:45:49</publishTime>
+      <publishTime>09/25/2018 09:30:10</publishTime>
     </File>
     <File Include="Scripts/ai.0.22.9-build00167.js">
       <publishTime>07/23/2018 08:45:40</publishTime>

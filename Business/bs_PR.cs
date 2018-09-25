@@ -818,7 +818,7 @@ namespace Business
                     pr_chitiet.DVT = row["DVT"].ToString();
                     pr_chitiet.Ton_Kho = Convert.ToInt32(row["TonKho"]);
                     pr_chitiet.So_Luong_Yeu_cau = Convert.ToInt32(row["SoLuongYeuCau"]);
-                    pr_chitiet.Don_Gia = Convert.ToInt32(row["DonGia"]);
+                    pr_chitiet.Don_Gia = Convert.ToDouble(row["DonGia"]);
                     pr_chitiet.Ti_Gia = Convert.ToInt32(row["TiGia"]);
                     pr_chitiet.Thanh_Tien_Tam_Ung = Convert.ToDouble(row["ThanhTienTamUng"]);
                     pr_chitiet.Nha_Cung_cap = row["NhaCungCap"].ToString();
@@ -886,7 +886,7 @@ namespace Business
                     pr_chitiet.DVT = row["DVT"].ToString();
                     pr_chitiet.Ton_Kho = Convert.ToInt32(row["TonKho"]);
                     pr_chitiet.So_Luong_Yeu_cau = Convert.ToInt32(row["SoLuongYeuCau"]);
-                    pr_chitiet.Don_Gia = Convert.ToInt32(row["DonGia"]);
+                    pr_chitiet.Don_Gia = Convert.ToDouble(row["DonGia"]);
                     pr_chitiet.Ti_Gia = Convert.ToInt32(row["TiGia"]);
                     pr_chitiet.Thanh_Tien_Tam_Ung = Convert.ToDouble(row["ThanhTienTamUng"]);
                     pr_chitiet.Nha_Cung_cap = row["NhaCungCap"].ToString();

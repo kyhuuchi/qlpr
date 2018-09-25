@@ -644,7 +644,7 @@
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
                 if (i.dg != "") {
-                    $("#dongiatamtinh").prop("readonly", true);
+                    //$("#dongiatamtinh").prop("readonly", true);
                     $("#gianhaptay").val("false");
                 }
                 else {
