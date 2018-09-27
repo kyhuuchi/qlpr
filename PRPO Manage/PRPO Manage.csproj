@@ -223,9 +223,17 @@
     <Content Include="Account\Account.Master" />
     <Content Include="Account\QuanTri.Master" />
     <Content Include="Images\ChuKy1.png" />
+    <Content Include="Images\HANG.NTM.png" />
     <Content Include="Images\headerInPO.jpg" />
+    <Content Include="Images\HONG.TT.png" />
     <Content Include="Images\loader - Copy.gif" />
     <Content Include="Images\loader.gif" />
+    <Content Include="Images\MINH.DLK.png" />
+    <Content Include="Images\PHU.ND.png" />
+    <Content Include="Images\TAM.BT.png" />
+    <Content Include="Images\THAO.NTN.png" />
+    <Content Include="Images\TIEN.LTB.png" />
+    <Content Include="Images\VAN.NTT.png" />
     <Content Include="Pages\BaoCao\BaoCaoSoLuongPO.aspx" />
     <Content Include="Pages\BaoCao\BaoCaoSoLuongPR.aspx" />
     <Content Include="Pages\BaoCao\DoanhSoNhapKho.aspx" />

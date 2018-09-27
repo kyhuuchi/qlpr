@@ -168,7 +168,7 @@
         <tr></tr>
         <tr>
             <td></td>
-            <td><br /><br /><br /><br /><span id="tennguoimuahang"></span></td>
+            <td><span id="chukynguoimuahang"></span><br /><span id="tennguoimuahang"></span></td>
             <td>
                 <img src="../../Images/ChuKy1.png" id="chukynguoiduyet" style="display:none"/><br /><span id="nguoiduyetpo"></span></td>
         </tr>
@@ -180,6 +180,7 @@
 <script type="text/javascript">
     var noigiao = "Duy Tân";
     var ptttoan = "Z030 - TT trong vòng 30 ngày";
+    
     $(document).ready(function () {
         var urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has('po')) {
@@ -232,6 +233,7 @@
                         $("#masothue").removeAttr("style");
                         $("#diachi").removeAttr("style");
                         document.getElementById("khonhan").innerText = "Anh Hoàng";
+                        $("#showusd").removeAttr("style");
                     }
                     document.getElementById("phuongthucthanhtoan").innerText = ptttoan;
                     document.getElementById("tennhacc").innerText = data[0]["Ten_Nha_Cung_Cap"];
@@ -244,6 +246,34 @@
                     document.getElementById("namin").innerText = naminpo;
 
                     document.getElementById("id_po").value = data[0]["ID_PO"];
+                    //hien thi chu ky nguoi mua hang
+                    switch (data[0]["Ten_NguoiMuaHang"]) {
+                        case "Nguyễn Thị Thu Vân":
+                            $("#chukynguoimuahang").append("<img src='../../Images/VAN.NTT.png' style='width:194px;height:79px'/>");
+                            break; 
+                        case "Trần Thanh Hồng":
+                            $("#chukynguoimuahang").append("<img src='../../Images/HONG.TT.png' style='width:194px;height:79px'/>");
+                            break; 
+                        case "Nhan Đức Phú":
+                            $("#chukynguoimuahang").append("<img src='../../Images/PHU.ND.png' style='width:194px;height:79px'/>");
+                            break;
+                        case "Dư Lâm Kiến Minh":
+                            $("#chukynguoimuahang").append("<img src='../../Images/MINH.DLK.png' style='width:194px;height:79px'/>");
+                            break;
+                        case "Nguyễn Thị Mỹ Hằng":
+                            $("#chukynguoimuahang").append("<img src='../../Images/HANG.NTM.png' style='width:194px;height:79px'/>");
+                            break;
+                        case "Nguyễn Thị Ngọc Thảo":
+                            $("#chukynguoimuahang").append("<img src='../../Images/THAO.NTN.png' style='width:194px;height:79px'/>");
+                            break;
+                        case "Lê Thị Bích Tiền":
+                            $("#chukynguoimuahang").append("<img src='../../Images/TIEN.LTB.png' style='width:194px;height:79px'/>");
+                            break;
+                        case "Bùi Trung Tâm":
+                            $("#chukynguoimuahang").append("<img src='../../Images/TAM.BT.png' style='width:194px;height:79px'/>");
+                            break;
+                    }
+                    
                     if (data[0]["Tinh_Trang"]==3)
                     {
                         $("#chukynguoiduyet").removeAttr("style");
@@ -390,7 +420,7 @@
                    
                 }
                 //markup += "<tr><td colspan='5' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'>" + tongsoluong + "</td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong_nomask + "'/></td><td style='font-weight:bold' id='tongtien'>" + tongtien + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + tongtien_nomask + "'/></td><td></td><td></td><td></td><td></td></tr>";
-                markup += "<tr><td colspan='4' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'>" + Number(tongsoluong).toLocaleString('de-DE') + "</td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong + "'/></td><td style='font-weight:bold' id='tongtien'>" + Number(tongtien).toLocaleString('de-DE') + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + 0 + "'/></td><td></td></tr>";
+                markup += "<tr><td colspan='4' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'></td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong + "'/></td><td style='font-weight:bold' id='tongtien'>" + Number(tongtien).toLocaleString('de-DE') + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + 0 + "'/></td><td></td></tr>";
                 $("#table_po tbody").append(markup);
             },
 
