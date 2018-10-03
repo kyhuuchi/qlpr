@@ -408,6 +408,11 @@ namespace Business
         private string _so_pr_full;
         private int _so_luong_con_lai;
         private string _nguoi_phu_trach_mua_hang;
+        private string _nha_cung_cap;
+        private string _thoi_gian_su_dung;
+        private string _cong_dung;
+        private int _lead_time;
+        private int _vat;
 
         public int ID_PO_Chi_Tiet
         {
@@ -484,6 +489,31 @@ namespace Business
             get { return _nguoi_phu_trach_mua_hang; }
             set { _nguoi_phu_trach_mua_hang = value; }
         }
+        public string Nha_Cung_Cap
+        {
+            get { return _nha_cung_cap; }
+            set { _nha_cung_cap = value; }
+        }
+        public string Thoi_Gian_Su_Dung
+        {
+            get { return _thoi_gian_su_dung; }
+            set { _thoi_gian_su_dung = value; }
+        }
+        public string Cong_Dung
+        {
+            get { return _cong_dung; }
+            set { _cong_dung = value; }
+        }
+        public int Lead_Time
+        {
+            get { return _lead_time; }
+            set { _lead_time = value; }
+        }
+        public int VAT
+        {
+            get { return _vat; }
+            set { _vat = value; }
+        }
         //cac ham lien quan den PO Chi Tiet
         public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang,string nguoiptmuahang)
         {
@@ -542,6 +572,32 @@ namespace Business
                     {
                         po_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
                     }
+                    po_chitiet.Nha_Cung_Cap = "";
+                    if (!row.IsNull("NhaCungCap"))
+                    {
+                        po_chitiet.Nha_Cung_Cap = row["NhaCungCap"].ToString();
+                    }
+                    po_chitiet.Thoi_Gian_Su_Dung = "";
+                    if (!row.IsNull("ThoiGianSuDung"))
+                    {
+                        po_chitiet.Thoi_Gian_Su_Dung = row["ThoiGianSuDung"].ToString();
+                    }
+                    po_chitiet.Cong_Dung = "";
+                    if (!row.IsNull("CongDung"))
+                    {
+                        po_chitiet.Cong_Dung = row["CongDung"].ToString();
+                    }
+                    po_chitiet.Lead_Time = 0;
+                    if (!row.IsNull("LeadTime"))
+                    {
+                        po_chitiet.Lead_Time = Convert.ToInt32(row["LeadTime"]);
+                    }
+                    po_chitiet.VAT = 0;
+                    if (!row.IsNull("VAT"))
+                    {
+                        po_chitiet.VAT = Convert.ToInt32(row["VAT"]);
+                    }
+
                     pochitiet_col.Add(po_chitiet);
 
                 }

@@ -692,23 +692,28 @@
                     if(mata_true==0)
                     {
                         new_ngaymuahang.setDate(new_ngaymuahang.getDate() + Number(leadtime));
-                        var month = new_ngaymuahang.getMonth() + 1;
-
-                        var day = new_ngaymuahang.getDate();
-
-                        var year = new_ngaymuahang.getFullYear();
-                        if (day < 10) {
-                            day = "0" + day;
-                        }
-                        if (month < 10) {
-                            month = "0" + month;
-                        }
-                        var date = day + "/" + month + "/" + year;
-                        //new_ngaymuahang = moment(ngayduyetpr, "YYYY-MM-DD").add(leadtime, 'days');
-                     
-                        new_ngaymuahang = date;
-
                     }
+                        //neu la MATA thi giu nguyen ngay can hang
+                    else {
+                        new_ngaymuahang = ngaycanhang;
+                        new_ngaymuahang = moment(new_ngaymuahang, "DD/MM/YYYY").format("YYYY-MM-DD");
+                        new_ngaymuahang = new Date(new_ngaymuahang);
+                    }
+                    var month = new_ngaymuahang.getMonth() + 1;
+
+                    var day = new_ngaymuahang.getDate();
+
+                    var year = new_ngaymuahang.getFullYear();
+                    if (day < 10) {
+                        day = "0" + day;
+                    }
+                    if (month < 10) {
+                        month = "0" + month;
+                    }
+                    var date = day + "/" + month + "/" + year;
+                    //new_ngaymuahang = moment(ngayduyetpr, "YYYY-MM-DD").add(leadtime, 'days');
+
+                    new_ngaymuahang = date;
                     //bo dong duoc chon tren table vat tu
                     $(this).parents("tr").remove();
 

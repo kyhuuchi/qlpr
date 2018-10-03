@@ -655,29 +655,29 @@
                 $("#leadtime").val("0");
                 if (i.lt != "") {
                     $("#leadtime").val(i.lt);
-                    var ngdexuat = $("#ngaydexuat").datepicker("getDate");
+                    //var ngdexuat = $("#ngaydexuat").datepicker("getDate");
                     
-                    var dateString = new Date(ngdexuat);
+                    //var dateString = new Date(ngdexuat);
 
-                    var currentTime = new Date(dateString);
+                    //var currentTime = new Date(dateString);
 
-                    currentTime.setDate(currentTime.getDate() + Number(i.lt));
+                    //currentTime.setDate(currentTime.getDate() + Number(i.lt));
 
-                    var month = currentTime.getMonth() + 1;
+                    //var month = currentTime.getMonth() + 1;
 
-                    var day = currentTime.getDate();
+                    //var day = currentTime.getDate();
 
-                    var year = currentTime.getFullYear();
-                    if (day < 10) {
-                        day = "0" + day;
-                    }
-                    if (month < 10) {
-                        month = "0" + month;
-                    }
-                    var date = day + "/" + month + "/" + year;
-                    $("#ngaycanhang").datepicker("setDate", date);
+                    //var year = currentTime.getFullYear();
+                    //if (day < 10) {
+                    //    day = "0" + day;
+                    //}
+                    //if (month < 10) {
+                    //    month = "0" + month;
+                    //}
+                    //var date = day + "/" + month + "/" + year;
+                    //$("#ngaycanhang").datepicker("setDate", date);
                  
-                    $('#ngaycanhang > .form-control').prop('disabled', true);
+                    //$('#ngaycanhang > .form-control').prop('disabled', true);
                 }
                 $("#nhommuaid").val("0");
                 if (i.nmi != "") {

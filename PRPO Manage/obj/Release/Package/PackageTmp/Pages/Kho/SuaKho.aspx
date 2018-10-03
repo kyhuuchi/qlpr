@@ -465,7 +465,8 @@
                     "thanhtien": 0,
                     "tinhtrangvt": 0,
                     "id_prchitiet": 0,
-                    "ngaymuahang": ""
+                    "ngaymuahang": "",
+                    "nguoiptmuahang":""
                 },
                 dataType: "json",
                 success: function (data) {
