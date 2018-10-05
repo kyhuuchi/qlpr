@@ -629,7 +629,8 @@
                     $("#nhommuaname").val("");
                     $("#tenvattu").removeAttr("readonly");
                     $("#dvt").removeAttr("readonly");
-                    $("#thanhtientamung").removeAttr("readonly");
+                   // $("#thanhtientamung").removeAttr("readonly");
+                    $("#gianhaptay").val("true");
                 }
              
                 
@@ -643,6 +644,7 @@
                 console.log(i);
                 $("#dvt").val(i.dvt);
                 $("#dongiatamtinh").val(i.dg);
+               
                 if (i.dg != "") {
                     //$("#dongiatamtinh").prop("readonly", true);
                     $("#gianhaptay").val("false");
@@ -651,6 +653,7 @@
                     $("#dongiatamtinh").prop("readonly", false);
                     $("#gianhaptay").val("true");
                 }
+                console.log("gianhaptay:" + $("#gianhaptay").val());
                 $("#dongiatamtinh_notmask").val(i.dg);
                 $("#leadtime").val("0");
                 if (i.lt != "") {
@@ -742,6 +745,7 @@
             var nhommuaname = $("#nhommuaname").val();
             var vat = Number($("#vat").val());
             var gianhaptay = $("#gianhaptay").val();
+            console.log("gianhaptay2:" + gianhaptay);
             var thanhtienvat = Number(thanhtientamung_nomask);
             var tienvat = 0;
             if (vat != 0) {
@@ -873,7 +877,12 @@
                 var gnt = false;
                 $tds.find("input[id^='gianhaptay*']").each(function () {
                     //alert(this.id)
-                    gnt = this.value;
+                    if(this.value!="")
+                    {
+                        gnt = this.value;
+                        
+                    }
+                   
 
                 });
 
@@ -1318,7 +1327,7 @@
                       alert("error" + errorThrown);
                   });
             });
-            window.location.replace("../../Default");
+           // window.location.replace("../../Default");
         }
         //******************//
         function InForm() {

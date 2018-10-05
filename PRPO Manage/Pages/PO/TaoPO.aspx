@@ -639,6 +639,27 @@
                     var sopr_full = $(this).closest('tr').find('td.cls_sopr_full').text();
                     
                     var mahang = $(this).closest('tr').find('td.cls_mavattu').text();
+                    //goi webservice SAP de check gia
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        url: "/Webservice/dsnguoidung.asmx/CheckGiaLiveSAP",
+                        data: {
+                            "mahang": mahang
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.length > 0) {
+                               //code da ok chi con lay gia ra thoi
+                            }
+
+                        },
+
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        alert("error lấy giá trên SAP bị lỗi; " + errorThrown);
+                    });
+                    //*********//
                     var tenhang = $(this).closest('tr').find('td.cls_tenvattu').text();
                     var dvt = $(this).closest('tr').find('td.cls_dvt').text();
                     var soluongpo = $(this).closest('tr').find('td.cls_soluongyeucau').text();

@@ -652,6 +652,23 @@ namespace PRPO_Manage.Webservice
                 //Context.Response.Write(js.Serialize(sreader.ReadToEnd())); 
             }
         }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public void CheckGiaLiveSAP(string mahang)
+        {
+            string url = "http://prd-app1.duytan.local:8100/sap/bc/ywsgpoitems?sap-client=900&MA="+mahang;
+            System.Net.WebRequest request = WebRequest.Create(url);
+            
+            //request.Credentials = new NetworkCredential("sapuser", "password");
+            WebResponse ws = request.GetResponse();
+
+            string jsonString = string.Empty;
+            using (System.IO.StreamReader sreader = new System.IO.StreamReader(ws.GetResponseStream()))
+            {
+                jsonString = sreader.ReadToEnd();
+            }
+            Context.Response.Write(JsonConvert.SerializeObject(jsonString));
+        }
 
     }
 }
