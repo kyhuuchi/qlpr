@@ -413,6 +413,7 @@ namespace Business
         private string _cong_dung;
         private int _lead_time;
         private int _vat;
+        private bool _gia_nhap_tay;
 
         public int ID_PO_Chi_Tiet
         {
@@ -514,6 +515,7 @@ namespace Business
             get { return _vat; }
             set { _vat = value; }
         }
+       
         //cac ham lien quan den PO Chi Tiet
         public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang,string nguoiptmuahang)
         {
@@ -542,6 +544,7 @@ namespace Business
             SqlParameter pm12 = new SqlParameter("@idpr_chitiet", id_prchitiet);
             SqlParameter pm13 = new SqlParameter("@ngaymuahang", ngaymuahang);
             SqlParameter pm14 = new SqlParameter("@nguoiptmuahang", nguoiptmuahang);
+            
             SqlParameter[] param = new SqlParameter[14] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13,pm14};
             DataTable tb = kn.get_by_procedure("proc_Action_PO_ChiTiet", param);
             if (tb != null)
@@ -597,7 +600,7 @@ namespace Business
                     {
                         po_chitiet.VAT = Convert.ToInt32(row["VAT"]);
                     }
-
+                   
                     pochitiet_col.Add(po_chitiet);
 
                 }

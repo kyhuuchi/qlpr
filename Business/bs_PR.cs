@@ -904,6 +904,11 @@ namespace Business
                     {
                         pr_chitiet.Nguoi_Phu_Trach_Mua_Hang = row["NguoiPTMuaHang"].ToString();
                     }
+                    pr_chitiet.VAT = 0;
+                    if (!row.IsNull("VAT"))
+                    {
+                        pr_chitiet.VAT = Convert.ToInt32(row["VAT"].ToString());
+                    }
                     pr_chitiet.GiaNhapTay = false;
                     if (!row.IsNull("GiaNhapTay"))
                     {
