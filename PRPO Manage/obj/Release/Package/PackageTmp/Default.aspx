@@ -954,6 +954,7 @@
                     str_dt = str_dt + '<th>Ngày tạo</th>';
                     str_dt = str_dt + '<th>Người tạo</th>';
                     str_dt = str_dt + '<th>Ghi chú</th>';
+                    str_dt = str_dt + '<th>File đính kèm</th>';
                     str_dt = str_dt + '<th></th>';
                     str_dt = str_dt + '</tr>';
                     str_dt = str_dt + '</thead><tbody>';
@@ -1051,12 +1052,12 @@
                                     ngay = "0" + ngay;
                                 }
                                 var ngaytao = ngay + "/" + month + "/" + date.getFullYear();
-
+                               
                                 if (i % 2 == 0) {
-                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td></tr>';
+                                    str_tr += '<tr role="row" class="odd"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><a href="/upload/' + data[i]["PR_Scan_File"] + '" target="_blank">' + data[i]["PR_Scan_File"] + '</a></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td></tr>';
                                 }
                                 else {
-                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td></tr>';
+                                    str_tr += '<tr role="row" class="even"><td>' + data[i]["So_PR_Full"] + '</td><td>' + Number(data[i]["Tong_Tien"]).toLocaleString('de-DE') + '</td><td>' + Number(data[i]["Tong_So_Luong_Yeu_cau"]).toLocaleString('de-DE') + '</td><td>' + data[i]["Cong_Dung"] + '</td><td>' + ngaytao + '</td><td>' + data[i]["Ten_Nguoi_De_Xuat"] + '</td><td>' + data[i]["Ghi_Chu"] + '</td><td><a href="/upload/' + data[i]["PR_Scan_File"] + '" target="_blank">' + data[i]["PR_Scan_File"] + '</a></td><td><button type="button" id="btnView" class="btn btn-primary btn-xs dt-view-daduyet" style="margin-right:16px;"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td></tr>';
 
                                 }
 

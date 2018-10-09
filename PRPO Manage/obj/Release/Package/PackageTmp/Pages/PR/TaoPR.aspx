@@ -441,7 +441,8 @@
                     $("#nhommuaname").val("");
                     $("#tenvattu").removeAttr("readonly");
                     $("#dvt").removeAttr("readonly");
-                    $("#thanhtientamung").removeAttr("readonly");
+                    //$("#thanhtientamung").removeAttr("readonly");
+                    $("#gianhaptay").val("true");
                 }
              
 
