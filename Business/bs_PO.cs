@@ -390,6 +390,19 @@ namespace Business
 
             return tb;
         }
+        public DataTable BaoCaoTrePO(int id_phongban, string denngay)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+
+            SqlParameter pm2 = new SqlParameter("@denngay", denngay);
+            SqlParameter[] param = new SqlParameter[2] { pm, pm2 };
+
+            DataTable tb = kn.get_by_procedure("proc_report_trePO", param);
+
+            return tb;
+        }
     }
     public class PO_ChiTiet
     {
@@ -621,5 +634,6 @@ namespace Business
 
             return tb;
         }
+       
     }
 }

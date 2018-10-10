@@ -239,6 +239,7 @@
     <Content Include="Pages\BaoCao\DoanhSoNhapKho.aspx" />
     <Content Include="Pages\BaoCao\DoanhSoPO.aspx" />
     <Content Include="Pages\BaoCao\TienDo.aspx" />
+    <Content Include="Pages\BaoCao\TrePO.aspx" />
     <Content Include="Pages\Kho\DanhSachKho.aspx" />
     <Content Include="Pages\Kho\SuaKho.aspx" />
     <Content Include="Pages\Kho\TaoPNK.aspx" />
@@ -247,6 +248,7 @@
     <Content Include="Pages\PO\TaoPO.aspx" />
     <Content Include="Pages\PO\ViewPO.html" />
     <Content Include="Pages\PR\DuyetPR.aspx" />
+    <Content Include="Pages\PR\PRDaDuyet.aspx" />
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Pages\PR\View.html" />
@@ -993,6 +995,13 @@
     <Compile Include="Pages\BaoCao\TienDo.aspx.designer.cs">
       <DependentUpon>TienDo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BaoCao\TrePO.aspx.cs">
+      <DependentUpon>TrePO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BaoCao\TrePO.aspx.designer.cs">
+      <DependentUpon>TrePO.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Kho\DanhSachKho.aspx.cs">
       <DependentUpon>DanhSachKho.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1041,6 +1050,13 @@
     </Compile>
     <Compile Include="Pages\PR\DuyetPR.aspx.designer.cs">
       <DependentUpon>DuyetPR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PR\PRDaDuyet.aspx.cs">
+      <DependentUpon>PRDaDuyet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PR\PRDaDuyet.aspx.designer.cs">
+      <DependentUpon>PRDaDuyet.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\PR\SuaPR.aspx.cs">
       <DependentUpon>SuaPR.aspx</DependentUpon>

@@ -17,14 +17,14 @@
          <div class="row">
               <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="tuthang">Từ ngày</label>
+                   <%-- <label for="tuthang">Từ ngày</label>
                    <div class="form-group">
                                                     <div class='input-group date' id='tuthang'>
                                                         <input type='text' class="form-control" />
                                                         <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
                                                         </span>
                                                     </div>
-                                                </div>
+                                                </div>--%>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="tunam">Đến ngày</label>
@@ -39,7 +39,7 @@
                 </div>
           
                  <div class="form-group col-md-4">
-                    <label for="donvi">Đơn vị</label>
+                 <%--   <label for="donvi">Đơn vị</label>
                     <select class="form-control" id="donvi" style="width: 100%;">
                         <option value="0">Tất cả</option>
                         <option value="1">MATA</option>
@@ -49,7 +49,7 @@
                         
                     </select>
                     <input type="hidden" id="hidden_idphongban" value="0" />
-                     <input type="hidden" id="hidden_danhsach" />
+                     <input type="hidden" id="hidden_danhsach" />--%>
                 </div>
                 
             </div>
@@ -74,10 +74,10 @@
      <script type="text/javascript">
          var srt_pb = [], dadong = [], daduyet = [], chuaduyet = [], id_pb = [];
          $(document).ready(function () {
-             $('#tuthang').datepicker({
-                 format: 'dd/mm/yyyy',
-                 todayHighlight: true
-             });
+             //$('#tuthang').datepicker({
+             //    format: 'dd/mm/yyyy',
+             //    todayHighlight: true
+             //});
              $('#tunam').datepicker({
                  format: 'dd/mm/yyyy',
                  todayHighlight: true
@@ -88,23 +88,23 @@
              $("#hidden_idphongban").val($("#donvi").val());
          })
          function LoadPhongBan() {
-             var tungay = $("#tuthang").datepicker("getDate");
+             //var tungay = $("#tuthang").datepicker("getDate");
              var denngay = $("#tunam").datepicker("getDate");
-             if (tungay == "") {
-                 alert("Vui lòng chọn từ ngày.");
-                 $("#tuthang").css("border-color", "red");
-                 return;
-             }
+             //if (tungay == "") {
+             //    alert("Vui lòng chọn từ ngày.");
+             //    $("#tuthang").css("border-color", "red");
+             //    return;
+             //}
              if (denngay == "") {
                  alert("Vui lòng chọn đến ngày.");
                  $("#tunam").css("border-color", "red");
                  return;
              }
-             var date = new Date(tungay);
-             var thang = date.getMonth() + 1;
-             var ngay = date.getDate();
-             var nam = date.getFullYear();
-             var tungay_format = nam + "-" + thang + "-" + ngay;
+             //var date = new Date(tungay);
+             //var thang = date.getMonth() + 1;
+             //var ngay = date.getDate();
+             //var nam = date.getFullYear();
+             //var tungay_format = nam + "-" + thang + "-" + ngay;
 
              var date2 = new Date(denngay);
              var thang2 = date2.getMonth() + 1;
@@ -121,8 +121,7 @@
                  async: false,
                  url: "/Webservice/dsnguoidung.asmx/BaoCaoTre",
                  data: {
-                     "id_phongban": Number($("#hidden_idphongban").val()),
-                     "tungay": tungay_format,
+                     "id_phongban": 0,
                      "denngay": denngay_format
 
                  },
