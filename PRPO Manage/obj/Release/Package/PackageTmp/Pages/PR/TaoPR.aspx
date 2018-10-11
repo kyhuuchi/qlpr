@@ -1033,6 +1033,7 @@
          .done(CapNhatSoPR())
          .fail(function (jqXHR, textStatus, errorThrown) {
              alert("error" + errorThrown);
+             return;
          });
         }
 
@@ -1189,6 +1190,7 @@
          .done(TaoPRChiTiet())
          .fail(function (jqXHR, textStatus, errorThrown) {
              alert("error" + errorThrown);
+             return;
          });
         }
         //*********************//
@@ -1306,6 +1308,7 @@
                 })
                   .fail(function (jqXHR, textStatus, errorThrown) {
                       alert("error" + errorThrown);
+                      return;
                   });
             });
             window.location.replace("../../Default");

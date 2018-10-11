@@ -65,6 +65,7 @@
                     str_dt = str_dt + '<th>Tổng số lượng yêu cầu</th>';
                     str_dt = str_dt + '<th>Công dụng</th>';
                     str_dt = str_dt + '<th>Ngày tạo</th>';
+                    str_dt = str_dt + '<th>Ngày duyệt</th>';
                     str_dt = str_dt + '<th>Người tạo</th>';
                     str_dt = str_dt + '<th>Ghi chú</th>';
                     str_dt = str_dt + '<th>File đính kèm</th>';
@@ -174,6 +175,13 @@
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
                                         }
                                     },
+                                     {
+                                         'data': 'Ngay_Duyet', 'render': function (date) {
+                                             var date = new Date(date);
+                                             var month = date.getMonth() + 1;
+                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
+                                         }
+                                     },
                                     { 'data': 'Ten_Nguoi_De_Xuat' },
                                      { 'data': 'Ghi_Chu' },
                                      {
@@ -204,6 +212,13 @@
                                     { 'data': 'Cong_Dung' },
                                     {
                                         'data': 'Ngay_Tao', 'render': function (date) {
+                                            var date = new Date(date);
+                                            var month = date.getMonth() + 1;
+                                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                                        }
+                                    },
+                                    {
+                                        'data': 'Ngay_Duyet', 'render': function (date) {
                                             var date = new Date(date);
                                             var month = date.getMonth() + 1;
                                             return date.getDate() + "/" + month + "/" + date.getFullYear();
@@ -253,7 +268,7 @@
             // Encode the String
             var encodedString = Base64.encode(dtRow[0].cells[0].innerHTML);
 
-            window.open("Pages/PR/View.html?pr=" + encodedString, '_blank');
+            window.open("View.html?pr=" + encodedString, '_blank');
             //window.location.replace("Pages/PR/View.html?pr=" + encodedString);
         });
         $("#overlay").hide();

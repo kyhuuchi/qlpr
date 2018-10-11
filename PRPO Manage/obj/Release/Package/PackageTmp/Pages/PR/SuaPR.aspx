@@ -1325,9 +1325,10 @@
                 })
                   .fail(function (jqXHR, textStatus, errorThrown) {
                       alert("error" + errorThrown);
+                      return;
                   });
             });
-           // window.location.replace("../../Default");
+            window.location.replace("../../Default");
         }
         //******************//
         function InForm() {
