@@ -277,6 +277,7 @@
                   //.done(LayThongTinPRChiTiet())
                   .fail(function (jqXHR, textStatus, errorThrown) {
                       alert("error" + errorThrown);
+                      return;
                   });
             }
 
@@ -326,6 +327,7 @@
             //.done(LaySoPO())
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error lay so PR; " + errorThrown);
+                return;
             });
         }
         //*******************//
@@ -378,6 +380,7 @@
             })
           .fail(function (jqXHR, textStatus, errorThrown) {
               alert("error lay so phieu nhap kho : " + errorThrown);
+              return;
           });
 
         }
@@ -405,6 +408,7 @@
             })
           .fail(function (jqXHR, textStatus, errorThrown) {
               alert("error lay so phieu nhap kho : " + errorThrown);
+              return;
           });
 
         }
@@ -523,6 +527,7 @@
                         })
                         .fail(function (jqXHR, textStatus, errorThrown) {
                             alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
+                            return;
                         });
                     }
                     LayDanhSachKho();
@@ -531,6 +536,7 @@
             })
              .fail(function (jqXHR, textStatus, errorThrown) {
                  alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
+                 return;
              });
         }
         /*****************/
@@ -572,6 +578,7 @@
             })
           .fail(function (jqXHR, textStatus, errorThrown) {
               alert("error tạo phiếu nhập kho:  " + errorThrown);
+              return;
           });
         }
         $("#DongY").click(function () {
@@ -616,6 +623,7 @@
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     alert("error cap nhat phiếu nhập kho: " + errorThrown);
+                    return;
                 });
             }
             else
@@ -626,7 +634,7 @@
               //  CapNhatMaSoPNKho();
                 soluongdanhapkho = $("#soluongnhapkho").val();
             
-                /********* DANG LAM CAI NAY ********************* */
+                
                 //cap nhap so luong nhap kho cho table PO Chi tiet
                 $.ajax({
                     type: "POST",
@@ -645,6 +653,7 @@
                 })
                .fail(function (jqXHR, textStatus, errorThrown) {
                    alert("error tinh so luong con lai PO ; " + errorThrown);
+                   return;
                });
 
                
@@ -656,9 +665,33 @@
                 $("#ngaynhapkho").datepicker("setDate", null);
                 $("#soluongnhapkho").val("");
 
-                location.reload();
+              
             }
-           
+            //cap nhat trang thai cua PO la dang nhap kho
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Webservice/dsnguoidung.asmx/UpdateTinhTrangNhapKho",
+                data: {
+                    "id_po": $("#id_po").val(),
+                    "tinhtrangnhapkho": 1,
+                    "tinhtrangdongPO": 0,
+                    "tinhtrangdongPR": 0,
+                },
+                dataType: "json",
+                success: function (data) {
+
+                    //   alert("Đã cập nhật thông tin nhập kho thành công.");
+                    //  location.reload();
+                },
+
+            })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            alert("error cap nhat tinh trang nhap kho cua po: " + errorThrown);
+                            return;
+                        });
+
+            location.reload();
            
         });
         function LayDanhSachKho() {

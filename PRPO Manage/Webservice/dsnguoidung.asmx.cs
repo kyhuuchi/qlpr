@@ -637,10 +637,31 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(parentRow));
         }
         [WebMethod]
-        public void BaoCaoTre(int id_phongban, string denngay)
+        public void SoLuongTre(int id_phongban, string denngay)
         {
             PR pr = new PR();
-            DataTable tb = pr.BaoCaoTrePR(id_phongban, denngay);
+            DataTable tb = pr.SoLuongTrePR(id_phongban, denngay);
+            var js = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in tb.Rows)
+            {
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in tb.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
+            }
+
+            Context.Response.Write(JsonConvert.SerializeObject(parentRow));
+        }
+        [WebMethod]
+        public void BaoCaoTre(int id_phongban, string denngay,string nguoiptmuahang)
+        {
+            PR pr = new PR();
+            DataTable tb = pr.BaoCaoTrePR(id_phongban, denngay, nguoiptmuahang);
             var js = new JavaScriptSerializer();
 
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

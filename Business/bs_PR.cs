@@ -619,14 +619,28 @@ namespace Business
 
             return tb;
         }
-        public DataTable BaoCaoTrePR(int id_phongban, string denngay)
+        public DataTable SoLuongTrePR(int id_phongban, string denngay)
+        {
+            DAC kn = new DAC();
+
+            SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
+
+            SqlParameter pm2 = new SqlParameter("@denngay", denngay);
+            SqlParameter[] param = new SqlParameter[2] { pm, pm2 };
+
+            DataTable tb = kn.get_by_procedure("proc_soluong_trePR", param);
+
+            return tb;
+        }
+        public DataTable BaoCaoTrePR(int id_phongban, string denngay, string nguoiptmuahang)
         {
             DAC kn = new DAC();
 
             SqlParameter pm = new SqlParameter("@id_phongban", id_phongban);
             
             SqlParameter pm2 = new SqlParameter("@denngay", denngay);
-            SqlParameter[] param = new SqlParameter[2] { pm, pm2 };
+            SqlParameter pm3 = new SqlParameter("@nguoiptmuahang", nguoiptmuahang);
+            SqlParameter[] param = new SqlParameter[3] { pm, pm2, pm3 };
 
             DataTable tb = kn.get_by_procedure("proc_report_trePR", param);
 

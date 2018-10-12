@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2013 20:06:22</publishTime>
     </File>
     <File Include="bin/Business.dll">
-      <publishTime>10/11/2018 11:28:51</publishTime>
+      <publishTime>10/12/2018 17:02:06</publishTime>
     </File>
     <File Include="bin/DataBase.dll">
-      <publishTime>10/11/2018 11:28:50</publishTime>
+      <publishTime>10/12/2018 17:01:24</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -196,7 +196,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2012 13:00:52</publishTime>
     </File>
     <File Include="bin/PRPO Manage.dll">
-      <publishTime>10/11/2018 11:28:56</publishTime>
+      <publishTime>10/12/2018 17:02:11</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -421,16 +421,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 07:41:12</publishTime>
     </File>
     <File Include="Pages/BaoCao/TienDo.aspx">
-      <publishTime>10/10/2018 08:53:32</publishTime>
+      <publishTime>10/12/2018 13:31:34</publishTime>
     </File>
     <File Include="Pages/BaoCao/TrePO.aspx">
       <publishTime>10/10/2018 16:37:53</publishTime>
     </File>
     <File Include="Pages/Kho/DanhSachKho.aspx">
-      <publishTime>08/30/2018 09:57:41</publishTime>
+      <publishTime>10/12/2018 15:49:46</publishTime>
     </File>
     <File Include="Pages/Kho/SuaKho.aspx">
-      <publishTime>10/01/2018 10:06:57</publishTime>
+      <publishTime>10/12/2018 16:17:44</publishTime>
     </File>
     <File Include="Pages/Kho/TaoPNK.aspx">
       <publishTime>08/16/2018 14:04:12</publishTime>

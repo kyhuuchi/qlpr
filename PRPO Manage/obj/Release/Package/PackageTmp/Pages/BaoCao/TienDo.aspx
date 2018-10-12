@@ -73,6 +73,8 @@
      </div>
      <script type="text/javascript">
          var srt_pb = [], dadong = [], daduyet = [], chuaduyet = [], id_pb = [];
+         var dt_pr;
+         var denngay_format;
          $(document).ready(function () {
              //$('#tuthang').datepicker({
              //    format: 'dd/mm/yyyy',
@@ -110,7 +112,7 @@
              var thang2 = date2.getMonth() + 1;
              var ngay2 = date2.getDate();
              var nam2 = date2.getFullYear();
-             var denngay_format = nam2 + "-" + thang2 + "-" + ngay2;
+             denngay_format = nam2 + "-" + thang2 + "-" + ngay2;
              id_pb = [];
              srt_pb = [];
              chuaduyet = [];
@@ -119,7 +121,7 @@
              $.ajax({
                  type: "POST",
                  async: false,
-                 url: "/Webservice/dsnguoidung.asmx/BaoCaoTre",
+                 url: "/Webservice/dsnguoidung.asmx/SoLuongTre",
                  data: {
                      "id_phongban": 0,
                      "denngay": denngay_format
@@ -128,28 +130,26 @@
                  dataType: "json",
 
                  success: function (data) {
-                     if (data.length > 0) {
-                        // console.log(data);
-                         var soluongdata = 0;
-                         var dt_pr;
-                         $(".panel-default").remove();
-                         var ds_pr_luutam = document.getElementById('accordion_prtre');
+                     var soluongdata = 0;
+                     dt_pr=data;
+                     $(".panel-default").remove();
+                     var ds_pr_luutam = document.getElementById('accordion_prtre');
 
-                         var sl_luutam = 0;
-                         var str_dt = "";
-
-                         soluongdata = data.length;
-
+                     var sl = 0;
+                     var str_dt = "";
+                     soluongdata = data.length;
+                     for (var i = 0; i < soluongdata; i++) {
+                         sl += data[i]["SoLuong"];
                          str_dt = str_dt + '<div class="panel panel-default">';
                          str_dt = str_dt + '<div class="panel-heading">';
                          str_dt = str_dt + '<h4 class="panel-title">';
-                         str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_chuaduyet' + i + '" href="#collapse_chuaduyet' + i + '"><span class="badge" id="soluongpr_chuaduyet_pb' + i + ' " style="margin-left: 6px;"></span></a>';
+                         str_dt = str_dt + '<a data-toggle="collapse" data-parent="#accordion_chuaduyet' + i + '" href="#collapse_chuaduyet' + i + '">'+ data[i]["NguoiPTMuaHang"] +'<span class="badge" id="soluongpr_chuaduyet_pb' + i + ' " style="margin-left: 6px;">' + data[i]["SoLuong"] + '</span></a>';
                          str_dt = str_dt + '</h4>';
                          str_dt = str_dt + '</div>';
                          str_dt = str_dt + '<div id="collapse_chuaduyet' + i + '" class="panel-collapse in">';
                          str_dt = str_dt + '<div class="panel-body">';
                          str_dt = str_dt + '<div>';
-                         str_dt = str_dt + '<table id="ChuaDuyetTable" class="display" width="100%">';
+                         str_dt = str_dt + '<table id="ChuaDuyetTable' + i + '" class="display" width="100%">';
                          str_dt = str_dt + '<thead>';
                          str_dt = str_dt + '<tr>';
                          str_dt = str_dt + '<th>Số PR</th>';
@@ -165,9 +165,42 @@
                          str_dt = str_dt + '</div>';
                          str_dt = str_dt + '</div>';
                          str_dt = str_dt + '</div>';
-                         ds_pr_luutam.insertAdjacentHTML('afterend', str_dt);
-                         for (var i = 0; i < soluongdata; i++) {
-                            
+                     
+                     }
+                  //   document.getElementById("soluongpr_daduyet").textContent = sl;
+                     ds_pr_luutam.insertAdjacentHTML('afterend', str_dt);
+
+                 },
+
+             })
+              .done(LayPRTre(dt_pr))
+              .fail(function (jqXHR, textStatus, errorThrown) {
+                  alert("error lay so phieu nhap kho : " + errorThrown);
+              });
+
+           
+
+         }
+         function LayPRTre(dt_pr)
+         {
+             for (var s = 0; s < dt_pr.length; s++) {
+
+                 $.ajax({
+                     type: "POST",
+                     async: false,
+                     url: "/Webservice/dsnguoidung.asmx/BaoCaoTre",
+                     data: {
+                         "id_phongban": 0,
+                         "denngay": denngay_format,
+                         "nguoiptmuahang": dt_pr[s]["NguoiPTMuaHang"]
+
+                     },
+                     dataType: "json",
+
+                     success: function (data) {
+                         
+                         var str_tr = "";
+                         for (var i = 0; i < data.length; i++) {
                              //xu ly ngay duyet
                              var date = new Date(data[i]["NgayDuyet"]);
                              var month = date.getMonth() + 1;
@@ -194,34 +227,22 @@
                              if (i % 2 == 0) {
                                  str_tr += '<tr role="row" class="odd"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td></tr>';
                              }
-                             else {  
+                             else {
                                  str_tr += '<tr role="row" class="even"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td></tr>';
                              }
 
-
-                         }
-
-                         $("#ChuaDuyetTable tbody").append(str_tr);
-
-                         $("#ChuaDuyetTable").dataTable();
-
-                
                          
+                         }
+                         $("#ChuaDuyetTable" + s + " tbody").append(str_tr);
 
-                
-
+                         $("#ChuaDuyetTable" + s).dataTable();
+                       
                      }
+                 });
+               
 
 
-
-                 },
-
-             })
-              .fail(function (jqXHR, textStatus, errorThrown) {
-                  alert("error lay so phieu nhap kho : " + errorThrown);
-              });
-
-           
+             }
 
          }
          function Btt_DongY() {
