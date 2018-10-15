@@ -158,6 +158,7 @@
                          str_dt = str_dt + '<th>Người phụ trách mua hàng</th>';
                          str_dt = str_dt + '<th>Ngày duyệt</th>';
                          str_dt = str_dt + '<th>Ngày đáp ứng</th>';
+                         str_dt = str_dt + '<th>Số ngày trễ</th>';
                          str_dt = str_dt + '</tr>';
                          str_dt = str_dt + '</thead><tbody>';
                          str_dt = str_dt + '</tbody></table>';
@@ -222,13 +223,20 @@
                              if (ngay2 < 10) {
                                  ngay2 = "0" + ngay2;
                              }
+                             //tinh so ngay tre so voi ngay duoc chon
+                             var ngaychon = $("#tunam").datepicker("getDate");
+                             var ngaychon_date = new Date(ngaychon);
+                             var thoigiantre = Math.abs(ngaychon_date.getTime() - date2.getTime());
+                             var songaytre = Math.ceil(thoigiantre / (1000 * 3600 * 24));
+                             
+
                              var ngaydapunghang = ngay2 + "/" + month2 + "/" + date2.getFullYear();
                              var str_tr;
                              if (i % 2 == 0) {
-                                 str_tr += '<tr role="row" class="odd"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td></tr>';
+                                 str_tr += '<tr role="row" class="odd"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td><td style="text-align: right;">' + songaytre + '</td></tr>';
                              }
                              else {
-                                 str_tr += '<tr role="row" class="even"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td></tr>';
+                                 str_tr += '<tr role="row" class="even"><td>' + data[i]["SoPR_Full"] + '</td><td>' + data[i]["MaHang"] + '</td><td>' + data[i]["TenHang"] + '</td><td>' + data[i]["NguoiPTMuaHang"] + '</td><td>' + ngayduyet + '</td><td>' + ngaydapunghang + '</td><td style="text-align: right;">' + songaytre + '</td></tr>';
                              }
 
                          

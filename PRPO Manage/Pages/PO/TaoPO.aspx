@@ -5,7 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="overlay">
         <div id="text">
-            <img class="img-responsive" src="../../../Images/loader.gif" alt="" /></div>
+            <img class="img-responsive" src="../../../Images/loader.gif" alt="" />
+        </div>
     </div>
     <div class="container" id="container">
         <div class="row">
@@ -28,7 +29,7 @@
                     </select>
                     <input type="hidden" id="tennhacungcap" />
                     <input type="hidden" id="manhacuangcap" />
-                    
+
                 </div>
                 <div class="form-group col-md-4">
                     <label for="donvidexuat">Đơn vị đề xuất</label>
@@ -41,12 +42,12 @@
                     <label for="ngaypo">Ngày PO</label>
                     <%--<input type="date" class="form-control" id="ngaypo" />--%>
                     <div class="form-group">
-                                                    <div class='input-group date' id='ngaypo'>
-                                                        <input type='text' class="form-control" />
-                                                        <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
+                        <div class='input-group date' id='ngaypo'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                    </div>
                     <input type="hidden" id="namdexuat" />
                     <input type="hidden" id="sothutupo" />
                     <input type="hidden" id="id_po" />
@@ -59,7 +60,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="sopo">Số PO</label>
-                    <input type="text" class="form-control" id="sopo"/>
+                    <input type="text" class="form-control" id="sopo" />
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nguoimuahang">Người mua hàng</label>
@@ -75,7 +76,7 @@
             </div>
         </div>
 
-       <%-- <div class="row">
+        <%-- <div class="row">
             <div class="form-group col-md-12">
                 <button type="button" class="btn btn-primary btn-sm" onclick="LayPR_PR_ChiTiet_DaDuyet()">Lấy thông tin vaatj tuw PR đã duyệt</button>
             </div>
@@ -83,45 +84,141 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="modal fade" id="myModal" role="form" data-backdrop="static">
-                                <div class="modal-dialog">
+                    <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Cập nhật vật tư</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="soluongyeucaupo">Số lượng yêu cầu PO:</label>
-                                                    <input type="number" class="form-control" id="soluongyeucaupo"/>
-                                                    <input type="hidden" id="sttpochitiet"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="dongiapo">Đơn giá:</label>
-                                                    <input type="number" class="form-control" id="dongiapo" />
-                                                      <input type="hidden" id="dongiatamtinh_notmask" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="tigiapo">Tỉ giá:</label>
-                                                    <input type="number" class="form-control" id="tigiapo" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="thanhtienpo">Thành tiền:</label>
-                                                    <input type="text" class="form-control" id="thanhtienpo" readonly/>
-                                                    <input type="hidden" id="thanhtientamung_notmask" />
-                                                </div>
-                                                
-                                                <input type="button" class="btn btn-primary" id="DongY" data-dismiss="modal" value="Đồng ý" />
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                                
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cập nhật vật tư</h4>
                             </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="soluongyeucaupo">Số lượng yêu cầu PO:</label>
+                                            <input type="number" class="form-control" id="soluongyeucaupo" />
+                                            <input type="hidden" id="sttpochitiet" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">Đơn giá:</label>
+                                            <input type="number" class="form-control" id="dongiapo" readonly />
+                                            <input type="hidden" id="dongiatamtinh_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="tigiapo">Tỉ giá:</label>
+                                            <input type="number" class="form-control" id="tigiapo" />
+                                        </div>
+                                    </div>
+                                 
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRB0:</label>
+                                            <input type="number" class="form-control" id="phivanchuyenbanghangkhong" />
+                                            <input type="hidden" id="phivanchuyenbanghangkhong_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRB1:</label>
+                                            <input type="number" class="form-control" id="phivanchuyenbangbien" />
+                                            <input type="hidden" id="phivanchuyenbangbien_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRB2:</label>
+                                            <input type="number" class="form-control" id="phivanchuyenphantramtrongnuoc" />
+                                            <input type="hidden" id="phivanchuyenphantramtrongnuoc_notmask" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRB3:</label>
+                                            <input type="number" class="form-control" id="phivanchuyengiatritrongnuoc" />
+                                            <input type="hidden" id="phivanchuyengiatritrongnuoc_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRC0:</label>
+                                            <input type="number" class="form-control" id="phivanchuyensoluonghangnkhong" />
+                                            <input type="hidden" id="phivanchuyensoluonghangnkhong_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">FRC1:</label>
+                                            <input type="number" class="form-control" id="phivanchuyensoluongduongbien" />
+                                            <input type="hidden" id="phivanchuyensoluongduongbien_notmask" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">PBXX:</label>
+                                            <input type="checkbox" class="form-control" id="giagotay" />
+                                            <input type="hidden" id="giagotay_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">RB01:</label>
+                                            <input type="number" class="form-control" id="giamgiatheosoluong" />
+                                            <input type="hidden" id="giamgiatheosoluong_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">RB02:</label>
+                                            <input type="number" class="form-control" id="giamgiatheogiatri" />
+                                            <input type="hidden" id="giamgiatheogiatri_notmask" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZB00:</label>
+                                            <input type="number" class="form-control" id="tanggiatheogiatri" />
+                                            <input type="hidden" id="tanggiatheogiatri_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZB01:</label>
+                                            <input type="number" class="form-control" id="tanggiatheosoluong" />
+                                            <input type="hidden" id="tanggiatheosoluong_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZB02:</label>
+                                            <input type="number" class="form-control" id="tanggiatheophantram" />
+                                            <input type="hidden" id="tanggiatheophantram_notmask" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZDP1:</label>
+                                            <input type="number" class="form-control" id="khauhaogiatri" />
+                                            <input type="hidden" id="khauhaogiatri_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZIPT:</label>
+                                            <input type="number" class="form-control" id="thueVAT" />
+                                            <input type="hidden" id="thueVAT_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZISR:</label>
+                                            <input type="number" class="form-control" id="chiphibaohiemhanghoa" />
+                                            <input type="hidden" id="chiphibaohiemhanghoa_notmask" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group col-md-4">
+                                            <label for="dongiapo">ZMST:</label>
+                                            <input type="number" class="form-control" id="thuenhapkhau" />
+                                            <input type="hidden" id="thuenhapkhau_notmask" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="thanhtienpo">Thành tiền:</label>
+                                            <input type="text" class="form-control" id="thanhtienpo" readonly />
+                                            <input type="hidden" id="thanhtientamung_notmask" />
+                                        </div>
+                                    </div>
+
+
+                                    <input type="button" class="btn btn-primary" id="DongY" data-dismiss="modal" value="Đồng ý" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="table_vattu">
                         <thead>
@@ -149,7 +246,7 @@
                         </tbody>
                     </table>
                     <%--  <button type="button" class="btn btn-danger btn-sm" id="xoavattu">Xóa vật tư</button>--%>
-                    <span style="background-color:#ffbc0066">Vật tư chưa PO hết</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#bb270f66;color:#fff">Vật tư nhập giá tay</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#6e00ff66;color:#fff">Vật tư vừa nhập giá tay, vừa chưa PO hết</span>
+                    <span style="background-color: #ffbc0066">Vật tư chưa PO hết</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #bb270f66; color: #fff">Vật tư nhập giá tay</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #6e00ff66; color: #fff">Vật tư vừa nhập giá tay, vừa chưa PO hết</span>
                 </div>
             </div>
         </div>
@@ -167,7 +264,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">#</th>
                                 <th scope="col">STT</th>
-                                 <th scope="col">Số PR</th>
+                                <th scope="col">Số PR</th>
                                 <th scope="col">Mã hàng</th>
                                 <th scope="col">Tên hàng, Qui cách, Nhãn hiệu</th>
                                 <th scope="col">ĐVT</th>
@@ -175,13 +272,13 @@
                                 <th scope="col">Đơn giá</th>
                                 <th scope="col">Tỉ giá(*)</th>
                                 <th scope="col">Thành tiền</th>
-                                 <th scope="col">Thành tiền (VAT)</th>
+                                <th scope="col">Thành tiền (VAT)</th>
                                 <th scope="col">Nhà cung ứng-Nước sản xuất</th>
                                 <th scope="col">Tình trạng VT, MMTB (Mới:100%Cũ:…%)</th>
                                 <th scope="col">Ngày đáp ứng hàng(*)</th>
                                 <th scope="col">Thời gian sử dụng</th>
                                 <th scope="col">Công dụng (diễn giải chi tiết) </th>
-                                 <th scope="col">Người PT mua hàng</th>
+                                <th scope="col">Người PT mua hàng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -190,7 +287,7 @@
                 </div>
             </div>
         </div>
-         <div class="row">
+        <div class="row">
             <div class="form-group col-md-12">
                 <button type="button" class="btn btn-primary btn-sm" onclick="LayDanhSachPOChiTiet()">Lưu PO</button>
             </div>
@@ -238,6 +335,26 @@
             });
             //lay danh sach nguoi duyet
             LayDanhSachNguoiDuyet();
+            $('#giagotay').change(function () {
+                if(this.checked)
+                {
+                    $('#dongiapo').removeAttr("readonly");
+                }
+                else
+                {
+                    $('#dongiapo').attr("readonly","true");
+                }
+             
+             
+
+            });
+            $('#phivanchuyenbanghangkhong').change(function () {
+                $('#phivanchuyenbanghangkhong_notmask').val($('#phivanchuyenbanghangkhong').val());
+                $('#thanhtientamung_notmask').val(Number($('#thanhtientamung_notmask').val()) + Number($('#phivanchuyenbanghangkhong_notmask').val()));
+                $('#thanhtienpo').val(Number($('#thanhtientamung_notmask').val()).toLocaleString('de-DE'));
+                $('#phivanchuyenbanghangkhong').val(Number($('#phivanchuyenbanghangkhong').val()).toLocaleString('de-DE'));
+                
+            });
             ///sau khi load xong het tat ca thi tat Loading...
             $("#overlay").hide();
         });
@@ -353,8 +470,8 @@
         }
         //Luu thông tin PO va lay thông tin các PR da duyet
         function LuuPO() {
-            
-            
+
+
             var ng = $("#ngaypo").datepicker("getDate");
             if (ng == "") {
                 alert("Vui lòng chọn ngày tạo PO.");
@@ -439,8 +556,7 @@
              alert("error cap nhat so PO" + errorThrown);
          });
         }
-        function CheckTonTaiSoPO()
-        {
+        function CheckTonTaiSoPO() {
             var sopo_new = 0;
             $.ajax({
                 type: "POST",
@@ -450,13 +566,12 @@
                     "sopo": Number($("#sothutupo").val()),
                     "idphongban": Number($("#id_donvidexuat").val()),
                     "nam": Number($("#namdexuat").val())
-                    
+
                 },
                 dataType: "json",
                 success: function (data) {
-                    if(data.length>0)
-                    {
-                        
+                    if (data.length > 0) {
+
                         sopo_new = Number(data[0]["SoPO"].toString());
                         sopo_new += 1;
                         alert("Số PO hiện tại của bạn đã được sử dụng. Số PO mới của bạn: " + sopo_new);
@@ -470,16 +585,15 @@
                             sopo_new = sopo_new;
                         }
                         var year = $("#namdexuat").val().slice(-2);
-                        
+
                         $("#sopo").val(sopo_new + "/POMH2-" + year + "-" + phongban_viettat);
 
                         CapNhatSoPO(sopo_new);
                     }
-                    else
-                    {
+                    else {
                         CapNhatSoPO(Number($("#sothutupo").val()));
                     }
-                    
+
                 },
 
             })
@@ -490,8 +604,7 @@
         }
         //*******************//
         //lay thong tin PO vua moi luu
-        function LayThongTinPO()
-        {
+        function LayThongTinPO() {
             var date = new Date($("#ngaypo").val());
             var thangtao = date.getMonth() + 1;
 
@@ -519,14 +632,13 @@
                 dataType: "json",
 
                 success: function (data) {
-                    if(data.length>0)
-                    {
+                    if (data.length > 0) {
                         document.getElementById("id_po").value = data[0]["ID_PO"];
                     }
                 },
 
             })
-            
+
             .fail(function (jqXHR, textStatus, errorThrown) {
                 alert("error lay so PO sau khi da luu ; " + errorThrown);
             });
@@ -534,14 +646,14 @@
         //********************//
         //lay thong tin PR PR chi tiet da duyet
         function LayPR_PR_ChiTiet_DaDuyet() {
-            
+
             $.ajax({
                 type: "POST",
                 async: false,
                 url: "/Webservice/dsnguoidung.asmx/LayDS_PRChiTiet_DaDuyet",
                 data: {
                     "id_phongban": $("#id_donvidexuat").val()
-                    
+
                 },
                 dataType: "json",
                 success: function (data) {
@@ -567,8 +679,7 @@
                         }
                         thanhtienvat = thanhtienvat + tienvat;
                         //truong hop neu so luong con lai > 0
-                        if (data[i]["So_Luong_Con_Lai"] > 0)
-                        {
+                        if (data[i]["So_Luong_Con_Lai"] > 0) {
                             var soluongconlai = data[i]["So_Luong_Con_Lai"];
                             var tigia = data[i]["Ti_Gia"];
                             var dongia = data[i]["Don_Gia"];
@@ -588,24 +699,21 @@
                         var day2 = currentTime2.getDate();
                         var year2 = currentTime2.getFullYear();
                         var ngayduyetpr = year2 + "-" + month2 + "-" + day2;
-                        
 
-                        if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"]=="1")
-                        {
+
+                        if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"] == "1") {
                             markup = markup + "<tr style='background-color: #6e00ff66;color:#fff'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat_conlai).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat_conlai + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
-                        else if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"] == "0")
-                        {
+                        else if (data[i]["So_Luong_Con_Lai"] > 0 && data[i]["GiaNhapTay"] == "0") {
                             markup = markup + "<tr style='background-color: #ffbc0066;'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Con_Lai"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + (Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"])).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + Number(data[i]["Ti_Gia"]) * Number(data[i]["Don_Gia"]) * Number(data[i]["So_Luong_Con_Lai"]) + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat_conlai).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat_conlai + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
                         else if (data[i]["So_Luong_Con_Lai"] == 0 && data[i]["GiaNhapTay"] == "1") {
                             markup = markup + "<tr style='background-color: #bb270f66;color:#fff'><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
-                        else
-                        {
+                        else {
                             markup = markup + "<tr><td><input name='record' type='checkbox'></td><td>" + stt + "</td><td class='cls_sopr_full'>" + data[i]["So_PR_Full"] + "<input type='hidden' name='sopr_chitiet' value='" + data[i]["ID_PR_Chi_Tiet"] + "' /></td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_Yeu_cau"] + "</td><td class='cls_dongiatamtinh'>" + data[i]["Don_Gia"].toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["Don_Gia"] + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + data[i]["Lead_Time"] + "'/></td><td class='cls_tigia'>" + data[i]["Ti_Gia"] + "</td><td class='cls_thanhtientamung'>" + data[i]["Thanh_Tien_Tam_Ung"].toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["Thanh_Tien_Tam_Ung"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + data[i]["Nha_Cung_cap"] + "</td><td class='cls_tinhtrangvattu'>" + data[i]["Tinh_Trang_Vat_Tu"] + "</td><td class='cls_ngaycanhang'>" + ngaycanhang + "</td><td class='cls_thoigiansudung'>" + data[i]["Thoi_Gian_Xu_Dung"] + "</td><td class='cls_congdungchitiet'>" + data[i]["Cong_Dung"] + "</td><td class='cls_NguoiPTMuaHang'>" + data[i]["Nguoi_Phu_Trach_Mua_Hang"] + "</td></tr>";
                         }
-                        
+
                         stt++;
                     }
 
@@ -627,23 +735,21 @@
             var mata_true = 0;
             var tongtien = 0;
             //kiem tra xem phong ban do co phai la MATA hay khong, neu la MATA thi giu nguyen ngay hang, ko can cong them leadtime
-            if ($("#id_donvidexuat").val()==1)
-            {
+            if ($("#id_donvidexuat").val() == 1) {
                 mata_true = 1;
             }
             $("#table_vattu tbody").find('input[name="record"]').each(function () {
                 if ($(this).is(":checked")) {
-                    
+
                     //lay thong tin item trong table vat tu
                     var id_po = $("#id_po").val();
                     var sopr_full = $(this).closest('tr').find('td.cls_sopr_full').text();
-                    
+
                     var mahang = $(this).closest('tr').find('td.cls_mavattu').text();
                     var gia_tructiep;
                     var vat_tructiep;
                     //goi webservice SAP de check gia
-                    if (mahang != "Không mã")
-                    {
+                    if (mahang != "Không mã") {
                         $.ajax({
                             type: "POST",
                             async: false,
@@ -670,33 +776,29 @@
                            alert("error lấy giá trên SAP bị lỗi; " + errorThrown);
                        });
                     }
-                   
+
                     //*********//
                     var tenhang = $(this).closest('tr').find('td.cls_tenvattu').text();
                     var dvt = $(this).closest('tr').find('td.cls_dvt').text();
                     var soluongpo = $(this).closest('tr').find('td.cls_soluongyeucau').text();
                     var dongia;
-                    if (mahang != "Không mã")
-                    {
-                        dongia = gia_tructiep; 
+                    if (mahang != "Không mã") {
+                        dongia = gia_tructiep;
                     }
-                    else
-                    {
+                    else {
                         dongia = $(this).closest('tr').find('td.cls_dongiatamtinh').text();
                     }
-                    
+
                     var tigia = $(this).closest('tr').find('td.cls_tigia').text();
                     var thanhtien;
-                    if (mahang != "Không mã")
-                    {
+                    if (mahang != "Không mã") {
                         thanhtien = Number(gia_tructiep) * Number(soluongpo) * Number(tigia);
                     }
-                    else
-                    {
+                    else {
                         thanhtien = $(this).closest('tr').find('td.cls_thanhtientamung').text();
                     }
-                   
-                    
+
+
                     var nhacungcap = $(this).closest('tr').find('td.cls_nhacungung').text();
                     var tinhtrangvattu = $(this).closest('tr').find('td.cls_tinhtrangvattu').text();
                     var thoigiansudung = $(this).closest('tr').find('td.cls_thoigiansudung').text();
@@ -717,60 +819,53 @@
                     $(this).closest('tr').find('td').find("input[id^='dongiatamtinh*']").each(function () {
                         //alert(this.id)
                         // 
-                        if (mahang != "Không mã")
-                        {
+                        if (mahang != "Không mã") {
                             dongiatamtinh_nomask = gia_tructiep;
                         }
-                        else
-                        {
+                        else {
                             dongiatamtinh_nomask = this.value;
                         }
-                        
+
                     });
                     var thanhtientamtinh_nomask = 0;
                     $(this).closest('tr').find('td').find("input[id^='thanhtientamung*']").each(function () {
                         //alert(this.id)
-                        
-                        if (mahang != "Không mã")
-                        {
+
+                        if (mahang != "Không mã") {
                             thanhtientamtinh_nomask = Number(gia_tructiep) * Number(soluongpo) * Number(tigia);
                             tongtien += Number(Number(gia_tructiep) * Number(soluongpo) * Number(tigia));
                         }
-                        else
-                        {
+                        else {
                             thanhtientamtinh_nomask = this.value;
                             tongtien += Number(this.value);
                         }
-                        
+
                     });
                     var thanhtientamtinh_nomask_vat = 0;
                     $(this).closest('tr').find('td').find("input[id^='thanhtientamungvat*']").each(function () {
                         //alert(this.id)
-                        if (mahang != "Không mã")
-                        {
+                        if (mahang != "Không mã") {
                             var tienvat = Math.round((thanhtientamtinh_nomask * vat_tructiep) / 100);
                             thanhtientamtinh_nomask_vat = Number(thanhtientamtinh_nomask) + Number(tienvat);
                         }
-                        else
-                        {
+                        else {
                             thanhtientamtinh_nomask_vat = this.value;
                         }
-                        
-                        
+
+
                     });
-                    var ngayduyetpr="";
+                    var ngayduyetpr = "";
                     $(this).closest('tr').find('td').find("input[id^='ngayduyetpr*']").each(function () {
                         ngayduyetpr = this.value;
-                        
+
                     });
-                    
+
                     //tinh ngay mua hang
                     var new_ngaymuahang = ngayduyetpr;
-                  
+
                     new_ngaymuahang = new Date(new_ngaymuahang);
-                  
-                    if(mata_true==0)
-                    {
+
+                    if (mata_true == 0) {
                         new_ngaymuahang.setDate(new_ngaymuahang.getDate() + Number(leadtime));
                     }
                         //neu la MATA thi giu nguyen ngay can hang
@@ -796,17 +891,15 @@
                     new_ngaymuahang = date;
                     //bo dong duoc chon tren table vat tu
                     $(this).parents("tr").remove();
-                    if (mahang != "Không mã")
-                    {
+                    if (mahang != "Không mã") {
                         markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + Number(dongia).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + Number(thanhtien).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
                     }
-                    else
-                    {
+                    else {
                         markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
                     }
-                    
+
                     stt++;
-                    
+
                 }
             });
 
@@ -815,30 +908,23 @@
             $("#tongtienPO").val(tongtien);
             //gan thong tin nguoi duyet PO dua vao tong tien PO
             //Kiem tra PO nay la dang Hop dong hay PO thuong, neu la PO thuong thi thuc hien code duoi
-            if ($("#sopo")[0].value.indexOf('POMH2') !== -1)
-            {
-                if(Number(tongtien)<2000000000)
-                {
+            if ($("#sopo")[0].value.indexOf('POMH2') !== -1) {
+                if (Number(tongtien) < 2000000000) {
                     ThayDoiThongTinNguoiDuyet("<2000000000");
                 }
-                else if (Number(tongtien) < 4000000000 && Number(tongtien) > 2000000000)
-                {
+                else if (Number(tongtien) < 4000000000 && Number(tongtien) > 2000000000) {
                     ThayDoiThongTinNguoiDuyet(">2000000000<4000000000");
                 }
             }
-            else
-            {
+            else {
                 //Neu la dang Hop dong va la cua Tan Do
-                if ($("#id_donvidexuat").val()=="3")
-                {
+                if ($("#id_donvidexuat").val() == "3") {
                     ThayDoiThongTinNguoiDuyet("HĐ-TĐ");
                 }
-                else if ($("#id_donvidexuat").val() == "5")
-                {
+                else if ($("#id_donvidexuat").val() == "5") {
                     ThayDoiThongTinNguoiDuyet("HĐ-ĐH");
                 }
-                else
-                {
+                else {
                     if (Number(tongtien) < 2000000000) {
                         ThayDoiThongTinNguoiDuyet("<2000000000");
                     }
@@ -848,11 +934,10 @@
 
                 }
             }
-            
+
         });
         //Thay doi thong tin nguoi duyet khi tong gia tri PO thay doi//
-        function ThayDoiThongTinNguoiDuyet(dk)
-        {
+        function ThayDoiThongTinNguoiDuyet(dk) {
             $.ajax({
                 type: "POST",
                 async: false,
@@ -862,19 +947,18 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data.length > 0)
-                    {
-                        $('#nguoiduyetpo').val(data[0]["NguoiDuyet"]).trigger('change'); 
+                    if (data.length > 0) {
+                        $('#nguoiduyetpo').val(data[0]["NguoiDuyet"]).trigger('change');
                     }
 
                 },
 
             })
-          
+
           .fail(function (jqXHR, textStatus, errorThrown) {
               alert("error lấy thhông tin người duyệt theo giá trị; " + errorThrown);
           });
-            
+
 
         }
         //****************************//
@@ -934,7 +1018,7 @@
             }
 
             CapNhatSoTT();
-            
+
             return false;
 
         });
@@ -970,8 +1054,7 @@
         }
         //Lay thong tin PR chi tiet vua tao//
         //*********************************//
-        function LayDanhSachPOChiTiet()
-        {
+        function LayDanhSachPOChiTiet() {
             //luu thông tin PO
             LuuPO();
             LayThongTinPO();
@@ -1036,7 +1119,7 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                      //  alert("Da tao PO chi tiet thanh cong.");
+                        //  alert("Da tao PO chi tiet thanh cong.");
                         //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
                         Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1, soluongpo);
                     },
@@ -1046,10 +1129,9 @@
                    alert("error lấy PR chi tiết đã duyệt; " + errorThrown);
                });
             });
-           
+
         }
-        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang,soluongpo)
-        {
+        function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang, soluongpo) {
             $.ajax({
                 type: "POST",
                 async: false,
@@ -1113,7 +1195,7 @@
                 var $tds = curr.find('td');
                 stt = $tds.eq(2).text();
                 curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
-                
+
                 curr.find('td.cls_dongiatamtinh').text(dongiapo);
                 $tds.find("input[id^='dongiatamtinh*']").each(function () {
                     //alert(this.id)
@@ -1127,7 +1209,7 @@
                     $(this).val(thanhtienpo_nomask);
 
                 });
-             
+
 
                 $("#table_chitietpo tbody").find($(currentRow)).replaceWith(curr);
                 currentRow = null;
@@ -1164,6 +1246,6 @@
             $('#dongiapo').val(Number($("#dongiatamtinh_notmask").val()).toLocaleString('de-DE'));
         }
         //**************************//
-       
+
     </script>
 </asp:Content>
