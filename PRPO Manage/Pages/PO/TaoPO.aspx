@@ -298,7 +298,7 @@
     <script type="text/javascript">
         var currentRow = null;
         var phongban_viettat = "";
-        
+        var dongdangchinhsua;
         $("#overlay").show();
         $('#ngaypo').datepicker({
             format: 'dd/mm/yyyy',
@@ -355,6 +355,8 @@
                 {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyenbanghangkhong*"+dongdangchinhsua).remove();
+                    
                 }
                 
             });
@@ -370,6 +372,7 @@
                 {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyenbangbien*" + dongdangchinhsua).remove();
                 }
              
             });
@@ -385,6 +388,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyenphantramtrongnuoc*" + dongdangchinhsua).remove();
                 }
               
             });
@@ -399,6 +403,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyengiatritrongnuoc*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -414,6 +419,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyensoluonghangnkhong*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -429,6 +435,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("phivanchuyensoluongduongbien*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -453,6 +460,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("giamgiatheosoluong*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -467,6 +475,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("giamgiatheogiatri*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -481,6 +490,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("tanggiatheogiatri*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -496,6 +506,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("tanggiatheosoluong*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -511,6 +522,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("tanggiatheophantram*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -526,6 +538,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("thueVAT*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -540,6 +553,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("chiphibaohiemhanghoa*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -555,6 +569,7 @@
                 else {
                     //tinh lai gia tri thanh tien
                     TinhLaiThanhTien();
+                    document.getElementById("thuenhapkhau*" + dongdangchinhsua).remove();
                 }
 
             });
@@ -1342,6 +1357,7 @@
             });
 
         }
+        
         function Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, tinhtrang, soluongpo) {
             $.ajax({
                 type: "POST",
@@ -1389,6 +1405,92 @@
             });
             $("#thanhtienpo").val(Number(tttu).toLocaleString('de-DE'));
             $("#thanhtientamung_notmask").val(tttu);
+            // xu ly khi chon vat tu neu co cac thon tin conditional
+            var stt = $tds.eq(2).text();
+            dongdangchinhsua = stt;
+            $tds.find("input[id^='phivanchuyenbanghangkhong*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyenbanghangkhong').val(this.value);
+
+            });
+            $tds.find("input[id^='phivanchuyenbangbien*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyenbangbien').val(this.value);
+
+            });
+            $tds.find("input[id^='phivanchuyenphantramtrongnuoc*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyenphantramtrongnuoc').val(this.value);
+
+            });
+            $tds.find("input[id^='phivanchuyengiatritrongnuoc*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyengiatritrongnuoc').val(this.value);
+
+            });
+            $tds.find("input[id^='phivanchuyensoluonghangnkhong*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyensoluonghangnkhong').val(this.value);
+
+            });
+            $tds.find("input[id^='phivanchuyensoluongduongbien*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#phivanchuyensoluongduongbien').val(this.value);
+
+            });
+            $("#giagotay").prop('checked', false);
+            $('#dongiapo').attr("readonly", "true");
+            $tds.find("input[id^='giagotay*" + stt + "']").each(function () {
+                
+                $("#giagotay").prop('checked', true);
+                $('#dongiapo').removeAttr("readonly");
+
+            });
+            $tds.find("input[id^='giamgiatheosoluong*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#giamgiatheosoluong').val(this.value);
+
+            });
+            $tds.find("input[id^='giamgiatheogiatri*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#giamgiatheogiatri').val(this.value);
+
+            });
+            $tds.find("input[id^='tanggiatheogiatri*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#tanggiatheogiatri').val(this.value);
+
+            });
+            $tds.find("input[id^='tanggiatheosoluong*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#tanggiatheosoluong').val(this.value);
+
+            });
+            $tds.find("input[id^='tanggiatheophantram*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#tanggiatheophantram').val(this.value);
+
+            });
+            $tds.find("input[id^='khauhaogiatri*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#khauhaogiatri').val(this.value);
+
+            });
+            $tds.find("input[id^='thueVAT*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#thueVAT').val(this.value);
+
+            });
+            $tds.find("input[id^='chiphibaohiemhanghoa*" + stt + "']").each(function () {
+                //alert(this.id)
+                $('#chiphibaohiemhanghoa').val(this.value);
+
+            });
+            $tds.find("input[id^='thuenhapkhau*" + stt + "']").each(function () {
+                alert(this.id)
+                $('#thuenhapkhau').val(this.value);
+
+            });
 
         });
         $("#DongY").click(function () {
@@ -1408,51 +1510,68 @@
                 var $tds = curr.find('td');
                 stt = $tds.eq(2).text();
                 if ($('#phivanchuyenbanghangkhong').val() != "") {
+                    $("input[id*='phivanchuyenbanghangkhong*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyenbanghangkhong*" + stt + "' value='" + $('#phivanchuyenbanghangkhong').val() + "'/>";
                 }
                 if ($('#phivanchuyenbangbien').val() != "") {
+                    $("input[id*='phivanchuyenbangbien*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyenbangbien*" + stt + "' value='" + $('#phivanchuyenbangbien').val() + "'/>";
                 }
                 if ($('#phivanchuyenphantramtrongnuoc').val() != "") {
+                    $("input[id*='phivanchuyenphantramtrongnuoc*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyenphantramtrongnuoc*" + stt + "' value='" + $('#phivanchuyenphantramtrongnuoc').val() + "'/>";
                 }
                 if ($('#phivanchuyengiatritrongnuoc').val() != "") {
+                    $("input[id*='phivanchuyengiatritrongnuoc*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyengiatritrongnuoc*" + stt + "' value='" + $('#phivanchuyengiatritrongnuoc').val() + "'/>";
                 }
                 if ($('#phivanchuyensoluonghangnkhong').val() != "") {
+                    $("input[id*='phivanchuyensoluonghangnkhong*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyensoluonghangnkhong*" + stt + "' value='" + $('#phivanchuyensoluonghangnkhong').val() + "'/>";
                 }
                 if ($('#phivanchuyensoluongduongbien').val() != "") {
+                    $("input[id*='phivanchuyensoluongduongbien*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='phivanchuyensoluongduongbien*" + stt + "' value='" + $('#phivanchuyensoluongduongbien').val() + "'/>";
                 }
-                if ($('#giagotay').checked) {
+                
+                if ($('#giagotay').is(":checked")) {
+                    $("input[id*='giagotay*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='giagotay*" + stt + "' value='" + $('#giagotay').val() + "'/>";
                 }
                 if ($('#giamgiatheosoluong').val() != "") {
+                    $("input[id*='giamgiatheosoluong*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='giamgiatheosoluong*" + stt + "' value='" + $('#giamgiatheosoluong').val() + "'/>";
                 }
                 if ($('#giamgiatheogiatri').val() != "") {
+                    $("input[id*='giamgiatheogiatri*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='giamgiatheogiatri*" + stt + "' value='" + $('#giamgiatheogiatri').val() + "'/>";
                 }
                 if ($('#tanggiatheogiatri').val() != "") {
+                    $("input[id*='tanggiatheogiatri*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='tanggiatheogiatri*" + stt + "' value='" + $('#tanggiatheogiatri').val() + "'/>";
                 }
                 if ($('#tanggiatheosoluong').val() != "") {
+                    $("input[id*='tanggiatheosoluong*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='tanggiatheosoluong*" + stt + "' value='" + $('#tanggiatheosoluong').val() + "'/>";
                 }
                 if ($('#tanggiatheophantram').val() != "") {
+                    $("input[id*='tanggiatheophantram*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='tanggiatheophantram*" + stt + "' value='" + $('#tanggiatheophantram').val() + "'/>";
                 }
                 if ($('#khauhaogiatri').val() != "") {
+                    $("input[id*='khauhaogiatri*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='khauhaogiatri*" + stt + "' value='" + $('#khauhaogiatri').val() + "'/>";
                 }
                 if ($('#thueVAT').val() != "") {
+                    $("input[id*='thueVAT*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='thueVAT*" + stt + "' value='" + $('#thueVAT').val() + "'/>";
                 }
                 if ($('#chiphibaohiemhanghoa').val() != "") {
+                    $("input[id*='chiphibaohiemhanghoa*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='chiphibaohiemhanghoa*" + stt + "' value='" + $('#chiphibaohiemhanghoa').val() + "'/>";
                 }
                 if ($('#thuenhapkhau').val() != "") {
+                    $("input[id*='thuenhapkhau*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='thuenhapkhau*" + stt + "' value='" + $('#thuenhapkhau').val() + "'/>";
                 }
                 curr.find('td.cls_congdungchitiet').append(input_html);

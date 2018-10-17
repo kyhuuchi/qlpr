@@ -427,7 +427,23 @@ namespace Business
         private int _lead_time;
         private int _vat;
         private bool _gia_nhap_tay;
-
+        private double _FRB0;
+        private double _FRB1;
+        private int _FRB2;
+        private double _FRB3;
+        private double _FRC0;
+        private double _FRC1;
+        private bool _PBXX;
+        private double _RB01;
+        private double _RB02;
+        private double _ZB00;
+        private double _ZB01;
+        private int _ZB02;
+        private double _ZDP1;
+        private int _ZIPT;
+        private double _ZISR;
+        private int _ZMST;
+        
         public int ID_PO_Chi_Tiet
         {
             get { return _id_po_chi_tiet; }
@@ -528,9 +544,89 @@ namespace Business
             get { return _vat; }
             set { _vat = value; }
         }
-       
+        public double FRB0
+        {
+            get { return _FRB0; }
+            set { _FRB0 = value; }
+        }
+        public double FRB1
+        {
+            get { return _FRB1; }
+            set { _FRB1 = value; }
+        }
+        public int FRB2
+        {
+            get { return _FRB2; }
+            set { _FRB2 = value; }
+        }
+        public double FRB3
+        {
+            get { return _FRB3; }
+            set { _FRB3 = value; }
+        }
+        public double FRC0
+        {
+            get { return _FRC0; }
+            set { _FRC0 = value; }
+        }
+        public double FRC1
+        {
+            get { return _FRC1; }
+            set { _FRC1 = value; }
+        }
+        public bool PBXX
+        {
+            get { return _PBXX; }
+            set { _PBXX = value; }
+        }
+        public double RB01
+        {
+            get { return _RB01; }
+            set { _RB01 = value; }
+        }
+        public double RB02
+        {
+            get { return _RB02; }
+            set { _RB02 = value; }
+        }
+        public double ZB00
+        {
+            get { return _ZB00; }
+            set { _ZB00 = value; }
+        }
+        public double ZB01
+        {
+            get { return _ZB01; }
+            set { _ZB01 = value; }
+        }
+        public int ZB02
+        {
+            get { return _ZB02; }
+            set { _ZB02 = value; }
+        }
+        public double ZDP1
+        {
+            get { return _ZDP1; }
+            set { _ZDP1 = value; }
+        }
+        public int ZIPT
+        {
+            get { return _ZIPT; }
+            set { _ZIPT = value; }
+
+        }
+        public double ZISR
+        {
+            get { return _ZISR; }
+            set { _ZISR = value; }
+        }
+        public int ZMST
+        {
+            get { return _ZMST; }
+            set { _ZMST = value; }
+        }
         //cac ham lien quan den PO Chi Tiet
-        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang,string nguoiptmuahang)
+        public List<PO_ChiTiet> LayDanhSachPOChiTiet(int action, int id, int idpo,string mahang,string tenhang,string dvt,int soluong,double dongia,int tigia,double thanhtien,int tinhtrangvt,int id_prchitiet,string ngaymuahang,string nguoiptmuahang,double FRB0, double FRB1, int FRB2, double FRB3, double FRC0, double FRC1, bool PBXX, double RB01, double RB02, double ZB00, double ZB01, int ZB02, double ZDP1, int ZIPT, double ZISR, int ZMST)
         {
             DateTime ngmuahang;
             if (string.IsNullOrEmpty(ngaymuahang) == true)
@@ -557,8 +653,24 @@ namespace Business
             SqlParameter pm12 = new SqlParameter("@idpr_chitiet", id_prchitiet);
             SqlParameter pm13 = new SqlParameter("@ngaymuahang", ngaymuahang);
             SqlParameter pm14 = new SqlParameter("@nguoiptmuahang", nguoiptmuahang);
-            
-            SqlParameter[] param = new SqlParameter[14] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13,pm14};
+            SqlParameter pm15 = new SqlParameter("@FRB0", FRB0);
+            SqlParameter pm16 = new SqlParameter("@FRB1", FRB1);
+            SqlParameter pm17 = new SqlParameter("@FRB2", FRB2);
+            SqlParameter pm18 = new SqlParameter("@FRB3", FRB3);
+            SqlParameter pm19 = new SqlParameter("@FRC0", FRC0);
+            SqlParameter pm20 = new SqlParameter("@FRC1", FRC1);
+            SqlParameter pm21 = new SqlParameter("@PBXX", PBXX);
+            SqlParameter pm22 = new SqlParameter("@RB01", RB01);
+            SqlParameter pm23 = new SqlParameter("@RB02", RB02);
+            SqlParameter pm24 = new SqlParameter("@ZB00", ZB00);
+            SqlParameter pm25 = new SqlParameter("@ZB01", ZB01);
+            SqlParameter pm26 = new SqlParameter("@ZB02", ZB02);
+            SqlParameter pm27 = new SqlParameter("@ZDP1", ZDP1);
+            SqlParameter pm28 = new SqlParameter("@ZIPT", ZIPT);
+            SqlParameter pm29 = new SqlParameter("@ZISR", ZISR);
+            SqlParameter pm30 = new SqlParameter("@ZMST", ZMST);
+
+            SqlParameter[] param = new SqlParameter[30] { pm, pm2, pm3, pm4, pm5, pm6, pm7, pm8, pm9, pm10, pm11, pm12,pm13,pm14, pm15, pm16, pm17, pm18, pm19, pm20, pm21, pm22, pm23, pm24, pm25, pm26, pm27, pm28, pm29, pm30 };
             DataTable tb = kn.get_by_procedure("proc_Action_PO_ChiTiet", param);
             if (tb != null)
             {
@@ -613,7 +725,86 @@ namespace Business
                     {
                         po_chitiet.VAT = Convert.ToInt32(row["VAT"]);
                     }
-                   
+                    po_chitiet.FRB0 = 0;
+                    if (!row.IsNull("FRB0"))
+                    {
+                        po_chitiet.FRB0 = Convert.ToDouble(row["FRB0"]);
+                    }
+                    po_chitiet.FRB1 = 0;
+                    if (!row.IsNull("FRB1"))
+                    {
+                        po_chitiet.FRB1 = Convert.ToDouble(row["FRB1"]);
+                    }
+                    po_chitiet.FRB2 = 0;
+                    if (!row.IsNull("FRB2"))
+                    {
+                        po_chitiet.FRB2 = Convert.ToInt32(row["FRB2"]);
+                    }
+                    po_chitiet.FRB3 = 0;
+                    if (!row.IsNull("FRB3"))
+                    {
+                        po_chitiet.FRB3 = Convert.ToDouble(row["FRB3"]);
+                    }
+                    po_chitiet.FRC0 = 0;
+                    if (!row.IsNull("FRC0"))
+                    {
+                        po_chitiet.FRC0 = Convert.ToDouble(row["FRC0"]);
+                    }
+                    po_chitiet.FRC1 = 0;
+                    if (!row.IsNull("FRC1"))
+                    {
+                        po_chitiet.FRC1 = Convert.ToDouble(row["FRC1"]);
+                    }
+                    po_chitiet.PBXX = false;
+                    if (!row.IsNull("PBXX"))
+                    {
+                        po_chitiet.PBXX = Convert.ToBoolean(row["PBXX"]);
+                    }
+                    po_chitiet.RB01 = 0;
+                    if (!row.IsNull("RB01"))
+                    {
+                        po_chitiet.RB01 = Convert.ToDouble(row["RB01"]);
+                    }
+                    po_chitiet.RB02= 0;
+                    if (!row.IsNull("RB02"))
+                    {
+                        po_chitiet.RB02 = Convert.ToDouble(row["RB02"]);
+                    }
+                    po_chitiet.ZB00 = 0;
+                    if (!row.IsNull("ZB00"))
+                    {
+                        po_chitiet.ZB00 = Convert.ToDouble(row["ZB00"]);
+                    }
+                    po_chitiet.ZB01 = 0;
+                    if (!row.IsNull("ZB01"))
+                    {
+                        po_chitiet.ZB01 = Convert.ToDouble(row["ZB01"]);
+                    }
+                    po_chitiet.ZB02 = 0;
+                    if (!row.IsNull("ZB02"))
+                    {
+                        po_chitiet.ZB02 = Convert.ToInt32(row["ZB02"]);
+                    }
+                    po_chitiet.ZDP1 = 0;
+                    if (!row.IsNull("ZDP1"))
+                    {
+                        po_chitiet.ZDP1 = Convert.ToDouble(row["ZDP1"]);
+                    }
+                    po_chitiet.ZIPT = 0;
+                    if (!row.IsNull("ZIPT"))
+                    {
+                        po_chitiet.ZIPT = Convert.ToInt32(row["ZIPT"]);
+                    }
+                    po_chitiet.ZISR = 0;
+                    if (!row.IsNull("ZISR"))
+                    {
+                        po_chitiet.ZISR = Convert.ToInt32(row["ZISR"]);
+                    }
+                    po_chitiet.ZMST = 0;
+                    if (!row.IsNull("ZMST"))
+                    {
+                        po_chitiet.ZMST = Convert.ToInt32(row["ZMST"]);
+                    }
                     pochitiet_col.Add(po_chitiet);
 
                 }

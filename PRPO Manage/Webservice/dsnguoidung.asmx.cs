@@ -266,10 +266,10 @@ namespace PRPO_Manage.Webservice
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
         [WebMethod]
-        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang, string nguoiptmuahang)
+        public void Action_POChiTiet(int action, int id, int idpo, string mahang, string tenhang, string dvt, int soluong, double dongia, int tigia, double thanhtien, int tinhtrangvt, int id_prchitiet,string ngaymuahang, string nguoiptmuahang, double FRB0, double FRB1, int FRB2, double FRB3, double FRC0, double FRC1, bool PBXX, double RB01, double RB02, double ZB00, double ZB01, int ZB02, double ZDP1, int ZIPT, double ZISR, int ZMST)
         {
             PO_ChiTiet po_chitiet = new PO_ChiTiet();
-            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang, nguoiptmuahang);
+            List<PO_ChiTiet> tb = po_chitiet.LayDanhSachPOChiTiet(action, id, idpo, mahang, tenhang, dvt, soluong, dongia, tigia, thanhtien, tinhtrangvt, id_prchitiet, ngaymuahang, nguoiptmuahang, FRB0,FRB1,FRB2,FRB3,FRC0,FRC1,PBXX,RB01,RB02,ZB00,ZB01,ZB02,ZDP1,ZIPT,ZISR,ZMST);
             var js = new JavaScriptSerializer();
             Context.Response.Write(JsonConvert.SerializeObject(tb));
         }
