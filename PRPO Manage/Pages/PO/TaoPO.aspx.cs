@@ -17,8 +17,8 @@ namespace PRPO_Manage.Pages.PO
         {
             if(!Page.IsPostBack)
             {
-               // CallSAP_NCC();
-                CallFileJSON_NCC();
+               CallSAP_NCC();
+                //CallFileJSON_NCC();
             }
         }
         protected void CallSAP_NCC()
