@@ -1322,6 +1322,87 @@
                     //alert(this.id)
                     thanhtientamtinh_nomask = this.value;
                 });
+                //lay cac thong tin conditional 
+                var phivanchuyenbanghangkhong = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenbanghangkhong*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenbanghangkhong = this.value;
+                });
+                var phivanchuyenbangbien = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenbangbien*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenbangbien = this.value;
+                });
+                var phivanchuyenphantramtrongnuoc = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenphantramtrongnuoc*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenphantramtrongnuoc = this.value;
+                });
+                var phivanchuyengiatritrongnuoc = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyengiatritrongnuoc*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyengiatritrongnuoc = this.value;
+                });
+                var phivanchuyensoluonghangnkhong = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyensoluonghangnkhong*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyensoluonghangnkhong = this.value;
+                });
+                var phivanchuyensoluongduongbien = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyensoluongduongbien*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyensoluongduongbien = this.value;
+                });
+                var giagotay = false;
+                $(this).closest('tr').find('td').find("input[id^='giagotay*']").each(function () {
+                    //alert(this.id)
+                    giagotay = true;
+                });
+                var giamgiatheosoluong = 0;
+                $(this).closest('tr').find('td').find("input[id^='giamgiatheosoluong*']").each(function () {
+                    //alert(this.id)
+                    giamgiatheosoluong = this.value;
+                });
+                var giamgiatheogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='giamgiatheogiatri*']").each(function () {
+                    //alert(this.id)
+                    giamgiatheogiatri = this.value;
+                });
+                var tanggiatheogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheogiatri*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheogiatri = this.value;
+                });
+                var tanggiatheosoluong = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheosoluong*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheosoluong = this.value;
+                });
+                var tanggiatheophantram = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheophantram*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheophantram = this.value;
+                });
+                var khauhaogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='khauhaogiatri*']").each(function () {
+                    //alert(this.id)
+                    khauhaogiatri = this.value;
+                });
+                var thueVAT = 0;
+                $(this).closest('tr').find('td').find("input[id^='thueVAT*']").each(function () {
+                    //alert(this.id)
+                    thueVAT = this.value;
+                });
+                var chiphibaohiemhanghoa = 0;
+                $(this).closest('tr').find('td').find("input[id^='chiphibaohiemhanghoa*']").each(function () {
+                    //alert(this.id)
+                    chiphibaohiemhanghoa = this.value;
+                });
+                var thuenhapkhau = 0;
+                $(this).closest('tr').find('td').find("input[id^='thuenhapkhau*']").each(function () {
+                    //alert(this.id)
+                    thuenhapkhau = this.value;
+                });
                 //chay webservice insert po chitiet
                 $.ajax({
                     type: "POST",
@@ -1341,7 +1422,23 @@
                         "tinhtrangvt": tinhtrangvattu,
                         "id_prchitiet": id_pr_chitiet,
                         "ngaymuahang": ngaycanhang,
-                        "nguoiptmuahang": nguoiptmuahang
+                        "nguoiptmuahang": nguoiptmuahang,
+                        "FRB0":phivanchuyenbanghangkhong, 
+                        "FRB1":phivanchuyenbangbien,
+                        "FRB2":phivanchuyenphantramtrongnuoc,
+                        "FRB3":phivanchuyengiatritrongnuoc,
+                        "FRC0":phivanchuyensoluonghangnkhong,
+                        "FRC1":phivanchuyensoluongduongbien,
+                        "PBXX":giagotay,
+                        "RB01":giamgiatheosoluong,
+                        "RB02":giamgiatheogiatri,
+                        "ZB00":tanggiatheogiatri,
+                        "ZB01":tanggiatheosoluong,
+                        "ZB02":tanggiatheophantram,
+                        "ZDP1":khauhaogiatri,
+                        "ZIPT":thueVAT,
+                        "ZISR":chiphibaohiemhanghoa,
+                        "ZMST": thuenhapkhau
                     },
                     dataType: "json",
                     success: function (data) {
