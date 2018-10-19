@@ -1636,6 +1636,9 @@
                     $("input[id*='giagotay*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='giagotay*" + stt + "' value='" + $('#giagotay').val() + "'/>";
                 }
+                else {
+                    $("input[id*='giagotay*" + stt + "']").remove();
+                }
                 if ($('#giamgiatheosoluong').val() != "") {
                     $("input[id*='giamgiatheosoluong*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='giamgiatheosoluong*" + stt + "' value='" + $('#giamgiatheosoluong').val() + "'/>";
