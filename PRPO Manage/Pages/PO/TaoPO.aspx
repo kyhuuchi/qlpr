@@ -1442,7 +1442,7 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert("Da tao PO chi tiet thanh cong.");
+                       // alert("Da tao PO chi tiet thanh cong.");
 
                         //cap nhat trang thai cua vat tu trong PR chi tiet de biet vat tu do da duoc PO
                         Update_TrangThai_VatTu_PRChiTiet(id_pr_chitiet, 1, soluongpo);
