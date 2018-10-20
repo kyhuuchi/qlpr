@@ -1103,8 +1103,8 @@
                     var sopr_full = $(this).closest('tr').find('td.cls_sopr_full').text();
 
                     var mahang = $(this).closest('tr').find('td.cls_mavattu').text();
-                    var gia_tructiep;
-                    var vat_tructiep;
+                    var gia_tructiep=0;
+                    var vat_tructiep=0;
                     //goi webservice SAP de check gia
                     if (mahang != "Không mã") {
                         $.ajax({
@@ -1158,6 +1158,7 @@
                     var ngaycanhang = $(this).closest('tr').find('td.cls_ngaycanhang').text();
                     var nguoiptmuahang = $(this).closest('tr').find('td.cls_NguoiPTMuaHang').text();
                     var id_pr_chitiet;
+                    var input_html = "";
                     $(this).closest('tr').find('td').find("input[name='sopr_chitiet']").each(function () {
                         //alert(this.id)
                         id_pr_chitiet = this.value;
@@ -1197,6 +1198,7 @@
                         if (mahang != "Không mã") {
                             var tienvat = Math.round((thanhtientamtinh_nomask * vat_tructiep) / 100);
                             thanhtientamtinh_nomask_vat = Number(thanhtientamtinh_nomask) + Number(tienvat);
+                            input_html += "<input type='hidden' id='thueVAT*" + stt + "' value='" + vat_tructiep + "'/>";
                         }
                         else {
                             thanhtientamtinh_nomask_vat = this.value;
@@ -1250,7 +1252,7 @@
 
                     //    markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
                     if (mahang != "Không mã") {
-                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + Number(dongia).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + Number(thanhtien).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
+                        markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + Number(dongia).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + Number(thanhtien).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/>" + input_html + "</td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
                     }
                     else {
                         markup = markup + "<tr><td><span class='editrow'><a class='glyphicon glyphicon-pencil' href='javascript: void(0);'></a></span></td><td><span class='deleterow'><a class='glyphicon glyphicon-trash' href=''></a></span></td><td>" + stt + "</td><td class='cls_sopr_full'>" + sopr_full + "<td class='cls_mavattu'>" + mahang + "</td><td class='cls_tenvattu'>" + tenhang + "</td><td class='cls_dvt'>" + dvt + "</td><td class='cls_soluongyeucau'>" + soluongpo + "</td><td class='cls_dongiatamtinh'>" + dongia + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/></td><td class='cls_tigia'>" + tigia + "</td><td class='cls_thanhtientamung'>" + thanhtien + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtientamtinh_nomask_vat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtientamtinh_nomask_vat + "'/><input type='hidden' id='ngayduyetpr*" + stt + "' value='" + ngayduyetpr + "'/></td><td class='cls_nhacungung'>" + nhacungcap + "</td><td class='cls_tinhtrangvattu'>" + tinhtrangvattu + "</td><td class='cls_ngaycanhang'>" + new_ngaymuahang + "</td><td class='cls_thoigiansudung'>" + thoigiansudung + "</td><td class='cls_congdungchitiet'>" + congdung + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + dongiatamtinh_nomask + "'/><input type='hidden' name='sopr_chitiet' value='" + id_pr_chitiet + "' /><input type='hidden' id='leadtime*" + stt + "' value='" + leadtime + "'/><input type='hidden' id='thanhtientamung*" + stt + "' value='" + thanhtientamtinh_nomask + "'/></td><td class='cls_NguoiPTMuaHang'>" + nguoiptmuahang + "</td></tr>";
@@ -1393,6 +1395,89 @@
                     //alert(this.id)
                     thanhtientamtinh_nomask = this.value;
                 });
+
+                //lay cac thong tin conditional 
+                var phivanchuyenbanghangkhong = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenbanghangkhong*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenbanghangkhong = this.value;
+                });
+                var phivanchuyenbangbien = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenbangbien*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenbangbien = this.value;
+                });
+                var phivanchuyenphantramtrongnuoc = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyenphantramtrongnuoc*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyenphantramtrongnuoc = this.value;
+                });
+                var phivanchuyengiatritrongnuoc = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyengiatritrongnuoc*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyengiatritrongnuoc = this.value;
+                });
+                var phivanchuyensoluonghangnkhong = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyensoluonghangnkhong*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyensoluonghangnkhong = this.value;
+                });
+                var phivanchuyensoluongduongbien = 0;
+                $(this).closest('tr').find('td').find("input[id^='phivanchuyensoluongduongbien*']").each(function () {
+                    //alert(this.id)
+                    phivanchuyensoluongduongbien = this.value;
+                });
+                var giagotay = false;
+                $(this).closest('tr').find('td').find("input[id^='giagotay*']").each(function () {
+                    //alert(this.id)
+                    giagotay = true;
+                });
+                var giamgiatheosoluong = 0;
+                $(this).closest('tr').find('td').find("input[id^='giamgiatheosoluong*']").each(function () {
+                    //alert(this.id)
+                    giamgiatheosoluong = this.value;
+                });
+                var giamgiatheogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='giamgiatheogiatri*']").each(function () {
+                    //alert(this.id)
+                    giamgiatheogiatri = this.value;
+                });
+                var tanggiatheogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheogiatri*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheogiatri = this.value;
+                });
+                var tanggiatheosoluong = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheosoluong*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheosoluong = this.value;
+                });
+                var tanggiatheophantram = 0;
+                $(this).closest('tr').find('td').find("input[id^='tanggiatheophantram*']").each(function () {
+                    //alert(this.id)
+                    tanggiatheophantram = this.value;
+                });
+                var khauhaogiatri = 0;
+                $(this).closest('tr').find('td').find("input[id^='khauhaogiatri*']").each(function () {
+                    //alert(this.id)
+                    khauhaogiatri = this.value;
+                });
+                var thueVAT = 0;
+                $(this).closest('tr').find('td').find("input[id^='thueVAT*']").each(function () {
+                    //alert(this.id)
+                    thueVAT = this.value;
+                });
+                var chiphibaohiemhanghoa = 0;
+                $(this).closest('tr').find('td').find("input[id^='chiphibaohiemhanghoa*']").each(function () {
+                    //alert(this.id)
+                    chiphibaohiemhanghoa = this.value;
+                });
+                var thuenhapkhau = 0;
+                $(this).closest('tr').find('td').find("input[id^='thuenhapkhau*']").each(function () {
+                    //alert(this.id)
+                    thuenhapkhau = this.value;
+                });
+
                 //kiem tra xem dong item do la da co hay chua, neu chua co thi insert vao
                 if (tontai == 0) {
                     //chay webservice insert po chitiet
@@ -1414,7 +1499,23 @@
                             "tinhtrangvt": tinhtrangvattu,
                             "id_prchitiet": id_pr_chitiet,
                             "ngaymuahang": ngaycanhang,
-                            "nguoiptmuahang": nguoiptmuahang
+                            "nguoiptmuahang": nguoiptmuahang,
+                            "FRB0": phivanchuyenbanghangkhong,
+                            "FRB1": phivanchuyenbangbien,
+                            "FRB2": phivanchuyenphantramtrongnuoc,
+                            "FRB3": phivanchuyengiatritrongnuoc,
+                            "FRC0": phivanchuyensoluonghangnkhong,
+                            "FRC1": phivanchuyensoluongduongbien,
+                            "PBXX": giagotay,
+                            "RB01": giamgiatheosoluong,
+                            "RB02": giamgiatheogiatri,
+                            "ZB00": tanggiatheogiatri,
+                            "ZB01": tanggiatheosoluong,
+                            "ZB02": tanggiatheophantram,
+                            "ZDP1": khauhaogiatri,
+                            "ZIPT": thueVAT,
+                            "ZISR": chiphibaohiemhanghoa,
+                            "ZMST": thuenhapkhau
                         },
                         dataType: "json",
                         success: function (data) {
@@ -1462,7 +1563,23 @@
                             "tinhtrangvt": tinhtrangvattu,
                             "id_prchitiet": id_pr_chitiet,
                             "ngaymuahang": ngaycanhang,
-                            "nguoiptmuahang": nguoiptmuahang
+                            "nguoiptmuahang": nguoiptmuahang,
+                            "FRB0": phivanchuyenbanghangkhong,
+                            "FRB1": phivanchuyenbangbien,
+                            "FRB2": phivanchuyenphantramtrongnuoc,
+                            "FRB3": phivanchuyengiatritrongnuoc,
+                            "FRC0": phivanchuyensoluonghangnkhong,
+                            "FRC1": phivanchuyensoluongduongbien,
+                            "PBXX": giagotay,
+                            "RB01": giamgiatheosoluong,
+                            "RB02": giamgiatheogiatri,
+                            "ZB00": tanggiatheogiatri,
+                            "ZB01": tanggiatheosoluong,
+                            "ZB02": tanggiatheophantram,
+                            "ZDP1": khauhaogiatri,
+                            "ZIPT": thueVAT,
+                            "ZISR": chiphibaohiemhanghoa,
+                            "ZMST": thuenhapkhau
                         },
                         dataType: "json",
                         success: function (data) {
@@ -1489,7 +1606,7 @@
             //kiem tra xem co cac item da them vao truoc do co xoa ra khoi po hay ko
             if (arr_vattu_daco_muonxoa.length > 0) {
                 for (var i = 0; i < arr_vattu_daco_muonxoa.length; i++) {
-                    Update_TrangThai_VatTu_PRChiTiet(arr_vattu_daco_muonxoa[i], 0);
+                   
                     //chay webservice insert po chitiet
                     $.ajax({
                         type: "POST",
@@ -1509,11 +1626,27 @@
                             "tinhtrangvt": 0,
                             "id_prchitiet": arr_vattu_daco_muonxoa[i],
                             "ngaymuahang": "",
-                            "nguoiptmuahang": ""
+                            "nguoiptmuahang": "",
+                            "FRB0": 0,
+                            "FRB1": 0,
+                            "FRB2": 0,
+                            "FRB3": 0,
+                            "FRC0": 0,
+                            "FRC1": 0,
+                            "PBXX": false,
+                            "RB01": 0,
+                            "RB02": 0,
+                            "ZB00": 0,
+                            "ZB01": 0,
+                            "ZB02": 0,
+                            "ZDP1": 0,
+                            "ZIPT": 0,
+                            "ZISR": 0,
+                            "ZMST": 0
                         },
                         dataType: "json",
                         success: function (data) {
-
+                            Update_TrangThai_VatTu_PRChiTiet(arr_vattu_daco_muonxoa[i], 0, 0);
                         },
 
                     })
@@ -1600,7 +1733,7 @@
             // xu ly khi chon vat tu neu co cac thon tin conditional
             var stt = $tds.eq(2).text();
             dongdangchinhsua = stt;
-            alert("stt:" + stt);
+           
             $tds.find("input[id^='phivanchuyenbanghangkhong*" + stt + "']").each(function () {
                 //alert(this.id)
                 $('#phivanchuyenbanghangkhong').val(this.value);
