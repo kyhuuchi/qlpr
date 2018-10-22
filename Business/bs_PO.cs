@@ -17,6 +17,7 @@ namespace Business
         private string _so_po_full;
         private int _nam;
         private DateTime _ngay_po;
+        private DateTime _ngay_duyet_po;
         private int _thang_po;
         private int _id_nguoimuahang;
         private string _ten_nguoimuahang;
@@ -55,6 +56,11 @@ namespace Business
         {
             get { return _ngay_po; }
             set { _ngay_po = value; }
+        }
+        public DateTime Ngay_Duyet_PO
+        {
+            get { return _ngay_duyet_po; }
+            set { _ngay_duyet_po = value; }
         }
         public int Thang_PO
         {
@@ -176,8 +182,17 @@ namespace Business
                     //    po.Ten_PhongBan = row["TenVietTat"].ToString();
                     //}
                     po.So_PO_Full =row["SoPO_Full"].ToString();
+                    
                     po.Nam = Convert.ToInt32(row["Nam"]);
                     po.Ngay_PO = Convert.ToDateTime(row["NgayPO"]);
+                    if(!row.IsNull("NgayDuyetPO"))
+                    {
+                        po.Ngay_Duyet_PO = Convert.ToDateTime(row["NgayDuyetPO"]);
+                    }
+                    else
+                    {
+                        po.Ngay_Duyet_PO = DateTime.Now;
+                    }
                     po.Thang_PO = Convert.ToInt32(row["ThangPO"]);
                     po.ID_NguoiMuaHang = Convert.ToInt32(row["ID_NguoiPhuTrachMuaHang"]);
                     po.Ten_NguoiMuaHang = row["NguoiPhuTrachMuaHang"].ToString();

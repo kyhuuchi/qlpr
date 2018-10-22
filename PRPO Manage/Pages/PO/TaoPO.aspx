@@ -1598,7 +1598,8 @@
                 st = this.value;
 
             });
-            $("#dongiapo").val(Number(st).toLocaleString('de-DE'));
+            //  $("#dongiapo").val(Number(st).toLocaleString('de-DE'));
+            $("#dongiapo").val(Number(st));
             $("#dongiatamtinh_notmask").val(st);
             $("#tigiapo").val($(this).closest('tr').find('td.cls_tigia').text());
             var tttu = 0;

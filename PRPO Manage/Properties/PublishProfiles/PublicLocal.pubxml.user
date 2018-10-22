@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2013 20:06:22</publishTime>
     </File>
     <File Include="bin/Business.dll">
-      <publishTime>10/12/2018 17:02:06</publishTime>
+      <publishTime>10/22/2018 12:05:59</publishTime>
     </File>
     <File Include="bin/DataBase.dll">
-      <publishTime>10/12/2018 17:01:24</publishTime>
+      <publishTime>10/22/2018 12:05:56</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -196,7 +196,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2012 13:00:52</publishTime>
     </File>
     <File Include="bin/PRPO Manage.dll">
-      <publishTime>10/12/2018 17:02:11</publishTime>
+      <publishTime>10/22/2018 12:06:05</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -250,7 +250,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/05/2011 15:45:38</publishTime>
     </File>
     <File Include="bin/ThuVien.dll">
-      <publishTime>10/11/2018 11:28:47</publishTime>
+      <publishTime>10/22/2018 12:05:58</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>09/10/2013 17:28:38</publishTime>
@@ -283,7 +283,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/18/2018 09:33:40</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>10/08/2018 14:36:04</publishTime>
+      <publishTime>10/22/2018 11:48:18</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>06/08/2018 11:42:20</publishTime>
@@ -421,7 +421,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 07:41:12</publishTime>
     </File>
     <File Include="Pages/BaoCao/TienDo.aspx">
-      <publishTime>10/12/2018 13:31:34</publishTime>
+      <publishTime>10/15/2018 09:48:37</publishTime>
     </File>
     <File Include="Pages/BaoCao/TrePO.aspx">
       <publishTime>10/10/2018 16:37:53</publishTime>
@@ -442,13 +442,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 07:41:13</publishTime>
     </File>
     <File Include="Pages/PO/SuaPO.aspx">
-      <publishTime>10/09/2018 13:53:54</publishTime>
+      <publishTime>10/20/2018 11:36:34</publishTime>
     </File>
     <File Include="Pages/PO/TaoPO.aspx">
-      <publishTime>10/09/2018 13:48:49</publishTime>
+      <publishTime>10/20/2018 11:21:34</publishTime>
     </File>
     <File Include="Pages/PO/ViewPO.html">
-      <publishTime>09/27/2018 14:13:11</publishTime>
+      <publishTime>10/22/2018 10:56:49</publishTime>
     </File>
     <File Include="Pages/PR/DuyetPR.aspx">
       <publishTime>09/21/2018 15:51:00</publishTime>

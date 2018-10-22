@@ -252,6 +252,7 @@
     <Content Include="Pages\PR\SuaPR.aspx" />
     <Content Include="Pages\PR\TaoPR.aspx" />
     <Content Include="Pages\PR\View.html" />
+    <Content Include="Pages\PR\ViewPO.html" />
     <Content Include="Scripts\apexchart.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\DataTables\AutoFill-2.3.0\css\autoFill.bootstrap.css" />

@@ -104,6 +104,7 @@
     <table width="100%" id="table_po">
         <tr>
             <td>Stt</td>
+            <td>Số PR</td>
             <td>Mã hàng</td>
             <td>Tên hàng và quy cách</td>
             <td>ĐVT</td>
@@ -190,9 +191,9 @@
         else {
         
             //lay thong tin ngay hien tai
-            var ngayinpo = new Date().getDate();
-            var thanginpo = new Date().getMonth();
-            var naminpo = new Date().getFullYear();
+            //var ngayinpo = new Date().getDate();
+            //var thanginpo = new Date().getMonth();
+            //var naminpo = new Date().getFullYear();
             var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = Base64._utf8_encode(e); while (f < e.length) { n = e.charCodeAt(f++); r = e.charCodeAt(f++); i = e.charCodeAt(f++); s = n >> 2; o = (n & 3) << 4 | r >> 4; u = (r & 15) << 2 | i >> 6; a = i & 63; if (isNaN(r)) { u = a = 64 } else if (isNaN(i)) { a = 64 } t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a) } return t }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/[^A-Za-z0-9+/=]/g, ""); while (f < e.length) { s = this._keyStr.indexOf(e.charAt(f++)); o = this._keyStr.indexOf(e.charAt(f++)); u = this._keyStr.indexOf(e.charAt(f++)); a = this._keyStr.indexOf(e.charAt(f++)); n = s << 2 | o >> 4; r = (o & 15) << 4 | u >> 2; i = (u & 3) << 6 | a; t = t + String.fromCharCode(n); if (u != 64) { t = t + String.fromCharCode(r) } if (a != 64) { t = t + String.fromCharCode(i) } } t = Base64._utf8_decode(t); return t }, _utf8_encode: function (e) { e = e.replace(/rn/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) { var r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r) } else if (r > 127 && r < 2048) { t += String.fromCharCode(r >> 6 | 192); t += String.fromCharCode(r & 63 | 128) } else { t += String.fromCharCode(r >> 12 | 224); t += String.fromCharCode(r >> 6 & 63 | 128); t += String.fromCharCode(r & 63 | 128) } } return t }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = c1 = c2 = 0; while (n < e.length) { r = e.charCodeAt(n); if (r < 128) { t += String.fromCharCode(r); n++ } else if (r > 191 && r < 224) { c2 = e.charCodeAt(n + 1); t += String.fromCharCode((r & 31) << 6 | c2 & 63); n += 2 } else { c2 = e.charCodeAt(n + 1); c3 = e.charCodeAt(n + 2); t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63); n += 3 } } return t } }
 
             //// Decode the String
@@ -222,6 +223,18 @@
                 },
                 dataType: "json",
                 success: function (data) {
+                    var ngayinpo = "";
+                    var thanginpo = "";
+                    var naminpo = "";
+                    console.log("ngayduyet:" + data[0]["Ngay_Duyet_PO"]);
+                    if (data[0]["Ngay_Duyet_PO"]!="")
+                    {
+                        ngayinpo = new Date(data[0]["Ngay_Duyet_PO"]).getDate();
+                        thanginpo = new Date(data[0]["Ngay_Duyet_PO"]).getMonth();
+                        naminpo = new Date(data[0]["Ngay_Duyet_PO"]).getFullYear();
+                    }
+                   
+
                     document.getElementById("sopo").innerText = data[0]["So_PO_Full"];
                     document.getElementById("khonhan").innerText = data[0]["Ten_Phong_Ban"];
                     var str_po = data[0]["So_PO_Full"];
@@ -333,7 +346,23 @@
                 "tinhtrangvt": 0,
                 "id_prchitiet": 0,
                 "ngaymuahang": "",
-                "nguoiptmuahang": ""
+                "nguoiptmuahang": "",
+                "FRB0": 0,
+                "FRB1": 0,
+                "FRB2": 0,
+                "FRB3": 0,
+                "FRC0": 0,
+                "FRC1": 0,
+                "PBXX": false,
+                "RB01": 0,
+                "RB02": 0,
+                "ZB00": 0,
+                "ZB01": 0,
+                "ZB02": 0,
+                "ZDP1": 0,
+                "ZIPT": 0,
+                "ZISR": 0,
+                "ZMST": 0
             },
             dataType: "json",
             success: function (data) {
@@ -361,66 +390,85 @@
                         $("#showusd").removeAttr("style");
                         tiente = "USD";
                     }
-                    console.log("ID_PR_Chi_Tiet:" + data[i]["ID_PR_Chi_Tiet"]);
-                    $.ajax({
-                        type: "POST",
-                        async: false,
-                        url: "/Webservice/dsnguoidung.asmx/ActionPR_ChiTiet",
-                        data: {
-                            "action": 1,
-                            "id": Number(data[i]["ID_PR_Chi_Tiet"]),
-                            "idpr": 0,
-                            "mahang": "",
-                            "tenhang": "",
-                            "dvt": "",
-                            "tonkho": 0,
-                            "soluongyeucau": 0,
-                            "dongia": 0,
-                            "tigia": 0,
-                            "thanhtientamung": 0,
-                            "nhacungcap": "",
-                            "tinhtrangvattu": 0,
-                            "ngaycanhang": "",
-                            "thoigiansudung": "",
-                            "congdung": "",
-                            "leadtime": 0,
-                            "nhommuaid": 0,
-                            "nhommuaname": "",
-                            "vat": 0,
-                            "gianhaptay": false
-                        },
-                        dataType: "json",
-                        success: function (data_pr) {
-                            
-                            for (var z = 0; z < data_pr.length;z++)
-                            {
-                                var vat = Number(data_pr[z]["VAT"]);
-                                var thanhtienvat = Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
-                                var tienvat = 0;
-                                if (vat != 0) {
-                                    tienvat = (thanhtienvat * vat) / 100;
+                //    console.log("ID_PR_Chi_Tiet:" + data[i]["ID_PR_Chi_Tiet"]);
+                    if (data[i]["ZIPT"]=="")
+                    {
+                        $.ajax({
+                            type: "POST",
+                            async: false,
+                            url: "/Webservice/dsnguoidung.asmx/ActionPR_ChiTiet",
+                            data: {
+                                "action": 1,
+                                "id": Number(data[i]["ID_PR_Chi_Tiet"]),
+                                "idpr": 0,
+                                "mahang": "",
+                                "tenhang": "",
+                                "dvt": "",
+                                "tonkho": 0,
+                                "soluongyeucau": 0,
+                                "dongia": 0,
+                                "tigia": 0,
+                                "thanhtientamung": 0,
+                                "nhacungcap": "",
+                                "tinhtrangvattu": 0,
+                                "ngaycanhang": "",
+                                "thoigiansudung": "",
+                                "congdung": "",
+                                "leadtime": 0,
+                                "nhommuaid": 0,
+                                "nhommuaname": "",
+                                "vat": 0,
+                                "gianhaptay": false
+                            },
+                            dataType: "json",
+                            success: function (data_pr) {
+
+                                for (var z = 0; z < data_pr.length; z++) {
+                                    var vat = Number(data_pr[z]["VAT"]);
+                                    var thanhtienvat = Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
+                                    var tienvat = 0;
+                                    if (vat != 0) {
+                                        tienvat = (thanhtienvat * vat) / 100;
+                                    }
+                                    thanhtienvat = thanhtienvat + tienvat;
+                                    tongtienvat = tongtienvat + thanhtienvat;
+
+                                    tongsoluong = tongsoluong + Number(data[i]["So_Luong_PO"]);
+                                    tongtien = tongtien + Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
+
+                                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td></tr>";
                                 }
-                                thanhtienvat = thanhtienvat + tienvat;
-                                tongtienvat = tongtienvat + thanhtienvat;
 
-                                tongsoluong = tongsoluong + Number(data[i]["So_Luong_PO"]);
-                                tongtien = tongtien + Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
 
-                                markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td></tr>";
-                            }
+                                stt++;
+                            },
 
-                            
-                            stt++;
-                        },
+                        })
+                       .fail(function (jqXHR, textStatus, errorThrown) {
+                           alert("error xoa vat tu" + errorThrown);
+                       });
+                    }
+                    else
+                    {
+                        var vat = Number(data[i]["ZIPT"]);
+                        var thanhtienvat = Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
+                        var tienvat = 0;
+                        if (vat != 0) {
+                            tienvat = (thanhtienvat * vat) / 100;
+                        }
+                        thanhtienvat = thanhtienvat + tienvat;
+                        tongtienvat = tongtienvat + thanhtienvat;
 
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        alert("error xoa vat tu" + errorThrown);
-                    });
+                        tongsoluong = tongsoluong + Number(data[i]["So_Luong_PO"]);
+                        tongtien = tongtien + Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
+
+                        markup = markup + "<tr><td>" + stt + "</td><td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td></tr>";
+                    }
+                   
                    
                 }
                 //markup += "<tr><td colspan='5' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'>" + tongsoluong + "</td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong_nomask + "'/></td><td style='font-weight:bold' id='tongtien'>" + tongtien + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + tongtien_nomask + "'/></td><td></td><td></td><td></td><td></td></tr>";
-                markup += "<tr><td colspan='4' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'></td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong + "'/></td><td style='font-weight:bold' id='tongtien'>" + Number(tongtien).toLocaleString('de-DE') + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + 0 + "'/></td><td></td></tr>";
+                markup += "<tr><td colspan='4' style='font-weight:bold'>Tổng cộng</td><td style='font-weight:bold' id='tongsoluong'></td><td></td><td><input type='hidden' id='tongsoluong_notmask' value='" + tongsoluong + "'/></td><td style='font-weight:bold' id='tongtien'>" + Number(tongtien).toLocaleString('de-DE') + "</td><td style='font-weight:bold' id='tongtienvat'>" + Number(tongtienvat).toLocaleString('de-DE') + "</td><td><input type='hidden' id='tongtien_notmask' value='" + 0 + "'/></td><td></td><td></td></tr>";
                 $("#table_po tbody").append(markup);
             },
 
