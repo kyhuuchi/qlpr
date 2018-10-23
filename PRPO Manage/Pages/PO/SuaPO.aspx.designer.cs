@@ -13,6 +13,15 @@ namespace PRPO_Manage.Pages.PO {
     public partial class SuaPO {
         
         /// <summary>
+        /// lit_nhacc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal lit_nhacc;
+        
+        /// <summary>
         /// txt_ncc control.
         /// </summary>
         /// <remarks>

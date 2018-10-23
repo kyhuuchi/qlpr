@@ -187,9 +187,9 @@
                                             <input type="hidden" id="khauhaogiatri_notmask" />
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="dongiapo" data-toggle="tooltip" data-placement="top" title="Thuế giá trị gia tăng">ZIPT:</label>
-                                            <input type="number" class="form-control" id="thueVAT" />
-                                            <input type="hidden" id="thueVAT_notmask" />
+                                            <label for="dongiapo" data-toggle="tooltip" data-placement="top" title="Thuế nhập khẩu">ZIPT:</label>
+                                          <input type="number" class="form-control" id="thuenhapkhau" />
+                                            <input type="hidden" id="thuenhapkhau_notmask" />
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="dongiapo" data-toggle="tooltip" data-placement="top" title="Chi phí bảo hiểm hàng hóa giá trị">ZISR:</label>
@@ -199,9 +199,10 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group col-md-4">
-                                            <label for="dongiapo" data-toggle="tooltip" data-placement="top" title="Thuế nhập khẩu">ZMST:</label>
-                                            <input type="number" class="form-control" id="thuenhapkhau" />
-                                            <input type="hidden" id="thuenhapkhau_notmask" />
+                                            <label for="dongiapo" data-toggle="tooltip" data-placement="top" title="Thuế VAT">ZMST:</label>
+                                              <input type="number" class="form-control" id="thueVAT" />
+                                            <input type="hidden" id="thueVAT_notmask" />
+                                            
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="thanhtienpo">Thành tiền:</label>
@@ -530,10 +531,10 @@
                 $('#thueVAT_notmask').val($('#thueVAT').val());
                 var phi = $('#thueVAT_notmask').val();
                 if (phi > 0 || phi != "") {
-                    var sotienphantram = (Number($('#thanhtientamung_notmask').val()) * Number(phi)) / 100;
+                    //var sotienphantram = (Number($('#thanhtientamung_notmask').val()) * Number(phi)) / 100;
 
-                    $('#thanhtientamung_notmask').val(Number($('#thanhtientamung_notmask').val()) + Math.round(Number(sotienphantram)));
-                    $('#thanhtienpo').val(Number($('#thanhtientamung_notmask').val()).toLocaleString('de-DE'));
+                    //$('#thanhtientamung_notmask').val(Number($('#thanhtientamung_notmask').val()) + Math.round(Number(sotienphantram)));
+                    //$('#thanhtienpo').val(Number($('#thanhtientamung_notmask').val()).toLocaleString('de-DE'));
                 }
                 else {
                     //tinh lai gia tri thanh tien
@@ -561,10 +562,10 @@
                 $('#thuenhapkhau_notmask').val($('#thuenhapkhau').val());
                 var phi = $('#thuenhapkhau_notmask').val();
                 if (phi > 0 || phi != "") {
-                    var sotienphantram = (Number($('#thanhtientamung_notmask').val()) * Number(phi)) / 100;
+                    //var sotienphantram = (Number($('#thanhtientamung_notmask').val()) * Number(phi)) / 100;
 
-                    $('#thanhtientamung_notmask').val(Number($('#thanhtientamung_notmask').val()) + Math.round(Number(sotienphantram)));
-                    $('#thanhtienpo').val(Number($('#thanhtientamung_notmask').val()).toLocaleString('de-DE'));
+                    //$('#thanhtientamung_notmask').val(Number($('#thanhtientamung_notmask').val()) + Math.round(Number(sotienphantram)));
+                    //$('#thanhtienpo').val(Number($('#thanhtientamung_notmask').val()).toLocaleString('de-DE'));
                 }
                 else {
                     //tinh lai gia tri thanh tien
@@ -1542,9 +1543,9 @@
                         "ZB01":tanggiatheosoluong,
                         "ZB02":tanggiatheophantram,
                         "ZDP1":khauhaogiatri,
-                        "ZIPT":thueVAT,
+                        "ZIPT": thuenhapkhau,
                         "ZISR":chiphibaohiemhanghoa,
-                        "ZMST": thuenhapkhau
+                        "ZMST": thueVAT
                     },
                     dataType: "json",
                     success: function (data) {
@@ -1694,7 +1695,7 @@
                 $('#chiphibaohiemhanghoa_notmask').val(this.value);
             });
             $tds.find("input[id^='thuenhapkhau*" + stt + "']").each(function () {
-                alert(this.id)
+             //   alert(this.id)
                 $('#thuenhapkhau').val(this.value);
                 $('#thuenhapkhau_notmask').val(this.value);
             });
@@ -1708,6 +1709,7 @@
             var tigiapo = $("#tigiapo").val();
             var thanhtienpo = $("#thanhtienpo").val();
             var thanhtienpo_nomask = $("#thanhtientamung_notmask").val();
+            var thanhtienpo_nomask_vat = 0;
             var markup = "";
             var stt;
             var input_html = "";
@@ -1775,6 +1777,8 @@
                 if ($('#thueVAT').val() != "") {
                     $("input[id*='thueVAT*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='thueVAT*" + stt + "' value='" + $('#thueVAT').val() + "'/>";
+                    var tienvat = Math.round((Number(thanhtienpo_nomask) * Number($('#thueVAT').val())) / 100);
+                    thanhtienpo_nomask_vat = Number(thanhtienpo_nomask) + Number(tienvat);
                 }
                 if ($('#chiphibaohiemhanghoa').val() != "") {
                     $("input[id*='chiphibaohiemhanghoa*" + stt + "']").remove();
@@ -1783,6 +1787,8 @@
                 if ($('#thuenhapkhau').val() != "") {
                     $("input[id*='thuenhapkhau*" + stt + "']").remove();
                     input_html += "<input type='hidden' id='thuenhapkhau*" + stt + "' value='" + $('#thuenhapkhau').val() + "'/>";
+                    var tienthuenhapkhau = Math.round((Number(thanhtienpo_nomask) * Number($('#thuenhapkhau').val())) / 100);
+                    thanhtienpo_nomask_vat = Number(thanhtienpo_nomask) + Number(tienthuenhapkhau);
                 }
                 curr.find('td.cls_congdungchitiet').append(input_html);
                 curr.find('td.cls_soluongyeucau').text(soluongyeucaupo);
@@ -1794,10 +1800,18 @@
 
                 });
                 curr.find('td.cls_tigia').text(tigiapo);
+
                 curr.find('td.cls_thanhtientamung').text(thanhtienpo);
                 $tds.find("input[id^='thanhtientamung*']").each(function () {
                     //alert(this.id)
                     $(this).val(thanhtienpo_nomask);
+
+                });
+
+                curr.find('td.cls_thanhtientamungvat').text(Number(thanhtienpo_nomask_vat).toLocaleString('de-DE'));
+                $tds.find("input[id^='thanhtientamungvat*']").each(function () {
+                    //alert(this.id)
+                    $(this).val(thanhtienpo_nomask_vat);
 
                 });
 
