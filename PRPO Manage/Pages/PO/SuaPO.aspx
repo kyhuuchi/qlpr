@@ -24,7 +24,7 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="nhacungcap">Nhà cung cấp</label>
-                       <select class="form-control" id="nhacungcap" style="width: 100%;">
+                       <select class="form-control" id="select_nhacungcap" style="width: 100%;">
                         <asp:Literal ID="lit_nhacc" runat="server" Mode="PassThrough"></asp:Literal>
                     </select>
                     <input type="hidden" id="tennhacungcap" />
@@ -286,7 +286,10 @@
     <script type="text/javascript">
         var currentRow = null;
         var arr_rows = new Array();
+
         var arr_vattu_daco_muonxoa = new Array();
+
+       
         //kiem tra xem user hien tai co quyen truy cap vao trang PO khong, neu khong redirect
         if ($("#muahang").val() == 'false') {
             window.location.replace("/Default.aspx");
@@ -299,20 +302,10 @@
         //hien thi nut loading...
         $("#overlay").show();
         document.getElementById("nguoimuahang").value = $("#tenhienthi").val();
-        $("#nhacungcap").select2({
-            placeholder: "Chọn thông tin nhà cung cấp",
-            allowClear: true
-
-        });
-        //ham lay ten vat tu va ma vat tu tu select2
-        $('#nhacungcap').on('select2:selecting', function (e) {
-            console.log('Selecting: ', e.params.args.data);
-            var res = e.params.args.data.text.split("--");
-            $("#tennhacungcap").val(res[1]);
-            $("#manhacuangcap").val(res[0]);
-
-        });
+      
         $(document).ready(function () {
+           
+
             var urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('po')) {
                 alert("Tham số PO không có.");
@@ -349,12 +342,29 @@
                     },
                     dataType: "json",
                     success: function (data) {
+                        $("#select_nhacungcap").select2({
+                            placeholder: "Chọn thông tin nhà cung cấp",
+                            allowClear: true
+
+                        });
+                        //ham lay ten vat tu va ma vat tu tu select2
+                        $('#select_nhacungcap').on('select2:selecting', function (e) {
+                            console.log('Selecting: ', e.params.args.data);
+                            var res = e.params.args.data.text.split("--");
+                            $("#tennhacungcap").val(res[1]);
+                            $("#manhacuangcap").val(res[0]);
+
+                        });
+                      
                         document.getElementById("sopo").value = data[0]["So_PO_Full"];
                         
                         //document.getElementById("nhacungcap").value = data[0]["Ten_Nha_Cung_Cap"];
-                        $("#nhacungcap").val(data[0]["Ma_Nha_Cung_Cap"]+"--"+data[0]["Ten_Nha_Cung_Cap"]).trigger('change.select2');
+                       
                         document.getElementById("tennhacungcap").value = data[0]["Ten_Nha_Cung_Cap"];
                         document.getElementById("manhacuangcap").value = data[0]["Ma_Nha_Cung_Cap"];
+                        
+                        $("#select_nhacungcap").val($("#manhacuangcap").val()).trigger('change.select2');
+                        
                         document.getElementById("donvidexuat").value = data[0]["Ten_Phong_Ban"];
                         document.getElementById("id_donvidexuat").value = data[0]["ID_Phong_Ban"];
                         document.getElementById("namdexuat").value = data[0]["Nam"];
@@ -395,7 +405,7 @@
                   });
             }
 
-
+           
 
             //lay danh sach nguoi duyet
             LayDanhSachNguoiDuyet(id_nguoiduyet);
@@ -1712,6 +1722,7 @@
             LayDanhSachPOChiTiet(2);
 
         }
+        
         //********************************//
 
         //Xu ly edit vat tu trong PO//
