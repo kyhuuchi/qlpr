@@ -7,12 +7,12 @@
         <%--<a href="/Pages/PR/TaoPR.aspx"><span class="glyphicon glyphicon-shopping-cart" style="padding-right: 5px;"></span>Tạo PR</a>--%>
     </div>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#luutam">Danh sách PR lưu tạm <span class="badge" id="soluongpr_luutam"></span></a></li>
-        <li><a data-toggle="tab" href="#chuaduyet">Danh sách PR chưa duyệt <span class="badge" id="soluongpr_chuaduyet"></span></a></li>
-        <li><a data-toggle="tab" href="#daduyet">Danh sách PR đã duyệt <span class="badge" id="soluongpr_daduyet"></span></a></li>
-        <li><a data-toggle="tab" href="#conlai">Danh sách PR chưa tạo PO <span class="badge" id="soluongpr_conlai"></span></a></li>
-        <li><a data-toggle="tab" href="#dadong">Danh sách PR đã đóng <span class="badge" id="soluongpr_dadong"></span></a></li>
-        <li><a data-toggle="tab" href="#po">Danh sách PO<span class="badge" id="soluongpo"></span></a></li>
+        <li class="active"><a data-toggle="tab" href="#luutam">PR lưu tạm <span class="badge" id="soluongpr_luutam"></span></a></li>
+        <li><a data-toggle="tab" href="#chuaduyet">PR chưa duyệt <span class="badge" id="soluongpr_chuaduyet"></span></a></li>
+        <li><a data-toggle="tab" href="#daduyet">PR đã duyệt <span class="badge" id="soluongpr_daduyet"></span></a></li>
+        <li><a data-toggle="tab" href="#conlai">PR chưa tạo PO <span class="badge" id="soluongpr_conlai"></span></a></li>
+        <li><a data-toggle="tab" href="#dadong">PR đã đóng <span class="badge" id="soluongpr_dadong"></span></a></li>
+        <li><a data-toggle="tab" href="#po">PO<span class="badge" id="soluongpo"></span></a></li>
     </ul>
 
     <div class="tab-content" style="margin-top: 5px;">

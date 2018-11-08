@@ -104,7 +104,6 @@
     <table width="100%" id="table_po">
         <tr>
             <td>Stt</td>
-            <td>Số PR</td>
             <td>Mã hàng</td>
             <td>Tên hàng và quy cách</td>
             <td>ĐVT</td>
@@ -115,6 +114,7 @@
             <td>Thành tiền đã thuế</td>
             <td>Ngày giao</td>
             <td>Nơi nhận</td>
+            <td>Ghi chú</td>
         </tr>
     </table>
     <br />
@@ -436,7 +436,7 @@
                                     tongsoluong = tongsoluong + Number(data[i]["So_Luong_PO"]);
                                     tongtien = tongtien + Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
 
-                                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td></tr>";
+                                    markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td><td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td></tr>";
                                 }
 
 

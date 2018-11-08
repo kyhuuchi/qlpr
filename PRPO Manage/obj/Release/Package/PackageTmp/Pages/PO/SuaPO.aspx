@@ -1507,6 +1507,10 @@
                     //alert(this.id)
                     thueVAT = this.value;
                 });
+                if (thueVAT=="")
+                {
+                    thueVAT = 0;
+                }
                 var chiphibaohiemhanghoa = 0;
                 $(this).closest('tr').find('td').find("input[id^='chiphibaohiemhanghoa*']").each(function () {
                     //alert(this.id)
@@ -1517,7 +1521,9 @@
                     //alert(this.id)
                     thuenhapkhau = this.value;
                 });
-
+                if (thuenhapkhau == "") {
+                    thuenhapkhau = 0;
+                }
                 //kiem tra xem dong item do la da co hay chua, neu chua co thi insert vao
                 if (tontai == 0) {
                     //chay webservice insert po chitiet
@@ -1617,9 +1623,9 @@
                             "ZB01": tanggiatheosoluong,
                             "ZB02": tanggiatheophantram,
                             "ZDP1": khauhaogiatri,
-                            "ZIPT": thueVAT,
+                            "ZIPT": thuenhapkhau,
                             "ZISR": chiphibaohiemhanghoa,
-                            "ZMST": thuenhapkhau
+                            "ZMST": thueVAT
                         },
                         dataType: "json",
                         success: function (data) {

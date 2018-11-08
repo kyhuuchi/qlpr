@@ -1500,6 +1500,9 @@
                     //alert(this.id)
                     thueVAT = this.value;
                 });
+                if (thueVAT == "") {
+                    thueVAT = 0;
+                }
                 var chiphibaohiemhanghoa = 0;
                 $(this).closest('tr').find('td').find("input[id^='chiphibaohiemhanghoa*']").each(function () {
                     //alert(this.id)
@@ -1510,6 +1513,9 @@
                     //alert(this.id)
                     thuenhapkhau = this.value;
                 });
+                if (thuenhapkhau == "") {
+                    thuenhapkhau = 0;
+                }
                 //chay webservice insert po chitiet
                 $.ajax({
                     type: "POST",
