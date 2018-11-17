@@ -433,6 +433,7 @@
                     if (data[i]["ZMST"] == "")
                     {
                         for (var z = 0; z < data_cua_pr.length; z++) {
+                            var ghichu = data[i]["So_PR_Full"];
                             var vat = Number(data_cua_pr[z]["VAT"]);
                             var thanhtienvat = Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
                             var tienvat = 0;
@@ -444,8 +445,9 @@
 
                             tongsoluong = tongsoluong + Number(data[i]["So_Luong_PO"]);
                             tongtien = tongtien + Number(data[i]["PO_ChiTiet_Thanh_Tien"]);
-
-                            markup = markup + "<tr><td>" + stt + "</td><td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td><td>" + data_cua_pr[z]["Cong_Dung"] + "</td></tr>";
+                           // <td class='cls_sopr'>" + data[i]["So_PR_Full"] + "</td>
+                           markup = markup + "<tr><td>" + stt + "</td><td class='cls_mavattu'>" + data[i]["Ma_Hang"] + "</td><td class='cls_tenvattu'>" + data[i]["Ten_Hang"] + "</td><td class='cls_dvt'>" + data[i]["PO_ChiTiet_DVT"] + "</td><td class='cls_soluongyeucau'>" + data[i]["So_Luong_PO"] + "</td><td>" + tiente + "</td><td class='cls_dongiatamtinh'>" + Number(data[i]["PO_ChiTiet_Don_Gia"]).toLocaleString('de-DE') + "<input type='hidden' id='dongiatamtinh*" + stt + "' value='" + data[i]["PO_ChiTiet_Don_Gia"] + "'/></td><td class='cls_thanhtientamung'>" + Number(data[i]["PO_ChiTiet_Thanh_Tien"]).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamung*" + stt + "' value='" + data[i]["PO_ChiTiet_Thanh_Tien"] + "'/></td><td class='cls_thanhtientamungvat'>" + Number(thanhtienvat).toLocaleString('de-DE') + "<input type='hidden' id='thanhtientamungvat*" + stt + "' value='" + thanhtienvat + "'/></td><td class='cls_ngaycanhang'>" + ngaymuahang + "</td><td>" + noigiao + "</td><td>" + ghichu + "</td></tr>";
+                           
                         }
 
 
